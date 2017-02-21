@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<div id="main_content_wrap" class="outer">
+  <section id="main_content" class="inner">
+    <ul class="post-list">
+      {% for post in paginator.posts %}
+      <li>
+        <h2>
+            <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        {% if post.tags | size > 0 %}
+            <h4>Tags:</h4>
+            {% for tags in post.tags %}
+                {{ tags }}
+            {% endfor %}
+        {% endif %}
+
+        {% if post.categories | size > 0 %}
+            <h4>Categories:</h4>
+            {% for category in post.categories %}
+                {{ category }}
+            {% endfor %}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+
+{% if site.posts.size > 0 %}
+    <div class="list-group">
+        {% for post in site.posts limit: 5 %}
+            <a href="{{ post.url }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ post.title }}<small> &ndash; <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b. %d, %Y' }}</time></small></h4>
+            </a>
+        {% endfor %}
+    </div>
+    <a href="/blog/" class="pull-right">more <i class="fa fa-long-arrow-right"></i></a>
+{% else %}
+    <p>No posts found.</p>
+{% endif %}
