@@ -14,20 +14,15 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-
-    <nav class="site-nav">
-      <div class="trigger">
-        {% for page in site.pages %}
-          {% if page.title %}
-          <a class="page-link" href="{{ page.url | prepend: site.baseurl | remove: "/index.html" }}">{{ page.title }}</a>
-          {% endif %}
-        {% endfor %}
+    <div id="title">
+      <h1><a class="site-title" href="{{ site.baseurl }}/">{{ site.title | default: site.github.repository_name }}</a></h1>
+      <p>{{ site.description | default: site.github.project_tagline }}</p>
       <a href="{{ "/blog" | prepend: site.baseurl }}">Blog</a>
       <a href="{{ "/blog/tags" | prepend: site.baseurl }}">Tags</a>
-      </div>
-    </nav>
-
+      <hr>
+    </div>
   </div>
+
+
 
 </header>

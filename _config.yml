@@ -20,6 +20,8 @@ theme: jekyll-theme-midnight
 #sass:
 #  sass_dir: _sass
 
+google_analytics: UA-21509172-1
+
 gems:
 #- jekyll-mentions
 #- jemoji
