@@ -3,7 +3,6 @@ layout: default
 ---
 
 <div id="main_content_wrap" class="outer">
-  <section id="main_content" class="inner">
     <ul class="post-list">
       {% for post in paginator.posts %}
       <li>
@@ -27,7 +26,6 @@ layout: default
       </li>
       {% endfor %}
     </ul>
-  </section>
 </div>
 
 {% if site.posts.size > 0 %}
