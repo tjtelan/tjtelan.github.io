@@ -2,3 +2,17 @@
 ---
 
 @import "jekyll-theme-midnight";
+
+.wrapper {
+  margin-top: 10px;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 5px;
+
+  &:after {
+    content: "\00a0 \00a0 \00a6";
+    
+  }
+}

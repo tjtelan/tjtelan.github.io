@@ -1,33 +1,6 @@
 ---
 layout: default
 ---
-
-<div id="main_content_wrap" class="outer">
-    <ul class="post-list">
-      {% for post in paginator.posts %}
-      <li>
-        <h2>
-            <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-        {% if post.tags | size > 0 %}
-            <h4>Tags:</h4>
-            {% for tags in post.tags %}
-                {{ tags }}
-            {% endfor %}
-        {% endif %}
-
-        {% if post.categories | size > 0 %}
-            <h4>Categories:</h4>
-            {% for category in post.categories %}
-                {{ category }}
-            {% endfor %}
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-</div>
-
 {% if site.posts.size > 0 %}
     <div class="list-group">
         {% for post in site.posts limit: 5 %}

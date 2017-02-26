@@ -1,28 +1,15 @@
 <header class="site-header">
 
-    <!-- HEADER
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/tjtelan">View on GitHub</a>
-
-          <h1 id="project_title">T.J. Telan</h1>
-          <h2 id="project_tagline">Some-ware between hardware and software</h2>
-
-        </header>
-    </div>
- -->
-
   <div class="wrapper">
-
-    <div id="title">
-      <h1><a class="site-title" href="{{ site.baseurl }}/">{{ site.title | default: site.github.repository_name }}</a></h1>
-      <p>{{ site.description | default: site.github.project_tagline }}</p>
-      <a href="{{ "/blog" | prepend: site.baseurl }}">Blog</a>
-      <a href="{{ "/blog/tags" | prepend: site.baseurl }}">Tags</a>
+      <div id="title">
+        <h1><a class="site-title" href="{{ site.baseurl }}/">{{ site.title | default: site.github.repository_name }}</a></h1>
+      </div>
       <hr>
-    </div>
+      <nav>
+        <li><a href="{{ "/blog" | prepend: site.baseurl }}">Blog</a></li>
+        <li><a href="{{ "/blog/tags" | prepend: site.baseurl }}">Tags</a></li>
+        <li><a href="{{ "/now" | prepend: site.baseurl }}">Now</a></li>
+      </nav>
   </div>
-
-
 
 </header>

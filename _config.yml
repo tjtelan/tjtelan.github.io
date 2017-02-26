@@ -17,8 +17,8 @@ exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock]
 markdown: kramdown
 theme: jekyll-theme-midnight
 
-#sass:
-#  sass_dir: _sass
+sass:
+  sass_dir: _sass
 
 google_analytics: UA-21509172-1
 
