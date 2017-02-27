@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<section class="now-post">
+
+<h1>What I'm doing now</h1>
+<h4>This is a now page, inspired by <a href="https://sivers.org/now">Derek Sivers' now page</a>.</h4>
+
+{{ content }}
+
+{% capture formatted_date %}{{ page.date | date: "%-d %B %Y" }}{% endcapture %}
+
+This was last updated: {{ formatted_date }}
+</section>
