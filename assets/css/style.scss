@@ -78,3 +78,9 @@ section {
   }
 
 }
+
+@media print, screen and (max-width: 480px) {
+  nav {
+    display: inline-block;
+  }
+}
