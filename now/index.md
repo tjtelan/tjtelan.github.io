@@ -1,9 +1,9 @@
 ---
 layout: now
-date: 2017-2-9
+date: 2017-2-27
 ---
 
-I'm working on updating this site so I can use it more. Re-learning how to use jekyll, and other frontend stuff.
+I'm cleaning up the site layouts, and customizing the styles.
 
 I'm starting to write some content ideas and looking for ways to include content that requires less work than articles.
 
