@@ -1,10 +1,14 @@
 ---
 layout: now
-date: 2017-5-4
+date: 2017-6-10
 ---
+I'm writing a lot of new code, as opposed to exclusively designing system architecture, building, and deploying other people's code
 
-I'm playing Mario Kart 8 Deluxe. (I still haven't finished Zelda : BoTW...)
+I'm looking forward to cleaning up my first open source contribution, and sending a pull request.
 
-I'm doing a lot of more system design, and less coding right now. Looking secrets management with Vault for use in a container cluster.
+Still working with Rust. I have a small series of posts I'm almost done writing for a first draft.
 
-I'm working on a series of new posts to document my first experiences with writing something "real" in Rust.
+Playing Nintendo Switch. Street Fighter 2 (waiting for Smash 4 to even be acknowledged).
+So far, maining Ryu, but looking...
+
+Thinking (very late) about going to Defcon this year. I wonder if there are still hotel rooms nearby?...
