@@ -1,14 +1,11 @@
 ---
 layout: now
-date: 2017-6-10
+date: 2017-7-27
 ---
-I'm writing a lot of new code, as opposed to exclusively designing system architecture, building, and deploying other people's code
+I succeeded in having my first PR accepted to an open source project: https://github.com/TerryHowe/ansible-modules-hashivault
 
-I'm looking forward to cleaning up my first open source contribution, and sending a pull request.
+Decided not to go to Defcon, in lieu of possibly going to RustConf, and take some of the training sessions.
 
-Still working with Rust. I have a small series of posts I'm almost done writing for a first draft.
+Took a long break from writing, but I need to get back to editing my posts.
 
-Playing Nintendo Switch. Street Fighter 2 (waiting for Smash 4 to even be acknowledged).
-So far, maining Ryu, but looking...
-
-Thinking (very late) about going to Defcon this year. I wonder if there are still hotel rooms nearby?...
+Today, my goal is to raise my reputation on a few of the Stack Exchange sites. Enough that I can vote on things with some public impact.
