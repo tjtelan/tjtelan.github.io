@@ -1,11 +1,9 @@
 ---
 layout: now
-date: 2017-7-27
+date: 2017-11-5
 ---
-I succeeded in having my first PR accepted to an open source project: https://github.com/TerryHowe/ansible-modules-hashivault
+[New post]({{ site.baseurl }}{% post_url 2017-11-05-building-a-unix-shell-in-rust-part-1 %}) is up!
 
-Decided not to go to Defcon, in lieu of possibly going to RustConf, and take some of the training sessions.
+Doing my best to start getting in a habit of finishing what I start. That includes posting a series of posts that I began working on at the beginning of the year.
 
-Took a long break from writing, but I need to get back to editing my posts.
-
-Today, my goal is to raise my reputation on a few of the Stack Exchange sites. Enough that I can vote on things with some public impact.
+It will never be perfect, but it will be done.

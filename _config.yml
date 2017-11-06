@@ -11,7 +11,7 @@ permalink: /blog/:year/:month/:day/:title.html
 paginate: 5
 paginate_path: "/blog/:num"
 
-exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock]
+exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock, test_local.sh]
 
 # Build settings
 markdown: kramdown
