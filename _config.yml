@@ -20,7 +20,7 @@ theme: jekyll-theme-midnight
 sass:
   sass_dir: _sass
 
-google_analytics: UA-111281658-1
+google_analytics: UA-21509172-1
 
 gems:
 #- jekyll-mentions
