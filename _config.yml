@@ -11,7 +11,7 @@ permalink: /blog/:year/:month/:day/:title.html
 paginate: 5
 paginate_path: "/blog/:num"
 
-exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock, test_local.sh]
+exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock, test_local.sh, docker-compose.yml]
 
 # Build settings
 markdown: kramdown
@@ -22,10 +22,13 @@ sass:
 
 google_analytics: UA-21509172-1
 
-gems:
-#- jekyll-mentions
-#- jemoji
-#- jekyll-redirect-from
-#- jekyll-sitemap
-#- jekyll-feed
+repository: tjtelan/tjtelan.github.io
+
+plugins:
+- jekyll-mentions
+- jemoji
+- jekyll-redirect-from
+- jekyll-sitemap
+- jekyll-feed
 - jekyll-paginate
+- jekyll-github-metadata
