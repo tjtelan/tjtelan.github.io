@@ -2,13 +2,14 @@
 title = "Building a Unix-shell in Rust - Part 4"
 date = 2018-01-21
 #tags: ["rust", "how-to"]
+template = "page.html"
 +++
 This is the 4th post in a running series about writing a simple unix shell in the Rust language. 
 I suggest you catch up on the previous posts before reading ahead! 
 
-* [part 1](./blog/2017/building-a-unix-shell-in-rust-part-1.md)
-* [part 2](./blog/2017/building-a-unix-shell-in-rust-part-2.md)
-* [part 3](./blog/2017/building-a-unix-shell-in-rust-part-3.md)
+* [part 1](./blog/2017-11-05-building-a-unix-shell-in-rust-part-1.md)
+* [part 2](./blog/2017-11-26-building-a-unix-shell-in-rust-part-2.md)
+* [part 3](./blog/2017-12-31-building-a-unix-shell-in-rust-part-3.md)
 
 ---
 Back to evaluating the parsed command. This time we are going to be implementing built-in functions.

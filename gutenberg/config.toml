@@ -15,3 +15,10 @@ theme = "hyde"
 
 [extra]
 # Put all your custom variables here
+hyde_links = [
+  {url = "/blog/", name = "Blog"},
+]
+
+generate_tags_pages = true
+generate_categories_pages = true
+rss_limit = 20

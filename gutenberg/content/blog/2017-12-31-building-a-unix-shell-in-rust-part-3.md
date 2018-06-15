@@ -3,9 +3,9 @@ title = "Building a Unix-shell in Rust - Part 3"
 date = 2017-12-31
 #tags: ["rust", "how-to"]
 +++
-This is the third post in a series on writing a simple shell in the Rust language. (I suggest you start from the [beginning](./blog/2017/building-a-unix-shell-in-rust-part-1.md)!) 
+This is the third post in a series on writing a simple shell in the Rust language. (I suggest you start from the [beginning](./blog/2017-11-05-building-a-unix-shell-in-rust-part-1.md)!) 
 
-In the [previous post](./blog/2017/building-a-unix-shell-in-rust-part-2.md) , I implemented a simple REPL that simply prints out debug output with the input split by whitespace.
+In the [previous post](./blog/2017-11-26-building-a-unix-shell-in-rust-part-2.md) , I implemented a simple REPL that simply prints out debug output with the input split by whitespace.
 
 ---
 In this post, I would like to take the opportunity to set up tests before much more complex functionality gets included. Consider this to be the first part of what potentially might be multiple posts about writing and organizing testing with `cargo`.

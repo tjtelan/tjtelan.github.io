@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% for page in section.pages %}
+        <p><a href="{{page.permalink}}">{{page.title}}</a></p>
+        {{page.date}} - Reading time: {{page.reading_time}} mins
+    {% endfor %}
+    {% for subsection in section.subsections %}
+        {{subsection.title}}
+        Sub-pages: {{subsection.pages | length}}
+    {% endfor %}
+{% endblock content %}

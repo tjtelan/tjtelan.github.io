@@ -1,0 +1,7 @@
+Tag: {{ tag.name }}
+
+{% for page in tag.pages %}
+    <article>
+        <h3 class="post__title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
+    </article>
+{% endfor %}
