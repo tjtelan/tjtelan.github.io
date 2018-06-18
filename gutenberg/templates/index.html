@@ -46,25 +46,32 @@
                 </div>
             </div>
         {% endblock sidebar %}
-
         <div class="content container">
             {% block content %}
-                <div class="posts">
-                    {% for page in section.pages %}
-                      <div class="post">
-                        <h1 class="post-title">
-                          <a href="{{ page.permalink }}">
-                            {{ page.title }}
-                          </a>
-                        </h1>
 
-                        <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
-                      </div>
-                    {% endfor %}
-                </div>
+            {% set section_top = get_section(path="blog/_index.md") %}
+            {% for subsection in section_top.subsections | sort(attribute="title") | reverse %}
+
+            <div class="posts">
+                {% for page in subsection.pages %}
+                  <div class="post">
+                    <h1 class="post-title">
+                      <a href="{{ page.permalink }}">
+                        {{ page.title }}
+                      </a>
+                    </h1>
+            
+                    <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+                  </div>
+                {% endfor %}
+            </div>
+
+
+            {% endfor %}
+
             {% endblock content %}
-        </div>
 
+        </div>
     </body>
 
 </html>

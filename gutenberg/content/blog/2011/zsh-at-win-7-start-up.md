@@ -6,7 +6,7 @@ date = 2011-03-28
 +++
 Beginning of the quarter is tomorrow, and I'm trying to accept that I will be spending more time on a Windows workstation to access the software I'm using for my senior project (more on that soon).
 
-There are a few comforts that I am still missing in Win7 that I'm trying to solve with Cygwin, like [Improving Cygwin in Windows with Rxvt](./blog/2011-03-18-improving-cygwin-in-windows-with-rxvt.md) getting zsh back.
+There are a few comforts that I am still missing in Win7 that I'm trying to solve with Cygwin, like [Improving Cygwin in Windows with Rxvt](./blog/2011/improving-cygwin-in-windows-with-rxvt.md) getting zsh back.
 
 Today, that issue was being able to write Zsh scripts that would run at login through Cygwin instead of using cmd.exe.
 
