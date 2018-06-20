@@ -1,7 +1,7 @@
 title = "T.J. Telan"
 description = "[insert describing words here]"
 # The URL the site will be built for
-base_url = "https://tjtelan.github.io"
+base_url = "https://tjtelan.com"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -19,9 +19,12 @@ theme = "hyde"
 # Put all your custom variables here
 hyde_links = [
   {url = "/blog/", name = "Blog"},
+  {url = "/now/", name = "Now"},
+  {url = "https://github.com/tjtelan", name = "Github"},
 ]
 
 generate_tags_pages = true
 generate_categories_pages = true
 rss_limit = 20
 
+ignored_content = ["*.sh"]

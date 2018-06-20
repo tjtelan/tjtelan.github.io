@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="post">
+  <h1 class="post-title">What I'm doing now</h1>
+  {% if page.title %}<h3>{{ page.title }}</h3>{% endif %}
+  {{ page.content | safe }}
+
+  <h4>This is a now page, inspired by <a href="https://sivers.org/now">Derek Sivers' now page</a>.</h4>
+  <span class="post-date">This was last updated: {{ page.date | date(format="%Y-%m-%d") }}</span>
+</div>
+{% endblock content %}
