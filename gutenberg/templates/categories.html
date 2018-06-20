@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+  <h1>Blog post categories</h1>
+
+  <ul>
+    {% for category in categories %}
+    <li><a href="{{ category.permalink }}">{{ category.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
+

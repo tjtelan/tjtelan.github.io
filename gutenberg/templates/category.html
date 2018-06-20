@@ -1,11 +1,12 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <h1>Tag: {{ tag.name }}</h1>
-  
+  <h1>Category: {{ category.name }}</h1>
+
   <ul>
-    {% for page in tag.pages %}
+    {% for page in category.pages %}
     <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
     {% endfor %}
   </ul>
 {% endblock content %}
+
