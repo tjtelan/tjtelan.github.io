@@ -1,8 +1,8 @@
 +++
 title = "Pip and bottle.py on NearlyFreeSpeech"
 date = 2013-12-06
-#categories = "howto"
-#tags = ["freebsd", "python", "bottle.py", "nearlyfreespeech", "web-development"]
+categories = "howto"
+tags = ["freebsd", "python", "bottle.py", "nearlyfreespeech", "web-development"]
 +++
 The biggest reason I like using nearlyfreespeech is the ability to prepay my hosting costs. The biggest downside (compared to other hosts) is a lack of straight-forward flexibility for my choice of web development environment. I appreciate the security-focused approach in how they offer features, but I can't say that it is always comfortable as a casual user.
 

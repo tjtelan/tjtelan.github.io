@@ -1,7 +1,7 @@
 +++
 title = "Building a Unix-shell in Rust - Part 2"
 date = 2017-11-26
-#tags: ["rust", "how-to"]
+tags = ["rust", "how-to"]
 +++
 This is the 2nd part of a series where I document writing a command shell in Rust. In the [previous post](./blog/2017/building-a-unix-shell-in-rust-part-1.md) I reviewed what a shell is, and broke that down into stages I can use to organize my code.
 

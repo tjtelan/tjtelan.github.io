@@ -1,8 +1,8 @@
 +++
 title = "Senior Project Update"
 date = 2011-05-27
-#categories = "info"
-#tags = ["arm", "freescale", "github", "home-automation", "kinetis", "microcontroller", "opensource"]
+categories = "info"
+tags = ["arm", "freescale", "github", "home-automation", "kinetis", "microcontroller", "opensource"]
 +++
 Presentations are just around the corner and I haven't been making quite as many updates with regard to my project.
 

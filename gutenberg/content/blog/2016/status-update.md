@@ -1,7 +1,7 @@
 +++
 title = "Status Update"
 date = 2016-06-25
-#tags = ["status"]
+tags = ["status"]
 +++
 Another Status update post.
 

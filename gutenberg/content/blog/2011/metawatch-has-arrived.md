@@ -1,8 +1,8 @@
 +++
 title = "Metawatch Has Arrived"
 date = 2011-09-12
-#categories = "preview"
-#tags = ["metawatch"]
+categories = "preview"
+tags = ["metawatch"]
 +++
 I just got my digital [MetaWatch][metawatch] this morning after 3 months of delays from TI.
 

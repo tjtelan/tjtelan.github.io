@@ -1,8 +1,8 @@
 +++
 title = "Laptop Volume Buttons in AwesomeWM"
 date = 2011-09-15
-#categories = "How-to"
-#tags = ["awesomewm", "laptop", "rc.conf", "volume-control"]
+categories = "howto"
+tags = ["awesomewm", "laptop", "rc.conf", "volume-control"]
 +++
 I've been using [Arch Linux][arch-linux] on my laptop for a while now running [Awesome][awesomewm] as my window manager.
 

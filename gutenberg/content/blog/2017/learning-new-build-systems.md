@@ -1,7 +1,7 @@
 +++
 title = "Learning New Build Systems"
 date = 2017-04-01
-#tags: ["musing", "maven", "gulpjs", "build"]
+tags = ["musing", "maven", "gulpjs", "build"]
 +++
 I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C/C++ with make.
 

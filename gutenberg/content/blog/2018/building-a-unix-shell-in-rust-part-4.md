@@ -1,7 +1,7 @@
 +++
 title = "Building a Unix-shell in Rust - Part 4"
 date = 2018-01-21
-#tags: ["rust", "how-to"]
+tags = ["rust", "how-to"]
 template = "page.html"
 +++
 This is the 4th post in a running series about writing a simple unix shell in the Rust language. 
