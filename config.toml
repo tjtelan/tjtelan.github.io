@@ -21,10 +21,11 @@ hyde_links = [
   {url = "/blog/", name = "Blog"},
   {url = "/now/", name = "Now"},
   {url = "https://github.com/tjtelan", name = "Github"},
+  {url = "/about/", name = "About"},
 ]
 
 generate_tags_pages = true
 generate_categories_pages = true
 rss_limit = 20
 
-ignored_content = ["*.sh"]
+ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml"]
