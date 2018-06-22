@@ -7,9 +7,9 @@ template = "page.html"
 This is the 4th post in a running series about writing a simple unix shell in the Rust language. 
 I suggest you catch up on the previous posts before reading ahead! 
 
-* [part 1](./blog/2017/building-a-unix-shell-in-rust-part-1.md)
-* [part 2](./blog/2017/building-a-unix-shell-in-rust-part-2.md)
-* [part 3](./blog/2017/building-a-unix-shell-in-rust-part-3.md)
+* [part 1](./blog/building-a-unix-shell-in-rust-part-1.md)
+* [part 2](./blog/building-a-unix-shell-in-rust-part-2.md)
+* [part 3](./blog/building-a-unix-shell-in-rust-part-3.md)
 
 ---
 Back to evaluating the parsed command. This time we are going to be implementing built-in functions.
