@@ -3,8 +3,8 @@
 {% block content %}
   <h1>Blog post tags</h1>
   <ul>
-  {% for tag in tags %}
-  <li><a href="{{ tag.permalink }}">{{ tag.name }}</a></li>
-  {% endfor %}
+    {% for tag in tags %}
+    <li><a href="{{ tag.permalink }}">{{ tag.name }}</a></li>
+    {% endfor %}
   </ul>
 {% endblock content %}

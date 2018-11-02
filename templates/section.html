@@ -1,35 +1,30 @@
 {% extends "index.html" %}
 
 {% block content %}
-    {% for page in section.pages %}
-        <p><a href="{{page.permalink}}">{{page.title}}</a></p>
-        {{page.date}} - Reading time: {{page.reading_time}} mins
-    {% endfor %}
-    {#
-    {% for subsection in section.subsections %}
-        {{subsection.title}}
-        Sub-pages: {{subsection.pages | length}}
-    {% endfor %}
-    #}
+{% for page in section.pages %}
+  <p><a href="{{page.permalink}}">{{page.title}}</a></p>
+{{page.date}} - Reading time: {{page.reading_time}} mins
+{% endfor %}
 
-    {% for subsection in section.subsections | sort(attribute="title") | reverse %}
+{#
+{% for subsection in section.subsections %}
+{{subsection.title}}
+Sub-pages: {{subsection.pages | length}}
+{% endfor %}
+#}
 
-    <div class="posts">
-        {% for page in subsection.pages %}
-          <div class="post">
-            <h1 class="post-title">
-              <a href="{{ page.permalink }}">
-                {{ page.title }}
-              </a>
-            </h1>
-    
-            <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
-          </div>
-        {% endfor %}
+{% for subsection in section.subsections | sort(attribute="title") | reverse %}
+  <div class="posts">
+    {% for page in subsection.pages %}
+    <div class="post">
+      <h1 class="post-title">
+        <a href="{{ page.permalink }}">
+          {{ page.title }}
+        </a>
+      </h1>
+      <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
     </div>
-
-
     {% endfor %}
-
-
+  </div>
+{% endfor %}
 {% endblock content %}
