@@ -51,13 +51,29 @@
     {% endblock sidebar %}
     <div class="content container">
       {% block content %}
+      {{ section.content | safe }}
 
+      {% block posts %}
       {% set blog = get_section(path="blog/_index.md") %}
-      <a href="{{ blog.pages.0.permalink }}"><h1 class="post-title">{{ blog.pages.0.title }}</h1></a>
+      {% for page in blog.pages %}
+        {% set show_draft = page.draft == true and config.extra.production_mode == false %}
+        {% set public = page.draft == false %}
+        {% if show_draft or public %}
+
+        {% if show_draft %}
+        draft : {{ page.draft }}
+        {#prod mode : {{ config.extra.production_mode }}
+        visible : {{ page.draft == false or page.draft == true and config.extra.production_mode == false }}#}
+        {% endif %}
       <div class="post">
-        <span class="post-date">{{ blog.pages.0.date | date(format="%Y-%m-%d") }}</span>
-        {{ blog.pages.0.content | safe }}
+        <h1 class="post-title">
+          <a href="{{ page.permalink }}">{{ page.title }}</a>
+        </h1>
+        <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }} - Reading time: {{ page.reading_time }} min</span>
       </div>
+        {% endif %}
+      {% endfor %}
+      {% endblock posts %}
       {% endblock content %}
     </div>
   </body>

@@ -1,8 +1,9 @@
 +++
 title = "Ubuntu Breakup"
 date = 2011-07-06
-categories = "info"
+[taxonomies]
 tags = ["arch", "awesomewm", "linux", "lua"]
+categories = ["info"]
 +++
 Summer means I can experiment with my laptop again!
 

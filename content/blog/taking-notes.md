@@ -1,8 +1,9 @@
 +++
 title = "Taking Notes"
 date = 2015-07-16
-categories = "info"
+[taxonomies]
 tags = ["notes"]
+categories = ["info"]
 +++
 I've carrired a bound, grid paper [engineering notebook][bookfactory] for quite a few years now. (A habit I picked up in school from the Electrical Engineering side of my formal education.) I've written an entry for (almost) every day working.
 

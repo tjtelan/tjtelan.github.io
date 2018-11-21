@@ -1,34 +1,4 @@
 {% extends "index.html" %}
 
 {% block content %}
-{% for page in paginator.pages %}
-
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ page.permalink }}">{{ page.title }}</a>
-    </h1>
-  
-    <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }} - Reading time: {{ page.reading_time }} min</span>
-  </div>
-
-{% endfor %}
-
-{#
-{% for pager in paginator.pagers %}
-{{pager.index}}: {{pager.path | safe }}
-{% endfor %}
-Num pagers: {{ paginator.pagers | length }}
-Page size: {{ paginator.paginate_by }}
-Current index: {{ paginator.current_index }}
-First: {{ paginator.first | safe }}
-Last: {{ paginator.last | safe }}
-#}
-
-{# next is older posts, previous is new posts. So obvious, I know. #}
-
-{% if paginator.next %}<a href="{{ paginator.next }}" class="pagination pagination-item">Older posts</a>{% endif%}
-{% if paginator.previous %}<a href="{{ paginator.previous }}" class="pagination pagination-item">Newer posts</a>{% endif%}
-
-
 {% endblock content %}
-

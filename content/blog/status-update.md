@@ -1,6 +1,7 @@
 +++
 title = "Status Update"
 date = 2016-06-25
+[taxonomies]
 tags = ["status"]
 +++
 Another Status update post.

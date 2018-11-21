@@ -1,6 +1,7 @@
 +++
 title = "Building a Unix-shell in Rust - Part 3"
 date = 2017-12-31
+[taxonomies]
 tags = ["rust", "how-to"]
 +++
 This is the third post in a series on writing a simple shell in the Rust language. (I suggest you start from the [beginning](./blog/building-a-unix-shell-in-rust-part-1.md)!) 

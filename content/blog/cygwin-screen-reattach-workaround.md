@@ -1,9 +1,9 @@
 +++
 title = "Cygwin Screen Reattach Workaround"
-date = 2011-04-04 
-categories = "info"
+date = 2011-04-04
+[taxonomies]
 tags = ["cygwin", "screen"]
-
+categories = ["info"]
 #[extra]
 #comments:
 #- id: 5

@@ -1,8 +1,9 @@
 +++
 title = "MetaWatch - Unboxing"
 date = 2011-09-16
-categories = "review"
+[taxonomies]
 tags = ["metawatch", "unboxing"]
+categories = ["review"]
 +++
 Without further delay, I'd like to post the first of several detailed posts about the new [MetaWatch][metawatch] that I received (after a [couple][engadget-metawatch-1] [announcements][engadget-metawatch-2] of delays) with a pretty brief unboxing post.
 

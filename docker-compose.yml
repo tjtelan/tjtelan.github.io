@@ -1,0 +1,10 @@
+version: '3'
+services:
+  zola:
+    build: .
+    image: tjtelan/zola
+    ports:
+      - 1111:1111
+    volumes:
+      - .:/blog
+    command: ["zola", "--config", "config.dev.toml", "serve", "--interface", "0.0.0.0" ]

@@ -1,8 +1,9 @@
 +++
 title = "Tarball xz"
 date = 2011-08-31
-categories = "howto"
+[taxonomies]
 tags = ["bsd", "linux", "portable", "xz"]
+categories = ["howto"]
 +++
 At work I manage a handful of servers running FreeBSD. Today I was writing a little backup script where I wanted the output to be an xz compressed tarball.
 

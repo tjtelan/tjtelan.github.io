@@ -1,8 +1,9 @@
 +++
 title = "Gnome Xmonad Lucid"
 date = 2011-05-27
-categories = "info"
+[taxonomies]
 tags = ["gnome", "lucid-lynx", "ubuntu", "xmonad"]
+categories = ["info"]
 +++
 I just got started using tiling window managers because I find that I am a little more productive when I don't use the mouse. With Xmonad, I don't have to deal with overlapping windows and I never have to use the mouse!
 

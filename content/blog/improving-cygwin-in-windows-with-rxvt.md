@@ -1,6 +1,7 @@
 +++
 title = "Improving Cywgin in Windows with rxvt"
 date = 2011-03-18
+[taxonomies]
 tags = ["cygwin", "putty", "rxvt"]
 +++
 I've grown accustomed to using a terminal emulator pretty much any time I sit down to use the computer.

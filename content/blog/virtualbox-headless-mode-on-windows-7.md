@@ -1,8 +1,9 @@
 +++
 title = "Virtualbox Headless-mode on Windows 7"
 date = 2011-03-21
-categories = "howto"
+[taxonomies]
 tags = ["freebsd", "virtualbox", "zfs"]
+categories = ["howto"]
 
 #[extra]
 #old-wordpress-comments:
