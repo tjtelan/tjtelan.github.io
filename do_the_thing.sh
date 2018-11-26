@@ -22,4 +22,4 @@ CNAME=tjtelan.com
 
 # TODO: Move this pipenv code into the docker container to keep tools off the host
 # Publish the locally compiled site to github
-pipenv run ghp-import -n -c ${CNAME} -b ${GITHUB_PUBLISH_REPO} -m ${COMMIT_MSG} -p ${ZOLA_BUILD_DIR}
+pipenv run ghp-import -n -c ${CNAME} -b ${GITHUB_PUBLISH_REPO} -m "${COMMIT_MSG}" -p ${ZOLA_BUILD_DIR}
