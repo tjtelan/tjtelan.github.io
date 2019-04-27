@@ -1,5 +1,5 @@
 +++
-title = "Rust using a database + gRPC"
+title = Using a database + gRPC with Rust"
 date = 2019-04-25
 template = "page.html"
 [taxonomies]
