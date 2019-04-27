@@ -240,7 +240,7 @@ On the client-side, I created a protobuf-generated struct with default values, f
 
 ##### Receive proto struct and convert into DB insertable struct
 
-Lastly, I worked out taking in user input, and using it to instantiate one of my custom types. During the grpc backend call, I call .into() on my type, which will convert to the protobuf form. One the backend, I take in the request, and call `.into()` to convert back into my type so I can marshal into a diesel insert call.
+Lastly, I worked out taking in user input, and using it to instantiate one of my custom types. During the grpc backend call, I call .into() on my type, which will convert to the protobuf form. On the backend, I take in the request, and call `.into()` to convert back into my type so I can marshal into a diesel insert call.
 
 **Server-side**
 
