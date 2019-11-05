@@ -4,10 +4,10 @@ date = 2017-11-26
 [taxonomies]
 tags = ["rust", "how-to"]
 +++
-This is the 2nd part of a series where I document writing a command shell in Rust. In the [previous post](./blog/building-a-unix-shell-in-rust-part-1.md) I reviewed what a shell is, and broke that down into stages I can use to organize my code.
+This is the 2nd part of a series where I document writing a command shell in Rust. In the [previous post](@/blog/building-a-unix-shell-in-rust-part-1.md) I reviewed what a shell is, and broke that down into stages I can use to organize my code.
 
 ### Getting user input
-First thing we need to do is create a project. Let’s use Cargo to create this for us.
+First thing we need to do is create a project. Let's use Cargo to create this for us.
 
 ```sh
 $ cargo new --bin rust-shell
@@ -28,7 +28,7 @@ fn main() {
 }
 ```
 
-I’m using std::io to read input into the mutable command variable binding, then I println() to echo my input back to the screen.
+I'm using std::io to read input into the mutable command variable binding, then I println() to echo my input back to the screen.
 
 Then we build:
 
@@ -55,7 +55,7 @@ test
 
 Great. Looks like that was easy.
 
-What we see here is me trying 2 commands: `123` and `test`. We see the command printed right back. (Printing a short prompt might make that more obvious… ) 
+What we see here is me trying 2 commands: `123` and `test`. We see the command printed right back. (Printing a short prompt might make that more obvious)
 
 ### Parsing the input into tokens
 
@@ -79,7 +79,7 @@ error[E0282]: unable to infer enough type information about `B`
    = note: type annotations or generic parameter binding required
 ```
 
-I’m lazy, and I didn’t look into how to explicitly reference the type.
+I'm lazy, and I didn't look into how to explicitly reference the type.
 
 This did work. 
 
@@ -99,11 +99,11 @@ test test test
 blah blah "string in quotes"
 ["blah", "blah", "\"string", "in", "quotes\"\n"]
 ```
-I’m going to have to learn how type inference works in Rust sooner or later, but I’m not going to deal with it now. String types in Rust are kind of confusing coming from Python where I don’t have to deal with types very often.
+I'm going to have to learn how type inference works in Rust sooner or later, but I'm not going to deal with it now. String types in Rust are kind of confusing coming from Python where I don't have to deal with types very often.
 
-(This is a warning from the future. You should lightly understand the idiomatic difference between String and &str. You find this out the hard way when you get to refactoring… see you in the future)
+(This is a warning from the future. You should lightly understand the idiomatic difference between String and &str. You find this out the hard way when you get to refactoring...� see you in the future)
 
-I’m going to use this moment to make the interface a more obvious when the we are ready to take user input by printing a prompt character.
+I'm going to use this moment to make the interface a more obvious when the we are ready to take user input by printing a prompt character.
 
 ```rust
 use std::io::{self,Write};
@@ -142,7 +142,7 @@ DEBUG: ["Feeling", "a", "little", "more", "shell-like", "now\n"]
 
 ### Classifying parsed input
 
-Last thing I’m going to do is identify the keyword from the arguments, then I’ll do a little refactoring to help organize the new complexity. (I expect to do a little fighting with the borrow checker at this point.)
+Last thing I'm going to do is identify the keyword from the arguments, then I'll do a little refactoring to help organize the new complexity. (I expect to do a little fighting with the borrow checker at this point.)
 
 Getting the keyword is easy. I just need to pick off the first element of our tokenized command.
 
@@ -178,7 +178,7 @@ I have to call the slice by reference using `&` with the vector, and I specified
 
 ### Time to refactor!
 
-I’m going to make the main loop look a little more functional (inside the loop).
+I'm going to make the main loop look a little more functional (inside the loop).
 
 Printing the prompt? Easy. Function call.
 
@@ -204,7 +204,7 @@ fn read_command() -> String {
 }
 ```
 
-Tokenizing the command? Gonna get a little more complicated. I’m going to set up a struct to represent the command so I can keep the tokenized command together in a single object.
+Tokenizing the command? Gonna get a little more complicated. I'm going to set up a struct to represent the command so I can keep the tokenized command together in a single object.
 
 
 ---
@@ -212,17 +212,17 @@ Tokenizing the command? Gonna get a little more complicated. I’m going to set 
 
 I almost lost the motivation to continue the documenting my thought process because of this obstacle. This section can be skipped if you are looking to follow my happy path, and don't want to follow my confusion. 
 
-(This is what I wrote first, when I was actually having a fight with the borrow checker…)
+(This is what I wrote first, when I was actually having a fight with the borrow checker�
 
 I have to learn a little bit about [lifetimes](https://doc.rust-lang.org/book/lifetimes.html) in order to get this to compile. This makes some sense, since the struct will need to own the slice data, and in the original code, we were just borrowing the slice.
 
-I’m finding it confusing thinking about what I need to do in order to make the tokenizing function use the Command struct. If I can copy the args to the struct, and give ownership of the string to the struct, then I assume this will compile?
+I'm finding it confusing thinking about what I need to do in order to make the tokenizing function use the Command struct. If I can copy the args to the struct, and give ownership of the string to the struct, then I assume this will compile?
 
-What type is the copied slice, and how do I specify that in the struct? How do I use the lifetime in code to find my use case? I don’t even know what other questions to ask next.
+What type is the copied slice, and how do I specify that in the struct? How do I use the lifetime in code to find my use case? I don't even know what other questions to ask next.
 
-Rather than try to figure out how to compile, and get the struct working with tokenizing the command, I’ll try to play around in main() and try instantiating my struct.
+Rather than try to figure out how to compile, and get the struct working with tokenizing the command, I'll try to play around in main() and try instantiating my struct.
 
-What I need to be able to do is copy the data in the vector. I tried for a while trying to pass ownership of a slice, but I ended up finding a way to take the first element out of the vector, and having the rest be the arguments be what is left. I feel a little over my head at this point, and I’m going to spend some time reading the docs.
+What I need to be able to do is copy the data in the vector. I tried for a while trying to pass ownership of a slice, but I ended up finding a way to take the first element out of the vector, and having the rest be the arguments be what is left. I feel a little over my head at this point, and I'm going to spend some time reading the docs.
 
 This is what the struct looked like.
 

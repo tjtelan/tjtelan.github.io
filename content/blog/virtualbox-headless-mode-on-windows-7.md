@@ -34,7 +34,7 @@ An impromptu reformat of my Windows 7 machine quickly had me frustrated with Vir
 
 ## Purpose
 
-This specific VM configuration is FreeBSD 8.2 w/ ZFS on root. I don't have the time to set it up from scratch, but I'm currently using the newest ZFS version available on [this site][mfsBSD] (v28, special edition).
+This specific VM configuration is FreeBSD 8.2 w/ ZFS on root. I don't have the time to set it up from scratch, but I'm currently using the newest ZFS version available on [this site](https://mfsbsd.vx.sk/) (v28, special edition).
 
 I'm only planning on using this VM for SSH for a persistent irc connection. I also want this to start automatically at Win7's boot.
 
@@ -62,5 +62,3 @@ Set WshShell = WScript.CreateObject("WScript.Shell")
 obj = WshShell.Run("D:Users[username]startfreebsdvm.bat", 0)
 set WshShell = Nothing
 ```
-
-[mfsBSD]: http://mfsbsd.vx.sk

@@ -12,11 +12,11 @@ I'll have code snippets occasionally, but I'm trying to keep the audience around
 
 Why am I doing this? I don't often see posts from beginning Rust learners doing practical, simple things (that can simply be copy/pasted and modified slightly), like in the other more mature language communities... Widest market? Probably not. 
 
-I guess that's enough rambling. Let’s dive in.
+I guess that's enough rambling. Let's dive in.
 
 ---
 
-## What’s a shell?
+## What's a shell?
 A shell is an interactive language interpreter that allows you to run text-based commands and translates them into an action, such as making internal function calls, or running external programs.
 
 You usually use it to access resources from the operating system. 
@@ -42,7 +42,7 @@ Shells run in terminal emulators. This is (over-) simplified as the text-only wi
 
 It handles the interaction from you (known as Standard-In, like keystrokes) and your shell (known as Standard-Out for the buffered/flushed output style, and Standard-Error for the direct output style).
 
-In most cases, the terminal emulator and shell are different processes (Windows’ cmd.exe and Powershell are confusingly, both the shell and terminal emulator) 
+In most cases, the terminal emulator and shell are different processes (Windows' cmd.exe and Powershell are confusingly, both the shell and terminal emulator) 
 
 You may have made reference to it by other common names such as:
 * command prompt
@@ -57,13 +57,13 @@ Examples of some terminal emulators
 * Windows Command Prompt
 * Powershell
 
-I’m going to focus on writing a bash-like shell. Functionality, and syntax should feel familiar. 
+I'm going to focus on writing a bash-like shell. Functionality, and syntax should feel familiar. 
 
 ---
 
 The shells are a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), a Read-Eval-Print-Loop.
 
-Typically, a character (let’s say ‘$’) is printed and a cursor blinks. This informs the user that a command can be typed in.
+Typically, a character (let's say `$`) is printed and a cursor blinks. This informs the user that a command can be typed in.
 
 You type in a command.
 
@@ -87,7 +87,7 @@ Let's start our definition of a command.
 > a series of words separated by spaces.
 
 ```sh
-$ keyword arg1 arg2 arg3… 
+$ keyword arg1 arg2 arg3
 ```
 
 The first word is a keyword. It's either a built-in function or an executable on the filesystem, with the rest of the line being parameters passed to our function. 

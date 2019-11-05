@@ -8,5 +8,5 @@ services:
     volumes:
       - .:/blog
     # FIXME: this switch could maybe be less tedious
-    command: ["zola", "--config", "config.dev.toml", "serve", "--interface", "0.0.0.0" ]
+    #command: ["zola", "--config", "config.dev.toml", "serve", "--interface", "0.0.0.0" ]
     #command: ["zola", "--config", "config.toml", "serve", "--interface", "0.0.0.0" ]

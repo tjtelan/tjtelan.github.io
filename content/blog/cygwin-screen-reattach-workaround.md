@@ -12,7 +12,7 @@ categories = ["info"]
 #  date: 2011-07-11 01:49:00
 #  content: Confirming that this works (Win 7, Cygwin 1.7.9, screen 4.00.03)!
 +++
-In an [earlier post](./blog/virtualbox-headless-mode-on-windows-7.md) I mentioned how I was using a VM for my irc usage. I was running GNU screen + irssi to keep a persistent connection so I can idle in channels.
+In an [earlier post](@/blog/virtualbox-headless-mode-on-windows-7.md) I mentioned how I was using a VM for my irc usage. I was running GNU screen + irssi to keep a persistent connection so I can idle in channels.
 
 I've been experimenting with using Cygwin to make my Windows 7 machine my SSH box. So I installed irssi + screen... Looks like everything is all good.
 
