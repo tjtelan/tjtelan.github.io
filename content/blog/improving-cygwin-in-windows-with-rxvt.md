@@ -46,7 +46,7 @@ cygwin-rxvt-launcher:
 D:\cygwinbinrxvt.exe -sr -sl 2500 -sb -geometry 90x30 -fg green -bg black -tn rxvt -fn "Anonymous Pro-16" -e /usr/bin/zsh --login -i
 ```
 
-Here, I'm using green text, black background and my favorite monospaced font, [Anonymous Pro](https://www.marksimonson.com/fonts/view/anonymous-pro), at size 16 with Z-shell as my login shell.
+Here, I'm using green text, black background and my favorite monospaced font, [Anonymous Pro][anonpro], at size 16 with Z-shell as my login shell.
 
 Took me a moment to figure out copy/paste, but here is how you do it. It is an improvement, but not perfect\:
 
@@ -55,4 +55,6 @@ Same as PuTTY. Highlight using mouse to copy text to the clipboard
 
 **Paste**:
 Hold down *Shift* and *left-click* with your mouse.
+
+[anonpro]: http://www.ms-studio.com/FontSales/anonymouspro.html
 

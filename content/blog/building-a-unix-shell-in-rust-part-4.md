@@ -16,7 +16,7 @@ I suggest you catch up on the previous posts before reading ahead!
 Back to evaluating the parsed command. This time we are going to be implementing built-in functions.
 
 ### Shell builtins
-Let's quickly review how a shell works.
+Let’s quickly review how a shell works.
 User is prompted for input. The input is tokenized (we are naively splitting on spaces). The first element of the tokenized input is the keyword, and the rest are the arguments. We execute the keyword with the arguments.
 
 Our keywords correspond to either a shell function call (a builtin) or an external binary in your executable search path, which we will cover when we look to execute binaries in the next part. (In Bash, you can view this path by looking at the value of the environmental variable PATH. `$ echo ${PATH}`)
@@ -32,13 +32,13 @@ Some common builtins, which we will implement are:
 * pwd
 
 ### My initial strategy
-I'm going to keep my strategy simple. When I input a command, I want to run the builtin command. If my input is not a builtin, then let's throw an error saying the command isn't found. This will set us up for when we execute binaries,.
+I’m going to keep my strategy simple. When I input a command, I want to run the builtin command. If my input is not a builtin, then let’s throw an error saying the command isn’t found. This will set us up for when we execute binaries,.
 
 The first thing we want to do when we process the command is evaluate if it is a builtin. If it is, we want to pass arguments to the builtin function. 
 
-I'm scratching my head a little bit about how to represent the mapping of a keyword to a function in an idiomatic way.
+I’m scratching my head a little bit about how to represent the mapping of a keyword to a function in an idiomatic way.
 
-I've found the [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) module, which is part of the standard collection library, but I'm looking to see if I can use something else that doesn't require importing a library. I think what I want is an `enum` and I can pattern match to call builtin functions.
+I’ve found the [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) module, which is part of the standard collection library, but I’m looking to see if I can use something else that doesn’t require importing a library. I think what I want is an `enum` and I can pattern match to call builtin functions.
 
 After a little bit of thought, I wondered if I could parse the string into the enum? My google-ing informs me that to accomplish this, I need to implement the [fromStr](https://doc.rust-lang.org/std/str/trait.FromStr.html) trait. 
 
@@ -81,7 +81,7 @@ fn process_command(c : Command) -> i32 {
 }
 ```
 
-Here's an example of one of the builtins. (I'm only going to show one with functionality, because I'm going to implement the rest later)
+Here’s an example of one of the builtins. (I’m only going to show one with functionality, because I’m going to implement the rest later)
 I chose to implement echo because it is very easy to verify. 
 
 ```rust
@@ -114,4 +114,4 @@ not_a_real_command: command not found
 DEBUG: Exit code : 1
 ```
 
-I think I'm going to use this break to do some minor cleanup, write tests, and start using the rust logging mechanisms, such as the [log](https://github.com/rust-lang-nursery/log) crate. I'll be back in the next post for running executables.
+I think I’m going to use this break to do some minor cleanup, write tests, and start using the rust logging mechanisms, such as the [log](https://github.com/rust-lang-nursery/log) crate. I’ll be back in the next post for running executables.

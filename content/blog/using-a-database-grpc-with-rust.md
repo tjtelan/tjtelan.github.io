@@ -13,7 +13,7 @@ I don't consider myself an expert with Rust, also not a beginner. I've been foll
 
 I have the privilege to choose the tools I want at work, but I must keep in mind that I don't work by myself. I need to be able to provide practical development advice and enough technical mentorship to my teammates to keep us all productive.
 
-[Kevin Hoffman's blog post](https://medium.com/@KevinHoffman/streaming-grpc-with-rust-d978fece5ef6) let me know that what I wanted was possible today in stable (as opposed to nightly). Kevin's post is great, but I couldn't really absorb it my first few reads, because he is a more experienced Rust developer than myself. I didn't quite understand the code in his post, and I couldn't appreciate details he skimmed over which I will point out. I hope that I can provide supplemental details.
+[Kevin Hoffman’s blog post](https://medium.com/@KevinHoffman/streaming-grpc-with-rust-d978fece5ef6) let me know that what I wanted was possible today in stable (as opposed to nightly). Kevin’s post is great, but I couldn’t really absorb it my first few reads, because he is a more experienced Rust developer than myself. I didn't quite understand the code in his post, and I couldn’t appreciate details he skimmed over which I will point out. I hope that I can provide supplemental details.
 
 ### My target
 I am looking to build a very basic command line interface client, and a backend service. The cli communicates to the backend via gRPC, and the backend connects to a database.
@@ -24,11 +24,11 @@ Based on Kevin Hoffman's experience, and the download activity on crates.io, I a
 
 **Database**
 
-For database, I decided to use [Diesel-rs](https://crates.io/crates/diesel) since there really aren't any other choices that I felt were better in a production environment. Diesel is a mature project that is very actively supported.
+For database, I decided to use [Diesel-rs](https://crates.io/crates/diesel) since there really aren’t any other choices that I felt were better in a production environment. Diesel is a mature project that is very actively supported.
 
 **Command line interface**
 
-For the command line interface, I picked [clap-rs](https://crates.io/crates/clap), because I was interested in trying out defining the command line content and structure with yaml. In the future I would probably use [StructOpt](https://crates.io/crates/structopt). It happens to use clap-rs internally, but the written code is easier for me to read, and in my opinion, less code to write derives. For this reason, I'll probably gloss over the command line implementation. It provides the minimal amount of interaction I needed to highlight what appears to be an idiomatic pattern. 
+For the command line interface, I picked [clap-rs](https://crates.io/crates/clap), because I was interested in trying out defining the command line content and structure with yaml. In the future I would probably use [StructOpt](https://crates.io/crates/structopt). It happens to use clap-rs internally, but the written code is easier for me to read, and in my opinion, less code to write derives. For this reason, I’ll probably gloss over the command line implementation. It provides the minimal amount of interaction I needed to highlight what appears to be an idiomatic pattern. 
 
 After spending a few hours with all the tools, I wanted to jump in feet first with an example project.
 
@@ -44,7 +44,7 @@ I am generating my proto Rust code from `.proto` using [grpc-rs](https://github.
 
 But If I'm going to be using the generated structs w/ Diesel, then I have to break up the protobuf compilation w/ some manual step to additionally add in the correct annotations, because the next `cargo build` regenerated code and removed my manual changes. This was a red flag, but I kept moving forward anyway...
 
-Diesel also expects that your struct fields are 1:1 with your table schema for to use the custom  `#[Derive(Queryable)]` for querying the DB. If you haven't looked at `grpc-rs` generated grpc code, you'll see extra internally used struct fields: `unknown_fields` and `cached_size`. These are part of `grpc-rs`'s implementation of message serialization/deserialization. Moving forward could require representing these extra fields in the database, which has a bad smell and is wasteful of space. 
+Diesel also expects that your struct fields are 1:1 with your table schema for to use the custom  `#[Derive(Queryable)]` for querying the DB. If you haven't looked at `grpc-rs` generated grpc code, you'll see extra internally used struct fields: `unknown_fields` and `cached_size`. These are part of `grpc-rs`’s implementation of message serialization/deserialization. Moving forward could require representing these extra fields in the database, which has a bad smell and is wasteful of space. 
 
 **Example of grpc-rs generated Rust code w/ the special fields**
 
@@ -74,15 +74,15 @@ This was a failure. If I could work backwards from the database inserts to the p
 
 ### Before implementation
 
-I'm still learning how to write idiomatic Rust. When I got my protos compiling into generated Rust code, and assumed I needed to use it directly because it is native code, despite my unfamiliarity with all of the code generated by Pingcap's gRPC library.
+I'm still learning how to write idiomatic Rust. When I got my protos compiling into generated Rust code, and assumed I needed to use it directly because it is native code, despite my unfamiliarity with all of the code generated by Pingcap’s gRPC library.
 
-> I'm relying heavily on the use of the Into trait to create a little anti-corruption layer so that the business logic on both my client and my server are not operating directly on the protobuf-generated structs. *-- Kevin Hoffman*
+> I’m relying heavily on the use of the Into trait to create a little anti-corruption layer so that the business logic on both my client and my server are not operating directly on the protobuf-generated structs. *-- Kevin Hoffman*
 
 After a not-skimmed reading of [Kevin's Hoffman's post](https://medium.com/@KevinHoffman/streaming-grpc-with-rust-d978fece5ef6), I noticed he described using this same approach in a hand-wavey manner. I wasn't ready to appreciate the warning without some example code or a diagram.
 
 #### Use separate structs for business logic 
 
-I hadn't immediately considered that I might want to write my own structs instead of using the protobuf-generated structs since my mindset was that the generated code would be ergonomic enough to use code.
+I hadn’t immediately considered that I might want to write my own structs instead of using the protobuf-generated structs since my mindset was that the generated code would be ergonomic enough to use code.
 
 However, the strategy of using separate structs offers very easy to use conversions because of the `From` and `Into` traits. This would be easier for the maintainability and readability of my code because I can contain that conversion logic in away from my business logic.
 
@@ -123,7 +123,7 @@ Separating into different crates would let me organize the struct conversion cod
 
 #### Write database schema
 
-Because I need some kind of story to write code against, I decided to write an oil ordering system (because proto-diesel can be described as oil (har har))
+Because I need some kind of story to write code against, I decided to write an oil ordering system (because proto-diesel can be described as oil… har har…)
 
 My postgres type `oil_product` has a [pie chart](https://en.wikipedia.org/wiki/Oil_refinery#/media/File:Usesofpetroleum.png) of oil derived products that I got from the [wiki page of Oil Refinery](https://en.wikipedia.org/wiki/Oil_refinery#Major_products)
 
@@ -244,7 +244,7 @@ Lastly, I worked out taking in user input, and using it to instantiate one of my
 
 **Server-side**
 
-I'm converting the proto-form struct `req` into the business logic form `OrderForm` by calling `.into()`. Since the `create_order()` impl takes in `OrderForm`, there is no need to annotate the type with `.into()` and we're able to stay focused.
+I'm converting the proto-form struct `req` into the business logic form `OrderForm` by calling `.into()`. Since the `create_order()` impl takes in `OrderForm`, there is no need to annotate the type with `.into()` and we’re able to stay focused.
 
 
 ```rust
@@ -320,7 +320,7 @@ if let Some(_matches) = matches.subcommand_matches("summary") {
 
 **server endpoint**
 
-The server takes in an empty proto type, so we don't have to do any type conversions. We then call a function `client::get_all_orders()` that calls Diesel to return all the data in a table. Then we make another function call `client::db_query_to_proto()` to convert our native data into a gRPC sendable form.
+The server takes in an empty proto type, so we don’t have to do any type conversions. We then call a function `client::get_all_orders()` that calls Diesel to return all the data in a table. Then we make another function call `client::db_query_to_proto()` to convert our native data into a gRPC sendable form.
 
 ```rust
 fn get_all_records(&mut self, ctx: RpcContext, _req: protos::empty::Empty, sink: UnarySink<refinery::OrderRecordList>){
@@ -372,7 +372,7 @@ Protobuf's `repeated` keyword in the Rust code has its own type like `Vec<T>` ca
 // db_query_to_proto is used by the backend to convert a Vector of Order (from a Diesel select
 // query) into the proto native OrderRecordList. Implementing `From` for a Vector would have taken
 // longer, and used a wrapper type. That very well may be the more maintainable approach, but this
-// was quicker
+// was quicker…
 
 pub fn db_query_to_proto(rust_record : Vec<Order>) -> refinery::OrderRecordList {
     let mut proto_vec : Vec<refinery::OrderRecord> = Vec::new();
