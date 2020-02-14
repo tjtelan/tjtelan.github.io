@@ -15,7 +15,7 @@ I tried to define the metadata completely. Other than writing the code, this too
 
 (My very first version did not have a README or fancy build badges, but I did have docstrings for docs.rs)
 
-## Generate API Key log in from cargo
+## Generate API Key and log in from cargo
 
 Crates.io only supports logging in using Github accounts.
 
