@@ -7,7 +7,7 @@ tags = ["rust", "how-to", "crates.io"]
 +++
 I published [my first public crate](https://crates.io/crates/git-url-parse). I thought my library was useful, general, and did not have a similar implementation in crates.io. I hoped that it may get used by the Rust community. It turned out to be very easy to package and upload my code, and I wanted to share my process.
 
-1) I completed filling out the Cargo.toml with package metadata
+## Complete Cargo.toml with package metadata
 
 https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata
 
@@ -15,7 +15,7 @@ I tried to define the metadata completely. Other than writing the code, this too
 
 (My very first version did not have a README or fancy build badges, but I did have docstrings for docs.rs)
 
-2) I generated an API Key and logged into crates.io from cargo
+## Generate API Key log in from cargo
 
 Crates.io only supports logging in using Github accounts.
 
@@ -23,13 +23,11 @@ Navigate to Account Settings and scroll down to the *API Access* section. Click 
 
 After giving your token a name, there is going to be a `cargo login` command with a random token value. Run this command to log in.
 
-3) I ran cargo publish
+## Run cargo publish
 
 My crate was at the top of the new crates column of crates.io
 
 Like I mentioned earlier, I had doc strings in my code that I expected to publish to docs.rs. This can take a few minutes. Wait a few minutes. It’ll make it there.
-
----
 
 I later followed up with writing a complete README.md, and added badges. That’s all it took to make my little library look fancy.
 
@@ -37,7 +35,7 @@ If you were on the fence about publishing to crates.io, I hope you are now convi
 
 ---
 
-Before you go, some info about my crate:
+#### Before you go, some info about my crate:
 [git-url-parse](https://crates.io/crates/git-url-parse).
 
 I wrote it because common ssh-based git repo urls don’t fit a standard like:
