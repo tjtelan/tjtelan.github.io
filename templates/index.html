@@ -22,6 +22,7 @@
       {% block extra_head %}
       {% endblock extra_head %}
 
+      {% if config.extra.google_analytics_id %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.extra.google_analytics_id }}"></script>
       <script>
@@ -30,6 +31,7 @@
         gtag('js', new Date());
         gtag('config', '{{ config.extra.google_analytics_id }}');
       </script>
+      {% endif %}
 
     </head>
 
