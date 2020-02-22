@@ -40,7 +40,7 @@ I focused on individually building with Diesel and gRPC. Once I felt ready to do
 
 ### Red flags in the workflow
 
-I am generating my proto Rust code from `.proto` using [grpc-rs](https://github.com/pingcap/grpc-rs) in my [build.rs](https://github.com/tjtelan/rust-examples/blob/master/cli_grpc_diesel/workspace/protos/build.rs). It runs during `cargo build`. Based on Diesel's [getting started](http://diesel.rs/guides/getting-started/) guide, I expected that I would be annotating my proto Rust with the same `#[derive()]`. 
+I am generating my proto Rust code from `.proto` using [grpc-rs](https://github.com/pingcap/grpc-rs) in my [build.rs](https://github.com/tjtelan/rust-examples/blob/master/cli-clap-grpc-pingcap-db-diesel/workspace/protos/build.rs). It runs during `cargo build`. Based on Diesel's [getting started](http://diesel.rs/guides/getting-started/) guide, I expected that I would be annotating my proto Rust with the same `#[derive()]`. 
 
 But If I'm going to be using the generated structs w/ Diesel, then I have to break up the protobuf compilation w/ some manual step to additionally add in the correct annotations, because the next `cargo build` regenerated code and removed my manual changes. This was a red flag, but I kept moving forward anyway...
 
@@ -127,12 +127,12 @@ Because I need some kind of story to write code against, I decided to write an o
 
 My postgres type `oil_product` has a [pie chart](https://en.wikipedia.org/wiki/Oil_refinery#/media/File:Usesofpetroleum.png) of oil derived products that I got from the [wiki page of Oil Refinery](https://en.wikipedia.org/wiki/Oil_refinery#Major_products)
 
-That helped me with my first thing: I need my database schema - [schema.rs](https://github.com/tjtelan/rust-examples/blob/master/cli_grpc_diesel/workspace/models/schema.rs)
+That helped me with my first thing: I need my database schema - [schema.rs](https://github.com/tjtelan/rust-examples/blob/master/cli-clap-grpc-pingcap-db-diesel/workspace/models/schema.rs)
 
 Then I could write my migrations:
 
-* [up.sql](https://github.com/tjtelan/rust-examples/blob/master/cli_grpc_diesel/workspace/migrations/2019-03-18-213310_create_orders/up.sql)
-* [down.sql](https://github.com/tjtelan/rust-examples/blob/master/cli_grpc_diesel/workspace/migrations/2019-03-18-213310_create_orders/down.sql)
+* [up.sql](https://github.com/tjtelan/rust-examples/blob/master/cli-clap-grpc-pingcap-db-diesel/workspace/migrations/2019-03-18-213310_create_orders/up.sql)
+* [down.sql](https://github.com/tjtelan/rust-examples/blob/master/cli-clap-grpc-pingcap-db-diesel/workspace/migrations/2019-03-18-213310_create_orders/down.sql)
 
 #### Get inserts into DB working
 
@@ -223,7 +223,7 @@ impl From<OrderForm> for refinery::OrderForm {
 }
 ```
 
-Snippet from [convert.rs](https://github.com/tjtelan/rust-examples/blob/master/cli_grpc_diesel/workspace/models/convert.rs):
+Snippet from [convert.rs](https://github.com/tjtelan/rust-examples/blob/master/cli-clap-grpc-pingcap-db-diesel/workspace/models/convert.rs):
 
 
 #### Take user input before making gRPC call
@@ -403,4 +403,4 @@ You don't need to write perfect Rust code in one go.
 
 ---
 
-The code used throughout this post is located [here](https://github.com/tjtelan/rust-examples/tree/master/cli_grpc_diesel).
+The code used throughout this post is located [here](https://github.com/tjtelan/rust-examples/tree/master/cli-clap-grpc-pingcap-db-diesel).
