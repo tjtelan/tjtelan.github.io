@@ -2,6 +2,7 @@
 title = "Blog"
 sort_by = "date"
 paginate_by = 0
-render = false
-template = "blog.html"
+render = true 
+template = "blog_archive.html"
+page_template = "blog.html"
 +++
