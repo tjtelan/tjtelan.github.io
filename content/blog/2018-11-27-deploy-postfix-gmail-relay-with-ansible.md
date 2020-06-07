@@ -1,7 +1,6 @@
 +++
 title = "Deploy Postfix Gmail relay with Ansible on Raspberry Pi"
 date = 2018-11-27
-template = "page.html"
 draft = false
 [taxonomies]
 tags = ["ansible", "postfix", "raspberry pi", "vmware"]

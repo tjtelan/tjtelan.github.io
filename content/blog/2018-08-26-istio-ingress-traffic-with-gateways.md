@@ -1,7 +1,6 @@
 +++
 title = "Istio Ingress Traffic Management with Gateways"
 date = 2018-08-26
-template = "page.html"
 draft = true
 [taxonomies]
 tags = ["kubernetes", "istio", "ingress", "non-cloud", "servicemesh", "helm"]

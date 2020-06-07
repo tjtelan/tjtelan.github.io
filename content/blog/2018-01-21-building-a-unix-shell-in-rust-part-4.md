@@ -1,7 +1,6 @@
 +++
 title = "Building a Unix-shell in Rust - Part 4"
 date = 2018-01-21
-template = "page.html"
 [taxonomies]
 tags = ["rust", "how-to"]
 +++

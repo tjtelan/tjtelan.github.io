@@ -1,7 +1,6 @@
 +++
 title = "Using a database + gRPC with Rust"
 date = 2019-04-25
-template = "page.html"
 [taxonomies]
 tags = ["rust", "how-to", "database", "diesel-rs", "grpc", "grpc-rs", "cli", "clap-rs"]
 +++
