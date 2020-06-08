@@ -13,9 +13,11 @@
   <!-- CSS -->
   <link rel="stylesheet" href="{{ get_url(path="print.css", trailing_slash=false) }}" media="print">
   <link rel="stylesheet" href="{{ get_url(path="tj.css", trailing_slash=false) }}">
-  <link rel="stylesheet" href="{{ get_url(path="newsletter.css", trailing_slash=false) }}">
+  <!--<link rel="stylesheet" href="{{ get_url(path="newsletter.css", trailing_slash=false) }}">-->
   <link rel="stylesheet" href="{{ get_url(path="hyde.css", trailing_slash=false) }}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">-->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 
   {% if config.generate_rss %}
   <link rel="alternate" type="application/rss+xml" title="RSS"
@@ -31,7 +33,7 @@
 
 <body class="{{ config.extra.hyde_theme }} {% if config.extra.hyde_reverse %}layout-reverse{% endif %}">
   {% block sidebar %}
-  <div class="sidebar">
+  <div  id="sidebar" class="sidebar">
     <div class="container {% if config.extra.hyde_sticky %}sidebar-sticky{% endif %}">
       <div class="sidebar-about">
         {% block sidebar_about %}
@@ -77,12 +79,14 @@
       {% set projects = load_data(path="data/projects-info.toml") %}
       <ul>
         {% for project in projects.project %}
-        <li><a href="{{ project.url }}">{{ project.name }}</a> -
-          <span class="link-meta">{{ project.description }}</span</li> {% endfor %} </ul> </div> <div
-              class="newsletter-form">
-            {% include "newsletter.html" %}
-    </div>
-
+        <li>
+          <a href="{{ project.url }}">{{ project.name }}</a> -
+          <span class="link-meta">{{ project.description }}</span>
+        </li>
+        {% endfor %}
+      </ul> 
+    </div> 
+    {% include "newsletter.html" %}
     {% endblock content %}
   </div>
 

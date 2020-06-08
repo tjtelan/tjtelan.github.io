@@ -6,7 +6,7 @@ $header-color: $text-color;
 $link-color: $brand-color;
 
 /*
- *                        ___
+ * kind of                       ___
  *                       /\_ \
  *  _____     ___     ___\//\ \      __
  * /\ '__`\  / __`\  / __`\\ \ \   /'__`\
@@ -295,6 +295,7 @@ tbody tr:nth-child(odd) th {
     padding-right: 1rem;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 2rem;
 }
 
 
@@ -469,17 +470,25 @@ a.pagination-item:hover {
 * My overrides
 *
 */
+#sidebar {
 
+    h1 {
+    color: #fff;
+    margin-top: 0;
+    font-family: "Press Start 2P", serif;
+    font-size: 2rem;
+    }
+    .lead {
+        font-size: 1rem;
+        color: $secondary-text-color;
+    }
+}
 .topic {
     background: #f9fafb;
-    border: 1px solid #e3e3e3;
+    border: 1px solid #e3e3e365;
     border-radius: 4px;
-    margin: 10px;
-    padding: 10px;
-
-    h2 {
-        padding-left: 10px;
-    }
+    margin-bottom: 1.5rem;
+    padding: .5rem 1rem;
 
     .link-meta {
         color: #9a9a9a;
@@ -497,28 +506,37 @@ a.pagination-item:hover {
 }
 
 .blog-nav-footer {
-    div {
-        width: 30%;
+    padding-bottom: 4rem;
+
+    hr { 
+        border-top: 2px solid #eee;
+        border-bottom: 1px solid #fff;
+    }
+    div { width: 30%; }
+
+    p {
+        margin: 0;
     }
 
+    span {
+        color: $secondary-text-color;
+        display: block;
+        font-size: .8rem;
+    }
     .previous-post {
-        display: inline-block;
         float: left;
 
-        ::before {
-            content: "\2190\00A0 Previous post: ";
+        p::before {
+            content: "\2190\00A0";
         }
     }
 
     .next-post {
-        display: inline-block;
         float: right;
-
-        ::before {
-            content: "Next post: ";
-        }
-        ::after {
+        text-align: right;
+        p::after {
             content: "\00A0\2192";
         }
     }
 }
+/* Formkit  */

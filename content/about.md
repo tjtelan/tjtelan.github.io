@@ -21,6 +21,6 @@ I write about:
 
 ### Newsletter!
 
-If you want to get an email whenever I post a new blog then subscribe to my newsletter.
+_If you want to get an email whenever I post a new blog then subscribe to my newsletter._
 
 <!-- In the about.html template, I have the newsletter form included after here. -->

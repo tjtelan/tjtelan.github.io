@@ -9,12 +9,18 @@
 </div>
 
 <div class="blog-nav-footer">
+    <hr/>
     {% if page.earlier %}
     <div class="previous-post">
-        <a href={{ page.earlier.permalink }}>{{ page.earlier.title }}</a></div>
+        <p>Previous Post</p>
+        <a href={{ page.earlier.permalink }}>{{ page.earlier.title }}</a> <span>{{ page.earlier.date }}</span>
+    </div>
     {% endif %}
     {% if page.later %}
-    <div class="next-post"><a href={{ page.later.permalink }}>{{ page.later.title }}</a></div>
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href={{ page.later.permalink }}>{{ page.later.title }}</a> <span>{{ page.later.date }}</span>
+    </div>
     {% endif %}
 </div>
 {% endblock content %}
