@@ -65,12 +65,12 @@
       <ul>
         {% for page in blog.pages | slice(end=5) %}
         <li>
-          <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span> - <a
-            href="{{ page.permalink }}">{{ page.title }}</a>
+          <a href="{{ page.permalink }}">{{ page.title }}</a>
+          <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
         </li>
         {% endfor %}
       </ul>
-      <a href="/blog">(View all)</a>
+      <a class="more" href="/blog">View all</a>
     </div>
 
     <div class="topic">

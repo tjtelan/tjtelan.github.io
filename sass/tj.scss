@@ -1,9 +1,10 @@
 /* My colors */
-$brand-color: #268bd2;
-$text-color: #515151;
-$secondary-text-color: #9a9a9a;
-$header-color: $text-color;
-$link-color: $brand-color;
+$brand: #c95142;
+$body: #515151;
+$body-secondary: #9a9a9a;
+$strong: #313131;
+$header-color: $body;
+$link-color: $brand;
 
 /*
  * kind of                       ___
@@ -68,7 +69,7 @@ html {
 }
 
 body {
-    color: #515151;
+    color: $body;
     background-color: #fff;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -76,14 +77,16 @@ body {
 
 /* No `:visited` state is required by default (browsers will use `a`) */
 a {
-    color: #268bd2;
+    color: $strong;
     text-decoration: none;
+    border-bottom: 1px solid $brand;
 }
 
 /* `:focus` is linked to `:hover` for basic accessibility */
 a:hover,
 a:focus {
-    text-decoration: underline;
+    border-bottom: 2px solid $brand;
+    color: $brand;
 }
 
 /* Headings */
@@ -96,7 +99,7 @@ h6 {
     margin-bottom: .5rem;
     font-weight: bold;
     line-height: 1.25;
-    color: #313131;
+    color: $strong;
     text-rendering: optimizeLegibility;
 }
 
@@ -470,6 +473,8 @@ a.pagination-item:hover {
 * My overrides
 *
 */
+
+
 #sidebar {
 
     h1 {
@@ -480,7 +485,7 @@ a.pagination-item:hover {
     }
     .lead {
         font-size: 1rem;
-        color: $secondary-text-color;
+        color: $body-secondary;
     }
 }
 .topic {
@@ -491,18 +496,26 @@ a.pagination-item:hover {
     padding: .5rem 1rem;
 
     .link-meta {
-        color: #9a9a9a;
+        color: $body-secondary;
     }
 
-    a {
-        color: #303030;
+    ul {padding-inline-start: .5rem;}
+
+    li {
+        list-style: none;
+        margin: 1rem 0;
+
+        span {
+            color: $body-secondary;
+            display: block;
+            font-size: .8rem;
+        }
     }
-
-}
-
-.newsletter-form {
-    margin: 10px;
-    padding: 10px;
+    a .more {
+        text-align: right;
+        width: 100%;
+        ::after { content: "\2190\00A0"; }
+    }
 }
 
 .blog-nav-footer {
@@ -519,7 +532,7 @@ a.pagination-item:hover {
     }
 
     span {
-        color: $secondary-text-color;
+        color: $body-secondary;
         display: block;
         font-size: .8rem;
     }
