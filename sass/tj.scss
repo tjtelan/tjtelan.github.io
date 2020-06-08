@@ -536,7 +536,8 @@ a.pagination-item:hover {
         display: block;
         font-size: .8rem;
     }
-    .previous-post {
+    
+    .next-post {
         float: left;
 
         p::before {
@@ -544,7 +545,7 @@ a.pagination-item:hover {
         }
     }
 
-    .next-post {
+    .previous-post {
         float: right;
         text-align: right;
         p::after {
