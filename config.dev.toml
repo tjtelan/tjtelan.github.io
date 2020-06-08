@@ -15,11 +15,12 @@ build_search_index = true
 
 theme = "hyde"
 
-generate_rss = true
-#rss_limit = 20
+generate_feed = true
+feed_filename = "atom.xml"
+rss_limit = 20
 taxonomies = [
-  {name = "tags", rss = true},
-  {name = "categories", rss = true},
+  {name = "tags", feed = true},
+  {name = "categories", feed = true},
 ]
 
 [extra]
@@ -28,9 +29,9 @@ hyde_links = [
   {url = "/now/", name = "Now"},
   {url = "https://github.com/tjtelan", name = "Github"},
   {url = "/about/", name = "About"},
-  {url = "/rss.xml", name = "RSS"},
+  {url = "/atom.xml", name = "RSS"},
 ]
-ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "20XX-XX-XX-new_post.md.tmpl"]
+ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "content/blog/*.tmpl"]
 
 #google_analytics_id = "UA-21509172-1"
 google_analytics_id = "testtest123"
