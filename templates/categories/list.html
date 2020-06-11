@@ -1,9 +1,18 @@
+{% extends "index.html" %}
 
-{% for taxonomy in terms %}
-    {{ taxonomy.name }}
-{% endfor %}
+{% block content %}
+
+<h2>All Categories</h2>
+
+<ul>
+    {% for taxonomy in terms %}
+    <li><a href="{{ taxonomy.permalink }}">{{ taxonomy.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<a class="more" href="/blog">(All posts)</a>
 
 {% block extra_category %}
 {% endblock extra_category %}
 
-
+{% endblock content %}

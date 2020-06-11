@@ -1,12 +1,19 @@
-Category: {{ term.name }}
+{% extends "index.html" %}
 
+{% block content %}
 
-{% for page in term.pages %}
-    <article>
-        <h3 class="post__title"><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
-    </article>
-{% endfor %}
+<h2>Category: {{ term.name }}</h2>
+<ul>
+    {% for page in term.pages %}
+    <li>
+        <a href="{{ page.permalink }}">{{ page.title }}</a> - <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
+    </li>
+    {% endfor %}
+</ul>
+
+<a class="more" href="/categories">(All categories)</a>
 
 {% block extra_category %}
 {% endblock extra_category %}
 
+{% endblock content %}

@@ -3,6 +3,9 @@
 {% block content %}
       {% set blog = get_section(path="blog/_index.md") %}
       <h2>All posts</h2>
+      <a href="/categories">Categories</a>
+      <a href="/tags">Tags</a>
+      <br>
       <ul>
         {% for page in blog.pages %}
         <li>
