@@ -3,7 +3,9 @@ title = "Virtualbox Headless-mode on Windows 7"
 date = 2011-03-21
 [taxonomies]
 tags = ["freebsd", "virtualbox", "zfs"]
-categories = ["howto"]
+categories = ["how-to"]
+[extra]
+summary = "Configuring Virtualbox to run a headless FreeBSD VM in Win7 at startup"
 
 #[extra]
 #old-wordpress-comments:

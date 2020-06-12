@@ -3,7 +3,9 @@ title = "Metawatch Has Arrived"
 date = 2011-09-12
 [taxonomies]
 tags = ["metawatch"]
-categories = ["preview"]
+categories = ["now-blog"]
+[extra]
+summary = "First experience with Metawatch smartwatch"
 +++
 I just got my digital [MetaWatch][metawatch] this morning after 3 months of delays from TI.
 

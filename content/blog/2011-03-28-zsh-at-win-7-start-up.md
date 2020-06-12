@@ -2,8 +2,10 @@
 title = "Zsh at Win 7 Start up"
 date = 2011-03-28
 [taxonomies]
-tags = ["cygwin", "scripting", "startup", "windows"]
-categories = ["howto"]
+tags = ["cygwin", "scripting", "windows"]
+categories = ["how-to"]
+[extra]
+summary = "Run Zsh scripts on Win7 startup"
 +++
 Beginning of the quarter is tomorrow, and I'm trying to accept that I will be spending more time on a Windows workstation to access the software I'm using for my senior project (more on that soon).
 

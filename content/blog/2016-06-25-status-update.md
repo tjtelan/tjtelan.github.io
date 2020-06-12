@@ -2,7 +2,9 @@
 title = "Status Update"
 date = 2016-06-25
 [taxonomies]
-tags = ["status"]
+categories = ["now-blog"]
+[extra]
+summary = "Professional life update"
 +++
 Another Status update post.
 

@@ -4,7 +4,9 @@ date = 2018-11-27
 draft = false
 [taxonomies]
 tags = ["ansible", "postfix", "raspberry pi", "vmware"]
-categories = ["how-to"]
+categories = ["how-to", "devops"]
+[extra]
+summary = "A walkthrough for configuring a Raspberry Pi Postfix relay from VCenter Server Appliance to gmail"
 +++
 ## Why would we want to do this?
 The virtualization servers at work are running VMWare ESXi, with Vcenter Server Applicance (VCSA) as our bridge to using cool, free tools like Packer, and Terraform to automate my interactions with virtual resources.

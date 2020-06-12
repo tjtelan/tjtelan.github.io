@@ -4,6 +4,8 @@ date = 2011-09-16
 [taxonomies]
 tags = ["metawatch", "unboxing"]
 categories = ["review"]
+[extra]
+summary = "Metawatch brief unboxing - links and pictures removed"
 +++
 Without further delay, I'd like to post the first of several detailed posts about the new [MetaWatch][metawatch] that I received (after a [couple][engadget-metawatch-1] [announcements][engadget-metawatch-2] of delays) with a pretty brief unboxing post.
 

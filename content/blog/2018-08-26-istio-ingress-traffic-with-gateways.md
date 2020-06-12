@@ -4,6 +4,9 @@ date = 2018-08-26
 draft = true
 [taxonomies]
 tags = ["kubernetes", "istio", "ingress", "non-cloud", "servicemesh", "helm"]
+categories = ["how-to", "devops"]
+[extra]
+summary = "Draft. A guide for installing Istio in Kubernetes and how to configure external traffic routing to services"
 +++
 
 ## Intended Audience

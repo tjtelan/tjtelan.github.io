@@ -3,7 +3,10 @@ title = "Published First Crate on Crates.io"
 date = 2020-02-14
 draft = false 
 [taxonomies]
-tags = ["rust", "how-to", "crates.io"]
+tags = ["rust", "crates.io"]
+categories = ["how-to"]
+[extra]
+summary = "My experience publishing my first public Rust library"
 +++
 I published [my first public crate](https://crates.io/crates/git-url-parse). I thought my library was useful, general, and did not have a similar implementation in crates.io. I hoped that it may get used by the Rust community. It turned out to be very easy to package and upload my code, and I wanted to share my process.
 

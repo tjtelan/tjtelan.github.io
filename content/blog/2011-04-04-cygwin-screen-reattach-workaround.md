@@ -2,8 +2,10 @@
 title = "Cygwin Screen Reattach Workaround"
 date = 2011-04-04
 [taxonomies]
-tags = ["cygwin", "screen"]
-categories = ["info"]
+tags = ["cygwin", "gnu-screen"]
+categories = ["how-to"]
+[extra]
+summary = "Workaround for reattaching Tmux session in Win7"
 #[extra]
 #comments:
 #- id: 5
@@ -20,7 +22,7 @@ I've been experimenting with using Cygwin to make my Windows 7 machine my SSH bo
 
 However, I've been bumping into issues with reattaching. After running both screen `-DR` and `-DRR` just hung there.
 
-Quick search for a solution led me to [this workaround][cyg-workaround]
+Quick search for a solution led me to [this workaround][cyg-workaround
 
 ```sh
 #!/bin/sh

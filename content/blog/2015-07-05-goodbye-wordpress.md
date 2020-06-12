@@ -3,7 +3,9 @@ title = "Goodbye Wordpress"
 date = 2015-07-05
 [taxonomies]
 tags = ["wordpress", "jekyll"]
-categories = ["info"]
+categories = ["now-blog"]
+[extra]
+summary = "Announcement of migration away from hosted Wordpress to Github Pages and Jekyll"
 +++
 I am in the process of migrating away from my self-hosted Wordpress to the Github-hosted [Github Pages][githubpages], powered by [Jekyll][jekyll].
 

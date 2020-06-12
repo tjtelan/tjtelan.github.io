@@ -3,6 +3,8 @@ title = "Improving Cywgin in Windows with rxvt"
 date = 2011-03-18
 [taxonomies]
 tags = ["cygwin", "putty", "rxvt"]
+[extra]
+summary = "Configuring Cygwin + terminal emulator in Win7"
 +++
 I've grown accustomed to using a terminal emulator pretty much any time I sit down to use the computer.
 
@@ -13,7 +15,7 @@ I use SSH all the time, and when you are using Windows, that means that your cho
 ## PuTTY
 PuTTY is alright, but these are the issues I've had with it:
 
-* Copy&#47;Paste functionality is different.
+* Copy/Paste functionality is different.
 * Highlighting text auto-copies to clipboard. Right click auto-pastes into the console.
 * No simple way to set up passwordless login using SSH keys
 

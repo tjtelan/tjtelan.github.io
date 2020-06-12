@@ -2,8 +2,10 @@
 title = "Ubuntu Breakup"
 date = 2011-07-06
 [taxonomies]
-tags = ["arch", "awesomewm", "linux", "lua"]
-categories = ["info"]
+tags = ["arch", "ubuntu", "tiling-wm", "awesomewm", "linux", "lua"]
+categories = ["now-blog"]
+[extra]
+summary = "First experience with Arch Linux"
 +++
 Summer means I can experiment with my laptop again!
 

@@ -9,8 +9,8 @@
       <ul>
         {% for page in blog.pages %}
         <li>
-          <a
-            href="{{ page.permalink }}">{{ page.title }}</a> - <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
+          <a href="{{ page.permalink }}">{{ page.title }}</a> - <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span> ({{ page.reading_time }} min) - 
+          {% if page.extra %}{{ page.extra.summary }}{% endif %}
         </li>
         {% endfor %}
       </ul>

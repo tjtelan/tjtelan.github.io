@@ -3,7 +3,9 @@ title = "Learning Android to Play with Metawatch Manager"
 date = 2012-05-14
 [taxonomies]
 tags = ["android", "github", "metawatch"]
-categories = ["preview"]
+categories = ["now-blog"]
+[extra]
+summary = "First Android app dev experience with Metawatch app"
 +++
 I've been meaning to learn how to develop for Android since the [G1][wiki-htc-dream] (the first Android handset) was released.
 
