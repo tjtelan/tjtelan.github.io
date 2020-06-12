@@ -2,7 +2,7 @@
 title = "Learning New Build Systems"
 date = 2017-04-01
 [taxonomies]
-tags = ["maven", "gulpjs", "build"]
+tags = ["maven", "gulpjs", "ci"]
 categories = ["now-blog", "devops"]
 [extra]
 summary = "Devops build experience with unfamiliar languages"
