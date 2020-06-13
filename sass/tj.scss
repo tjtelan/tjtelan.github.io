@@ -79,7 +79,7 @@ body {
 a {
     color: $strong;
     text-decoration: none;
-    border-bottom: 1px solid $brand;
+    border-bottom: 1px solid $link-color;
 }
 
 /* `:focus` is linked to `:hover` for basic accessibility */
@@ -348,7 +348,7 @@ tbody tr:nth-child(odd) th {
 .page-title,
 .post-title,
 .post-title a {
-    color: #303030;
+    color: $header-color;
 }
 
 .page-title,
@@ -361,7 +361,7 @@ tbody tr:nth-child(odd) th {
     display: block;
     margin-top: -.5rem;
     margin-bottom: 1rem;
-    color: #9a9a9a;
+    color: $body-secondary;
 }
 
 /* Related posts */
@@ -386,7 +386,7 @@ tbody tr:nth-child(odd) th {
 }
 
 .related-posts li a:hover {
-    color: #268bd2;
+    color: $brand;
     text-decoration: none;
 }
 
@@ -473,7 +473,9 @@ a.pagination-item:hover {
 * My overrides
 *
 */
-
+%small-body {
+    font-size: .8rem;
+}
 
 #sidebar {
 
@@ -488,17 +490,38 @@ a.pagination-item:hover {
         color: $body-secondary;
     }
 }
-.topic {
+.section {
     border-radius: 4px;
     margin-bottom: 1.5rem;
     padding: .5rem 1rem;
 
-    .link-meta {
+    .list-meta {
         color: $body-secondary;
+        @extend %small-body;
+
+        a {
+            opacity: 80%;
+            border-bottom: none;
+            color: $body-secondary
+        }
+        a:hover {
+            border-bottom: 1px solid $link-color;
+            color: $link-color;
+        }
+    }
+     &.work li {
+        span {
+            font-size: 1rem;
+            padding-top: .5rem;
+        }
+        a {
+            font-weight: 700;
+        }
     }
 
     .post-summary {
         color: $strong;
+        @extend %small-body;
         line-height: 1rem;
         padding-top: 5px;
     }
@@ -508,22 +531,23 @@ a.pagination-item:hover {
     li {
         list-style: none;
         margin: 1rem 0;
-        background: #f9fafb;
-        border: 1px solid #e3e3e365;
+        background: #fafafa;
         padding: .75rem 1rem;
 
         span {
-            color: $body-secondary;
             display: block;
-            font-size: .8rem;
+            .work-meta {
+                font-size: 1rem;
+            }
         }
     }
-    a .more {
-        text-align: right;
-        width: 100%;
-        ::after { content: "\2190\00A0"; }
-    }
 }
+a.more {
+    text-align: right;
+    width: 100%;
+    margin-left: 1.5rem;
+}
+
 
 .blog-nav-footer {
     padding-bottom: 4rem;

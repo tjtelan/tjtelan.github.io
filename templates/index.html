@@ -59,7 +59,7 @@
 
   <div class="content container">
     {% block content %}
-    <div class="topic">
+    <div class="section">
       {% set blog = get_section(path="blog/_index.md") %}
       <h2>Recent posts</h2>
       <ul>
@@ -69,14 +69,16 @@
           <span class="post-summary">
             {% if page.extra %}{{ page.extra.summary }}{% endif %}
           </span>
-          <span class="link-meta">
+          <span class="list-meta">
             {{ page.reading_time }} min read
             &nbsp;&bull;&nbsp;
             {{ page.date | date(format="%Y-%m-%d") }}
             {% if page.taxonomies.tags %}
               &nbsp;&bull;&nbsp;
               {% for tag in page.taxonomies.tags %}
-                #{{ tag }}
+              <a  href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
+                  #{{ tag }}
+                </a> &nbsp;
               {% endfor %}
             {% endif %}
           </span>
@@ -86,15 +88,15 @@
       <a class="more" href="/blog">View all</a>
     </div>
 
-    <div class="topic">
+    <div class="section work">
       <h2>What am I working on?</h2>
 
       {% set projects = load_data(path="data/projects-info.toml") %}
       <ul>
         {% for project in projects.project %}
         <li>
-          <a href="{{ project.url }}">{{ project.name }}</a> -
-          <span class="link-meta">{{ project.description }}</span>
+          <a href="{{ project.url }}">{{ project.name }}</a>
+          <span>{{ project.description }}</span>
         </li>
         {% endfor %}
       </ul> 
