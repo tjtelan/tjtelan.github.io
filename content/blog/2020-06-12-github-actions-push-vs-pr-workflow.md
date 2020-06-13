@@ -1,5 +1,5 @@
 +++
-title = "How to prevent Github Actions from deploying on Pull Requests when CI/CD"
+title = "How to prevent Github Actions from deploying on PR with CI/CD"
 date = 2020-06-12
 draft = false 
 [taxonomies]

@@ -1,5 +1,5 @@
 title = "T.J. Telan"
-description = "Somewhere between hardware and software"
+description = "Devops / Self-service mindset / Also 👏 Rust 👏"
 # The URL the site will be built for
 base_url = "https://tjtelan.com"
 
@@ -27,10 +27,10 @@ taxonomies = [
 # Put all your custom variables here
 hyde_links = [
   {url = "/now/", name = "Now"},
+  {url = "/about/", name = "About"},
   {url = "https://github.com/tjtelan", name = "Github"},
   {url = "https://dev.to/tjtelan", name = "Dev.to"},
   {url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow"},
-  {url = "/about/", name = "About"},
   {url = "/atom.xml", name = "RSS"},
 ]
 ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "content/blog/*.tmpl"]
