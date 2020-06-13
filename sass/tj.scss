@@ -489,8 +489,6 @@ a.pagination-item:hover {
     }
 }
 .topic {
-    background: #f9fafb;
-    border: 1px solid #e3e3e365;
     border-radius: 4px;
     margin-bottom: 1.5rem;
     padding: .5rem 1rem;
@@ -499,11 +497,20 @@ a.pagination-item:hover {
         color: $body-secondary;
     }
 
-    ul {padding-inline-start: .5rem;}
+    .post-summary {
+        color: $strong;
+        line-height: 1rem;
+        padding-top: 5px;
+    }
+
+    ul {padding-inline-start: 0rem;}
 
     li {
         list-style: none;
         margin: 1rem 0;
+        background: #f9fafb;
+        border: 1px solid #e3e3e365;
+        padding: .75rem 1rem;
 
         span {
             color: $body-secondary;
