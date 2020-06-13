@@ -66,7 +66,20 @@
         {% for page in blog.pages | slice(end=5) %}
         <li>
           <a href="{{ page.permalink }}">{{ page.title }}</a>
-          <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
+          <span class="post-summary">
+            {% if page.extra %}{{ page.extra.summary }}{% endif %}
+          </span>
+          <span class="link-meta">
+            {{ page.reading_time }} min read
+            &nbsp;&bull;&nbsp;
+            {{ page.date | date(format="%Y-%m-%d") }}
+            {% if page.taxonomies.tags %}
+              &nbsp;&bull;&nbsp;
+              {% for tag in page.taxonomies.tags %}
+                #{{ tag }}
+              {% endfor %}
+            {% endif %}
+          </span>
         </li>
         {% endfor %}
       </ul>
