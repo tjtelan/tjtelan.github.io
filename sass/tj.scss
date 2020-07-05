@@ -470,7 +470,10 @@ a.pagination-item:hover {
 * My overrides
 *
 */
-
+::selection { 
+    color: $background-color;
+    background: rgba($brand-color, .8);
+}
 
 #sidebar {
 
