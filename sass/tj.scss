@@ -498,21 +498,7 @@ a.pagination-item:hover {
     margin-bottom: 1.5rem;
     padding: .5rem 1rem;
 
-    .list-meta {
-        color: $text-secondary-color;
-        @extend %small-body;
-
-        a {
-            opacity: 80%;
-            border-bottom: none;
-            color: $text-secondary-color
-        }
-        a:hover {
-            border-bottom: 1px solid $brand-color;
-            color: $brand-color;
-        }
-    }
-     &.work li {
+    &.work li {
         span {
             font-size: 1rem;
             padding-top: .5rem;
@@ -545,6 +531,22 @@ a.pagination-item:hover {
         }
     }
 }
+
+.post-meta {
+    color: $text-secondary-color;
+    @extend %small-body;
+
+    a {
+        opacity: 80%;
+        border-bottom: none;
+        color: $text-secondary-color
+    }
+    a:hover {
+        border-bottom: 1px solid $brand-color;
+        color: $brand-color;
+    }
+}
+
 a.more {
     text-align: right;
     width: 100%;
