@@ -41,16 +41,18 @@
           <h1>{{ config.title }}</h1>
         </a>
         {% if config.description %}
-        <p class="lead">{{config.description}}</p>
+        <p class="lede">{{config.description}}</p>
         {% endif %}
         {% endblock sidebar_about %}
       </div>
 
       <ul class="sidebar-nav">
         {% block sidebar_nav %}
-        {% for link in config.extra.hyde_links %}
-        <li class="sidebar-nav-item"><a href="{{link.url}}">{{link.name}}</a></li>
-        {% endfor %}
+          {% for link in config.extra.hyde_links %}
+          <li class="sidebar-nav-item">
+            <a href="{{link.url}}">{{link.name}}</a>
+          </li>
+          {% endfor %}
         {% endblock sidebar_nav %}
       </ul>
     </div>
