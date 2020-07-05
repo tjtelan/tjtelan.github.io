@@ -4,19 +4,29 @@
 <div class="post">
     <h1 class="post-title">{{ page.title }}</h1>
     {% if page.draft %}<h2 class="draft-notice">This is post is still in progress</h2>{% endif %}
-    <span class="post-date">
-    {{ page.reading_time }} min read
-    &nbsp;&bull;&nbsp;
-    {{ page.date | date(format="%Y-%m-%d") }}
-    {% if page.taxonomies.tags %}
+    <span class="post-meta">
+        {{ page.reading_time }} min read
         &nbsp;&bull;&nbsp;
-        {% for tag in page.taxonomies.tags %}
-        <a  href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
-            #{{ tag }}
-        </a> &nbsp;
-        {% endfor %}
-    {% endif %}
-    </span>
+        {{ page.date | date(format="%Y-%m-%d") }}
+        {% if page.taxonomies.categories %}
+          &nbsp;&bull;
+          {% for category in page.taxonomies.categories %}
+          &nbsp;
+          <a  href="{{ get_taxonomy_url(kind="categories", name=category) | safe }}">
+              {{ category }}
+            </a>
+          {% endfor %}
+        {% endif %}
+        {% if page.taxonomies.tags %}
+          &nbsp;&bull;
+          {% for tag in page.taxonomies.tags %}
+          &nbsp;
+          <a  href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
+              #{{ tag }}
+            </a>
+          {% endfor %}
+        {% endif %}
+      </span>
 
     {{ page.content | safe }}
 </div>
