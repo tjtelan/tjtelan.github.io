@@ -22,7 +22,7 @@
 
 /* = Colors = */
 $background-color: #fff;
-$callout-background: #fafafa;
+$callout-background: #f8f8f8;
 $brand-color: #c95142;
 $text-primary-color: #515151;
 $text-secondary-color: #9a9a9a;
@@ -172,14 +172,15 @@ abbr[title] {
 code,
 pre {
     font-family: Menlo, Monaco, "Courier New", monospace;
+    border-radius: 5px;
+    background-color: $callout-background;
 }
 
 code {
     padding: .25em .5em;
     font-size: 85%;
     color: #bf616a;
-    background-color: $callout-background;
-    border-radius: 3px;
+
 }
 
 pre {
@@ -190,7 +191,6 @@ pre {
     font-size: .8rem;
     line-height: 1.4;
     overflow-x: scroll;
-    background-color: $callout-background;
 }
 
 pre code {
