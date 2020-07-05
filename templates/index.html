@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ get_url(path="tj.css", trailing_slash=false) }}">
   <!--<link rel="stylesheet" href="{{ get_url(path="newsletter.css", trailing_slash=false) }}">-->
   <link rel="stylesheet" href="{{ get_url(path="hyde.css", trailing_slash=false) }}">
-  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 
@@ -59,7 +59,7 @@
 
   <div class="content container">
     {% block content %}
-    <div class="section">
+    <div class="section blog">
       {% set blog = get_section(path="blog/_index.md") %}
       <h2>Recent posts</h2>
       <ul>
@@ -73,12 +73,22 @@
             {{ page.reading_time }} min read
             &nbsp;&bull;&nbsp;
             {{ page.date | date(format="%Y-%m-%d") }}
+            {% if page.taxonomies.categories %}
+              &nbsp;&bull;
+              {% for category in page.taxonomies.categories %}
+              &nbsp;
+              <a  href="{{ get_taxonomy_url(kind="categories", name=category) | safe }}">
+                  {{ category }}
+                </a>
+              {% endfor %}
+            {% endif %}
             {% if page.taxonomies.tags %}
-              &nbsp;&bull;&nbsp;
+              &nbsp;&bull;
               {% for tag in page.taxonomies.tags %}
+              &nbsp;
               <a  href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
                   #{{ tag }}
-                </a> &nbsp;
+                </a>
               {% endfor %}
             {% endif %}
           </span>
