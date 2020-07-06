@@ -4,6 +4,6 @@ url = "https://github.com/orbitalci/orbital"
 description = "Jenkins + TravisCI-like Continuous integration system written in Rust"
 
 [[project]]
-name = "Git-url-parser.rs"
+name = "Git-url-parse.rs"
 url = "https://github.com/tjtelan/git-url-parse-rs"
 description = "Rust library for parsing metadata from URLs used by git"

@@ -49,9 +49,15 @@
       <ul class="sidebar-nav">
         {% block sidebar_nav %}
           {% for link in config.extra.hyde_links %}
-          <li class="sidebar-nav-item">
-            <a href="{{link.url}}">{{link.name}}</a>
-          </li>
+            {% if link.icon %}
+            <li class="sidebar-nav-item">
+              <a href="{{link.url}}">{{link.name}}<img src="{{link.icon}}" alt="{{link.name}}"></a>
+            </li>
+            {% else %}
+            <li class="sidebar-nav-item">
+              <a href="{{link.url}}">{{link.name}}</a>
+            </li>
+            {% endif %}
           {% endfor %}
         {% endblock sidebar_nav %}
       </ul>

@@ -484,6 +484,16 @@ a.pagination-item:hover {
     font-family: "Press Start 2P", serif;
     font-size: 2rem;
     }
+
+   .sidebar-nav-item {
+       line-height: 1.8rem;
+       img {
+         height: .8rem;
+         display: inline-block;
+         margin-bottom: 0;
+         padding-left: .5rem;
+       }
+   } 
 }
 @media (max-width: 48em) {
     #sidebar li {
