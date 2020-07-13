@@ -28,10 +28,10 @@ taxonomies = [
 hyde_links = [
   {url = "/now/", name = "Now"},
   {url = "/about/", name = "About"},
-  {url = "https://github.com/tjtelan", name = "Github", icon = "nav-icons/github.svg"},
-  {url = "https://dev.to/tjtelan", name = "Dev.to", icon = "nav-icons/dev-dot-to.svg"},
-  {url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow", icon = "nav-icons/stackoverflow.svg"},
-  {url = "/atom.xml", name = "RSS", icon = "nav-icons/rss.svg"},
+  {url = "https://github.com/tjtelan", name = "Github", icon = "/nav-icons/github.svg"},
+  {url = "https://dev.to/tjtelan", name = "Dev.to", icon = "/nav-icons/dev-dot-to.svg"},
+  {url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow", icon = "/nav-icons/stackoverflow.svg"},
+  {url = "/atom.xml", name = "RSS", icon = "/nav-icons/rss.svg"},
 ]
 ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "content/blog/*.tmpl"]
 
