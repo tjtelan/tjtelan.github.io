@@ -600,4 +600,15 @@ a.more {
         }
     }
 }
+
+.blog-image {
+    display: block;
+    text-align: center;
+    font-size: 75%;
+    img {
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 /* Formkit  */

@@ -1,0 +1,21 @@
+{% if height and width %}
+{% set resized = resize_image(path=path, height=height, width=width, op=op) %}
+{% elif width %}
+{% set resized = resize_image(path=path, width=width, op="fit_width") %}
+{% elif height %}
+{% set resized = resize_image(path=path, height=height, op="fit_height") %}
+{% endif %}
+
+{%- if caption -%}
+<div class="blog-image">
+    <figure>
+        <img src="{% if resized %}{{ resized | safe }}{% else %}{{ path }}{% endif %}"{%- if caption %} alt="{{ caption }}"{%- endif %} />
+        <figcaption>{{ caption }}</figcaption>
+    </figure>
+</div>
+
+{%- else -%}
+<div class="blog-image">
+    <img src="{% if resized %}{{ resized | safe }}{% else %}{{ path }}{% endif %}"{%- if caption %} alt="{{ caption }}"{%- endif %} />
+</div>
+{%- endif -%}
