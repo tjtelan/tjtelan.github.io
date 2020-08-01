@@ -1,9 +1,9 @@
 +++
 title = "What I learned running a live programming Twitch stream in Linux"
 date = 2020-07-29
-draft = true
+draft = false
 [taxonomies]
-tags = ["twitch", "stream"]
+tags = ["twitch", "streaming", "obs", "linux"]
 categories = ["how-to"]
 [extra]
 summary = "Streaming a coding session on Twitch using a Linux laptop was easier than expected."
