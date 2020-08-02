@@ -1,6 +1,7 @@
 +++
 title = "About"
 template = "about.html"
+date = 1970-01-01
 +++
 My name is T.J. Telan. I am a software engineer based in Seattle. This blog is where I host my writing. Occasionally I'll submit to other platforms but I'll always repost here.
 
