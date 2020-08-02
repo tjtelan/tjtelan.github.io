@@ -1,5 +1,5 @@
 +++
-title = "What I learned running a live programming Twitch stream in Linux"
+title = "What I learned running a live programming Twitch stream from Linux"
 date = 2020-07-29
 draft = false
 [taxonomies]
@@ -30,7 +30,7 @@ The following are the hardware + software I already had
 *   Terminal (I used Alacritty + the built-in terminal in VSCode)
 *   Web browser
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/streaming-pov.png", width=480, caption="My extra basic streaming setup. Don't spend big money before you even have momentum.") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/streaming-pov.png", width=480, caption="My extra basic streaming setup. Don't spend big money before you even have momentum.") }}
 
 ## Set accurate expectations for yourself and potential viewers
 
@@ -94,7 +94,7 @@ I didn't worry about having chat visible but I did have it open for me to intera
 
 Twitch has a list of [recommended software for broadcasting](https://help.twitch.tv/s/article/recommended-software-for-broadcasting?language=en_US). I ended up using Open Broadcaster Software, more commonly known as OBS because it has support for Linux.
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/obs-logo.png", width=480, caption="Open Broadcaster Software a.k.a OBS") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/obs-logo.png", width=480, caption="Open Broadcaster Software a.k.a OBS") }}
 
 I’m not going to go over the deep details of OBS, but I encourage looking for tutorials on Youtube. Even in 2020, the beginner OBS tutorials from a few years ago are still relevant and usable. They helped make using OBS a lot less intimidating.
 
@@ -116,7 +116,7 @@ Here’s a short list of sources you may want to add from a Linux desktop into O
 
 This may slightly differ from what the [official OBS Sources guide](https://obsproject.com/wiki/Sources-Guide) documents, but if you’re choosing to use Linux to stream then you probably already expect this. 
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/obs-sources-linux.png", width=480, caption="What OBS sources look like in Linux") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/obs-sources-linux.png", width=480, caption="What OBS sources look like in Linux") }}
 
 The `Sources > Add` drop-down menu has icons that give good hints for what they do. Your results may vary, so be prepared to play around with settings. (But you already know that if you're insisting on using Linux...)
 
@@ -125,7 +125,7 @@ The `Sources > Add` drop-down menu has icons that give good hints for what they 
 One issue I ran into while writing his guide was being unable to use a single window as a streaming source. Adding the source resulted in a window that was blacked out, but my mouse cursor was still visible when over the window.
 
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/obs-hybrid-blackout.png", width=640, caption="VSCode's window is blacked out in OBS, but my cursor is still visible...") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/obs-hybrid-blackout.png", width=640, caption="VSCode's window is blacked out in OBS, but my cursor is still visible...") }}
 
 To work around, you can pick one of the following solutions:
 
@@ -139,7 +139,7 @@ For more information please read [this thread from the OBS Project forums](https
 
 ### Configuring API keys for streaming
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/obs-settings-stream-key.png", width=640, caption="OBS stream key settings") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/obs-settings-stream-key.png", width=640, caption="OBS stream key settings") }}
 
 The location for where you add in your service stream key is very easy to navigate to:
 
@@ -163,7 +163,7 @@ Common links to where you can get your stream key:
 
 ## Don’t overthink and start streaming
 
-{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-in-linux/obs-start-streaming.png", width=480, caption="Don't worry about perfection. Just take the first step and start.") }}
+{{ image(path="images/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux/obs-start-streaming.png", width=480, caption="Don't worry about perfection. Just take the first step and start.") }}
 
 The first thing I noticed after going live was that the platforms I was broadcasting to had some noticeable lag between my actions and seeing it live in the browser.
 
