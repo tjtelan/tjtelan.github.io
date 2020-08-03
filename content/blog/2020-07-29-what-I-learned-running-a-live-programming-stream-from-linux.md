@@ -1,6 +1,7 @@
 +++
 title = "What I learned running a live programming Twitch stream from Linux"
 date = 2020-07-29
+updated = 2020-08-03
 draft = false
 [taxonomies]
 tags = ["twitch", "streaming", "obs", "linux"]
@@ -172,3 +173,9 @@ When you first get started, you probably won’t have a lot of people watching. 
 I'm saying this to myself for the benefit of anyone else who got this far:
 
 It will take time, effort and consistency on your part before you see results. So relax, try to have fun and enjoy the process.
+
+---
+
+If you made this far, thanks!
+
+Please [check me out on my Twitch channel](https://www.twitch.tv/tjtelan). I stream weekly coding sessions about using Rust and DevOps topics. I hope you'll considering following me!

@@ -1,6 +1,7 @@
 +++
 title = "Test blog post"
 date = 2020-07-06
+updated = 2020-07-06
 draft = true
 [taxonomies]
 tags = []
