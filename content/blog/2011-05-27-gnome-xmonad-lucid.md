@@ -1,11 +1,10 @@
 +++
 title = "Gnome Xmonad Lucid"
 date = 2011-05-27
+description = "First experience with tiling window manager Xmonad"
 [taxonomies]
 tags = ["ubuntu", "tiling-wm", "xmonad"]
 categories = ["now-blog"]
-[extra]
-summary = "First experience with tiling window manager Xmonad"
 +++
 I just got started using tiling window managers because I find that I am a little more productive when I don't use the mouse. With Xmonad, I don't have to deal with overlapping windows and I never have to use the mouse!
 

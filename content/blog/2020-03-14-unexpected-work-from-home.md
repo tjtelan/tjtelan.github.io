@@ -2,11 +2,10 @@
 title = "Working from home with your Significant Other during a pandemic - week 1"
 date = 2020-03-14
 draft = true
+description = "A reflection on the first COVID-19 week of working from home with my Significant Other"
 [taxonomies]
 tags = []
 categories = []
-[extra]
-summary = "A reflection on the first COVID-19 week of working from home with my Significant Other"
 +++
 
 I'm in Seattle: The epicenter of the the COVID-19 pandemic in the United States. Instead of my usual routine of taking the bus to to my employer's Downtown office, I am working from home. And so is my significant other.

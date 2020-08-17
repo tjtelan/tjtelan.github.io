@@ -3,11 +3,10 @@ title = "Test blog post"
 date = 2020-07-06
 updated = 2020-07-06
 draft = true
+description = "I'm a summary blab blab"
 [taxonomies]
 tags = []
 categories = []
-[extra]
-summary = "I'm a summary blab blab"
 +++
 
 ## Testing Macros

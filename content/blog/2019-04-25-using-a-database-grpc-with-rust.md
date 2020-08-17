@@ -1,11 +1,10 @@
 +++
 title = "Using a database + gRPC with Rust"
 date = 2019-04-25
+description = "A demonstration of a Rust CLI application using GRPC and PostgreSQL"
 [taxonomies]
 tags = ["rust", "database", "diesel-rs", "grpc", "grpc-rs", "tower-rs", "cli", "clap-rs"]
 categories = ["how-to"]
-[extra]
-summary = "A demonstration of a Rust CLI application using GRPC and PostgreSQL"
 +++
 
 This is a summary of my experience with writing a Rust DB-backed server/client with [grpc-rs](https://github.com/pingcap/grpc-rs) to communicate to the backend, and [Diesel](http://diesel.rs/) as an ORM to be used with [PostgreSQL](https://www.postgresql.org/).

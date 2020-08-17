@@ -1,12 +1,18 @@
 {% extends "index.html" %}
 
+{% block feed %}
+  {% if config.generate_feed %}
+  {% set feed_path = "tags/" ~ term.name ~ "/atom.xml" %}
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ get_url(path=feed_path, trailing_slash=false) | safe }}">
+  {% endif %}
+{% endblock feed %}
 {% block content %}
 
 <h2>Tag: {{ term.name }}</h2>
 <ul>
     {% for page in term.pages %}
     <li>
-        <a href="{{ page.permalink }}">{{ page.title }}</a> - <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
+        <a href="{{ page.permalink | safe }}">{{ page.title }}</a> - <span class="link-meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
     </li>
     {% endfor %}
 </ul>

@@ -3,11 +3,10 @@ title = "What I learned running a live programming Twitch stream from Linux"
 date = 2020-07-29
 updated = 2020-08-03
 draft = false
+description = "Streaming a coding session on Twitch using a Linux laptop was easier than expected."
 [taxonomies]
 tags = ["twitch", "streaming", "obs", "linux"]
 categories = ["how-to"]
-[extra]
-summary = "Streaming a coding session on Twitch using a Linux laptop was easier than expected."
 +++
 
 I recently completed my first coding streaming session. A few people watched for a few minutes, so I considered it to be a success. I used what I already had on hand, did not spend any money and I was able to stream for about 3 hours from zero code to a small completed project. There is much room for improvement, but I want to share what I used to get started. 

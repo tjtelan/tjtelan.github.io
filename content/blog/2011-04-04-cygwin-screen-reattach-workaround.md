@@ -1,11 +1,10 @@
 +++
 title = "Cygwin Screen Reattach Workaround"
 date = 2011-04-04
+description = "Workaround for reattaching Tmux session in Win7"
 [taxonomies]
 tags = ["cygwin", "gnu-screen"]
 categories = ["how-to"]
-[extra]
-summary = "Workaround for reattaching Tmux session in Win7"
 #[extra]
 #comments:
 #- id: 5

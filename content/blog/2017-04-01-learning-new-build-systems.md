@@ -1,11 +1,10 @@
 +++
 title = "Learning New Build Systems"
 date = 2017-04-01
+description = "Devops build experience with unfamiliar languages"
 [taxonomies]
 tags = ["maven", "gulpjs", "ci"]
 categories = ["now-blog", "devops"]
-[extra]
-summary = "Devops build experience with unfamiliar languages"
 +++
 I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C/C++ with make.
 

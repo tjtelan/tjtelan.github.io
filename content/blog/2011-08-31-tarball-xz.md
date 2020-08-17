@@ -1,11 +1,10 @@
 +++
 title = "Tarball xz"
 date = 2011-08-31
+description = "One-liner for using xz compression with tar in FreeBSD"
 [taxonomies]
 tags = ["bsd", "linux", "portable", "xz"]
 categories = ["how-to"]
-[extra]
-summary = "One-liner for using xz compression with tar in FreeBSD"
 +++
 At work I manage a handful of servers running FreeBSD. Today I was writing a little backup script where I wanted the output to be an xz compressed tarball.
 

@@ -2,11 +2,10 @@
 title = "How to link multiple docker-compose services via network"
 date = 2020-06-11
 draft = false 
+description = "Walkthrough of how to link networks of docker-compose services defined in multiple files"
 [taxonomies]
 tags = ["docker", "networking"]
 categories = ["how-to", "devops"]
-[extra]
-summary = "Walkthrough of how to link networks of docker-compose services defined in multiple files"
 +++
 
 This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.

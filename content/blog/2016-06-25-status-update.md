@@ -1,10 +1,9 @@
 +++
 title = "Status Update"
 date = 2016-06-25
+description = "Professional life update"
 [taxonomies]
 categories = ["now-blog"]
-[extra]
-summary = "Professional life update"
 +++
 Another Status update post.
 

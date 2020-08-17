@@ -11,24 +11,20 @@
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="{{ get_url(path="print.css", trailing_slash=false) }}" media="print">
-  <link rel="stylesheet" href="{{ get_url(path="tj.css", trailing_slash=false) }}">
+  <link rel="stylesheet" href="{{ get_url(path="print.css", trailing_slash=false) | safe  }}" media="print">
+  <link rel="stylesheet" href="{{ get_url(path="tj.css", trailing_slash=false) | safe  }}">
   <!--<link rel="stylesheet" href="{{ get_url(path="newsletter.css", trailing_slash=false) }}">-->
-  <link rel="stylesheet" href="{{ get_url(path="hyde.css", trailing_slash=false) }}">
+  <link rel="stylesheet" href="{{ get_url(path="hyde.css", trailing_slash=false) | safe }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-
-  {% if config.generate_rss %}
-  <link rel="alternate" type="application/rss+xml" title="RSS"
-    href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
+  {% block feed %}
+  {% if config.generate_feed %}
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ get_url(path="atom.xml", trailing_slash=false) | safe  }}">
   {% endif %}
-
-  {% block extra_head %}
-  {% endblock extra_head %}
-
+  {% endblock feed %}
+  {% block extra_head %} {% endblock extra_head %}
   {% include "analytics.html" %}
-
 </head>
 
 <body class="{{ config.extra.hyde_theme }} {% if config.extra.hyde_reverse %}layout-reverse{% endif %}">
@@ -37,7 +33,7 @@
     <div class="container {% if config.extra.hyde_sticky %}sidebar-sticky{% endif %}">
       <div class="sidebar-about">
         {% block sidebar_about %}
-        <a href="{{ config.base_url }}">
+        <a href="{{ config.base_url | safe }}">
           <h1>{{ config.title }}</h1>
         </a>
         {% if config.description %}
@@ -51,11 +47,11 @@
           {% for link in config.extra.hyde_links %}
             {% if link.icon %}
             <li class="sidebar-nav-item">
-              <a href="{{link.url}}">{{link.name}}<img src="{{link.icon}}" alt="{{link.name}}"></a>
+              <a href="{{ link.url | safe }}">{{link.name}}<img src="{{link.icon | safe}}" alt="{{link.name}}"></a>
             </li>
             {% else %}
             <li class="sidebar-nav-item">
-              <a href="{{link.url}}">{{link.name}}</a>
+              <a href="{{ link.url | safe }}">{{link.name}}</a>
             </li>
             {% endif %}
           {% endfor %}
@@ -73,9 +69,9 @@
       <ul>
         {% for page in blog.pages | slice(end=5) %}
         <li>
-          <a href="{{ page.permalink }}">{{ page.title }}</a>
+          <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
           <span class="post-summary">
-            {% if page.extra %}{{ page.extra.summary }}{% endif %}
+            {% if page.description %}{{ page.description }}{% endif %}
           </span>
           <span class="post-meta">
             {{ page.reading_time }} min read
@@ -85,7 +81,7 @@
               &nbsp;&bull;
               {% for category in page.taxonomies.categories %}
               &nbsp;
-              <a  href="{{ get_taxonomy_url(kind="categories", name=category) | safe }}">
+              <a href="{{ get_taxonomy_url(kind="categories", name=category) | safe }}">
                   {{ category }}
                 </a>
               {% endfor %}
@@ -94,7 +90,7 @@
               &nbsp;&bull;
               {% for tag in page.taxonomies.tags %}
               &nbsp;
-              <a  href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
+              <a href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
                   #{{ tag }}
                 </a>
               {% endfor %}
@@ -113,7 +109,7 @@
       <ul>
         {% for project in projects.project %}
         <li>
-          <a href="{{ project.url }}">{{ project.name }}</a>
+          <a href="{{ project.url | safe }}">{{ project.name }}</a>
           <span>{{ project.description }}</span>
         </li>
         {% endfor %}

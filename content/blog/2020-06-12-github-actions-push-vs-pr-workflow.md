@@ -2,11 +2,10 @@
 title = "How to prevent Github Actions from deploying on PR with CI/CD"
 date = 2020-06-12
 draft = false 
+description = "Walkthrough of an example Github Actions workflow that allows different steps for Push vs Pull Requests"
 [taxonomies]
 tags = ["github", "github-actions", "ci", "cd"]
 categories = ["how-to", "devops"]
-[extra]
-summary = "Walkthrough of an example Github Actions workflow that allows different steps for Push vs Pull Requests"
 +++
 ## My experience using Github Actions for CI/CD as a solo contributor
 

@@ -1,5 +1,30 @@
 {% extends "index.html" %}
-
+{% block extra_head %}
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ page.permalink | safe }}" />
+  {% if page.title %} 
+  <meta property="og:title" content="{{ page.title }}" />
+  {% endif %}
+  {% if page.summary %}
+  <meta property="og:description" content="{{ page.summary }}" />
+  {% elif page.description %}
+  <meta property="og:description" content="{{ page.description }}" />
+  {% endif %}
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="{{ page.permalink | safe }}" />
+  {% if page.title %} 
+  <meta name="twitter:title" content="{{ page.title }}" />
+  {% endif %}
+  {% if page.summary %}
+  <meta name="twitter:description" content="{{ page.summary }}" />
+  {% elif page.description %}
+  <meta name="twitter:description" content="{{ page.description }}" />
+  {% endif %}
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+{% endblock extra_head %}
 {% block content %}
 <div class="post">
     <h1 class="post-title">{{ page.title }}</h1>
@@ -36,13 +61,13 @@
     {% if page.earlier %}
     <div class="previous-post">
         <p>Previous Post</p>
-        <a href={{ page.earlier.permalink }}>{{ page.earlier.title }}</a> <span>{{ page.earlier.date }}</span>
+        <a href={{ page.earlier.permalink | safe }}>{{ page.earlier.title }}</a> <span>{{ page.earlier.date }}</span>
     </div>
     {% endif %}
     {% if page.later %}
     <div class="next-post">
         <p>Next Post</p>
-        <a href={{ page.later.permalink }}>{{ page.later.title }}</a> <span>{{ page.later.date }}</span>
+        <a href={{ page.later.permalink | safe }}>{{ page.later.title }}</a> <span>{{ page.later.date }}</span>
     </div>
     {% endif %}
 </div>

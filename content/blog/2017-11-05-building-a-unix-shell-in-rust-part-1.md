@@ -1,11 +1,10 @@
 +++
 title = "Building a Unix-shell in Rust - Part 1"
 date = 2017-11-05
+description = "Description of concepts of a Unix shell"
 [taxonomies]
 tags = ["rust"]
 categories = ["how-to"]
-[extra]
-summary = "Description of concepts of a Unix shell"
 +++
 My goal is to find more work opportunities to write in Rust the same way I can write in Python and Go. Since I spend a lot of time designing and executing automation, it felt useful to start somewhere familiar. How about a simple Unix shell? Yes, I use bash all the time.
 

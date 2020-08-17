@@ -9,18 +9,20 @@
       <ul>
         {% for page in blog.pages %}
         <li>
-          <a href="{{ page.permalink }}">{{ page.title }}</a> - 
+          <a href="{{ page.permalink | safe }}">{{ page.title }}</a> - 
           <span class="link-meta">
             {{ page.date | date(format="%Y-%m-%d") }} | 
             {{ page.reading_time }} min read 
              | 
             {% if page.taxonomies.tags %} tags: 
               {% for tag in page.taxonomies.tags %}
-                {{ tag }}
+              <a href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">
+                  #{{ tag }}
+                </a>
               {% endfor %}
             {% endif %}
           </span> <br>
-          {% if page.extra %}{{ page.extra.summary }}{% endif %}
+          {% if page.description %}{{ page.description }}{% endif %}
         </li>
         {% endfor %}
       </ul>

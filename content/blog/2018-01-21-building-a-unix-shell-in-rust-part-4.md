@@ -1,11 +1,10 @@
 +++
 title = "Building a Unix-shell in Rust - Part 4"
 date = 2018-01-21
+description = "Exploring implementation of shell builtins"
 [taxonomies]
 tags = ["rust"]
 categories = ["how-to"]
-[extra]
-summary = "Exploring implementation of shell builtins"
 +++
 This is the 4th post in a running series about writing a simple unix shell in the Rust language. 
 I suggest you catch up on the previous posts before reading ahead! 

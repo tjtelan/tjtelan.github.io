@@ -2,7 +2,7 @@
 
 {% block content %}
 {% for page in section.pages %}
-  <p><a href="{{page.permalink}}">{{page.title}}</a></p>
+  <p><a href="{{page.permalink | safe }}">{{page.title}}</a></p>
 {{page.date}} - Reading time: {{page.reading_time}} mins
 {% endfor %}
 
@@ -18,7 +18,7 @@ Sub-pages: {{subsection.pages | length}}
     {% for page in subsection.pages %}
     <div class="post">
       <h1 class="post-title">
-        <a href="{{ page.permalink }}">
+        <a href="{{ page.permalink | safe }}">
           {{ page.title }}
         </a>
       </h1>

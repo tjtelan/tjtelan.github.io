@@ -2,11 +2,10 @@
 title = "My blogging history and how I am now using Zola, docker and Github Pages to run my website"
 date = 2020-04-27
 draft = true 
+description = "My history with various blogging platforms, and how I make it work with Zola and Github Pages"
 [taxonomies]
 tags = []
 categories = ["now-blog"]
-[extra]
-summary = "My history with various blogging platforms, and how I make it work with Zola and Github Pages"
 +++
 
 This post is going to focus on the tools I rely on to run my blog. I'm first going to go into the history of how I got to my current stack, so you can skip ahead [to the present day](#the-present-day) if that does not interest you.

@@ -2,11 +2,10 @@
 title = "Istio Ingress Traffic Management with Gateways"
 date = 2018-08-26
 draft = true
+description = "Draft. A guide for installing Istio in Kubernetes and how to configure external traffic routing to services"
 [taxonomies]
 tags = ["kubernetes", "istio", "ingress", "non-cloud", "servicemesh", "helm"]
 categories = ["how-to", "devops"]
-[extra]
-summary = "Draft. A guide for installing Istio in Kubernetes and how to configure external traffic routing to services"
 +++
 
 ## Intended Audience
