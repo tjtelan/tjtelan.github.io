@@ -1,11 +1,24 @@
 +++
 title = "Using a database + gRPC with Rust"
 date = 2019-04-25
+updated = 2020-08-19
 description = "A demonstration of a Rust CLI application using GRPC and PostgreSQL"
 [taxonomies]
 tags = ["rust", "database", "diesel-rs", "grpc", "grpc-rs", "tower-rs", "cli", "clap-rs"]
 categories = ["how-to"]
 +++
+
+> Update: 8/19/2020
+> 
+> If you're here for [gRPC](https://grpc.io/) or CLI, this post uses old crates and you should read [this post](@/blog/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020.md) instead.
+> 
+> I have a new post using more up-to-date Rust with `async`/`await`. The new guide uses [Tonic](https://github.com/hyperium/tonic) for gRPC and [StructOpt](https://github.com/TeXitoi/structopt) for CLI. (But no database stuff)
+> 
+> This post is still good if you want to see how to use [Diesel](http://diesel.rs/) with [PostgreSQL](https://www.postgresql.org/). But if you're here for gRPC, you should check out the [new post](@/blog/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020.md).
+> 
+> Thanks for listening! Now back to your regularly scheduled program...
+
+---
 
 This is a summary of my experience with writing a Rust DB-backed server/client with [grpc-rs](https://github.com/pingcap/grpc-rs) to communicate to the backend, and [Diesel](http://diesel.rs/) as an ORM to be used with [PostgreSQL](https://www.postgresql.org/).
 
