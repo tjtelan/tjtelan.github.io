@@ -36,7 +36,7 @@ In this example, I will be writing a remote command-line server/client.
 
 The client will take in a command line command and send it to the server who will execute the command and send back the contents of standard out.
 
-{{ image(path="images/2020-08-19-let/s-build-a-single-binary-grpc-server-client-with-rust-in-2020/user_diagram_steps.png", width=640, caption="Diagram of the interaction we'll be working with") }}
+{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/user_diagram_steps.png", width=640, caption="Diagram of the interaction we'll be working with") }}
 
 For simplicity sake, this example will wait for the execution to complete on the server side before returning output. In a future post I will demonstrate how to stream output back to a client.
 
