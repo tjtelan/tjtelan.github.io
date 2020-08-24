@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - rxvt</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/rxvt/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-03-18T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/rxvt/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Improving Cywgin in Windows with rxvt</title>
+		<published>2011-03-18T00:00:00+00:00</published>
+		<updated>2011-03-18T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/" type="text/html"/>
+		<id>https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve grown accustomed to using a terminal emulator pretty much any time I sit down to use the computer.&lt;&#x2F;p&gt;
+&lt;p&gt;Most of the time I am using my laptop, which is running Linux (Ubuntu, at the moment). I&#x27;ve already got that workstation set up mostly how I like it. But lately I&#x27;ve been using my Windows 7 desktop a lot more for school related (and gaming related) things.&lt;&#x2F;p&gt;
+&lt;p&gt;I use SSH all the time, and when you are using Windows, that means that your choices are limited when looking for a decent SSH client. The only choices I&#x27;m going to be considering are Cygwin and PuTTY.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;putty&quot;&gt;PuTTY&lt;a class=&quot;zola-anchor&quot; href=&quot;#putty&quot; aria-label=&quot;Anchor link for: putty&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;PuTTY is alright, but these are the issues I&#x27;ve had with it:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Copy&#x2F;Paste functionality is different.&lt;&#x2F;li&gt;
+&lt;li&gt;Highlighting text auto-copies to clipboard. Right click auto-pastes into the console.&lt;&#x2F;li&gt;
+&lt;li&gt;No simple way to set up passwordless login using SSH keys&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;cygwin&quot;&gt;Cygwin&lt;a class=&quot;zola-anchor&quot; href=&quot;#cygwin&quot; aria-label=&quot;Anchor link for: cygwin&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The learning curve for Cygwin is a little steep, but the issues I&#x27;ve had
+with it (without rxvt):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Runs &lt;strong&gt;inside&lt;&#x2F;strong&gt; cmd.exe&lt;&#x2F;li&gt;
+&lt;li&gt;Cannot resize the window larger than default size without messing with cmd.exe window properties&lt;&#x2F;li&gt;
+&lt;li&gt;Copy&#x2F;Paste is too difficult to use
+&lt;ul&gt;
+&lt;li&gt;Attempting to highlight text does nothing unless you are in &#x27;mark mode&#x27;. Figure that out.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Can&#x27;t place shortcut in taskbar
+&lt;ul&gt;
+&lt;li&gt;Because the shortcut to cygwin is to a *.bat rather than *.exe&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;So what is the solution to this mess?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;cygwin-rxvt&quot;&gt;Cygwin + Rxvt&lt;a class=&quot;zola-anchor&quot; href=&quot;#cygwin-rxvt&quot; aria-label=&quot;Anchor link for: cygwin-rxvt&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Install the &lt;em&gt;rxvt&lt;&#x2F;em&gt; package with the cygwin installer&lt;&#x2F;li&gt;
+&lt;li&gt;Create shortcut for rxvt&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can choose your own colors, fonts, and login shell&lt;&#x2F;p&gt;
+&lt;p&gt;Here is the path I used in my shortcut:&lt;&#x2F;p&gt;
+&lt;p&gt;cygwin-rxvt-launcher:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;D:\cygwinbinrxvt.exe -sr -sl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2500&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; -sb -geometry 90x30 -fg green -bg black -tn rxvt -fn &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Anonymous Pro-16&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; -e &#x2F;usr&#x2F;bin&#x2F;zsh --login -i
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here, I&#x27;m using green text, black background and my favorite monospaced font, &lt;a href=&quot;http:&#x2F;&#x2F;www.ms-studio.com&#x2F;FontSales&#x2F;anonymouspro.html&quot;&gt;Anonymous Pro&lt;&#x2F;a&gt;, at size 16 with Z-shell as my login shell.&lt;&#x2F;p&gt;
+&lt;p&gt;Took me a moment to figure out copy&#x2F;paste, but here is how you do it. It is an improvement, but not perfect:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Copy&lt;&#x2F;strong&gt;:
+Same as PuTTY. Highlight using mouse to copy text to the clipboard&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Paste&lt;&#x2F;strong&gt;:
+Hold down &lt;em&gt;Shift&lt;&#x2F;em&gt; and &lt;em&gt;left-click&lt;&#x2F;em&gt; with your mouse.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

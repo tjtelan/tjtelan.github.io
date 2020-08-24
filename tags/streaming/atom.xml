@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - streaming</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/streaming/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-08-03T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/streaming/atom.xml</id>
+	<entry xml:lang="en">
+		<title>What I learned running a live programming Twitch stream from Linux</title>
+		<published>2020-07-29T00:00:00+00:00</published>
+		<updated>2020-08-03T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/what-i-learned-running-a-live-programming-stream-from-linux/" type="text/html"/>
+		<id>https://tjtelan.com/blog/what-i-learned-running-a-live-programming-stream-from-linux/</id>
+		<content type="html">&lt;p&gt;I recently completed my first coding streaming session. A few people watched for a few minutes, so I considered it to be a success. I used what I already had on hand, did not spend any money and I was able to stream for about 3 hours from zero code to a small completed project. There is much room for improvement, but I want to share what I used to get started. &lt;&#x2F;p&gt;
+&lt;p&gt;My motivation for streaming my coding sessions is to improve my communication skills, as well as educate and demonstrate to others about being productive with programming languages and tech that I like using.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-streaming-setup&quot;&gt;My streaming setup&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-streaming-setup&quot; aria-label=&quot;Anchor link for: my-streaming-setup&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I’m running Linux on my &lt;a href=&quot;https:&#x2F;&#x2F;system76.com&#x2F;guides&#x2F;gaze14&#x2F;15b&quot;&gt;System76 Gazelle&lt;&#x2F;a&gt; laptop. My distro is Manjaro 20 (KDE Plasma).&lt;&#x2F;p&gt;
+&lt;p&gt;The following are the hardware + software I already had&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Laptop webcam&lt;&#x2F;li&gt;
+&lt;li&gt;Condenser microphone (I use a Behringer C-1U)&lt;&#x2F;li&gt;
+&lt;li&gt;Adjustable mic stand&lt;&#x2F;li&gt;
+&lt;li&gt;External Monitor&lt;&#x2F;li&gt;
+&lt;li&gt;External keyboard&lt;&#x2F;li&gt;
+&lt;li&gt;External mouse&lt;&#x2F;li&gt;
+&lt;li&gt;Streaming software (I used OBS. More on that later)&lt;&#x2F;li&gt;
+&lt;li&gt;Text editor (I used VSCode)&lt;&#x2F;li&gt;
+&lt;li&gt;Terminal (I used Alacritty + the built-in terminal in VSCode)&lt;&#x2F;li&gt;
+&lt;li&gt;Web browser&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;e976daa5816d67f800.png&quot; alt=&quot;My extra basic streaming setup. Don&amp;#x27;t spend big money before you even have momentum.&quot; &#x2F;&gt;
+        &lt;figcaption&gt;My extra basic streaming setup. Don&amp;#x27;t spend big money before you even have momentum.&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;set-accurate-expectations-for-yourself-and-potential-viewers&quot;&gt;Set accurate expectations for yourself and potential viewers&lt;a class=&quot;zola-anchor&quot; href=&quot;#set-accurate-expectations-for-yourself-and-potential-viewers&quot; aria-label=&quot;Anchor link for: set-accurate-expectations-for-yourself-and-potential-viewers&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I watched a few coding streams from people that I see in the space regularly prior to running my own. I didn&#x27;t want to reinvent the wheel, and so I had to experience what works for others and identify anything that is common. Pretty much &lt;em&gt;no one&lt;&#x2F;em&gt; is doing anything wholly unique, so I decided I would learn by copying what works for other coding streamers.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;create-loose-structure-to-guide-you&quot;&gt;Create loose structure to guide you&lt;a class=&quot;zola-anchor&quot; href=&quot;#create-loose-structure-to-guide-you&quot; aria-label=&quot;Anchor link for: create-loose-structure-to-guide-you&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;write-your-title-with-intention&quot;&gt;Write your title with intention&lt;a class=&quot;zola-anchor&quot; href=&quot;#write-your-title-with-intention&quot; aria-label=&quot;Anchor link for: write-your-title-with-intention&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Unless you have an existing community, try to avoid low-value clickbait.&lt;&#x2F;p&gt;
+&lt;p&gt;As a lowly unknown I need to bring a simple, but descriptive stream title. &lt;&#x2F;p&gt;
+&lt;p&gt;I want people to know:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;What language I&#x27;m writing in.&lt;&#x2F;li&gt;
+&lt;li&gt;What &lt;em&gt;fancy technology&lt;&#x2F;em&gt; I plan to use, if any.&lt;&#x2F;li&gt;
+&lt;li&gt;Succinct objective (Emphasis on &lt;strong&gt;singular&lt;&#x2F;strong&gt;!)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Something to keep in mind&lt;&#x2F;em&gt;: Titles get truncated at about 40 or so characters. After that, viewers will have to put in some effort to mouse over your title to read past the cut.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The title I settled on?&lt;&#x2F;p&gt;
+&lt;p&gt;[Rust] GRPC Remote Command Line using Tonic + CLAP - Writing a blog post&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h4 id=&quot;add-a-description-and-have-a-plan&quot;&gt;Add a description and have a plan&lt;a class=&quot;zola-anchor&quot; href=&quot;#add-a-description-and-have-a-plan&quot; aria-label=&quot;Anchor link for: add-a-description-and-have-a-plan&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Most of the streamers have some narrow theme for their time online in order to set expectations for people watching.&lt;&#x2F;p&gt;
+&lt;p&gt;Explicitly let your viewers know what they are going to see in your description so they can decide if they will stick around. Otherwise you&#x27;ll either get asked the same questions or people will just bounce out with disinterest.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Specific to my first stream:&lt;&#x2F;p&gt;
+&lt;p&gt;I wanted to dedicate time to writing the example Rust code for another blog post I have in progress.&lt;&#x2F;p&gt;
+&lt;p&gt;With that in mind:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Primary goal is to write a small CLI driven gRPC server&#x2F;client in Rust&lt;&#x2F;li&gt;
+&lt;li&gt;Secondary goal is to document my process including looking up documentation and testing.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Plan&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;In my notes, I broke down the domains of the application into ordered objectives I could follow.&lt;&#x2F;li&gt;
+&lt;li&gt;I would take on each domain one at a time with the intention of connecting each of them together as each section became stable enough to test with user input.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h4 id=&quot;technical-preparation&quot;&gt;Technical preparation&lt;a class=&quot;zola-anchor&quot; href=&quot;#technical-preparation&quot; aria-label=&quot;Anchor link for: technical-preparation&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Since I didn’t want to worry about getting everything perfect I narrowed my focus on a few details and personal preferences about the stream.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Not streaming my entire desktop, instead individual windows.
+&lt;ul&gt;
+&lt;li&gt;(I thought this would be easier for viewers.)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Including a background for the negative space&lt;&#x2F;li&gt;
+&lt;li&gt;Small on-screen banner that includes links to my other online platforms
+&lt;ul&gt;
+&lt;li&gt;Minor self-promotion&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Microphone only, no external music&lt;&#x2F;li&gt;
+&lt;li&gt;Webcam placement as close to level to or pointing down on my face
+&lt;ul&gt;
+&lt;li&gt;So people wouldn&#x27;t have to look up my nose&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I didn&#x27;t worry about having chat visible but I did have it open for me to interact with just in case.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;set-up-streaming-software&quot;&gt;Set up streaming software&lt;a class=&quot;zola-anchor&quot; href=&quot;#set-up-streaming-software&quot; aria-label=&quot;Anchor link for: set-up-streaming-software&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Twitch has a list of &lt;a href=&quot;https:&#x2F;&#x2F;help.twitch.tv&#x2F;s&#x2F;article&#x2F;recommended-software-for-broadcasting?language=en_US&quot;&gt;recommended software for broadcasting&lt;&#x2F;a&gt;. I ended up using Open Broadcaster Software, more commonly known as OBS because it has support for Linux.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;3339207210cc635000.png&quot; alt=&quot;Open Broadcaster Software a.k.a OBS&quot; &#x2F;&gt;
+        &lt;figcaption&gt;Open Broadcaster Software a.k.a OBS&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I’m not going to go over the deep details of OBS, but I encourage looking for tutorials on Youtube. Even in 2020, the beginner OBS tutorials from a few years ago are still relevant and usable. They helped make using OBS a lot less intimidating.&lt;&#x2F;p&gt;
+&lt;p&gt;Enable the preview and prepare to spend a little bit of time in OBS. What you see in the preview is what will get streamed out. Start simple. One Scene, and start with one source and add in sources as you get more familiar.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;quick-start-guide-to-sources&quot;&gt;Quick start guide to Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#quick-start-guide-to-sources&quot; aria-label=&quot;Anchor link for: quick-start-guide-to-sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Here’s a short list of sources you may want to add from a Linux desktop into OBS and what they translate to to usable in OBS.&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Description of input&lt;&#x2F;th&gt;&lt;th&gt;OBS source&lt;&#x2F;th&gt;&lt;th&gt;Notes&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Entire desktop&lt;&#x2F;td&gt;&lt;td&gt;Screen Capture (XSHM)&lt;&#x2F;td&gt;&lt;td&gt;If you have multiple monitors, you will need to select the screen you want to display&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Specific window&lt;&#x2F;td&gt;&lt;td&gt;Window Capture (XComposite)&lt;&#x2F;td&gt;&lt;td&gt;You’ll need to select the window you want displayed. One source per window&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Image&lt;&#x2F;td&gt;&lt;td&gt;Image&lt;&#x2F;td&gt;&lt;td&gt;Tested w&#x2F; JPEG, PNG&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Webcam&lt;&#x2F;td&gt;&lt;td&gt;Video Capture Device (V4L2)&lt;&#x2F;td&gt;&lt;td&gt;You’ll need to select your webcam from Devices if you have multiple cameras attached&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Capture Card&lt;&#x2F;td&gt;&lt;td&gt;Video Capture Device (V4L2)&lt;&#x2F;td&gt;&lt;td&gt;Similar to webcam, you’ll need to select your capture card device. Especially if you also have a webcam attached to your computer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Microphone&lt;&#x2F;td&gt;&lt;td&gt;- Audio Capture Device (ALSA)&lt;br &#x2F;&gt;- Audio Capture Input (PulseAudio)&lt;&#x2F;td&gt;&lt;td&gt;It might be easier to configure audio through: Settings &amp;gt; Audio &amp;gt; Devices  Especially if you want to disable sources&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Desktop audio&lt;&#x2F;td&gt;&lt;td&gt;- Audio Capture Device (ALSA)&lt;br &#x2F;&gt;- Audio Capture Input (PulseAudio)&lt;&#x2F;td&gt;&lt;td&gt;(See notes for microphone)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;This may slightly differ from what the &lt;a href=&quot;https:&#x2F;&#x2F;obsproject.com&#x2F;wiki&#x2F;Sources-Guide&quot;&gt;official OBS Sources guide&lt;&#x2F;a&gt; documents, but if you’re choosing to use Linux to stream then you probably already expect this. &lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;8a8b39270cc6365000.png&quot; alt=&quot;What OBS sources look like in Linux&quot; &#x2F;&gt;
+        &lt;figcaption&gt;What OBS sources look like in Linux&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The &lt;code&gt;Sources &amp;gt; Add&lt;&#x2F;code&gt; drop-down menu has icons that give good hints for what they do. Your results may vary, so be prepared to play around with settings. (But you already know that if you&#x27;re insisting on using Linux...)&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups&quot;&gt;Workarounds for blacked out screens using laptop hybrid GPU setups&lt;a class=&quot;zola-anchor&quot; href=&quot;#workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups&quot; aria-label=&quot;Anchor link for: workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;One issue I ran into while writing his guide was being unable to use a single window as a streaming source. Adding the source resulted in a window that was blacked out, but my mouse cursor was still visible when over the window.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;b217aa4d1adb8ebe00.png&quot; alt=&quot;VSCode&amp;#x27;s window is blacked out in OBS, but my cursor is still visible...&quot; &#x2F;&gt;
+        &lt;figcaption&gt;VSCode&amp;#x27;s window is blacked out in OBS, but my cursor is still visible...&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;To work around, you can pick one of the following solutions:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Force OBS and all your windows to run on the same GPU. Some software such as web browsers or IDEs use hardware acceleration by default. You can enable&#x2F;disable accordingly to match OBS.&lt;&#x2F;li&gt;
+&lt;li&gt;Or you can restart your laptop in either integrated or GPU mode (i.e., not hybrid mode)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The reason is due to how hybrid GPU works. OBS and the window I was trying to display were running on different gpus. &lt;&#x2F;p&gt;
+&lt;p&gt;For more information please read &lt;a href=&quot;https:&#x2F;&#x2F;obsproject.com&#x2F;forum&#x2F;threads&#x2F;laptop-black-screen-when-capturing-read-here-first.5965&#x2F;&quot;&gt;this thread from the OBS Project forums&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;configuring-api-keys-for-streaming&quot;&gt;Configuring API keys for streaming&lt;a class=&quot;zola-anchor&quot; href=&quot;#configuring-api-keys-for-streaming&quot; aria-label=&quot;Anchor link for: configuring-api-keys-for-streaming&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;92c80bcc0389757500.png&quot; alt=&quot;OBS stream key settings&quot; &#x2F;&gt;
+        &lt;figcaption&gt;OBS stream key settings&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The location for where you add in your service stream key is very easy to navigate to:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Settings &amp;gt; Stream&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Select the service you want to stream to, and enter the Stream Key.&lt;&#x2F;p&gt;
+&lt;p&gt;There are many preconfigured services in OBS, so you’ll probably only need to provide your stream key and not the service URL.&lt;&#x2F;p&gt;
+&lt;p&gt;Common links to where you can get your stream key:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Youtube
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;live_dashboard&quot;&gt;https:&#x2F;&#x2F;www.youtube.com&#x2F;live_dashboard&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Stream name&#x2F;key&lt;&#x2F;code&gt; is at the button of the page&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Twitch
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;settings&#x2F;profile&quot;&gt;https:&#x2F;&#x2F;www.twitch.tv&#x2F;settings&#x2F;profile&lt;&#x2F;a&gt; -- Then click &lt;code&gt;Channels and Videos&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Or: &lt;a href=&quot;https:&#x2F;&#x2F;dashboard.twitch.tv&#x2F;u&#x2F;&quot;&gt;https:&#x2F;&#x2F;dashboard.twitch.tv&#x2F;u&#x2F;&lt;&#x2F;a&gt;&amp;lt;your-twitch-username&amp;gt;&#x2F;settings&#x2F;channel&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Primary Stream Key&lt;&#x2F;code&gt; is listed at the top of the page&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;(I use a service called &lt;a href=&quot;https:&#x2F;&#x2F;restream.io&#x2F;&quot;&gt;Restream&lt;&#x2F;a&gt; which is supported by OBS. Restream will broadcast to multiple services at the same time. I use it to broadcast to YouTube and Twitch simultaneously.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;don-t-overthink-and-start-streaming&quot;&gt;Don’t overthink and start streaming&lt;a class=&quot;zola-anchor&quot; href=&quot;#don-t-overthink-and-start-streaming&quot; aria-label=&quot;Anchor link for: don-t-overthink-and-start-streaming&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;processed_images&#x2F;f6987b90b9abc98200.png&quot; alt=&quot;Don&amp;#x27;t worry about perfection. Just take the first step and start.&quot; &#x2F;&gt;
+        &lt;figcaption&gt;Don&amp;#x27;t worry about perfection. Just take the first step and start.&lt;&#x2F;figcaption&gt;
+    &lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The first thing I noticed after going live was that the platforms I was broadcasting to had some noticeable lag between my actions and seeing it live in the browser.&lt;&#x2F;p&gt;
+&lt;p&gt;When you first get started, you probably won’t have a lot of people watching. This will be a good thing because you’re going to notice many details you’ll want to improve. &lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m saying this to myself for the benefit of anyone else who got this far:&lt;&#x2F;p&gt;
+&lt;p&gt;It will take time, effort and consistency on your part before you see results. So relax, try to have fun and enjoy the process.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;If you made this far, thanks!&lt;&#x2F;p&gt;
+&lt;p&gt;Please &lt;a href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;check me out on my Twitch channel&lt;&#x2F;a&gt;. I stream weekly coding sessions about using Rust and DevOps topics. I hope you&#x27;ll considering following me!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

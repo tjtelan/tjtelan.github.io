@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - virtualbox</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/virtualbox/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-03-21T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/virtualbox/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Virtualbox Headless-mode on Windows 7</title>
+		<published>2011-03-21T00:00:00+00:00</published>
+		<updated>2011-03-21T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/" type="text/html"/>
+		<id>https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/</id>
+		<content type="html">&lt;p&gt;An impromptu reformat of my Windows 7 machine quickly had me frustrated with Virtualbox reconfiguration. It had been so long since I had originally done it, and I had forgotten to document the nuances of that setup. So here goes:&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;purpose&quot;&gt;Purpose&lt;a class=&quot;zola-anchor&quot; href=&quot;#purpose&quot; aria-label=&quot;Anchor link for: purpose&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This specific VM configuration is FreeBSD 8.2 w&#x2F; ZFS on root. I don&#x27;t have the time to set it up from scratch, but I&#x27;m currently using the newest ZFS version available on &lt;a href=&quot;http:&#x2F;&#x2F;mfsbsd.vx.sk&quot;&gt;this site&lt;&#x2F;a&gt; (v28, special edition).&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m only planning on using this VM for SSH for a persistent irc connection. I also want this to start automatically at Win7&#x27;s boot.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;install-vm&quot;&gt;Install VM&lt;a class=&quot;zola-anchor&quot; href=&quot;#install-vm&quot; aria-label=&quot;Anchor link for: install-vm&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;So after installing FreeBSD and ports and of course, remembering to &lt;em&gt;ENABLE SSH&lt;&#x2F;em&gt;... I had to test the ssh connection.&lt;&#x2F;p&gt;
+&lt;p&gt;(Remember to open the ports on the host side. I&#x27;m not going to walk you through that step.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;headless-vm&quot;&gt;Headless VM&lt;a class=&quot;zola-anchor&quot; href=&quot;#headless-vm&quot; aria-label=&quot;Anchor link for: headless-vm&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Now for the headless start.&lt;&#x2F;p&gt;
+&lt;p&gt;I tried creating a .bat file that used &lt;code&gt;VBoxHeadless&lt;&#x2F;code&gt;. This let it start at boot, but it left an annoying cmd.exe window open.&lt;&#x2F;p&gt;
+&lt;p&gt;Apparently a common issue. A common solution I used was to create a .vbs script to run the .bat file. This was both annoying and tedious but effective. Startup at boot and no lingering cmd.exe window.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are the contents of my .bat and .vbs files. I placed these in the same directory, and made a shortcut in the &lt;code&gt;Start &amp;gt; All Programs &amp;gt; Startup&lt;&#x2F;code&gt; to the &lt;code&gt;.vbs&lt;&#x2F;code&gt; file.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;startfreebsdvm-bat&quot;&gt;startfreebsdvm.bat&lt;a class=&quot;zola-anchor&quot; href=&quot;#startfreebsdvm-bat&quot; aria-label=&quot;Anchor link for: startfreebsdvm-bat&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;D:\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Program Files&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;OracleVirtualBoxVBoxHeadless.exe -s FreeBSD startvm-headless.vbs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Set &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;WshShell &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt; WScript.CreateObject(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;WScript.Shell&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;)
+obj = WshShell.Run(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;D:Users[username]startfreebsdvm.bat&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;set &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;WshShell &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt; Nothing
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+	</entry>
+</feed>

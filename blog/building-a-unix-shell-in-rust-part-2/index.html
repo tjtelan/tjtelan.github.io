@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-2/" />
+   
+  <meta property="og:title" content="Building a Unix-shell in Rust - Part 2" />
+  
+  
+  <meta property="og:description" content="Beginning to interactive shell with Rust" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-2/" />
+   
+  <meta name="twitter:title" content="Building a Unix-shell in Rust - Part 2" />
+  
+  
+  <meta name="twitter:description" content="Beginning to interactive shell with Rust" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Building a Unix-shell in Rust - Part 2</h1>
+    
+    <span class="post-meta">
+        8 min read
+        &nbsp;&bull;&nbsp;
+        2017-11-26
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+        
+      </span>
+
+    <p>This is the 2nd part of a series where I document writing a command shell in Rust. In the <a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-1/">previous post</a> I reviewed what a shell is, and broke that down into stages I can use to organize my code.</p>
+<h3 id="getting-user-input">Getting user input<a class="zola-anchor" href="#getting-user-input" aria-label="Anchor link for: getting-user-input">🔗</a></h3>
+<p>First thing we need to do is create a project. Let’s use Cargo to create this for us.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo new</span><span style="color:#bf616a;"> --bin</span><span style="color:#c0c5ce;"> rust-shell
+</span></code></pre>
+<p>For now, I'm going to assume we are only running interactively. So I'm just going to get a simple loop set up that asks for an input, and echoes it back to me.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">std::io;
+
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+  </span><span style="color:#b48ead;">loop </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> command = String::new();
+    io::stdin().</span><span style="color:#96b5b4;">read_line</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#b48ead;">mut</span><span style="color:#c0c5ce;"> command)
+      .</span><span style="color:#96b5b4;">expect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read in command</span><span style="color:#c0c5ce;">&quot;);
+    println!(&quot;</span><span style="color:#d08770;">{0}</span><span style="color:#c0c5ce;">&quot;, command);
+  }
+}
+</span></code></pre>
+<p>I’m using std::io to read input into the mutable command variable binding, then I println() to echo my input back to the screen.</p>
+<p>Then we build:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo build
+   </span><span style="color:#bf616a;">Compiling</span><span style="color:#c0c5ce;"> rust-shell v0.1.0 (file:///Users/telant/src/rust-shell)
+    </span><span style="color:#bf616a;">Finished</span><span style="color:#c0c5ce;"> dev </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">unoptimized + debuginfo</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> target(s) </span><span style="color:#bf616a;">in</span><span style="color:#c0c5ce;"> 0.25 secs
+</span></code></pre>
+<p>No errors.</p>
+<p>And testing it out:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo run
+    </span><span style="color:#bf616a;">Finished</span><span style="color:#c0c5ce;"> dev </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">unoptimized + debuginfo</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> target(s) </span><span style="color:#bf616a;">in</span><span style="color:#c0c5ce;"> 0.0 secs
+     </span><span style="color:#bf616a;">Running </span><span style="color:#c0c5ce;">`</span><span style="color:#bf616a;">target/debug/rust-shell</span><span style="color:#c0c5ce;">`
+</span><span style="color:#bf616a;">123
+123
+
+test
+test
+</span></code></pre>
+<p>Great. Looks like that was easy.</p>
+<p>What we see here is me trying 2 commands: <code>123</code> and <code>test</code>. We see the command printed right back. (Printing a short prompt might make that more obvious… ) </p>
+<h3 id="parsing-the-input-into-tokens">Parsing the input into tokens<a class="zola-anchor" href="#parsing-the-input-into-tokens" aria-label="Anchor link for: parsing-the-input-into-tokens">🔗</a></h3>
+<p>Next step is to break the user input from a single continuous string into smaller pieces that we can evaluate. </p>
+<p>I am just going to tokenize the string using spaces as delimiters (because it is easy. It is, however, not always accurate, but, Dear Reader, I already know this is not the final way I am going to implement tokens. Splitting on spaces is too greedy of an approach. Quoted arguments are usually evaluated to be a single argument, including spaces, for uses that include passing entire raw strings to other programs. Let's not get perfection distract us. I'll stay focused on getting something that works...)</p>
+<p>I actually ran into a little bit of trouble getting this working on a single line, with the original variable because of the type checker.</p>
+<p>This did not work:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo build
+   </span><span style="color:#bf616a;">Compiling</span><span style="color:#c0c5ce;"> rust-shell v0.1.0 (file:///Users/telant/src/rust-shell)
+</span><span style="color:#bf616a;">error[E0282]:</span><span style="color:#c0c5ce;"> unable to infer enough type information about `</span><span style="color:#bf616a;">B</span><span style="color:#c0c5ce;">`
+  </span><span style="color:#bf616a;">--</span><span style="color:#c0c5ce;">&gt; src/main.rs:11:41
+   |
+</span><span style="color:#bf616a;">11 </span><span style="color:#c0c5ce;">|     </span><span style="color:#bf616a;">println!</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">{:?}</span><span style="color:#c0c5ce;">&quot;, command.split(&#39; &#39;)</span><span style="color:#8fa1b3;">.collect</span><span style="color:#c0c5ce;">());
+   |                                         ^^^^^^^ cannot infer type for `B`
+   |
+   = note: type annotations or generic parameter binding required
+</span></code></pre>
+<p>I’m lazy, and I didn’t look into how to explicitly reference the type.</p>
+<p>This did work. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> command_split : Vec&lt;&amp;</span><span style="color:#b48ead;">str</span><span style="color:#c0c5ce;">&gt; = command.</span><span style="color:#96b5b4;">split</span><span style="color:#c0c5ce;">(&#39; &#39;).</span><span style="color:#96b5b4;">collect</span><span style="color:#c0c5ce;">();
+println!(&quot;</span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command_split);
+</span></code></pre>
+<p>This is the relevant output</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;"> test test
+</span><span style="color:#bf616a;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#bf616a;">, </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test\n</span><span style="color:#c0c5ce;">&quot;]
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">blah</span><span style="color:#c0c5ce;"> blah &quot;</span><span style="color:#a3be8c;">string in quotes</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">blah</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#bf616a;">, </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">blah</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">in</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">quotes</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">\n</span><span style="color:#c0c5ce;">&quot;]
+</span></code></pre>
+<p>I’m going to have to learn how type inference works in Rust sooner or later, but I’m not going to deal with it now. String types in Rust are kind of confusing coming from Python where I don’t have to deal with types very often.</p>
+<p>(This is a warning from the future. You should lightly understand the idiomatic difference between String and &amp;str. You find this out the hard way when you get to refactoring… see you in the future)</p>
+<p>I’m going to use this moment to make the interface a more obvious when the we are ready to take user input by printing a prompt character.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">std::io::{</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">,Write};
+
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> prompt_char = &quot;</span><span style="color:#a3be8c;">%</span><span style="color:#c0c5ce;">&quot;;
+  </span><span style="color:#b48ead;">loop </span><span style="color:#c0c5ce;">{
+    print!(&quot;</span><span style="color:#d08770;">{0} </span><span style="color:#c0c5ce;">&quot;, prompt_char);
+    io::stdout().</span><span style="color:#96b5b4;">flush</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
+
+    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> command = String::new();
+    io::stdin().</span><span style="color:#96b5b4;">read_line</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#b48ead;">mut</span><span style="color:#c0c5ce;"> command)
+      .</span><span style="color:#96b5b4;">expect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read in command</span><span style="color:#c0c5ce;">&quot;);
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command);
+
+    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> command_split : Vec&lt;&amp;</span><span style="color:#b48ead;">str</span><span style="color:#c0c5ce;">&gt; = command.</span><span style="color:#96b5b4;">split</span><span style="color:#c0c5ce;">(&#39; &#39;).</span><span style="color:#96b5b4;">collect</span><span style="color:#c0c5ce;">();
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command_split);
+  }
+}
+</span></code></pre>
+<p>I added <code>DEBUG:</code> to our debug statements. Also I had to include a new <code>use</code>, use the <code>print!</code> macro, and flush the buffer so it would print to the screen immediately.</p>
+<p>I got this pattern from the Rust docs for <a href="https://doc.rust-lang.org/1.4.0/std/macro.print!.html">print!</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo run
+    </span><span style="color:#bf616a;">Finished</span><span style="color:#c0c5ce;"> dev </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">unoptimized + debuginfo</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> target(s) </span><span style="color:#bf616a;">in</span><span style="color:#c0c5ce;"> 0.0 secs
+     </span><span style="color:#bf616a;">Running </span><span style="color:#c0c5ce;">`</span><span style="color:#bf616a;">target/debug/rust-shell</span><span style="color:#c0c5ce;">`
+% Feeling a little more shell-like now
+</span><span style="color:#bf616a;">DEBUG: </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Feeling a little more shell-like now\n</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">DEBUG: </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Feeling</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">a</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">little</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">more</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">shell-like</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">now\n</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span><span style="color:#c0c5ce;">%
+</span></code></pre><h3 id="classifying-parsed-input">Classifying parsed input<a class="zola-anchor" href="#classifying-parsed-input" aria-label="Anchor link for: classifying-parsed-input">🔗</a></h3>
+<p>Last thing I’m going to do is identify the keyword from the arguments, then I’ll do a little refactoring to help organize the new complexity. (I expect to do a little fighting with the borrow checker at this point.)</p>
+<p>Getting the keyword is easy. I just need to pick off the first element of our tokenized command.</p>
+<p>The arguments is a vector slice of everything but the first element of the command. Can I slice a vector as easily as slicing lists in Python? Yes.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">std::io::{</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">,Write};
+
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> prompt_char = &quot;</span><span style="color:#a3be8c;">%</span><span style="color:#c0c5ce;">&quot;;
+  </span><span style="color:#b48ead;">loop </span><span style="color:#c0c5ce;">{
+    print!(&quot;</span><span style="color:#d08770;">{0} </span><span style="color:#c0c5ce;">&quot;, prompt_char);
+    io::stdout().</span><span style="color:#96b5b4;">flush</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
+
+    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> command = String::new();
+    io::stdin().</span><span style="color:#96b5b4;">read_line</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#b48ead;">mut</span><span style="color:#c0c5ce;"> command)
+      .</span><span style="color:#96b5b4;">expect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read in command</span><span style="color:#c0c5ce;">&quot;);
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Raw input: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command);
+
+    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> command_split : Vec&lt;&amp;</span><span style="color:#b48ead;">str</span><span style="color:#c0c5ce;">&gt; = command.</span><span style="color:#96b5b4;">split</span><span style="color:#c0c5ce;">(&#39; &#39;).</span><span style="color:#96b5b4;">collect</span><span style="color:#c0c5ce;">();
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Split input: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command_split);
+
+    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> keyword = command_split[</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">];
+    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> arguments = &amp;command_split[</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">..];
+
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Keyword: </span><span style="color:#d08770;">{0}</span><span style="color:#c0c5ce;">&quot;, keyword);
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Number of arguments: </span><span style="color:#d08770;">{0:?}</span><span style="color:#96b5b4;">\n</span><span style="color:#a3be8c;">DEBUG: Arguments: </span><span style="color:#d08770;">{1:?}</span><span style="color:#c0c5ce;">&quot;, arguments.</span><span style="color:#96b5b4;">len</span><span style="color:#c0c5ce;">(), arguments);
+  }
+}
+</span></code></pre>
+<p>I have to call the slice by reference using <code>&amp;</code> with the vector, and I specified the range I wanted to slice with the element I want to start from and <code>..</code> without an ending element. Rust figures out the bounds in this case.</p>
+<h3 id="time-to-refactor">Time to refactor!<a class="zola-anchor" href="#time-to-refactor" aria-label="Anchor link for: time-to-refactor">🔗</a></h3>
+<p>I’m going to make the main loop look a little more functional (inside the loop).</p>
+<p>Printing the prompt? Easy. Function call.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">print_prompt</span><span style="color:#c0c5ce;">() {
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> prompt_char = &quot;</span><span style="color:#a3be8c;">%</span><span style="color:#c0c5ce;">&quot;;
+
+  print!(&quot;</span><span style="color:#d08770;">{0} </span><span style="color:#c0c5ce;">&quot;, prompt_char);
+  io::stdout().</span><span style="color:#96b5b4;">flush</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
+}
+</span></code></pre>
+<p>Reading the command from user input? I had to look up how to return variables. The style is to use an implicit return, and no semicolon. You can use <code>return</code>, but it isn't very idiomatic. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">read_command</span><span style="color:#c0c5ce;">() -&gt; String {
+    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> command = String::new();
+    io::stdin().</span><span style="color:#96b5b4;">read_line</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#b48ead;">mut</span><span style="color:#c0c5ce;"> command)
+      .</span><span style="color:#96b5b4;">expect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read in command</span><span style="color:#c0c5ce;">&quot;);
+    println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Raw input: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command);
+
+    command
+}
+</span></code></pre>
+<p>Tokenizing the command? Gonna get a little more complicated. I’m going to set up a struct to represent the command so I can keep the tokenized command together in a single object.</p>
+<hr />
+<h3 id="optional-first-fight-with-borrow-checker">Optional : First fight with borrow checker<a class="zola-anchor" href="#optional-first-fight-with-borrow-checker" aria-label="Anchor link for: optional-first-fight-with-borrow-checker">🔗</a></h3>
+<p>I almost lost the motivation to continue the documenting my thought process because of this obstacle. This section can be skipped if you are looking to follow my happy path, and don't want to follow my confusion. </p>
+<p>(This is what I wrote first, when I was actually having a fight with the borrow checker…)</p>
+<p>I have to learn a little bit about <a href="https://doc.rust-lang.org/book/lifetimes.html">lifetimes</a> in order to get this to compile. This makes some sense, since the struct will need to own the slice data, and in the original code, we were just borrowing the slice.</p>
+<p>I’m finding it confusing thinking about what I need to do in order to make the tokenizing function use the Command struct. If I can copy the args to the struct, and give ownership of the string to the struct, then I assume this will compile?</p>
+<p>What type is the copied slice, and how do I specify that in the struct? How do I use the lifetime in code to find my use case? I don’t even know what other questions to ask next.</p>
+<p>Rather than try to figure out how to compile, and get the struct working with tokenizing the command, I’ll try to play around in main() and try instantiating my struct.</p>
+<p>What I need to be able to do is copy the data in the vector. I tried for a while trying to pass ownership of a slice, but I ended up finding a way to take the first element out of the vector, and having the rest be the arguments be what is left. I feel a little over my head at this point, and I’m going to spend some time reading the docs.</p>
+<p>This is what the struct looked like.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">/// Bad.
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">Command &lt;&#39;a&gt; {
+   </span><span style="color:#bf616a;">keyword </span><span style="color:#c0c5ce;">: String,
+   </span><span style="color:#bf616a;">arguments </span><span style="color:#c0c5ce;">: &amp;</span><span style="color:#b48ead;">&#39;a</span><span style="color:#c0c5ce;"> [&amp;</span><span style="color:#b48ead;">&#39;a str</span><span style="color:#c0c5ce;">],
+ }
+</span></code></pre>
+<p>The reason I went with this approach was I thought I could pass the ownership of the heap from when I split the command by whitespace. This was really not a good approach, and I wasted quite a lot of time fighting with the borrow checker.</p>
+<hr />
+<h3 id="back-to-the-show">Back to the show<a class="zola-anchor" href="#back-to-the-show" aria-label="Anchor link for: back-to-the-show">🔗</a></h3>
+<p>I ended up changing the way I split the original command string so I would have a Vec<String> rather than Vec&lt;&amp;str&gt;. Because String is owned and &amp;str is borrowed, and the Command struct needs to own its data. </p>
+<p>I think I have a much more straightforward function.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">Command {
+  </span><span style="color:#bf616a;">keyword </span><span style="color:#c0c5ce;">: String,
+  </span><span style="color:#bf616a;">args </span><span style="color:#c0c5ce;">: Vec&lt;String&gt;,
+}
+
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">tokenize_command</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">: String) -&gt; Command {
+  </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> command_split : Vec&lt;String&gt; = c.</span><span style="color:#96b5b4;">split_whitespace</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">map</span><span style="color:#c0c5ce;">(|</span><span style="color:#bf616a;">s</span><span style="color:#c0c5ce;">| s.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">()).</span><span style="color:#96b5b4;">collect</span><span style="color:#c0c5ce;">();
+  println!(&quot;</span><span style="color:#a3be8c;">DEBUG: Split input: </span><span style="color:#d08770;">{:?}</span><span style="color:#c0c5ce;">&quot;, command_split);
+
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> command = Command {
+    keyword : command_split.</span><span style="color:#96b5b4;">remove</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">),
+    args : command_split,
+  };
+
+  command
+}
+</span></code></pre>
+<p>Before getting to the next step of evaluating the parsed command, I want to take a moment to learn how to set up tests that will run with the builds. See you next time. </p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-1/>Building a Unix-shell in Rust - Part 1</a> <span>2017-11-05</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-3/>Building a Unix-shell in Rust - Part 3</a> <span>2017-12-31</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

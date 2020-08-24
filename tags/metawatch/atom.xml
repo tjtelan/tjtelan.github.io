@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - metawatch</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/metawatch/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2012-05-14T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/metawatch/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Learning Android to Play with Metawatch Manager</title>
+		<published>2012-05-14T00:00:00+00:00</published>
+		<updated>2012-05-14T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve been meaning to learn how to develop for Android since the &lt;a href=&quot;http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;HTC_Dream&quot;&gt;G1&lt;&#x2F;a&gt; (the first Android handset) was released.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also been meaning to develop for my Metawatch since I got it last September, but since launch, a lack of a &lt;a href=&quot;http:&#x2F;&#x2F;www.metawatch.org&#x2F;forums&#x2F;thread&#x2F;200&#x2F;official-free-cheap-development-environment&quot;&gt;free&#x2F;cheap development
+environment&lt;&#x2F;a&gt; continues to slow my momentum (and interest) in messing with what is otherwise a nice looking, basic functioning watch. (That also has a motor in it...)&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m going to take on both of these goals at the same time.&lt;&#x2F;p&gt;
+&lt;p&gt;I was using the official version of the Metawatch Manager, the software installed in Android that is responsible for sending notifications (and text messages, phone calls...) to the watch to drive the motor and make you look at the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;I later moved onto an app I found in the Android market (err... Google Play). &lt;a href=&quot;https:&#x2F;&#x2F;play.google.com&#x2F;store&#x2F;apps&#x2F;details?id=com.kupriyanov.metawatch&amp;amp;hl=en&quot;&gt;Manager for MetaWatch&lt;&#x2F;a&gt; I&#x27;ve been finding that I really like what the app has offered me over the official one, but it is a little bit buggy and I&#x27;m also looking to add some features. It would be great to add the geeky, personal touch that I&#x27;ve been missing that shows that this is my project.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I&#x27;m going to get back to the &lt;a href=&quot;http:&#x2F;&#x2F;lmgtfy.com&#x2F;?q=android+tutorial&quot;&gt;Android tutorial&lt;&#x2F;a&gt; I&#x27;m reading.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;MetaWatchOpenProjects&#x2F;MWM-for-Android&quot;&gt;Official Metawatch Manager github project&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>MetaWatch - Unboxing</title>
+		<published>2011-09-16T00:00:00+00:00</published>
+		<updated>2011-09-16T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/metawatch-initial-impression/" type="text/html"/>
+		<id>https://tjtelan.com/blog/metawatch-initial-impression/</id>
+		<content type="html">&lt;p&gt;Without further delay, I&#x27;d like to post the first of several detailed posts about the new &lt;a href=&quot;http:&#x2F;&#x2F;www.metawatch.org&quot;&gt;MetaWatch&lt;&#x2F;a&gt; that I received (after a &lt;a href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;07&#x2F;11&#x2F;fossil-wont-ship-the-meta-watch-until-august-dick-tracy-wannab&#x2F;&quot;&gt;couple&lt;&#x2F;a&gt; &lt;a href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;08&#x2F;22&#x2F;fossils-meta-watch-delayed-once-again-clearly-has-trouble-keep&#x2F;&quot;&gt;announcements&lt;&#x2F;a&gt; of delays) with a pretty brief unboxing post.&lt;&#x2F;p&gt;
+&lt;p&gt;(I clearly already opened it immediately after I got it, but this is how it looked.)&lt;&#x2F;p&gt;
+&lt;p&gt;[Unboxing pics]&lt;&#x2F;p&gt;
+&lt;p&gt;The next post will be more focused on the watch itself. More pictures too.&lt;&#x2F;p&gt;
+&lt;p&gt;Edit: Removed the links and the unboxing pics. Never got around to finishing the Metawatch first impression posts, but I still have it so I&#x27;ll obviously be posting on any projects related to it.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Metawatch Has Arrived</title>
+		<published>2011-09-12T00:00:00+00:00</published>
+		<updated>2011-09-12T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/metawatch-has-arrived/" type="text/html"/>
+		<id>https://tjtelan.com/blog/metawatch-has-arrived/</id>
+		<content type="html">&lt;p&gt;I just got my digital &lt;a href=&quot;http:&#x2F;&#x2F;www.metawatch.org&quot;&gt;MetaWatch&lt;&#x2F;a&gt; this morning after 3 months of delays from TI.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m still playing around with the watch. Currently just got the Android apk installed on my phone and paired the watch to it. &lt;del&gt;There was no default UI to change the time&lt;&#x2F;del&gt;, &lt;em&gt;I was too lazy to read the user guide&lt;&#x2F;em&gt;, so I really needed to pair to use this as a watch.&lt;&#x2F;p&gt;
+&lt;p&gt;There will be a more in-depth post soon, but here are a couple of pictures of the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;lh6.googleusercontent.com&#x2F;-eIw6oya1u_M&#x2F;Tm5UY8kgqLI&#x2F;AAAAAAAAAHU&#x2F;7lb9llwH_mA&#x2F;h301&#x2F;11%2B-%2B1&quot; alt=&quot;Metawatch charging&quot; title=&quot;Metawatch charging&quot; &#x2F;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;lh5.googleusercontent.com&#x2F;-HU0RYcterXg&#x2F;Tm5Us5KDW9I&#x2F;AAAAAAAAAHg&#x2F;I7OgGYcqrkE&#x2F;h301&#x2F;11%2B-%2B1&quot; alt=&quot;Usb clip + pins on watch underside&quot; title=&quot;Usb clip + pins on watch underside&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

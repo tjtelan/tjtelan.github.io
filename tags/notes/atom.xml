@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - notes</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/notes/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2015-07-16T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/notes/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Taking Notes</title>
+		<published>2015-07-16T00:00:00+00:00</published>
+		<updated>2015-07-16T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/taking-notes/" type="text/html"/>
+		<id>https://tjtelan.com/blog/taking-notes/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve carrired a bound, grid paper &lt;a href=&quot;http:&#x2F;&#x2F;www.bookfactory.com&#x2F;engineering-notebooks&#x2F;engineering-notebooks.html&quot;&gt;engineering notebook&lt;&#x2F;a&gt; for quite a few years now. (A habit I picked up in school from the Electrical Engineering side of my formal education.) I&#x27;ve written an entry for (almost) every day working.&lt;&#x2F;p&gt;
+&lt;p&gt;There are a few reasons why this has been my preference to text-based note taking, for example: a simple text file, or more complex, a wiki&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;low-tech-solution-for-a-low-tech-problem&quot;&gt;Low-tech solution for a low-tech problem&lt;a class=&quot;zola-anchor&quot; href=&quot;#low-tech-solution-for-a-low-tech-problem&quot; aria-label=&quot;Anchor link for: low-tech-solution-for-a-low-tech-problem&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If I need to write a to-do list, or a reminder for myself while I&#x27;m away from my desk, it is a lot easier to jot something down and be done. I don&#x27;t require to be near a text-editor. I don&#x27;t need to create a wiki page, or do any post-markup to what I&#x27;ve written.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, I&#x27;m free to use a page however I need to in order to get my thought onto the page. I&#x27;m not limited to software features for my visual metaphors if I&#x27;m sketching out a diagram, or using common symbols&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-downsides&quot;&gt;The downsides&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-downsides&quot; aria-label=&quot;Anchor link for: the-downsides&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This approach has bitten me a few times. When I&#x27;ve started in with a new notebook in the middle of a project (since bound books have limited pages) I&#x27;m stuck carrying 2 books for a while.&lt;&#x2F;p&gt;
+&lt;p&gt;Text searching features don&#x27;t exist in my books. At least not without scanning and OCR (Making the assumtion that my handwriting is neat enough to be read into a text form, which is an unrealistic assumption.)&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;looking-for-a-balance&quot;&gt;Looking for a balance&lt;a class=&quot;zola-anchor&quot; href=&quot;#looking-for-a-balance&quot; aria-label=&quot;Anchor link for: looking-for-a-balance&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;It got me thinking about what I needed to do if I wanted to go all digital with my note taking, but keep my workflow intact.&lt;&#x2F;p&gt;
+&lt;p&gt;The feeling of using a softer tip on a phone screen requires too much of a change to how I naturally write. I end up concentrating more just to make sure I write legibly enough for myself. Recently, I bought a &lt;a href=&quot;http:&#x2F;&#x2F;www.amazon.com&#x2F;Adonit-Android-Samsung-Windows-Tablets&#x2F;dp&#x2F;B00R33ZYCG&#x2F;ref=sr_1_1?s=pc&amp;amp;ie=UTF8&amp;amp;qid=1437058896&amp;amp;sr=1-1&quot;&gt;hard-tipped stylus&lt;&#x2F;a&gt; for my phone, since my experiences with other rubber tipped styli were underwhelming. An argument can be made about the price for a good styli. The good reviews start at about $20-30. A large commitment for an instrument that is only good on touch screens.&lt;&#x2F;p&gt;
+&lt;p&gt;I use an Android phone, and, at least at the time of this writing, there aren&#x27;t a lot of great hand writing tools. Most are marketed towards the digital artist. Lots of authoring features I don&#x27;t need, and some that are missing for creating journal entries.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;play.google.com&#x2F;store&#x2F;apps&#x2F;details?id=com.fiistudio.fiinote&quot;&gt;Fiinote&lt;&#x2F;a&gt; so far has been my favorite. I get a good mix of hand-written options, hand-drawn, text-based. And I can create hyperlinks, and embed images if I choose to. It has only been a few days, but if the free version is this great, the obvious choice may be to support the developers by upgrading to the full version.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I recommend writing your notes down. There have been many &lt;a href=&quot;http:&#x2F;&#x2F;www.scientificamerican.com&#x2F;article&#x2F;a-learning-secret-don-t-take-notes-with-a-laptop&#x2F;&quot;&gt;articles&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.psychologicalscience.org&#x2F;index.php&#x2F;news&#x2F;were-only-human&#x2F;ink-on-paper-some-notes-on-note-taking.html&quot;&gt;studies&lt;&#x2F;a&gt; about the cognitive advantages of longhand vs keyboarding for note taking.&lt;&#x2F;p&gt;
+&lt;p&gt;Hard-tipped styli are pretty great, and cost about as much as nicer ink pens (~$25-100+).&lt;&#x2F;p&gt;
+&lt;p&gt;Good, free software for handwriting exists for handwriting. Great, paid software undoubtedly exists.&lt;&#x2F;p&gt;
+&lt;p&gt;Here&#x27;s to a successful experiment!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

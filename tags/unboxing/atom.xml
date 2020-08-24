@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - unboxing</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/unboxing/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-09-16T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/unboxing/atom.xml</id>
+	<entry xml:lang="en">
+		<title>MetaWatch - Unboxing</title>
+		<published>2011-09-16T00:00:00+00:00</published>
+		<updated>2011-09-16T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/metawatch-initial-impression/" type="text/html"/>
+		<id>https://tjtelan.com/blog/metawatch-initial-impression/</id>
+		<content type="html">&lt;p&gt;Without further delay, I&#x27;d like to post the first of several detailed posts about the new &lt;a href=&quot;http:&#x2F;&#x2F;www.metawatch.org&quot;&gt;MetaWatch&lt;&#x2F;a&gt; that I received (after a &lt;a href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;07&#x2F;11&#x2F;fossil-wont-ship-the-meta-watch-until-august-dick-tracy-wannab&#x2F;&quot;&gt;couple&lt;&#x2F;a&gt; &lt;a href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;08&#x2F;22&#x2F;fossils-meta-watch-delayed-once-again-clearly-has-trouble-keep&#x2F;&quot;&gt;announcements&lt;&#x2F;a&gt; of delays) with a pretty brief unboxing post.&lt;&#x2F;p&gt;
+&lt;p&gt;(I clearly already opened it immediately after I got it, but this is how it looked.)&lt;&#x2F;p&gt;
+&lt;p&gt;[Unboxing pics]&lt;&#x2F;p&gt;
+&lt;p&gt;The next post will be more focused on the watch itself. More pictures too.&lt;&#x2F;p&gt;
+&lt;p&gt;Edit: Removed the links and the unboxing pics. Never got around to finishing the Metawatch first impression posts, but I still have it so I&#x27;ll obviously be posting on any projects related to it.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

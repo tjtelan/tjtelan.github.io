@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/zsh-at-win-7-start-up/" />
+   
+  <meta property="og:title" content="Zsh at Win 7 Start up" />
+  
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/zsh-at-win-7-start-up/" />
+   
+  <meta name="twitter:title" content="Zsh at Win 7 Start up" />
+  
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Zsh at Win 7 Start up</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2011-03-28
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/cygwin/">
+              #cygwin
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/scripting/">
+              #scripting
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/windows/">
+              #windows
+            </a>
+          
+        
+      </span>
+
+    <p>Beginning of the quarter is tomorrow, and I'm trying to accept that I will be spending more time on a Windows workstation to access the software I'm using for my senior project (more on that soon).</p>
+<p>There are a few comforts that I am still missing in Win7 that I'm trying to solve with Cygwin, like <a href="https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/">Improving Cygwin in Windows with Rxvt</a> getting zsh back.</p>
+<p>Today, that issue was being able to write Zsh scripts that would run at login through Cygwin instead of using cmd.exe.</p>
+<p>Turned out to not be quite as straightforward as I had hoped, but still easy.</p>
+<h2 id="add-cygwin-to-win7-path-environment-variable">Add Cygwin to Win7 PATH environment variable.<a class="zola-anchor" href="#add-cygwin-to-win7-path-environment-variable" aria-label="Anchor link for: add-cygwin-to-win7-path-environment-variable">🔗</a></h2>
+<p>It took me a moment to find this information after having trouble using <code>ls</code> in my script. Although, <code>echo</code> worked...</p>
+<p>Anyway, might as well add this first and avoid the issues entirely.</p>
+<ul>
+<li>Open start menu</li>
+<li>Right-click <code>Computer</code></li>
+<li>Click <code>Properties</code></li>
+<li>Click <code>Advanced system settings</code></li>
+</ul>
+<p>In the new <code>System Properties</code> window, click the <code>Environment Variables</code> button located at the bottom.</p>
+<p>In the new <code>Environment Variables</code> window, at the bottom are the <code>System variables</code>
+Add <code>CYGWIN_HOME</code> with a value of the Cygwin installation path (default is <code>C:/cygwin</code>) if it does not exist in the variable list.</p>
+<p>Edit the <code>PATH</code> variable to include <code>%CYGWIN_HOME%/bin</code> which is the same as
+including <code>/bin</code> in the Cygwin environment.</p>
+<h2 id="run-cygwin-scripts-from-windows">Run Cygwin scripts from Windows<a class="zola-anchor" href="#run-cygwin-scripts-from-windows" aria-label="Anchor link for: run-cygwin-scripts-from-windows">🔗</a></h2>
+<p>You can't just write the script and use Zsh built-ins in Windows space. You have to write the script in Zsh space and have windows have Zsh run that script. Simple. Right?</p>
+<p>I'll just show my test scripts:</p>
+<p><em>(On the Windows desktop)</em></p>
+<p>testscript.bat</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">zsh.exe /home/[username]/test.sh
+</span></code></pre>
+<p><em>(In Cygwin)</em></p>
+<p>test.sh</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">#!/usr/bin/env zsh
+</span><span style="color:#96b5b4;">echo </span><span style="color:#c0c5ce;">`</span><span style="color:#bf616a;">pwd</span><span style="color:#c0c5ce;">`
+</span><span style="color:#96b5b4;">echo</span><span style="color:#c0c5ce;"> Test
+</span><span style="color:#96b5b4;">echo </span><span style="color:#c0c5ce;">`</span><span style="color:#bf616a;">ls</span><span style="color:#c0c5ce;"> /home/</span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">username</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">`
+</span></code></pre>
+<p>These are the results of running testscript.bat in cmd.exe</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/cygdrive/d/Users/[username]/Desktop
+Test
+test.sh
+</span></code></pre>
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/>Virtualbox Headless-mode on Windows 7</a> <span>2011-03-21</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/cygwin-screen-reattach-workaround/>Cygwin Screen Reattach Workaround</a> <span>2011-04-04</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/" />
+   
+  <meta property="og:title" content="Virtualbox Headless-mode on Windows 7" />
+  
+  
+  <meta property="og:description" content="Configuring Virtualbox to run a headless FreeBSD VM in Win7 at startup" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/" />
+   
+  <meta name="twitter:title" content="Virtualbox Headless-mode on Windows 7" />
+  
+  
+  <meta name="twitter:description" content="Configuring Virtualbox to run a headless FreeBSD VM in Win7 at startup" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Virtualbox Headless-mode on Windows 7</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2011-03-21
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/freebsd/">
+              #freebsd
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/virtualbox/">
+              #virtualbox
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/zfs/">
+              #zfs
+            </a>
+          
+        
+      </span>
+
+    <p>An impromptu reformat of my Windows 7 machine quickly had me frustrated with Virtualbox reconfiguration. It had been so long since I had originally done it, and I had forgotten to document the nuances of that setup. So here goes:</p>
+<h2 id="purpose">Purpose<a class="zola-anchor" href="#purpose" aria-label="Anchor link for: purpose">🔗</a></h2>
+<p>This specific VM configuration is FreeBSD 8.2 w/ ZFS on root. I don't have the time to set it up from scratch, but I'm currently using the newest ZFS version available on <a href="http://mfsbsd.vx.sk">this site</a> (v28, special edition).</p>
+<p>I'm only planning on using this VM for SSH for a persistent irc connection. I also want this to start automatically at Win7's boot.</p>
+<h2 id="install-vm">Install VM<a class="zola-anchor" href="#install-vm" aria-label="Anchor link for: install-vm">🔗</a></h2>
+<p>So after installing FreeBSD and ports and of course, remembering to <em>ENABLE SSH</em>... I had to test the ssh connection.</p>
+<p>(Remember to open the ports on the host side. I'm not going to walk you through that step.)</p>
+<h2 id="headless-vm">Headless VM<a class="zola-anchor" href="#headless-vm" aria-label="Anchor link for: headless-vm">🔗</a></h2>
+<p>Now for the headless start.</p>
+<p>I tried creating a .bat file that used <code>VBoxHeadless</code>. This let it start at boot, but it left an annoying cmd.exe window open.</p>
+<p>Apparently a common issue. A common solution I used was to create a .vbs script to run the .bat file. This was both annoying and tedious but effective. Startup at boot and no lingering cmd.exe window.</p>
+<p>Here are the contents of my .bat and .vbs files. I placed these in the same directory, and made a shortcut in the <code>Start &gt; All Programs &gt; Startup</code> to the <code>.vbs</code> file.</p>
+<h3 id="startfreebsdvm-bat">startfreebsdvm.bat<a class="zola-anchor" href="#startfreebsdvm-bat" aria-label="Anchor link for: startfreebsdvm-bat">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">D:\&quot;</span><span style="color:#a3be8c;">Program Files</span><span style="color:#c0c5ce;">&quot;OracleVirtualBoxVBoxHeadless.exe -s FreeBSD startvm-headless.vbs
+</span><span style="color:#b48ead;">Set </span><span style="color:#bf616a;">WshShell </span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;"> WScript.CreateObject(</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">WScript.Shell</span><span style="color:#c0c5ce;">&quot;)
+obj = WshShell.Run(&quot;</span><span style="color:#a3be8c;">D:Users[username]startfreebsdvm.bat</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+</span><span style="color:#b48ead;">set </span><span style="color:#bf616a;">WshShell </span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;"> Nothing
+</span></code></pre>
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/>Improving Cywgin in Windows with rxvt</a> <span>2011-03-18</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/zsh-at-win-7-start-up/>Zsh at Win 7 Start up</a> <span>2011-03-28</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

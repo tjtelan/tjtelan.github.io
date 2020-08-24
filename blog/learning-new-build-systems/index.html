@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/learning-new-build-systems/" />
+   
+  <meta property="og:title" content="Learning New Build Systems" />
+  
+  
+  <meta property="og:description" content="Devops build experience with unfamiliar languages" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/learning-new-build-systems/" />
+   
+  <meta name="twitter:title" content="Learning New Build Systems" />
+  
+  
+  <meta name="twitter:description" content="Devops build experience with unfamiliar languages" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Learning New Build Systems</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2017-04-01
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/now-blog/">
+              now-blog
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/devops/">
+              devops
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/maven/">
+              #maven
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/gulpjs/">
+              #gulpjs
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/ci/">
+              #ci
+            </a>
+          
+        
+      </span>
+
+    <p>I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C/C++ with make.</p>
+<p>I most recently got to play with Java/Maven, and NodeJS/Gulp.</p>
+<p>--</p>
+<p>The project I was building has a UI written in node, and built into an npm module with gulp. There are also maven pom files that describe the build with gulp using npm run build. This was done so everything could be orchestrated for building into a java jar.</p>
+<p>Things I thought were neat about maven is the plugin system.</p>
+<p>I'm not a huge fan of the pom files using xml, but it is really nice to be able to configure dependencies, and dynamically define build artifacts. The local maven repo is still a little confusing at times, but with more time I think it'll make more sense.</p>
+<p>--</p>
+<p>The UI build with gulp was more unfamiliar. The build instructions are in javascript, naturally. You can use <code>gulp.task()</code> and define a list of dependencies. But I had some experiences where my dependency lists were not made explicit enough. I suppose this is not much different than makefiles.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/status-update/>Status Update</a> <span>2016-06-25</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-1/>Building a Unix-shell in Rust - Part 1</a> <span>2017-11-05</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

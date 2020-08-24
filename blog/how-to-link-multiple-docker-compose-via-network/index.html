@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" />
+   
+  <meta property="og:title" content="How to link multiple docker-compose services via network" />
+  
+  
+  <meta property="og:description" content="Walkthrough of how to link networks of docker-compose services defined in multiple files" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" />
+   
+  <meta name="twitter:title" content="How to link multiple docker-compose services via network" />
+  
+  
+  <meta name="twitter:description" content="Walkthrough of how to link networks of docker-compose services defined in multiple files" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">How to link multiple docker-compose services via network</h1>
+    
+    <span class="post-meta">
+        4 min read
+        &nbsp;&bull;&nbsp;
+        2020-06-11
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/devops/">
+              devops
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/docker/">
+              #docker
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/networking/">
+              #networking
+            </a>
+          
+        
+      </span>
+
+    <p>This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.</p>
+<p>The desired result was to be able to define a docker-compose.yml in one file, and in a second docker-compose.yml have the ability to reach the first service via service or container name for development purposes.</p>
+<h2 id="default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks">Default scenario: Two separate docker-compose.yml and two separate default networks<a class="zola-anchor" href="#default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks" aria-label="Anchor link for: default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks">🔗</a></h2>
+<p>Let’s take a simple docker compose file.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">version</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">3</span><span style="color:#c0c5ce;">&#39; 
+</span><span style="color:#bf616a;">services</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">service1</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox 
+    command</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">sleep infinity
+</span></code></pre>
+<p>When it starts up, a default network is created. Its name is based on the service name and the directory name of the docker-compose.yml file.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> pwd
+</span><span style="color:#bf616a;">/tmp/docker-example/compose1
+
+$</span><span style="color:#c0c5ce;"> docker-compose up</span><span style="color:#bf616a;"> -d
+Creating</span><span style="color:#c0c5ce;"> network &quot;</span><span style="color:#a3be8c;">compose1_default</span><span style="color:#c0c5ce;">&quot; with the default driver
+</span><span style="color:#bf616a;">Creating</span><span style="color:#c0c5ce;"> compose1_service1_1 ... done
+</span></code></pre><h3 id="second-docker-compose-file">Second docker compose file<a class="zola-anchor" href="#second-docker-compose-file" aria-label="Anchor link for: second-docker-compose-file">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">version</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">3</span><span style="color:#c0c5ce;">&#39; 
+</span><span style="color:#bf616a;">services</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">service2</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox 
+    command</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">sleep infinity
+</span></code></pre>
+<p>Starting services in a second docker compose file, we see the same behavior. A new default network is created and used.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> pwd
+</span><span style="color:#bf616a;">/tmp/docker-example/compose2
+
+$</span><span style="color:#c0c5ce;"> docker-compose up</span><span style="color:#bf616a;"> -d
+Creating</span><span style="color:#c0c5ce;"> network &quot;</span><span style="color:#a3be8c;">compose2_default</span><span style="color:#c0c5ce;">&quot; with the default driver
+</span><span style="color:#bf616a;">Creating</span><span style="color:#c0c5ce;"> compose2_service2_1 ... done
+</span></code></pre>
+<p>A side-effect of these isolated networks are that the containers are unable to ping one another by service name or container name.</p>
+<h3 id="test-from-service-1-ping-service-2">Test: From Service 1 ping Service 2<a class="zola-anchor" href="#test-from-service-1-ping-service-2" aria-label="Anchor link for: test-from-service-1-ping-service-2">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># By service name
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose1_service1_1 ping service2
+</span><span style="color:#bf616a;">ping:</span><span style="color:#c0c5ce;"> bad address &#39;</span><span style="color:#a3be8c;">service2</span><span style="color:#c0c5ce;">&#39;
+
+</span><span style="color:#65737e;"># By container name
+</span><span style="color:#c0c5ce;">$ docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose1_service1_1 ping compose2_service2_1 
+</span><span style="color:#bf616a;">ping:</span><span style="color:#c0c5ce;"> bad address &#39;</span><span style="color:#a3be8c;">compose2_service2_1</span><span style="color:#c0c5ce;">&#39;
+</span></code></pre><h3 id="test-service-2-ping-service-1">Test: Service 2 ping Service 1<a class="zola-anchor" href="#test-service-2-ping-service-1" aria-label="Anchor link for: test-service-2-ping-service-1">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># By service name
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose2_service2_1 ping service1
+</span><span style="color:#bf616a;">ping:</span><span style="color:#c0c5ce;"> bad address &#39;</span><span style="color:#a3be8c;">service1</span><span style="color:#c0c5ce;">&#39;
+
+</span><span style="color:#65737e;"># By container name
+</span><span style="color:#c0c5ce;">$ docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose2_service2_1 ping compose1_service1_1 
+</span><span style="color:#bf616a;">ping:</span><span style="color:#c0c5ce;"> bad address &#39;</span><span style="color:#a3be8c;">compose1_service1_1</span><span style="color:#c0c5ce;">&#39;
+</span></code></pre><h2 id="new-scenario-sharing-a-network-between-services">New scenario: Sharing a network between services<a class="zola-anchor" href="#new-scenario-sharing-a-network-between-services" aria-label="Anchor link for: new-scenario-sharing-a-network-between-services">🔗</a></h2>
+<p>If you want define services in multiple docker-compose.yml files, and also have network connectivity between the services, you need to configure your services to use the same network.</p>
+<p>To create an external network, you can run <code>docker network create &lt;name&gt;</code>. -- where <code>&lt;name&gt;</code> can be a single string without spaces.</p>
+<h3 id="creating-the-network">Creating the network<a class="zola-anchor" href="#creating-the-network" aria-label="Anchor link for: creating-the-network">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker network create external-example
+</span><span style="color:#bf616a;">2af4d92c2054e9deb86edaea8bb55ecb74f84a62aec7614c9f09fee386f248a6
+</span></code></pre><h3 id="modified-first-docker-compose-file-with-network-configured">Modified first docker-compose file with network configured<a class="zola-anchor" href="#modified-first-docker-compose-file-with-network-configured" aria-label="Anchor link for: modified-first-docker-compose-file-with-network-configured">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">version</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">3</span><span style="color:#c0c5ce;">&#39; 
+</span><span style="color:#bf616a;">services</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">service1</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox 
+    command</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">sleep infinity 
+
+networks</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">default</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">: 
+      </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">external-example 
+</span></code></pre>
+<p>Restarting the services</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> pwd
+</span><span style="color:#bf616a;">/tmp/docker-example/compose1
+
+$</span><span style="color:#c0c5ce;"> docker-compose up</span><span style="color:#bf616a;"> -d
+Creating</span><span style="color:#c0c5ce;"> compose1_service1_1 ... done
+</span></code></pre><h3 id="modified-second-docker-compose-file-with-network-configured">Modified second docker-compose file with network configured<a class="zola-anchor" href="#modified-second-docker-compose-file-with-network-configured" aria-label="Anchor link for: modified-second-docker-compose-file-with-network-configured">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">version</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">3</span><span style="color:#c0c5ce;">&#39; 
+</span><span style="color:#bf616a;">services</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">service2</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox 
+    command</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">sleep infinity 
+
+networks</span><span style="color:#c0c5ce;">: 
+  </span><span style="color:#bf616a;">default</span><span style="color:#c0c5ce;">: 
+    </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">: 
+      </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">external-example 
+</span></code></pre>
+<p>Restarting the services</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> pwd
+</span><span style="color:#bf616a;">/tmp/docker-example/compose2
+
+$</span><span style="color:#c0c5ce;"> docker-compose up</span><span style="color:#bf616a;"> -d
+Creating</span><span style="color:#c0c5ce;"> compose2_service2_1 ... done
+</span></code></pre>
+<p>After running <code>docker-compose up -d</code> on both docker-compose.yml files, we see that no new networks were created.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker network ls
+</span><span style="color:#bf616a;">NETWORK</span><span style="color:#c0c5ce;"> ID          NAME                DRIVER              SCOPE
+</span><span style="color:#bf616a;">25e0c599d5e5</span><span style="color:#c0c5ce;">        bridge              bridge              local
+</span><span style="color:#bf616a;">2af4d92c2054</span><span style="color:#c0c5ce;">        external-example    bridge              local
+</span><span style="color:#bf616a;">7df4631e9cff</span><span style="color:#c0c5ce;">        host                host                local
+</span><span style="color:#bf616a;">194d4156d7ab</span><span style="color:#c0c5ce;">        none                null                local
+</span></code></pre>
+<p>With the containers using the <code>external-example</code> network, they are able to ping one another.</p>
+<h3 id="test-service-1-ping-service-2">Test: Service 1 ping Service 2<a class="zola-anchor" href="#test-service-1-ping-service-2" aria-label="Anchor link for: test-service-1-ping-service-2">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># By service name
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose1_service1_1 ping service2
+</span><span style="color:#bf616a;">PING</span><span style="color:#c0c5ce;"> service2 (172.24.0.3)</span><span style="color:#96b5b4;">:</span><span style="color:#c0c5ce;"> 56 data bytes
+</span><span style="color:#bf616a;">64</span><span style="color:#c0c5ce;"> bytes from 172.24.0.3: seq=0 ttl=64 time=0.054 ms
+</span><span style="color:#bf616a;">^C
+---</span><span style="color:#c0c5ce;"> service2 ping statistics ---
+</span><span style="color:#bf616a;">1</span><span style="color:#c0c5ce;"> packets transmitted, 1 packets received, 0% packet loss
+</span><span style="color:#bf616a;">round-trip</span><span style="color:#c0c5ce;"> min/avg/max = 0.054/0.054/0.054 ms
+
+</span><span style="color:#65737e;"># By container name
+</span><span style="color:#c0c5ce;">$ docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose1_service1_1 ping compose2_service2_1
+</span><span style="color:#bf616a;">PING</span><span style="color:#c0c5ce;"> compose2_service2_1 (172.24.0.2)</span><span style="color:#96b5b4;">:</span><span style="color:#c0c5ce;"> 56 data bytes
+</span><span style="color:#bf616a;">64</span><span style="color:#c0c5ce;"> bytes from 172.24.0.2: seq=0 ttl=64 time=0.042 ms
+</span><span style="color:#bf616a;">^C
+---</span><span style="color:#c0c5ce;"> compose2_service2_1 ping statistics ---
+</span><span style="color:#bf616a;">1</span><span style="color:#c0c5ce;"> packets transmitted, 1 packets received, 0% packet loss
+</span><span style="color:#bf616a;">round-trip</span><span style="color:#c0c5ce;"> min/avg/max = 0.042/0.042/0.042 ms
+</span></code></pre><h3 id="test-service-2-ping-service-1-1">Test: Service 2 ping Service 1<a class="zola-anchor" href="#test-service-2-ping-service-1-1" aria-label="Anchor link for: test-service-2-ping-service-1-1">🔗</a></h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># By service name
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose2_service2_1 ping service1
+</span><span style="color:#bf616a;">PING</span><span style="color:#c0c5ce;"> service1 (172.24.0.2)</span><span style="color:#96b5b4;">:</span><span style="color:#c0c5ce;"> 56 data bytes
+</span><span style="color:#bf616a;">64</span><span style="color:#c0c5ce;"> bytes from 172.24.0.2: seq=0 ttl=64 time=0.041 ms
+</span><span style="color:#bf616a;">^C
+---</span><span style="color:#c0c5ce;"> service1 ping statistics ---
+</span><span style="color:#bf616a;">1</span><span style="color:#c0c5ce;"> packets transmitted, 1 packets received, 0% packet loss
+</span><span style="color:#bf616a;">round-trip</span><span style="color:#c0c5ce;"> min/avg/max = 0.041/0.041/0.041 ms
+
+</span><span style="color:#65737e;"># By container name
+</span><span style="color:#c0c5ce;">$ docker exec</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> compose2_service2_1 ping compose1_service1_1
+</span><span style="color:#bf616a;">PING</span><span style="color:#c0c5ce;"> compose1_service1_1 (172.24.0.3)</span><span style="color:#96b5b4;">:</span><span style="color:#c0c5ce;"> 56 data bytes
+</span><span style="color:#bf616a;">64</span><span style="color:#c0c5ce;"> bytes from 172.24.0.3: seq=0 ttl=64 time=0.042 ms
+</span><span style="color:#bf616a;">^C
+---</span><span style="color:#c0c5ce;"> compose1_service1_1 ping statistics ---
+</span><span style="color:#bf616a;">1</span><span style="color:#c0c5ce;"> packets transmitted, 1 packets received, 0% packet loss
+</span><span style="color:#bf616a;">round-trip</span><span style="color:#c0c5ce;"> min/avg/max = 0.042/0.042/0.042 ms
+</span></code></pre>
+<blockquote>
+<p>As a note, you can configure your services to use a custom container name by declaring the <code>container_name</code> key under each service (i.e., at the same level as <code>image</code>).</p>
+<p><a href="https://docs.docker.com/compose/compose-file/#container_name">Link to Docker-compose docs - container_name</a></p>
+</blockquote>
+<h2 id="takeaway">Takeaway<a class="zola-anchor" href="#takeaway" aria-label="Anchor link for: takeaway">🔗</a></h2>
+<p>You can connect services defined across multiple docker-compose.yml files.</p>
+<p>In order to do this you’ll need to:</p>
+<ol>
+<li>Create an external network with <code>docker network create &lt;network name&gt;</code></li>
+<li>In each of your docker-compose.yml  configure the default network to use your externally created network with the <code>networks</code> top-level key.</li>
+<li>You can use either the service name or container name to connect between containers.</li>
+</ol>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/published-first-crate-on-crates-io/>Published First Crate on Crates.io</a> <span>2020-02-14</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</a> <span>2020-06-12</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

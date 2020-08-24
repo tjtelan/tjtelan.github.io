@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/laptop-volume-buttons-in-awesome-wm/" />
+   
+  <meta property="og:title" content="Laptop Volume Buttons in AwesomeWM" />
+  
+  
+  <meta property="og:description" content="Configuring hardware laptop buttons to control speaker volume" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/laptop-volume-buttons-in-awesome-wm/" />
+   
+  <meta name="twitter:title" content="Laptop Volume Buttons in AwesomeWM" />
+  
+  
+  <meta name="twitter:description" content="Configuring hardware laptop buttons to control speaker volume" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Laptop Volume Buttons in AwesomeWM</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2011-09-15
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/awesomewm/">
+              #awesomewm
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/laptop/">
+              #laptop
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rc-conf/">
+              #rc.conf
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/volume-control/">
+              #volume-control
+            </a>
+          
+        
+      </span>
+
+    <p>I've been using <a href="http://www.archlinux.org">Arch Linux</a> on my laptop for a while now running <a href="http://awesome.naquadah.org">Awesome</a> as my window manager.</p>
+<p>I've have struggled to find the motivation to actually fix minor inconveniences because of the workarounds that I always seem to find first.</p>
+<p>In this post, the inconvenience that I ended up solving is one that laptop users take for granted: the keyboard volume controls.</p>
+<p>Initially, I just had trouble getting sound working. Turns out that I just
+<a href="https://wiki.archlinux.org/index.php/General_recommendations#Sound">needed to unmute</a>.</p>
+<p>Just being overwhelmed by how much I need to read just to return some basic niceities back to my laptop usage, I've defaulted to the command line methods of doing what I need to do rather than read new documentation.</p>
+<p>So that means that I've just been using <code>alsamixer</code> whenever I needed to control my volume since my volume keys did not have any function.</p>
+<p>It turned out to be very simple. I just had to add a few lines to my awesome config file (<code>rc.lua</code>).</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">({ }, &quot;</span><span style="color:#a3be8c;">XF86AudioMute</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#b48ead;">function </span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.util.</span><span style="color:#bf616a;">spawn</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">amixer -c 0 set Master toggle</span><span style="color:#c0c5ce;">&quot;) </span><span style="color:#b48ead;">end</span><span style="color:#c0c5ce;">),
+</span><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">({ }, &quot;</span><span style="color:#a3be8c;">XF86AudioRaiseVolume</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#b48ead;">function </span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.util.</span><span style="color:#bf616a;">spawn</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">amixer -c 0 set Master 2+ unmute</span><span style="color:#c0c5ce;">&quot;) </span><span style="color:#b48ead;">end</span><span style="color:#c0c5ce;">),
+</span><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">({ }, &quot;</span><span style="color:#a3be8c;">XF86AudioLowerVolume</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#b48ead;">function </span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">awful</span><span style="color:#c0c5ce;">.util.</span><span style="color:#bf616a;">spawn</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">amixer -c 0 set Master 2-</span><span style="color:#c0c5ce;">&quot;) </span><span style="color:#b48ead;">end</span><span style="color:#c0c5ce;">)
+</span></code></pre>
+<p>These went at the bottom of the globalkeys section in the rc.lua file. I'm not going to cover rc.lua, because if you don't know, then you really need to catch up on some documentation or you will probably screw things up.</p>
+<p>I got the XF86* names by running <code>xev</code> and pressing the buttons. The amixer command <code>-c</code> flag is specific to my needs, so beware before copy/pasting.</p>
+<p>When I get more comfortable with editing rc.lua, I plan on making a more detailed post.</p>
+<p>Just taking a break between writing my review for my MetaWatch. Coming soon, I promise.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/metawatch-has-arrived/>Metawatch Has Arrived</a> <span>2011-09-12</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/metawatch-initial-impression/>MetaWatch - Unboxing</a> <span>2011-09-16</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

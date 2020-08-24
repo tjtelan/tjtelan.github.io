@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - volume-control</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/volume-control/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-09-15T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/volume-control/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Laptop Volume Buttons in AwesomeWM</title>
+		<published>2011-09-15T00:00:00+00:00</published>
+		<updated>2011-09-15T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/laptop-volume-buttons-in-awesome-wm/" type="text/html"/>
+		<id>https://tjtelan.com/blog/laptop-volume-buttons-in-awesome-wm/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve been using &lt;a href=&quot;http:&#x2F;&#x2F;www.archlinux.org&quot;&gt;Arch Linux&lt;&#x2F;a&gt; on my laptop for a while now running &lt;a href=&quot;http:&#x2F;&#x2F;awesome.naquadah.org&quot;&gt;Awesome&lt;&#x2F;a&gt; as my window manager.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve have struggled to find the motivation to actually fix minor inconveniences because of the workarounds that I always seem to find first.&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, the inconvenience that I ended up solving is one that laptop users take for granted: the keyboard volume controls.&lt;&#x2F;p&gt;
+&lt;p&gt;Initially, I just had trouble getting sound working. Turns out that I just
+&lt;a href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;index.php&#x2F;General_recommendations#Sound&quot;&gt;needed to unmute&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Just being overwhelmed by how much I need to read just to return some basic niceities back to my laptop usage, I&#x27;ve defaulted to the command line methods of doing what I need to do rather than read new documentation.&lt;&#x2F;p&gt;
+&lt;p&gt;So that means that I&#x27;ve just been using &lt;code&gt;alsamixer&lt;&#x2F;code&gt; whenever I needed to control my volume since my volume keys did not have any function.&lt;&#x2F;p&gt;
+&lt;p&gt;It turned out to be very simple. I just had to add a few lines to my awesome config file (&lt;code&gt;rc.lua&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;key&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;({ }, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;XF86AudioMute&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.util.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;spawn&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;amixer -c 0 set Master toggle&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;key&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;({ }, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;XF86AudioRaiseVolume&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.util.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;spawn&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;amixer -c 0 set Master 2+ unmute&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;key&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;({ }, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;XF86AudioLowerVolume&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;awful&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;.util.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;spawn&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;amixer -c 0 set Master 2-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;These went at the bottom of the globalkeys section in the rc.lua file. I&#x27;m not going to cover rc.lua, because if you don&#x27;t know, then you really need to catch up on some documentation or you will probably screw things up.&lt;&#x2F;p&gt;
+&lt;p&gt;I got the XF86* names by running &lt;code&gt;xev&lt;&#x2F;code&gt; and pressing the buttons. The amixer command &lt;code&gt;-c&lt;&#x2F;code&gt; flag is specific to my needs, so beware before copy&#x2F;pasting.&lt;&#x2F;p&gt;
+&lt;p&gt;When I get more comfortable with editing rc.lua, I plan on making a more detailed post.&lt;&#x2F;p&gt;
+&lt;p&gt;Just taking a break between writing my review for my MetaWatch. Coming soon, I promise.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

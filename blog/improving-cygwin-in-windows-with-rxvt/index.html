@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/" />
+   
+  <meta property="og:title" content="Improving Cywgin in Windows with rxvt" />
+  
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/improving-cygwin-in-windows-with-rxvt/" />
+   
+  <meta name="twitter:title" content="Improving Cywgin in Windows with rxvt" />
+  
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Improving Cywgin in Windows with rxvt</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2011-03-18
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/cygwin/">
+              #cygwin
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/putty/">
+              #putty
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rxvt/">
+              #rxvt
+            </a>
+          
+        
+      </span>
+
+    <p>I've grown accustomed to using a terminal emulator pretty much any time I sit down to use the computer.</p>
+<p>Most of the time I am using my laptop, which is running Linux (Ubuntu, at the moment). I've already got that workstation set up mostly how I like it. But lately I've been using my Windows 7 desktop a lot more for school related (and gaming related) things.</p>
+<p>I use SSH all the time, and when you are using Windows, that means that your choices are limited when looking for a decent SSH client. The only choices I'm going to be considering are Cygwin and PuTTY.</p>
+<h2 id="putty">PuTTY<a class="zola-anchor" href="#putty" aria-label="Anchor link for: putty">🔗</a></h2>
+<p>PuTTY is alright, but these are the issues I've had with it:</p>
+<ul>
+<li>Copy/Paste functionality is different.</li>
+<li>Highlighting text auto-copies to clipboard. Right click auto-pastes into the console.</li>
+<li>No simple way to set up passwordless login using SSH keys</li>
+</ul>
+<h2 id="cygwin">Cygwin<a class="zola-anchor" href="#cygwin" aria-label="Anchor link for: cygwin">🔗</a></h2>
+<p>The learning curve for Cygwin is a little steep, but the issues I've had
+with it (without rxvt):</p>
+<ul>
+<li>Runs <strong>inside</strong> cmd.exe</li>
+<li>Cannot resize the window larger than default size without messing with cmd.exe window properties</li>
+<li>Copy/Paste is too difficult to use
+<ul>
+<li>Attempting to highlight text does nothing unless you are in 'mark mode'. Figure that out.</li>
+</ul>
+</li>
+<li>Can't place shortcut in taskbar
+<ul>
+<li>Because the shortcut to cygwin is to a *.bat rather than *.exe</li>
+</ul>
+</li>
+</ul>
+<p><strong>So what is the solution to this mess?</strong></p>
+<h1 id="cygwin-rxvt">Cygwin + Rxvt<a class="zola-anchor" href="#cygwin-rxvt" aria-label="Anchor link for: cygwin-rxvt">🔗</a></h1>
+<ul>
+<li>Install the <em>rxvt</em> package with the cygwin installer</li>
+<li>Create shortcut for rxvt</li>
+</ul>
+<p>You can choose your own colors, fonts, and login shell</p>
+<p>Here is the path I used in my shortcut:</p>
+<p>cygwin-rxvt-launcher:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">D:\cygwinbinrxvt.exe -sr -sl </span><span style="color:#d08770;">2500</span><span style="color:#c0c5ce;"> -sb -geometry 90x30 -fg green -bg black -tn rxvt -fn &quot;</span><span style="color:#a3be8c;">Anonymous Pro-16</span><span style="color:#c0c5ce;">&quot; -e /usr/bin/zsh --login -i
+</span></code></pre>
+<p>Here, I'm using green text, black background and my favorite monospaced font, <a href="http://www.ms-studio.com/FontSales/anonymouspro.html">Anonymous Pro</a>, at size 16 with Z-shell as my login shell.</p>
+<p>Took me a moment to figure out copy/paste, but here is how you do it. It is an improvement, but not perfect:</p>
+<p><strong>Copy</strong>:
+Same as PuTTY. Highlight using mouse to copy text to the clipboard</p>
+<p><strong>Paste</strong>:
+Hold down <em>Shift</em> and <em>left-click</em> with your mouse.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/>Virtualbox Headless-mode on Windows 7</a> <span>2011-03-21</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

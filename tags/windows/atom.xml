@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - windows</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/windows/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-03-28T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/windows/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Zsh at Win 7 Start up</title>
+		<published>2011-03-28T00:00:00+00:00</published>
+		<updated>2011-03-28T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/zsh-at-win-7-start-up/" type="text/html"/>
+		<id>https://tjtelan.com/blog/zsh-at-win-7-start-up/</id>
+		<content type="html">&lt;p&gt;Beginning of the quarter is tomorrow, and I&#x27;m trying to accept that I will be spending more time on a Windows workstation to access the software I&#x27;m using for my senior project (more on that soon).&lt;&#x2F;p&gt;
+&lt;p&gt;There are a few comforts that I am still missing in Win7 that I&#x27;m trying to solve with Cygwin, like &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;improving-cygwin-in-windows-with-rxvt&#x2F;&quot;&gt;Improving Cygwin in Windows with Rxvt&lt;&#x2F;a&gt; getting zsh back.&lt;&#x2F;p&gt;
+&lt;p&gt;Today, that issue was being able to write Zsh scripts that would run at login through Cygwin instead of using cmd.exe.&lt;&#x2F;p&gt;
+&lt;p&gt;Turned out to not be quite as straightforward as I had hoped, but still easy.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;add-cygwin-to-win7-path-environment-variable&quot;&gt;Add Cygwin to Win7 PATH environment variable.&lt;a class=&quot;zola-anchor&quot; href=&quot;#add-cygwin-to-win7-path-environment-variable&quot; aria-label=&quot;Anchor link for: add-cygwin-to-win7-path-environment-variable&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It took me a moment to find this information after having trouble using &lt;code&gt;ls&lt;&#x2F;code&gt; in my script. Although, &lt;code&gt;echo&lt;&#x2F;code&gt; worked...&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, might as well add this first and avoid the issues entirely.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open start menu&lt;&#x2F;li&gt;
+&lt;li&gt;Right-click &lt;code&gt;Computer&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Click &lt;code&gt;Properties&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Click &lt;code&gt;Advanced system settings&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In the new &lt;code&gt;System Properties&lt;&#x2F;code&gt; window, click the &lt;code&gt;Environment Variables&lt;&#x2F;code&gt; button located at the bottom.&lt;&#x2F;p&gt;
+&lt;p&gt;In the new &lt;code&gt;Environment Variables&lt;&#x2F;code&gt; window, at the bottom are the &lt;code&gt;System variables&lt;&#x2F;code&gt;
+Add &lt;code&gt;CYGWIN_HOME&lt;&#x2F;code&gt; with a value of the Cygwin installation path (default is &lt;code&gt;C:&#x2F;cygwin&lt;&#x2F;code&gt;) if it does not exist in the variable list.&lt;&#x2F;p&gt;
+&lt;p&gt;Edit the &lt;code&gt;PATH&lt;&#x2F;code&gt; variable to include &lt;code&gt;%CYGWIN_HOME%&#x2F;bin&lt;&#x2F;code&gt; which is the same as
+including &lt;code&gt;&#x2F;bin&lt;&#x2F;code&gt; in the Cygwin environment.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;run-cygwin-scripts-from-windows&quot;&gt;Run Cygwin scripts from Windows&lt;a class=&quot;zola-anchor&quot; href=&quot;#run-cygwin-scripts-from-windows&quot; aria-label=&quot;Anchor link for: run-cygwin-scripts-from-windows&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You can&#x27;t just write the script and use Zsh built-ins in Windows space. You have to write the script in Zsh space and have windows have Zsh run that script. Simple. Right?&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ll just show my test scripts:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;(On the Windows desktop)&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;testscript.bat&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;zsh.exe &#x2F;home&#x2F;[username]&#x2F;test.sh
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;em&gt;(In Cygwin)&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;test.sh&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;usr&#x2F;bin&#x2F;env zsh
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;`&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pwd&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;`
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; Test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;`&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ls&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; &#x2F;home&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;username&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;`
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;These are the results of running testscript.bat in cmd.exe&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;cygdrive&#x2F;d&#x2F;Users&#x2F;[username]&#x2F;Desktop
+Test
+test.sh
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+	</entry>
+</feed>

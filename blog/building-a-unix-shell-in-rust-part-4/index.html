@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-4/" />
+   
+  <meta property="og:title" content="Building a Unix-shell in Rust - Part 4" />
+  
+  
+  <meta property="og:description" content="Exploring implementation of shell builtins" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-4/" />
+   
+  <meta name="twitter:title" content="Building a Unix-shell in Rust - Part 4" />
+  
+  
+  <meta name="twitter:description" content="Exploring implementation of shell builtins" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Building a Unix-shell in Rust - Part 4</h1>
+    
+    <span class="post-meta">
+        4 min read
+        &nbsp;&bull;&nbsp;
+        2018-01-21
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+        
+      </span>
+
+    <p>This is the 4th post in a running series about writing a simple unix shell in the Rust language. 
+I suggest you catch up on the previous posts before reading ahead! </p>
+<ul>
+<li><a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-1/">part 1</a></li>
+<li><a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-2/">part 2</a></li>
+<li><a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-3/">part 3</a></li>
+</ul>
+<hr />
+<p>Back to evaluating the parsed command. This time we are going to be implementing built-in functions.</p>
+<h3 id="shell-builtins">Shell builtins<a class="zola-anchor" href="#shell-builtins" aria-label="Anchor link for: shell-builtins">🔗</a></h3>
+<p>Let’s quickly review how a shell works.
+User is prompted for input. The input is tokenized (we are naively splitting on spaces). The first element of the tokenized input is the keyword, and the rest are the arguments. We execute the keyword with the arguments.</p>
+<p>Our keywords correspond to either a shell function call (a builtin) or an external binary in your executable search path, which we will cover when we look to execute binaries in the next part. (In Bash, you can view this path by looking at the value of the environmental variable PATH. <code>$ echo ${PATH}</code>)</p>
+<p>Builtin keywords are functions that are implemented in the shell codebase. Calls to builtin commands are just local function calls. </p>
+<p>In Bash, usually you can view what commands are implemented as shell functions with <code>$ man builtins</code>. (And some platforms use external binaries for many common builtins, rather than rely on the shell implementation)</p>
+<p>Some common builtins, which we will implement are:</p>
+<ul>
+<li>echo</li>
+<li>history</li>
+<li>cd</li>
+<li>pwd</li>
+</ul>
+<h3 id="my-initial-strategy">My initial strategy<a class="zola-anchor" href="#my-initial-strategy" aria-label="Anchor link for: my-initial-strategy">🔗</a></h3>
+<p>I’m going to keep my strategy simple. When I input a command, I want to run the builtin command. If my input is not a builtin, then let’s throw an error saying the command isn’t found. This will set us up for when we execute binaries,.</p>
+<p>The first thing we want to do when we process the command is evaluate if it is a builtin. If it is, we want to pass arguments to the builtin function. </p>
+<p>I’m scratching my head a little bit about how to represent the mapping of a keyword to a function in an idiomatic way.</p>
+<p>I’ve found the <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html">HashMap</a> module, which is part of the standard collection library, but I’m looking to see if I can use something else that doesn’t require importing a library. I think what I want is an <code>enum</code> and I can pattern match to call builtin functions.</p>
+<p>After a little bit of thought, I wondered if I could parse the string into the enum? My google-ing informs me that to accomplish this, I need to implement the <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html">fromStr</a> trait. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">enum </span><span style="color:#c0c5ce;">Builtin {
+  Echo,
+  History,
+  Cd,
+  Pwd
+}
+
+</span><span style="color:#b48ead;">impl </span><span style="color:#c0c5ce;">FromStr </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">Builtin {
+  </span><span style="color:#b48ead;">type </span><span style="color:#c0c5ce;">Err = ();
+  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">from_str</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">s </span><span style="color:#c0c5ce;">: &amp;</span><span style="color:#b48ead;">str</span><span style="color:#c0c5ce;">) -&gt; Result&lt;</span><span style="color:#b48ead;">Self</span><span style="color:#c0c5ce;">, </span><span style="color:#b48ead;">Self::</span><span style="color:#c0c5ce;">Err&gt; {
+    </span><span style="color:#b48ead;">match</span><span style="color:#c0c5ce;"> s {
+      &quot;</span><span style="color:#a3be8c;">echo</span><span style="color:#c0c5ce;">&quot; =&gt; Ok(Builtin::Echo),
+      &quot;</span><span style="color:#a3be8c;">history</span><span style="color:#c0c5ce;">&quot; =&gt; Ok(Builtin::History),
+      &quot;</span><span style="color:#a3be8c;">cd</span><span style="color:#c0c5ce;">&quot; =&gt; Ok(Builtin::Cd),
+      &quot;</span><span style="color:#a3be8c;">pwd</span><span style="color:#c0c5ce;">&quot; =&gt; Ok(Builtin::Pwd),
+      _ =&gt; Err(()),
+    }
+  }
+}
+</span></code></pre>
+<p>This is how I use the enum to call the function if it is a builtin</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">process_command</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">: Command) -&gt; </span><span style="color:#b48ead;">i32 </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#b48ead;">match </span><span style="color:#c0c5ce;">Builtin::from_str(&amp;c.keyword) {
+    Ok(Builtin::Echo) =&gt; </span><span style="color:#96b5b4;">builtin_echo</span><span style="color:#c0c5ce;">(&amp;c.args),
+    Ok(Builtin::History) =&gt; </span><span style="color:#96b5b4;">builtin_history</span><span style="color:#c0c5ce;">(&amp;c.args),
+    Ok(Builtin::Cd) =&gt; </span><span style="color:#96b5b4;">builtin_cd</span><span style="color:#c0c5ce;">(&amp;c.args),
+    Ok(Builtin::Pwd) =&gt; </span><span style="color:#96b5b4;">builtin_pwd</span><span style="color:#c0c5ce;">(&amp;c.args),
+    _ =&gt; {
+        println!(&quot;</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">: command not found</span><span style="color:#c0c5ce;">&quot;, &amp;c.keyword);
+        </span><span style="color:#d08770;">1
+    </span><span style="color:#c0c5ce;">},
+  }
+}
+</span></code></pre>
+<p>Here’s an example of one of the builtins. (I’m only going to show one with functionality, because I’m going to implement the rest later)
+I chose to implement echo because it is very easy to verify. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">builtin_echo</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">args </span><span style="color:#c0c5ce;">: &amp;Vec&lt;String&gt;) -&gt; </span><span style="color:#b48ead;">i32 </span><span style="color:#c0c5ce;">{
+  println!(&quot;</span><span style="color:#d08770;">{}</span><span style="color:#c0c5ce;">&quot;, args.</span><span style="color:#96b5b4;">join</span><span style="color:#c0c5ce;">(&quot; &quot;));
+  </span><span style="color:#d08770;">0
+</span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>The number I'm returning signal that the command is done executing and represent the exit code of the command. 0 is conventionally a successful call, and anything else is an error. 
+And here we are in action:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cargo run
+    </span><span style="color:#bf616a;">Finished</span><span style="color:#c0c5ce;"> debug </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">unoptimized + debuginfo</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> target(s) </span><span style="color:#bf616a;">in</span><span style="color:#c0c5ce;"> 0.0 secs
+     </span><span style="color:#bf616a;">Running </span><span style="color:#c0c5ce;">`</span><span style="color:#bf616a;">target/debug/rust-shell</span><span style="color:#c0c5ce;">`
+% echo test test test
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Raw input: &quot;</span><span style="color:#a3be8c;">echo test test test\n</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Split input: </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">echo</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> keyword : &quot;</span><span style="color:#a3be8c;">echo</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> args : </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">test</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;"> test test
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Exit code : 0
+% not_a_real_command lkfjdslf lkjfwe
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Raw input: &quot;</span><span style="color:#a3be8c;">not_a_real_command lkfjdslf lkjfwe\n</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Split input: </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">not_a_real_command</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">lkfjdslf</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">lkjfwe</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> keyword : &quot;</span><span style="color:#a3be8c;">not_a_real_command</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> args : </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">lkfjdslf</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">lkjfwe</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">not_a_real_command:</span><span style="color:#c0c5ce;"> command not found
+</span><span style="color:#bf616a;">DEBUG:</span><span style="color:#c0c5ce;"> Exit code : 1
+</span></code></pre>
+<p>I think I’m going to use this break to do some minor cleanup, write tests, and start using the rust logging mechanisms, such as the <a href="https://github.com/rust-lang-nursery/log">log</a> crate. I’ll be back in the next post for running executables.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-3/>Building a Unix-shell in Rust - Part 3</a> <span>2017-12-31</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/>Deploy Postfix Gmail relay with Ansible on Raspberry Pi</a> <span>2018-11-27</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

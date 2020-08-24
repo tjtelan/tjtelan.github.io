@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - web-development</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/web-development/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2013-12-06T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/web-development/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Pip and bottle.py on NearlyFreeSpeech</title>
+		<published>2013-12-06T00:00:00+00:00</published>
+		<updated>2013-12-06T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/" type="text/html"/>
+		<id>https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/</id>
+		<content type="html">&lt;p&gt;The biggest reason I like using nearlyfreespeech is the ability to prepay my hosting costs. The biggest downside (compared to other hosts) is a lack of straight-forward flexibility for my choice of web development environment. I appreciate the security-focused approach in how they offer features, but I can&#x27;t say that it is always comfortable as a casual user.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;NFS has lots of language support, but non-PHP web development is only supported through CGI)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I&#x27;ve been looking to try out bottle.py (partly because of their routing and partly because Django is not well supported on NFS as of this writing). I did my best to look for some examples online, but came up with only bits and pieces of the solution.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is how the environment was set up on &lt;a href=&quot;http:&#x2F;&#x2F;www.nearlyfreespeech.net&#x2F;&quot;&gt;NearlyFreeSpeech.net&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;install-pip&quot;&gt;Install pip&lt;a class=&quot;zola-anchor&quot; href=&quot;#install-pip&quot; aria-label=&quot;Anchor link for: install-pip&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I prefer using &lt;code&gt;pip&lt;&#x2F;code&gt; over &lt;code&gt;easy_install&lt;&#x2F;code&gt;, so here&#x27;s how to install that:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Create your local site-packages directory.
+# In NFS&amp;#39;s environment, this will end up being &#x2F;home&#x2F;private&#x2F;.local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; mkdir&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -p ~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;.local&#x2F;lib&#x2F;python2.7&#x2F;site-packages
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Automatically add this location to your execution path at login. Just for convenience.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ echo &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;PATH=~&#x2F;.local&#x2F;bin:$PATH&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; &amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;.profile
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Reload your .profile
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ source &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;.profile
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Use easy_install to install pip
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ easy_install&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --prefix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;.local pip
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Now we can use pip to install bottle.py
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ pip install&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --user&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bottle
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This installed bottle.py in &#x2F;home&#x2F;private&#x2F;.local&#x2F;bin. Just for example
+purposes, I copied this into my site-root so I wouldn&#x27;t have to play with
+python&#x27;s sys.path. &lt;em&gt;Use your own judgement&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; cp &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&#x2F;.local&#x2F;bin&#x2F;bottle.py &#x2F;home&#x2F;public
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At this point, I was able to find a relevant &lt;a href=&quot;http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;2664350&#x2F;problems-with-routing-urls-using-cgi-and-bottle-py&quot;&gt;stackoverflow question&lt;&#x2F;a&gt; specifically dealing with bottle.py and cgi.&lt;&#x2F;p&gt;
+&lt;p&gt;The code is mostly unchanged (I added the shebang at the top), but I&#x27;ll copy it here for copypasta purposes. Put bottle script and .htaccess in place in your site-root.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;home-public-index-py&quot;&gt;&#x2F;home&#x2F;public&#x2F;index.py&lt;a class=&quot;zola-anchor&quot; href=&quot;#home-public-index-py&quot; aria-label=&quot;Anchor link for: home-public-index-py&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;usr&#x2F;local&#x2F;bin&#x2F;python
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;bottle
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;bottle &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;route
+
+@&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;)
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;():
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+@&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;hello&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;)
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hello&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;():
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Hello&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;__name__ == &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;__main__&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;:
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;wsgiref.handlers &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;CGIHandler
+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;CGIHandler&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;run&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(bottle.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;default_app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;())
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;home-public-htaccess&quot;&gt;&#x2F;home&#x2F;public&#x2F;.htaccess&lt;a class=&quot;zola-anchor&quot; href=&quot;#home-public-htaccess&quot; aria-label=&quot;Anchor link for: home-public-htaccess&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DirectoryIndex &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;index.py
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RewriteEngine &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RewriteCond &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;%{REQUEST_FILENAME} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;!-f
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RewriteRule &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;^(.*)$ &#x2F;index.py&#x2F;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; [L]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Test this out by going to http:&#x2F;&#x2F;&amp;lt;domain&amp;gt;&#x2F; and http:&#x2F;&#x2F;&amp;lt;domain&amp;gt;&#x2F;hello to confirm that bottle routes work. This works for me, but it is a little bit slow.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m excited to finally have my own non-php stuff to do on NFS. Hopefully you&#x27;ll have fun with this as well.
+Good luck.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

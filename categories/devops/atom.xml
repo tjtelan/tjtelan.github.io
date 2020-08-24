@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - devops</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/categories/devops/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-06-12T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/categories/devops/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</title>
+		<published>2020-06-12T00:00:00+00:00</published>
+		<updated>2020-06-12T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/</id>
+		<content type="html">&lt;h2 id=&quot;my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;My experience using Github Actions for CI&#x2F;CD as a solo contributor&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot; aria-label=&quot;Anchor link for: my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am using Github Actions to build and deploy my website when I push. That is a classic continuous integration &#x2F; continuous deployment workflow. It’s convenient to commit, push and have my site build and deploy as a result. This workflow is simple but only works because I am the only contributor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-for-ci-cd-with-pull-request&quot;&gt;Github Actions for CI&#x2F;CD with Pull Request&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-for-ci-cd-with-pull-request&quot; aria-label=&quot;Anchor link for: github-actions-for-ci-cd-with-pull-request&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is a good practice to run sanity checks on pull requests prior to merging. How would that be accomplished with Github Actions?&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that you can do this but you need to be very intentional with how your jobs are configured.&lt;&#x2F;p&gt;
+&lt;p&gt;In my workflow, I am designating a main branch &lt;code&gt;zola&lt;&#x2F;code&gt; that will run full CI&#x2F;CD. Build, test and deploy. And for any other branch, just build and test.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll share my example Github Actions workflow file, then I’ll provide a template that you can modify and use for your own purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-example-github-actions-workflow&quot;&gt;My example Github Actions workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-example-github-actions-workflow&quot; aria-label=&quot;Anchor link for: my-example-github-actions-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s my site’s current workflow file for Github Actions. I’ll break this down.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;zola
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build only&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;${{ secrets.TOKEN }}
+          BUILD_ONLY&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build and deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+          BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;${{ secrets.TOKEN }}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At the top, I am specifying the events that I want to trigger on with the &lt;code&gt;on&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;zola
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I want to trigger on push events to the &lt;code&gt;zola&lt;&#x2F;code&gt; branch, and all pull requests.&lt;&#x2F;p&gt;
+&lt;p&gt;Later below are 2 jobs that are almost identical. I’ll break them down one at a time then compare their differences.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;build&lt;&#x2F;code&gt; job &lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build only&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;${{ secrets.TOKEN }}
+          BUILD_ONLY&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. Or another way to say this is I check that the working branch that triggered this job is not the &lt;code&gt;zola&lt;&#x2F;code&gt; branch. I’ll continue forward only if this condition is &lt;code&gt;true&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. I use the &lt;code&gt;actions&#x2F;checkout@master&lt;&#x2F;code&gt; marketplace action to check my code out, and I use my fork of an action for Zola called &lt;code&gt;tjtelan&#x2F;zola-deploy-action@master&lt;&#x2F;code&gt;. I have an environment variable &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt; set to &lt;code&gt;true&lt;&#x2F;code&gt; which results in building my site but not deploying it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;build_and_deploy&lt;&#x2F;code&gt; job&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build and deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+          BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;${{ secrets.TOKEN }}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job also uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a similar check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. This time I am looking for the working branch to be &lt;code&gt;zola&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. Same as the previous job, but I am configuring &lt;code&gt;tjtelan&#x2F;zola-deploy-action@master&lt;&#x2F;code&gt; differently. Rather than setting &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt;, I am defining &lt;code&gt;PAGES_BRANCH&lt;&#x2F;code&gt; to &lt;code&gt;master&lt;&#x2F;code&gt;, which is where I want to deploy my site code after build.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;last-words-on-job-differences&quot;&gt;Last words on job differences&lt;a class=&quot;zola-anchor&quot; href=&quot;#last-words-on-job-differences&quot; aria-label=&quot;Anchor link for: last-words-on-job-differences&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The only differences are the branch check via &lt;code&gt;github.ref&lt;&#x2F;code&gt;, and the specifics of &lt;code&gt;steps&lt;&#x2F;code&gt;. I happen to be using my own Github Action &lt;code&gt;tjtelan&#x2F;zola-deploy-action&lt;&#x2F;code&gt; but your steps could consist of anything you want to do differently between pull requests and push to your “special” branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-template&quot;&gt;Github Actions template&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-template&quot; aria-label=&quot;Anchor link for: github-actions-template&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;master
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+  build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;master
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;actions&#x2F;checkout@master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here’s a template that you can use for your own push vs PR workflows. By default, I assume &lt;code&gt;master&lt;&#x2F;code&gt; as the special branch, so you’ll need to change that if you want to use a different branch. Additionally, you’ll need to provide all the steps to take after checking code out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sources&quot;&gt;Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.community&#x2F;t&#x2F;how-to-trigger-an-action-on-push-or-pull-request-but-not-both&#x2F;16662&#x2F;3&quot;&gt;Github Community question: How to trigger an action on push or pull request but not both?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;events-that-trigger-workflows&quot;&gt;Github Actions reference: Events that trigger workflows&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;virtual-environments-for-github-hosted-runners&quot;&gt;Github Actions reference: Virtual Environments for Github-hosted runners&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;context-and-expression-syntax-for-github-actions#github-context&quot;&gt;Github Actions reference: Context and expression syntax - Github context&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>How to link multiple docker-compose services via network</title>
+		<published>2020-06-11T00:00:00+00:00</published>
+		<updated>2020-06-11T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" type="text/html"/>
+		<id>https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/</id>
+		<content type="html">&lt;p&gt;This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;The desired result was to be able to define a docker-compose.yml in one file, and in a second docker-compose.yml have the ability to reach the first service via service or container name for development purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;Default scenario: Two separate docker-compose.yml and two separate default networks&lt;a class=&quot;zola-anchor&quot; href=&quot;#default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot; aria-label=&quot;Anchor link for: default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s take a simple docker compose file.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;sleep infinity
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When it starts up, a default network is created. Its name is based on the service name and the directory name of the docker-compose.yml file.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; network &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose1_default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; with the default driver
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;second-docker-compose-file&quot;&gt;Second docker compose file&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-docker-compose-file&quot; aria-label=&quot;Anchor link for: second-docker-compose-file&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;sleep infinity
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Starting services in a second docker compose file, we see the same behavior. A new default network is created and used.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; network &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose2_default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; with the default driver
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A side-effect of these isolated networks are that the containers are unable to ping one another by service name or container name.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-from-service-1-ping-service-2&quot;&gt;Test: From Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-from-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-from-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping compose2_service2_1 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose2_service2_1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;test-service-2-ping-service-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping compose1_service1_1 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose1_service1_1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;new-scenario-sharing-a-network-between-services&quot;&gt;New scenario: Sharing a network between services&lt;a class=&quot;zola-anchor&quot; href=&quot;#new-scenario-sharing-a-network-between-services&quot; aria-label=&quot;Anchor link for: new-scenario-sharing-a-network-between-services&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want define services in multiple docker-compose.yml files, and also have network connectivity between the services, you need to configure your services to use the same network.&lt;&#x2F;p&gt;
+&lt;p&gt;To create an external network, you can run &lt;code&gt;docker network create &amp;lt;name&amp;gt;&lt;&#x2F;code&gt;. -- where &lt;code&gt;&amp;lt;name&amp;gt;&lt;&#x2F;code&gt; can be a single string without spaces.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;creating-the-network&quot;&gt;Creating the network&lt;a class=&quot;zola-anchor&quot; href=&quot;#creating-the-network&quot; aria-label=&quot;Anchor link for: creating-the-network&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker network create external-example
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;2af4d92c2054e9deb86edaea8bb55ecb74f84a62aec7614c9f09fee386f248a6
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;modified-first-docker-compose-file-with-network-configured&quot;&gt;Modified first docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-first-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-first-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sleep infinity 
+
+networks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;external-example 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;modified-second-docker-compose-file-with-network-configured&quot;&gt;Modified second docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-second-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-second-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sleep infinity 
+
+networks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;external-example 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After running &lt;code&gt;docker-compose up -d&lt;&#x2F;code&gt; on both docker-compose.yml files, we see that no new networks were created.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker network ls
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NETWORK&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; ID          NAME                DRIVER              SCOPE
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;25e0c599d5e5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        bridge              bridge              local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;2af4d92c2054&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        external-example    bridge              local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;7df4631e9cff&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        host                host                local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;194d4156d7ab&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        none                null                local
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With the containers using the &lt;code&gt;external-example&lt;&#x2F;code&gt; network, they are able to ping one another.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-service-1-ping-service-2&quot;&gt;Test: Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service2 (172.24.0.3)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.3: seq=0 ttl=64 time=0.054 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service2 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.054&#x2F;0.054&#x2F;0.054 ms
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping compose2_service2_1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 (172.24.0.2)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.2: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;test-service-2-ping-service-1-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service1 (172.24.0.2)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.2: seq=0 ttl=64 time=0.041 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.041&#x2F;0.041&#x2F;0.041 ms
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping compose1_service1_1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 (172.24.0.3)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.3: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As a note, you can configure your services to use a custom container name by declaring the &lt;code&gt;container_name&lt;&#x2F;code&gt; key under each service (i.e., at the same level as &lt;code&gt;image&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;compose&#x2F;compose-file&#x2F;#container_name&quot;&gt;Link to Docker-compose docs - container_name&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;takeaway&quot;&gt;Takeaway&lt;a class=&quot;zola-anchor&quot; href=&quot;#takeaway&quot; aria-label=&quot;Anchor link for: takeaway&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You can connect services defined across multiple docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;In order to do this you’ll need to:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create an external network with &lt;code&gt;docker network create &amp;lt;network name&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;In each of your docker-compose.yml  configure the default network to use your externally created network with the &lt;code&gt;networks&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;li&gt;
+&lt;li&gt;You can use either the service name or container name to connect between containers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Deploy Postfix Gmail relay with Ansible on Raspberry Pi</title>
+		<published>2018-11-27T00:00:00+00:00</published>
+		<updated>2018-11-27T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/" type="text/html"/>
+		<id>https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/</id>
+		<content type="html">&lt;h2 id=&quot;why-would-we-want-to-do-this&quot;&gt;Why would we want to do this?&lt;a class=&quot;zola-anchor&quot; href=&quot;#why-would-we-want-to-do-this&quot; aria-label=&quot;Anchor link for: why-would-we-want-to-do-this&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The virtualization servers at work are running VMWare ESXi, with Vcenter Server Applicance (VCSA) as our bridge to using cool, free tools like Packer, and Terraform to automate my interactions with virtual resources.&lt;&#x2F;p&gt;
+&lt;p&gt;A downside we discovered is VCSA&#x27;s lack of support for SMTP that requires auth, which Google requires when you send mail through them.&lt;&#x2F;p&gt;
+&lt;p&gt;Postfix can handle the anonymous request from VCSA, and send it out to gmail with provided creds.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-do-i-get-started&quot;&gt;How do I get started?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-do-i-get-started&quot; aria-label=&quot;Anchor link for: how-do-i-get-started&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Since we wanted to get an email whenever there as an issue with the virtualization servers, it made sense to hostthis service on its own hardware.&lt;&#x2F;p&gt;
+&lt;p&gt;I am going to be hosting this service using a Raspberry Pi 3 model B running Raspbian Stretch, and configuring it from my host using Ansible. This detail is not critical for following this guide. Any Debian-derived OS (like Ubuntu) that Ansible supports will work for hosting.&lt;&#x2F;p&gt;
+&lt;p&gt;You just need to make sure SSH is turned on, and that you have the IP address. (The default username&#x2F;pass on RasPis is &lt;code&gt;pi&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;raspberry&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;p&gt;At minimum, you need the following tools installed on your host:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 3&lt;&#x2F;li&gt;
+&lt;li&gt;Ansible 2.7&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Download this helpful role for installing Postfix. At the time of this writing, it was the best public Postfix Ansible role, because its documentation had examples of how to configure the deployment as a gmail relay. Very straight forward.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you install this role in your Ansible client&#x27;s &lt;code&gt;role_path&lt;&#x2F;code&gt;,  then you can use the example playbook I slightly modified, (and annotated) from the ansible-postfix README.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;example-ansible-playbook&quot;&gt;Example ansible playbook&lt;a class=&quot;zola-anchor&quot; href=&quot;#example-ansible-playbook&quot; aria-label=&quot;Anchor link for: example-ansible-playbook&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Setup basic raspberry pi host as SMTP relay (Rasbian)
+hosts&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mailproxy
+vars&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;postfix_mynetworks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# This is the IPv4 localhost loopback subnet
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;127.0.0.0&#x2F;8&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;             
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# This is the IPv4 mapped IPv6 localhost loopback subnet
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;[::ffff:127.0.0.0]&#x2F;104&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;  
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# This is the IPv6 localhost loopback address
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;[::1]&#x2F;128&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;               
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# This is the local private network subnet, like the IPv4 address space from your home router
+        # This addition allows other hosts on the network to send mail through this relay!
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;192.168.0.0&#x2F;24&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;          
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;postfix_smtpd_relay_restrictions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#  This says to permit requests if the client is in the $mynetworks whitelist
+        #  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_mynetworks
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;permit_mynetworks
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#  This says relay the request if client is authenticated to the smtp server
+        #  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_sasl_authenticated
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;permit_sasl_authenticated
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#  This says to reject the request unless it knows about the destination (the domain)
+        #  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#reject_unauth_destination
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;reject_unauth_destination
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Lastly, I believe the order of these restrictions matter, so this last one must catch the rest of the garbage requests
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;postfix_relayhost&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;smtp.gmail.com
+    postfix_smtp_tls_cafile&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;etc&#x2F;ssl&#x2F;certs&#x2F;ca-certificates.crt
+    postfix_relaytls&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;postfix_sasl_user&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;username@gmail.com&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;postfix_sasl_password&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;apppasswordgeneratedgarbage&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;roles&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ansible-postfix
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;some-additional-notes&quot;&gt;Some additional notes&lt;a class=&quot;zola-anchor&quot; href=&quot;#some-additional-notes&quot; aria-label=&quot;Anchor link for: some-additional-notes&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;To configure vCenter, I followed this guide. It might be helpful to note that I only found these instructions to work with the Flash-based client, not the HTML5-based client. But it would be really great if the settings could be configured over the command line with VMWare&#x27;s vSphere CLI tool, &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;vmware&#x2F;govmomi&#x2F;tree&#x2F;master&#x2F;govc&quot;&gt;govc&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.vmware.com&#x2F;en&#x2F;VMware-vSphere&#x2F;6.5&#x2F;com.vmware.vsphere.vcenterhost.doc&#x2F;GUID-467DA288-7844-48F5-BB44-99DE6F6160A4.html&quot;&gt;VMWare Docs - Configure Mail Sender Settings - VSphere 6.5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Without the &lt;code&gt;postfix_mynetworks&lt;&#x2F;code&gt; addition of my local network, I was unable to successfully see email alerts from VCSA being sent from Postfix&lt;&#x2F;li&gt;
+&lt;li&gt;This also differs from the Oefenweb&#x2F;ansible-postfix example, in that I am not setting any &lt;code&gt;postfix_aliases&lt;&#x2F;code&gt;, since it was my experience that it didn&#x27;t ever work. Email was always from whoever was configured as &lt;code&gt;postfix_sasl_user&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;test-the-configuration&quot;&gt;Test the configuration&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-the-configuration&quot; aria-label=&quot;Anchor link for: test-the-configuration&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Here is how to send a test email, from the Raspberry Pi, using &lt;code&gt;mail&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pi@raspberrypi:~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; $ echo &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Hello world, it&amp;#39;s ya boi, RaspberryPi&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mail -s &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;[SMTP proxy] Hello World&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; your.email@domain.com
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Learning New Build Systems</title>
+		<published>2017-04-01T00:00:00+00:00</published>
+		<updated>2017-04-01T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/learning-new-build-systems/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-new-build-systems/</id>
+		<content type="html">&lt;p&gt;I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C&#x2F;C++ with make.&lt;&#x2F;p&gt;
+&lt;p&gt;I most recently got to play with Java&#x2F;Maven, and NodeJS&#x2F;Gulp.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The project I was building has a UI written in node, and built into an npm module with gulp. There are also maven pom files that describe the build with gulp using npm run build. This was done so everything could be orchestrated for building into a java jar.&lt;&#x2F;p&gt;
+&lt;p&gt;Things I thought were neat about maven is the plugin system.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m not a huge fan of the pom files using xml, but it is really nice to be able to configure dependencies, and dynamically define build artifacts. The local maven repo is still a little confusing at times, but with more time I think it&#x27;ll make more sense.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The UI build with gulp was more unfamiliar. The build instructions are in javascript, naturally. You can use &lt;code&gt;gulp.task()&lt;&#x2F;code&gt; and define a list of dependencies. But I had some experiences where my dependency lists were not made explicit enough. I suppose this is not much different than makefiles.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/" />
+   
+  <meta property="og:title" content="Pip and bottle.py on NearlyFreeSpeech" />
+  
+  
+  <meta property="og:description" content="How to run Python web app on NearlyFreeSpeech" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/" />
+   
+  <meta name="twitter:title" content="Pip and bottle.py on NearlyFreeSpeech" />
+  
+  
+  <meta name="twitter:description" content="How to run Python web app on NearlyFreeSpeech" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Pip and bottle.py on NearlyFreeSpeech</h1>
+    
+    <span class="post-meta">
+        3 min read
+        &nbsp;&bull;&nbsp;
+        2013-12-06
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/freebsd/">
+              #freebsd
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/python/">
+              #python
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/bottle-py/">
+              #bottle.py
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/nearlyfreespeech/">
+              #nearlyfreespeech
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/web-development/">
+              #web-development
+            </a>
+          
+        
+      </span>
+
+    <p>The biggest reason I like using nearlyfreespeech is the ability to prepay my hosting costs. The biggest downside (compared to other hosts) is a lack of straight-forward flexibility for my choice of web development environment. I appreciate the security-focused approach in how they offer features, but I can't say that it is always comfortable as a casual user.</p>
+<ul>
+<li>NFS has lots of language support, but non-PHP web development is only supported through CGI)</li>
+</ul>
+<p>I've been looking to try out bottle.py (partly because of their routing and partly because Django is not well supported on NFS as of this writing). I did my best to look for some examples online, but came up with only bits and pieces of the solution.</p>
+<p>Here is how the environment was set up on <a href="http://www.nearlyfreespeech.net/">NearlyFreeSpeech.net</a>:</p>
+<h3 id="install-pip">Install pip<a class="zola-anchor" href="#install-pip" aria-label="Anchor link for: install-pip">🔗</a></h3>
+<p>I prefer using <code>pip</code> over <code>easy_install</code>, so here's how to install that:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">## Create your local site-packages directory.
+# In NFS&#39;s environment, this will end up being /home/private/.local
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> mkdir</span><span style="color:#bf616a;"> -p ~</span><span style="color:#c0c5ce;">/.local/lib/python2.7/site-packages
+</span><span style="color:#65737e;">## Automatically add this location to your execution path at login. Just for convenience.
+</span><span style="color:#c0c5ce;">$ echo &#39;</span><span style="color:#a3be8c;">PATH=~/.local/bin:$PATH</span><span style="color:#c0c5ce;">&#39; &gt;&gt; </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.profile
+</span><span style="color:#65737e;">## Reload your .profile
+</span><span style="color:#c0c5ce;">$ source </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.profile
+</span><span style="color:#65737e;">## Use easy_install to install pip
+</span><span style="color:#c0c5ce;">$ easy_install</span><span style="color:#bf616a;"> --prefix</span><span style="color:#c0c5ce;">=</span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.local pip
+</span><span style="color:#65737e;">## Now we can use pip to install bottle.py
+</span><span style="color:#c0c5ce;">$ pip install</span><span style="color:#bf616a;"> --user</span><span style="color:#c0c5ce;"> bottle
+</span></code></pre>
+<p>This installed bottle.py in /home/private/.local/bin. Just for example
+purposes, I copied this into my site-root so I wouldn't have to play with
+python's sys.path. <em>Use your own judgement</em>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> cp </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.local/bin/bottle.py /home/public
+</span></code></pre>
+<p>At this point, I was able to find a relevant <a href="http://stackoverflow.com/questions/2664350/problems-with-routing-urls-using-cgi-and-bottle-py">stackoverflow question</a> specifically dealing with bottle.py and cgi.</p>
+<p>The code is mostly unchanged (I added the shebang at the top), but I'll copy it here for copypasta purposes. Put bottle script and .htaccess in place in your site-root.</p>
+<h4 id="home-public-index-py">/home/public/index.py<a class="zola-anchor" href="#home-public-index-py" aria-label="Anchor link for: home-public-index-py">🔗</a></h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">#!/usr/local/bin/python
+ </span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">bottle
+ </span><span style="color:#b48ead;">from </span><span style="color:#c0c5ce;">bottle </span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">route
+
+@</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">/</span><span style="color:#c0c5ce;">&#39;)
+ </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">index</span><span style="color:#c0c5ce;">():
+ </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">Index</span><span style="color:#c0c5ce;">&#39;
+
+@</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">/hello</span><span style="color:#c0c5ce;">&#39;)
+ </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">hello</span><span style="color:#c0c5ce;">():
+ </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">Hello</span><span style="color:#c0c5ce;">&#39;
+
+</span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">__name__ == &#39;</span><span style="color:#a3be8c;">__main__</span><span style="color:#c0c5ce;">&#39;:
+ </span><span style="color:#b48ead;">from </span><span style="color:#c0c5ce;">wsgiref.handlers </span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">CGIHandler
+ </span><span style="color:#bf616a;">CGIHandler</span><span style="color:#c0c5ce;">().</span><span style="color:#bf616a;">run</span><span style="color:#c0c5ce;">(bottle.</span><span style="color:#bf616a;">default_app</span><span style="color:#c0c5ce;">())
+</span></code></pre><h4 id="home-public-htaccess">/home/public/.htaccess<a class="zola-anchor" href="#home-public-htaccess" aria-label="Anchor link for: home-public-htaccess">🔗</a></h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">DirectoryIndex </span><span style="color:#c0c5ce;">index.py
+</span><span style="color:#bf616a;">RewriteEngine </span><span style="color:#d08770;">on
+</span><span style="color:#bf616a;">RewriteCond </span><span style="color:#b48ead;">%{REQUEST_FILENAME} </span><span style="color:#c0c5ce;">!-f
+</span><span style="color:#bf616a;">RewriteRule </span><span style="color:#96b5b4;">^(.*)$ /index.py/$</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;"> [L]
+</span></code></pre>
+<p>Test this out by going to http://&lt;domain&gt;/ and http://&lt;domain&gt;/hello to confirm that bottle routes work. This works for me, but it is a little bit slow.</p>
+<p>I'm excited to finally have my own non-php stuff to do on NFS. Hopefully you'll have fun with this as well.
+Good luck.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/>Learning Android to Play with Metawatch Manager</a> <span>2012-05-14</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/goodbye-wordpress/>Goodbye Wordpress</a> <span>2015-07-05</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - tower-rs</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/tower-rs/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-08-19T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/tower-rs/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Using a database + gRPC with Rust</title>
+		<published>2019-04-25T00:00:00+00:00</published>
+		<updated>2020-08-19T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/using-a-database-grpc-with-rust/" type="text/html"/>
+		<id>https://tjtelan.com/blog/using-a-database-grpc-with-rust/</id>
+		<content type="html">&lt;blockquote&gt;
+&lt;p&gt;Update: 8&#x2F;19&#x2F;2020&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re here for &lt;a href=&quot;https:&#x2F;&#x2F;grpc.io&#x2F;&quot;&gt;gRPC&lt;&#x2F;a&gt; or CLI, this post uses old crates and you should read &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;lets-build-a-single-binary-grpc-server-client-with-rust-in-2020&#x2F;&quot;&gt;this post&lt;&#x2F;a&gt; instead.&lt;&#x2F;p&gt;
+&lt;p&gt;I have a new post using more up-to-date Rust with &lt;code&gt;async&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;await&lt;&#x2F;code&gt;. The new guide uses &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;hyperium&#x2F;tonic&quot;&gt;Tonic&lt;&#x2F;a&gt; for gRPC and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;TeXitoi&#x2F;structopt&quot;&gt;StructOpt&lt;&#x2F;a&gt; for CLI. (But no database stuff)&lt;&#x2F;p&gt;
+&lt;p&gt;This post is still good if you want to see how to use &lt;a href=&quot;http:&#x2F;&#x2F;diesel.rs&#x2F;&quot;&gt;Diesel&lt;&#x2F;a&gt; with &lt;a href=&quot;https:&#x2F;&#x2F;www.postgresql.org&#x2F;&quot;&gt;PostgreSQL&lt;&#x2F;a&gt;. But if you&#x27;re here for gRPC, you should check out the &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;lets-build-a-single-binary-grpc-server-client-with-rust-in-2020&#x2F;&quot;&gt;new post&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks for listening! Now back to your regularly scheduled program...&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;This is a summary of my experience with writing a Rust DB-backed server&#x2F;client with &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pingcap&#x2F;grpc-rs&quot;&gt;grpc-rs&lt;&#x2F;a&gt; to communicate to the backend, and &lt;a href=&quot;http:&#x2F;&#x2F;diesel.rs&#x2F;&quot;&gt;Diesel&lt;&#x2F;a&gt; as an ORM to be used with &lt;a href=&quot;https:&#x2F;&#x2F;www.postgresql.org&#x2F;&quot;&gt;PostgreSQL&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-did-i-want-out-of-this-exercise&quot;&gt;What did I want out of this exercise?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-did-i-want-out-of-this-exercise&quot; aria-label=&quot;Anchor link for: what-did-i-want-out-of-this-exercise&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I don&#x27;t consider myself an expert with Rust, also not a beginner. I&#x27;ve been following the Rust language development for a while. I also have been wanting to move from writing code for personal projects to writing for work projects. &lt;&#x2F;p&gt;
+&lt;p&gt;I have the privilege to choose the tools I want at work, but I must keep in mind that I don&#x27;t work by myself. I need to be able to provide practical development advice and enough technical mentorship to my teammates to keep us all productive.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@KevinHoffman&#x2F;streaming-grpc-with-rust-d978fece5ef6&quot;&gt;Kevin Hoffman’s blog post&lt;&#x2F;a&gt; let me know that what I wanted was possible today in stable (as opposed to nightly). Kevin’s post is great, but I couldn’t really absorb it my first few reads, because he is a more experienced Rust developer than myself. I didn&#x27;t quite understand the code in his post, and I couldn’t appreciate details he skimmed over which I will point out. I hope that I can provide supplemental details.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;my-target&quot;&gt;My target&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-target&quot; aria-label=&quot;Anchor link for: my-target&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I am looking to build a very basic command line interface client, and a backend service. The cli communicates to the backend via gRPC, and the backend connects to a database.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;gRPC&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Based on Kevin Hoffman&#x27;s experience, and the download activity on crates.io, I also used Pingcap&#x27;s library &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pingcap&#x2F;grpc-rs&quot;&gt;grpc-rs&lt;&#x2F;a&gt;. However, while writing this post &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tower-rs&#x2F;tower-grpc&quot;&gt;tower-rs&lt;&#x2F;a&gt; (which is a pure Rust implementation) is considered to be stable, though may not yet implement all features.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Database&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For database, I decided to use &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;diesel&quot;&gt;Diesel-rs&lt;&#x2F;a&gt; since there really aren’t any other choices that I felt were better in a production environment. Diesel is a mature project that is very actively supported.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Command line interface&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For the command line interface, I picked &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;clap&quot;&gt;clap-rs&lt;&#x2F;a&gt;, because I was interested in trying out defining the command line content and structure with yaml. In the future I would probably use &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;structopt&quot;&gt;StructOpt&lt;&#x2F;a&gt;. It happens to use clap-rs internally, but the written code is easier for me to read, and in my opinion, less code to write derives. For this reason, I’ll probably gloss over the command line implementation. It provides the minimal amount of interaction I needed to highlight what appears to be an idiomatic pattern. &lt;&#x2F;p&gt;
+&lt;p&gt;After spending a few hours with all the tools, I wanted to jump in feet first with an example project.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-first-attempt-figuring-out-my-development-pattern&quot;&gt;My first attempt figuring out my development pattern&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-first-attempt-figuring-out-my-development-pattern&quot; aria-label=&quot;Anchor link for: my-first-attempt-figuring-out-my-development-pattern&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I briefly considered not telling the parts of the story where I was figuring out how to get everything to compile but here it is. It ended up being a big learning experience. I won&#x27;t get into super deep detail about my intentions since I ended up not going in this direction. But I will highlight what I learned.&lt;&#x2F;p&gt;
+&lt;p&gt;I focused on individually building with Diesel and gRPC. Once I felt ready to do something productive with these crates, I started thinking about implementation by designing the protocol buffers first, and designing the database later. This ended up being a time-expensive mistake that hopefully will not need to repeated, dear Reader.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;red-flags-in-the-workflow&quot;&gt;Red flags in the workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#red-flags-in-the-workflow&quot; aria-label=&quot;Anchor link for: red-flags-in-the-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I am generating my proto Rust code from &lt;code&gt;.proto&lt;&#x2F;code&gt; using &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pingcap&#x2F;grpc-rs&quot;&gt;grpc-rs&lt;&#x2F;a&gt; in my &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;blob&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&#x2F;workspace&#x2F;protos&#x2F;build.rs&quot;&gt;build.rs&lt;&#x2F;a&gt;. It runs during &lt;code&gt;cargo build&lt;&#x2F;code&gt;. Based on Diesel&#x27;s &lt;a href=&quot;http:&#x2F;&#x2F;diesel.rs&#x2F;guides&#x2F;getting-started&#x2F;&quot;&gt;getting started&lt;&#x2F;a&gt; guide, I expected that I would be annotating my proto Rust with the same &lt;code&gt;#[derive()]&lt;&#x2F;code&gt;. &lt;&#x2F;p&gt;
+&lt;p&gt;But If I&#x27;m going to be using the generated structs w&#x2F; Diesel, then I have to break up the protobuf compilation w&#x2F; some manual step to additionally add in the correct annotations, because the next &lt;code&gt;cargo build&lt;&#x2F;code&gt; regenerated code and removed my manual changes. This was a red flag, but I kept moving forward anyway...&lt;&#x2F;p&gt;
+&lt;p&gt;Diesel also expects that your struct fields are 1:1 with your table schema for to use the custom  &lt;code&gt;#[Derive(Queryable)]&lt;&#x2F;code&gt; for querying the DB. If you haven&#x27;t looked at &lt;code&gt;grpc-rs&lt;&#x2F;code&gt; generated grpc code, you&#x27;ll see extra internally used struct fields: &lt;code&gt;unknown_fields&lt;&#x2F;code&gt; and &lt;code&gt;cached_size&lt;&#x2F;code&gt;. These are part of &lt;code&gt;grpc-rs&lt;&#x2F;code&gt;’s implementation of message serialization&#x2F;deserialization. Moving forward could require representing these extra fields in the database, which has a bad smell and is wasteful of space. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Example of grpc-rs generated Rust code w&#x2F; the special fields&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(PartialEq,Clone,Default)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;OrderForm {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; message fields
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;quantity&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;,
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;product&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: OilProductType,
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; special fields
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;unknown_fields&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: ::protobuf::UnknownFields,
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;cached_size&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: ::protobuf::CachedSize,
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Choosing to work directly with this generated struct means manually modifying the list of derive() and working around the special fields &lt;code&gt;unknown_fields&lt;&#x2F;code&gt; and &lt;code&gt;cached_size&lt;&#x2F;code&gt; so Diesel could still be used inserts and queries. Possibly requiring adding columns in the table schema. This is a more tight coupling than I want between my protobuf library and the data in the database.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;what-i-should-have-done&quot;&gt;What I should have done&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-i-should-have-done&quot; aria-label=&quot;Anchor link for: what-i-should-have-done&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I only realized this after writing the client&#x2F;server using the raw proto structs. I then moved onto designing the db schema and migrations. I got stuck trying to flow the grpc client calls to db inserts.&lt;&#x2F;p&gt;
+&lt;p&gt;I concluded that I would need to create new structs that only Diesel would use since their support heavily relies on Derive code. It all felt like an impedance mismatch, and I was having to redo the same work over again without a clear path for where I was going.&lt;&#x2F;p&gt;
+&lt;p&gt;This was a failure. If I could work backwards from the database inserts to the protos, then this might work out better for my understanding.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-second-approach&quot;&gt;My second approach&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-second-approach&quot; aria-label=&quot;Anchor link for: my-second-approach&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;before-implementation&quot;&gt;Before implementation&lt;a class=&quot;zola-anchor&quot; href=&quot;#before-implementation&quot; aria-label=&quot;Anchor link for: before-implementation&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;m still learning how to write idiomatic Rust. When I got my protos compiling into generated Rust code, and assumed I needed to use it directly because it is native code, despite my unfamiliarity with all of the code generated by Pingcap’s gRPC library.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I’m relying heavily on the use of the Into trait to create a little anti-corruption layer so that the business logic on both my client and my server are not operating directly on the protobuf-generated structs. &lt;em&gt;-- Kevin Hoffman&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;After a not-skimmed reading of &lt;a href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@KevinHoffman&#x2F;streaming-grpc-with-rust-d978fece5ef6&quot;&gt;Kevin&#x27;s Hoffman&#x27;s post&lt;&#x2F;a&gt;, I noticed he described using this same approach in a hand-wavey manner. I wasn&#x27;t ready to appreciate the warning without some example code or a diagram.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;use-separate-structs-for-business-logic&quot;&gt;Use separate structs for business logic&lt;a class=&quot;zola-anchor&quot; href=&quot;#use-separate-structs-for-business-logic&quot; aria-label=&quot;Anchor link for: use-separate-structs-for-business-logic&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;I hadn’t immediately considered that I might want to write my own structs instead of using the protobuf-generated structs since my mindset was that the generated code would be ergonomic enough to use code.&lt;&#x2F;p&gt;
+&lt;p&gt;However, the strategy of using separate structs offers very easy to use conversions because of the &lt;code&gt;From&lt;&#x2F;code&gt; and &lt;code&gt;Into&lt;&#x2F;code&gt; traits. This would be easier for the maintainability and readability of my code because I can contain that conversion logic in away from my business logic.&lt;&#x2F;p&gt;
+&lt;p&gt;I could convert them back and forth between the protobuf-generated forms and the diesel supported forms with &lt;code&gt;.into()&lt;&#x2F;code&gt;. How is this achieved?&lt;&#x2F;p&gt;
+&lt;p&gt;More on this during implementation...&lt;&#x2F;p&gt;
+&lt;h5 id=&quot;what-is-using-this-pattern-like-in-the-code&quot;&gt;What is using this pattern like in the code?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-is-using-this-pattern-like-in-the-code&quot; aria-label=&quot;Anchor link for: what-is-using-this-pattern-like-in-the-code&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;An example interaction would look like this&lt;&#x2F;p&gt;
+&lt;p&gt;Inserts into the database - Client side:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;1. User input 
+2. Create Diesel struct + any data manipulation 
+3. Convert Diesel struct into Proto struct 
+4. Send Proto struct in gRPC call
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Inserts into the database - Server side:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;1. Receive Proto struct
+2. Convert Proto struct into Diesel struct + Any data manipulation
+3. Insert into DB
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;the-last-complicated-detail-rust-custom-types-mapping-to-postgres-enums&quot;&gt;The Last complicated detail : Rust custom types mapping to Postgres Enums&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-last-complicated-detail-rust-custom-types-mapping-to-postgres-enums&quot; aria-label=&quot;Anchor link for: the-last-complicated-detail-rust-custom-types-mapping-to-postgres-enums&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;I want to use Rust enums and Postgres enums to carry my usage of types all the way to DB insert&#x2F;query. The diesel schema generator doesn&#x27;t handle custom postgres enums well, but we can manage the conversion by hand by using a few Diesel Derives: &lt;code&gt;SqlType&lt;&#x2F;code&gt;, &lt;code&gt;FromSql&lt;&#x2F;code&gt;, and &lt;code&gt;ToSql&lt;&#x2F;code&gt; . I might cover using custom postgres types with Diesel in another post. But for now, I am going to hand-wave this detail.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;diesel-rs&#x2F;diesel&#x2F;blob&#x2F;v1.3.1&#x2F;diesel_tests&#x2F;tests&#x2F;custom_types.rs&quot;&gt;Diesel-rs custom types tests&lt;&#x2F;a&gt; were very useful helping me figure it out.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;organizing-code-into-cargo-workspaces&quot;&gt;Organizing code into cargo workspaces&lt;a class=&quot;zola-anchor&quot; href=&quot;#organizing-code-into-cargo-workspaces&quot; aria-label=&quot;Anchor link for: organizing-code-into-cargo-workspaces&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;With some experience under my belt and a better understanding of where relative domains in the code should be separated by crate, I wanted to organize before writing new code. The first thing I did was separate the codebase into &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;ch14-03-cargo-workspaces.html#creating-a-workspace&quot;&gt;workspaces&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Separating into different crates would let me organize the struct conversion code from complicating the readability of the business logic code. This will make it easier to reuse patterns between the client and server side through importing the crates.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;a class=&quot;zola-anchor&quot; href=&quot;#implementation&quot; aria-label=&quot;Anchor link for: implementation&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;write-database-schema&quot;&gt;Write database schema&lt;a class=&quot;zola-anchor&quot; href=&quot;#write-database-schema&quot; aria-label=&quot;Anchor link for: write-database-schema&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Because I need some kind of story to write code against, I decided to write an oil ordering system (because proto-diesel can be described as oil… har har…)&lt;&#x2F;p&gt;
+&lt;p&gt;My postgres type &lt;code&gt;oil_product&lt;&#x2F;code&gt; has a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Oil_refinery#&#x2F;media&#x2F;File:Usesofpetroleum.png&quot;&gt;pie chart&lt;&#x2F;a&gt; of oil derived products that I got from the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Oil_refinery#Major_products&quot;&gt;wiki page of Oil Refinery&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;That helped me with my first thing: I need my database schema - &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;blob&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&#x2F;workspace&#x2F;models&#x2F;schema.rs&quot;&gt;schema.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Then I could write my migrations:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;blob&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&#x2F;workspace&#x2F;migrations&#x2F;2019-03-18-213310_create_orders&#x2F;up.sql&quot;&gt;up.sql&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;blob&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&#x2F;workspace&#x2F;migrations&#x2F;2019-03-18-213310_create_orders&#x2F;down.sql&quot;&gt;down.sql&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;get-inserts-into-db-working&quot;&gt;Get inserts into DB working&lt;a class=&quot;zola-anchor&quot; href=&quot;#get-inserts-into-db-working&quot; aria-label=&quot;Anchor link for: get-inserts-into-db-working&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Second is getting inserts into the db working on the backend - &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;commit&#x2F;0e40e27529170b22f5419559ce8659f7a1a154f3#diff-149a61a7aa6246849298372d0b2f196e&quot;&gt;Link to specific commit&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;backend.rs&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This is a simple call from the backend to an internal function that performs the DB insert. After opening a connection, I test create a hardcoded order.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;[...]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; conn = client::establish_connection();
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; new_order = client::create_order(&amp;amp;conn, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;, schema::OilProductEnum::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;DIESEL&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;);
+[...]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;create_order&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This insert only works once because the id is set to &lt;code&gt;1&lt;&#x2F;code&gt;. But the result is in insert of an order into the database, and returning the inserted &lt;code&gt;Order&lt;&#x2F;code&gt; from the function. &lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;create_order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;conn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;amp;PgConnection, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;quantity &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;product_type &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: OilProductEnum) -&amp;gt; Order {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; new_order = vec![
+        Order {
+            id : &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;,
+            quantity : quantity,
+            product_type : product_type,
+        },
+    ];
+
+    diesel::insert_into(orders::table)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;amp;new_order)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get_result&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(conn)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;expect&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Error saving new order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;)
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h5 id=&quot;creating-user-input-structs-for-business-logic&quot;&gt;Creating user input structs for business logic&lt;a class=&quot;zola-anchor&quot; href=&quot;#creating-user-input-structs-for-business-logic&quot; aria-label=&quot;Anchor link for: creating-user-input-structs-for-business-logic&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;I created some structs solely for taking user input. It will converted to a proto form that will be used for gRPC calls&lt;&#x2F;p&gt;
+&lt;p&gt;These structs didn&#x27;t include dynamic info like ids or timestamps, since those are generated right before insert on the server side.&lt;&#x2F;p&gt;
+&lt;p&gt;Separate proto messages needed to be defined specifically for taking user input from the client-side.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;One of the business logic structs&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;OrderForm {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;quantity &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;,
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;product_type &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: OilProductEnum,
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;The corresponding proto message definition&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;message OrderForm {
+    int32 quantity = 2;
+    OilProductType product = 3;
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h5 id=&quot;converting-business-logic-struct-to-from-proto-generated-struct&quot;&gt;Converting business logic struct to&#x2F;from proto-generated struct&lt;a class=&quot;zola-anchor&quot; href=&quot;#converting-business-logic-struct-to-from-proto-generated-struct&quot; aria-label=&quot;Anchor link for: converting-business-logic-struct-to-from-proto-generated-struct&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;I implemented the &lt;code&gt;From&lt;&#x2F;code&gt; trait to convert my custom type to protobuf types for the grpc client calls (and vice-versa). The &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;convert&#x2F;trait.From.html&quot;&gt;From&lt;&#x2F;a&gt; trait gives us the &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;convert&#x2F;trait.Into.html&quot;&gt;Into&lt;&#x2F;a&gt; implementation for free.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Convert from the protos to our type
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;From&amp;lt;refinery::OrderForm&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;OrderForm {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;from&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;proto_form &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: refinery::OrderForm) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;{
+        OrderForm {
+            quantity : proto_form.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get_quantity&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(),
+            product_type : OilProductEnum::from(proto_form.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get_product&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;()),
+        }
+    }
+}
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Convert from our type to the proto
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;From&amp;lt;OrderForm&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;refinery::OrderForm {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;from&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;rust_form &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: OrderForm) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;{
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; order = refinery::OrderForm::new();
+
+        order.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;set_quantity&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(rust_form.quantity);
+        order.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;set_product&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(refinery::OilProductType::from(rust_form.product_type));
+        order
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Snippet from &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;blob&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&#x2F;workspace&#x2F;models&#x2F;convert.rs&quot;&gt;convert.rs&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;take-user-input-before-making-grpc-call&quot;&gt;Take user input before making gRPC call&lt;a class=&quot;zola-anchor&quot; href=&quot;#take-user-input-before-making-grpc-call&quot; aria-label=&quot;Anchor link for: take-user-input-before-making-grpc-call&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;We want to take user input from a client, make a grpc backend call, then insert into the db from the backend.&lt;&#x2F;p&gt;
+&lt;p&gt;We already have taken care of converting to and from proto forms, so this is focused on control flow now.&lt;&#x2F;p&gt;
+&lt;h5 id=&quot;move-inserts-into-grpc-server-endpoint&quot;&gt;Move inserts into gRPC server endpoint&lt;a class=&quot;zola-anchor&quot; href=&quot;#move-inserts-into-grpc-server-endpoint&quot; aria-label=&quot;Anchor link for: move-inserts-into-grpc-server-endpoint&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;Insert will occur after calling into the grpc server endpoint from the client-side.&lt;&#x2F;p&gt;
+&lt;p&gt;On the client-side, I created a protobuf-generated struct with default values, for demonstrating the gRPC call to the backend works. I can easily take user input afterwards.&lt;&#x2F;p&gt;
+&lt;h5 id=&quot;receive-proto-struct-and-convert-into-db-insertable-struct&quot;&gt;Receive proto struct and convert into DB insertable struct&lt;a class=&quot;zola-anchor&quot; href=&quot;#receive-proto-struct-and-convert-into-db-insertable-struct&quot; aria-label=&quot;Anchor link for: receive-proto-struct-and-convert-into-db-insertable-struct&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;Lastly, I worked out taking in user input, and using it to instantiate one of my custom types. During the grpc backend call, I call .into() on my type, which will convert to the protobuf form. On the backend, I take in the request, and call &lt;code&gt;.into()&lt;&#x2F;code&gt; to convert back into my type so I can marshal into a diesel insert call.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Server-side&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m converting the proto-form struct &lt;code&gt;req&lt;&#x2F;code&gt; into the business logic form &lt;code&gt;OrderForm&lt;&#x2F;code&gt; by calling &lt;code&gt;.into()&lt;&#x2F;code&gt;. Since the &lt;code&gt;create_order()&lt;&#x2F;code&gt; impl takes in &lt;code&gt;OrderForm&lt;&#x2F;code&gt;, there is no need to annotate the type with &lt;code&gt;.into()&lt;&#x2F;code&gt; and we’re able to stay focused.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(Clone)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;RefineryService;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;Refinery &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;RefineryService {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; The client-side converts to refinery::OrderForm while calling this endpoint.
+    &#x2F;&#x2F; But we convert the proto type back to our custom type right before adding to the database
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mut &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ctx&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: RpcContext, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;req&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: refinery::OrderForm, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sink&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: UnarySink&amp;lt;refinery::OrderStatus&amp;gt;) {
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Creating the return object
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; order_status = client::order_received_success();
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; f = sink
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;success&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(order_status.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;clone&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;())
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;move &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;|_| println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Responded with status &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;{{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{:?} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;}}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, order_status))
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;move &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;|err| eprintln!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Failed to reply: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{:?}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, err));
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; conn = client::establish_connection();
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Convert the received proto request into our native type
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; _new_order = client::create_order(&amp;amp;conn, req.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;());
+
+        ctx.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;spawn&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(f)
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;Function for creating order&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;We take the business logic form &lt;code&gt;order_form&lt;&#x2F;code&gt; and use it to create the insertable struct &lt;code&gt;new_order&lt;&#x2F;code&gt; with all of the column values for Diesel to execute.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;create_order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;conn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;amp;PgConnection, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;order_form &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: OrderForm) -&amp;gt; Order {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; timestamp = NaiveDateTime::from_timestamp(Utc::now().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;timestamp&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(),&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;);
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; new_order = vec![
+        NewOrder {
+            quantity : order_form.quantity,
+            product_type : order_form.product_type,
+            received_time : timestamp,
+        },
+    ];
+
+    diesel::insert_into(orders::table)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;amp;new_order)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get_result&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(conn)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;expect&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Error saving new order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;)
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h5 id=&quot;do-it-again-in-reverse-for-queries&quot;&gt;Do it again, in reverse, for queries&lt;a class=&quot;zola-anchor&quot; href=&quot;#do-it-again-in-reverse-for-queries&quot; aria-label=&quot;Anchor link for: do-it-again-in-reverse-for-queries&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h5&gt;
+&lt;p&gt;Last task to cover is repeating all of this work, but for making queries.&lt;&#x2F;p&gt;
+&lt;p&gt;This ended up being slightly off pattern from implementing &lt;code&gt;From&lt;&#x2F;code&gt; traits, because I am returning a list of Orders, and the From trait apparently is not easily implemented for a Vec to the protobuf Rust equivilent. If I were planning on shipping this code somewhere other than for demonstration, I probably would spend more time implementing &lt;code&gt;From&lt;&#x2F;code&gt;. I ended up getting lazy, and wrapped the manual conversion in a function that loops and uses my already implemented From traits on the &lt;code&gt;Order&lt;&#x2F;code&gt; type. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;user input side&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This client subcommand from the cli requests all of the orders from the database, then prints out the protobuf form as a demonstration. The next step would be converting the protobuf list into a Vec of some non-protobuf generated type.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;Some(_matches) = matches.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;subcommand_matches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;summary&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;) {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; empty_payload = protos::empty::Empty::new();
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Send the gRPC message
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; orders = client.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get_all_records&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;amp;empty_payload).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;expect&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;RPC Failed!&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;);
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Print all records from database
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Order status: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{:?}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, orders);
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;server endpoint&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The server takes in an empty proto type, so we don’t have to do any type conversions. We then call a function &lt;code&gt;client::get_all_orders()&lt;&#x2F;code&gt; that calls Diesel to return all the data in a table. Then we make another function call &lt;code&gt;client::db_query_to_proto()&lt;&#x2F;code&gt; to convert our native data into a gRPC sendable form.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;get_all_records&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mut &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ctx&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: RpcContext, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_req&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: protos::empty::Empty, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sink&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: UnarySink&amp;lt;refinery::OrderRecordList&amp;gt;){
+    println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Received request for all of the order records&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;);
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; conn = client::establish_connection();
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Call out to db
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; query_results = client::get_all_orders(&amp;amp;conn);
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; This conversion pattern is different than the plain `From` traits, because we
+    &#x2F;&#x2F; have to handle the outer vector in a special way, but I want to be lazy
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; parsed_query_proto = client::db_query_to_proto(query_results);
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F;println!(&amp;quot;Got results from the database: {:?}&amp;quot;, query_results);
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; f = sink
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;success&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(parsed_query_proto.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;clone&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;())
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;move &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;|_| println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Responded with list of records &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;{{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{:?} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;}}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, parsed_query_proto))
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;move &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;|err| eprintln!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Failed to reply: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{:?}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;, err));
+
+    ctx.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;spawn&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(f)
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;database query&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This function queries for everything in the orders table. There&#x27;s nothing interesting here because Diesel handles everything. I just needed to annotate the type of vector that Diesel was going to return.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; get_all_orders is used by the backend
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;get_all_orders&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;conn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;amp;PgConnection) -&amp;gt; Vec&amp;lt;Order&amp;gt; {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; query : Vec&amp;lt;Order&amp;gt; = orders::table.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;select&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(orders::all_columns)
+    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;order_by&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(orders::id)
+    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;load&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(conn)
+    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;expect&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Error getting all order records&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot;);
+    query
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;query to protobuf list&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You don&#x27;t need to use all of the Rust features all up front or not use Rust at all. We can all hopefully appreciate that this can still be understood.&lt;&#x2F;p&gt;
+&lt;p&gt;I briefly tried to implement &lt;code&gt;From&lt;&#x2F;code&gt; for &lt;code&gt;Vec&amp;lt;Order&amp;gt;&lt;&#x2F;code&gt;, but it became evident that it was going to take a little more effort than I was willing to spend at this moment. I&#x27;m first to admit that this is a bit of a hack, but that&#x27;s fine for demonstration purposes. &lt;&#x2F;p&gt;
+&lt;p&gt;Protobuf&#x27;s &lt;code&gt;repeated&lt;&#x2F;code&gt; keyword in the Rust code has its own type like &lt;code&gt;Vec&amp;lt;T&amp;gt;&lt;&#x2F;code&gt; called &lt;code&gt;RepeatedField&lt;&#x2F;code&gt; and we are simply looping through and creating a &lt;code&gt;Vec&amp;lt;refinery::OrderRecord&amp;gt;&lt;&#x2F;code&gt; so we could use the conversion impl &lt;code&gt;from_vec&lt;&#x2F;code&gt;. The rest is for building the return data.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; db_query_to_proto is used by the backend to convert a Vector of Order (from a Diesel select
+&#x2F;&#x2F; query) into the proto native OrderRecordList. Implementing `From` for a Vector would have taken
+&#x2F;&#x2F; longer, and used a wrapper type. That very well may be the more maintainable approach, but this
+&#x2F;&#x2F; was quicker…
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;db_query_to_proto&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;rust_record &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: Vec&amp;lt;Order&amp;gt;) -&amp;gt; refinery::OrderRecordList {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; proto_vec : Vec&amp;lt;refinery::OrderRecord&amp;gt; = Vec::new();
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Let&amp;#39;s take advantage of the `From` trait
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; r in rust_record {
+        proto_vec.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(refinery::OrderRecord::from(r));
+    }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; proto_order = protobuf::RepeatedField::from_vec(proto_vec);
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; proto_final = refinery::OrderRecordList::new();
+    proto_final.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;set_order&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;(proto_order);
+    proto_final
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;in-conclusion&quot;&gt;In conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#in-conclusion&quot; aria-label=&quot;Anchor link for: in-conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Rust library support for gRPC is here. ORM support with Diesel-rs has been here for a while. But if you want to use gRPC and Diesel in the same project, maybe you can learn from my experience and be productive.&lt;&#x2F;p&gt;
+&lt;p&gt;Do not primarily use the protobuf generated Rust types throughout your codebase. Especially if you plan on using Diesel-rs to deal with database inserts&#x2F;queries, because structs need to be 1:1 with your table schema for the smoothest experience using Diesel-rs.&lt;&#x2F;p&gt;
+&lt;p&gt;Implement the &lt;code&gt;From&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;Into&lt;&#x2F;code&gt; traits to more effectively convert between business logic structs and your protobuf generated Rust structs.&lt;&#x2F;p&gt;
+&lt;p&gt;Convert to the proto Rust types only to send&#x2F;return data over gRPC calls and then immediately convert back to your business logic type on the receiving end.&lt;&#x2F;p&gt;
+&lt;p&gt;You don&#x27;t need to write perfect Rust code in one go.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The code used throughout this post is located &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&#x2F;tree&#x2F;master&#x2F;cli-clap-grpc-pingcap-db-diesel&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

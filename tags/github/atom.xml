@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - github</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/github/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-06-12T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/github/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</title>
+		<published>2020-06-12T00:00:00+00:00</published>
+		<updated>2020-06-12T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/</id>
+		<content type="html">&lt;h2 id=&quot;my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;My experience using Github Actions for CI&#x2F;CD as a solo contributor&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot; aria-label=&quot;Anchor link for: my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am using Github Actions to build and deploy my website when I push. That is a classic continuous integration &#x2F; continuous deployment workflow. It’s convenient to commit, push and have my site build and deploy as a result. This workflow is simple but only works because I am the only contributor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-for-ci-cd-with-pull-request&quot;&gt;Github Actions for CI&#x2F;CD with Pull Request&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-for-ci-cd-with-pull-request&quot; aria-label=&quot;Anchor link for: github-actions-for-ci-cd-with-pull-request&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is a good practice to run sanity checks on pull requests prior to merging. How would that be accomplished with Github Actions?&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that you can do this but you need to be very intentional with how your jobs are configured.&lt;&#x2F;p&gt;
+&lt;p&gt;In my workflow, I am designating a main branch &lt;code&gt;zola&lt;&#x2F;code&gt; that will run full CI&#x2F;CD. Build, test and deploy. And for any other branch, just build and test.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll share my example Github Actions workflow file, then I’ll provide a template that you can modify and use for your own purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-example-github-actions-workflow&quot;&gt;My example Github Actions workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-example-github-actions-workflow&quot; aria-label=&quot;Anchor link for: my-example-github-actions-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s my site’s current workflow file for Github Actions. I’ll break this down.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;zola
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build only&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;${{ secrets.TOKEN }}
+          BUILD_ONLY&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build and deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+          BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;${{ secrets.TOKEN }}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At the top, I am specifying the events that I want to trigger on with the &lt;code&gt;on&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;zola
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I want to trigger on push events to the &lt;code&gt;zola&lt;&#x2F;code&gt; branch, and all pull requests.&lt;&#x2F;p&gt;
+&lt;p&gt;Later below are 2 jobs that are almost identical. I’ll break them down one at a time then compare their differences.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;build&lt;&#x2F;code&gt; job &lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build only&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;${{ secrets.TOKEN }}
+          BUILD_ONLY&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. Or another way to say this is I check that the working branch that triggered this job is not the &lt;code&gt;zola&lt;&#x2F;code&gt; branch. I’ll continue forward only if this condition is &lt;code&gt;true&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. I use the &lt;code&gt;actions&#x2F;checkout@master&lt;&#x2F;code&gt; marketplace action to check my code out, and I use my fork of an action for Zola called &lt;code&gt;tjtelan&#x2F;zola-deploy-action@master&lt;&#x2F;code&gt;. I have an environment variable &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt; set to &lt;code&gt;true&lt;&#x2F;code&gt; which results in building my site but not deploying it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;build_and_deploy&lt;&#x2F;code&gt; job&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;zola&amp;#39;
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Build and deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tjtelan&#x2F;zola-deploy-action@master
+        env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+          BUILD_DIR&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.
+          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;${{ secrets.TOKEN }}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job also uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a similar check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. This time I am looking for the working branch to be &lt;code&gt;zola&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. Same as the previous job, but I am configuring &lt;code&gt;tjtelan&#x2F;zola-deploy-action@master&lt;&#x2F;code&gt; differently. Rather than setting &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt;, I am defining &lt;code&gt;PAGES_BRANCH&lt;&#x2F;code&gt; to &lt;code&gt;master&lt;&#x2F;code&gt;, which is where I want to deploy my site code after build.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;last-words-on-job-differences&quot;&gt;Last words on job differences&lt;a class=&quot;zola-anchor&quot; href=&quot;#last-words-on-job-differences&quot; aria-label=&quot;Anchor link for: last-words-on-job-differences&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The only differences are the branch check via &lt;code&gt;github.ref&lt;&#x2F;code&gt;, and the specifics of &lt;code&gt;steps&lt;&#x2F;code&gt;. I happen to be using my own Github Action &lt;code&gt;tjtelan&#x2F;zola-deploy-action&lt;&#x2F;code&gt; but your steps could consist of anything you want to do differently between pull requests and push to your “special” branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-template&quot;&gt;Github Actions template&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-template&quot; aria-label=&quot;Anchor link for: github-actions-template&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;master
+  pull_request&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;master
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&#x2F;checkout@master
+  build_and_deploy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ubuntu-latest
+    if&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;master
+    steps&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;:
+      - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;actions&#x2F;checkout@master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here’s a template that you can use for your own push vs PR workflows. By default, I assume &lt;code&gt;master&lt;&#x2F;code&gt; as the special branch, so you’ll need to change that if you want to use a different branch. Additionally, you’ll need to provide all the steps to take after checking code out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sources&quot;&gt;Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.community&#x2F;t&#x2F;how-to-trigger-an-action-on-push-or-pull-request-but-not-both&#x2F;16662&#x2F;3&quot;&gt;Github Community question: How to trigger an action on push or pull request but not both?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;events-that-trigger-workflows&quot;&gt;Github Actions reference: Events that trigger workflows&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;virtual-environments-for-github-hosted-runners&quot;&gt;Github Actions reference: Virtual Environments for Github-hosted runners&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;context-and-expression-syntax-for-github-actions#github-context&quot;&gt;Github Actions reference: Context and expression syntax - Github context&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Learning Android to Play with Metawatch Manager</title>
+		<published>2012-05-14T00:00:00+00:00</published>
+		<updated>2012-05-14T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve been meaning to learn how to develop for Android since the &lt;a href=&quot;http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;HTC_Dream&quot;&gt;G1&lt;&#x2F;a&gt; (the first Android handset) was released.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also been meaning to develop for my Metawatch since I got it last September, but since launch, a lack of a &lt;a href=&quot;http:&#x2F;&#x2F;www.metawatch.org&#x2F;forums&#x2F;thread&#x2F;200&#x2F;official-free-cheap-development-environment&quot;&gt;free&#x2F;cheap development
+environment&lt;&#x2F;a&gt; continues to slow my momentum (and interest) in messing with what is otherwise a nice looking, basic functioning watch. (That also has a motor in it...)&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m going to take on both of these goals at the same time.&lt;&#x2F;p&gt;
+&lt;p&gt;I was using the official version of the Metawatch Manager, the software installed in Android that is responsible for sending notifications (and text messages, phone calls...) to the watch to drive the motor and make you look at the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;I later moved onto an app I found in the Android market (err... Google Play). &lt;a href=&quot;https:&#x2F;&#x2F;play.google.com&#x2F;store&#x2F;apps&#x2F;details?id=com.kupriyanov.metawatch&amp;amp;hl=en&quot;&gt;Manager for MetaWatch&lt;&#x2F;a&gt; I&#x27;ve been finding that I really like what the app has offered me over the official one, but it is a little bit buggy and I&#x27;m also looking to add some features. It would be great to add the geeky, personal touch that I&#x27;ve been missing that shows that this is my project.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I&#x27;m going to get back to the &lt;a href=&quot;http:&#x2F;&#x2F;lmgtfy.com&#x2F;?q=android+tutorial&quot;&gt;Android tutorial&lt;&#x2F;a&gt; I&#x27;m reading.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;MetaWatchOpenProjects&#x2F;MWM-for-Android&quot;&gt;Official Metawatch Manager github project&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Senior Project Update</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/senior-project-update/" type="text/html"/>
+		<id>https://tjtelan.com/blog/senior-project-update/</id>
+		<content type="html">&lt;p&gt;Presentations are just around the corner and I haven&#x27;t been making quite as many updates with regard to my project.&lt;&#x2F;p&gt;
+&lt;p&gt;The quick summary will have to do for now: It is using an ARM based microcontroller (Freescale Kinetis K60 -- tower system). The function it is serving is web-enabled home automation. I&#x27;m using the MQX real-time operating system. Users of this system will control the devices connected to the system through a web browser.&lt;&#x2F;p&gt;
+&lt;p&gt;The code for this project is up on github, so anyone can contribute, customize for themselves or just look at the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;homewatchdog&quot;&gt;code&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I plan to have a reflection up after next Thursday.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Deep breath&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Still so much to add.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

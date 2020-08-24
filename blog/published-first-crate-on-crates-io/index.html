@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>T.J. Telan</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https:&#x2F;&#x2F;tjtelan.com&#x2F;newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/published-first-crate-on-crates-io/" />
+   
+  <meta property="og:title" content="Published First Crate on Crates.io" />
+  
+  
+  <meta property="og:description" content="My experience publishing my first public Rust library" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/published-first-crate-on-crates-io/" />
+   
+  <meta name="twitter:title" content="Published First Crate on Crates.io" />
+  
+  
+  <meta name="twitter:description" content="My experience publishing my first public Rust library" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21509172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'UA-21509172-1');
+</script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://stackoverflow.com/users/1672638/t-j-telan">Stack Overflow<img src="/nav-icons/stackoverflow.svg" alt="Stack Overflow"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Published First Crate on Crates.io</h1>
+    
+    <span class="post-meta">
+        2 min read
+        &nbsp;&bull;&nbsp;
+        2020-02-14
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/crates-io/">
+              #crates.io
+            </a>
+          
+        
+      </span>
+
+    <p>I published <a href="https://crates.io/crates/git-url-parse">my first public crate</a>. I thought my library was useful, general, and did not have a similar implementation in crates.io. I hoped that it may get used by the Rust community. It turned out to be very easy to package and upload my code, and I wanted to share my process.</p>
+<h2 id="complete-cargo-toml-with-package-metadata">Complete Cargo.toml with package metadata<a class="zola-anchor" href="#complete-cargo-toml-with-package-metadata" aria-label="Anchor link for: complete-cargo-toml-with-package-metadata">🔗</a></h2>
+<p>https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata</p>
+<p>I tried to define the metadata completely. Other than writing the code, this took the longest time. I wanted to make sure the crate listed in an appropriate category. As well as using relevant keywords.</p>
+<p>(My very first version did not have a README or fancy build badges, but I did have docstrings for docs.rs)</p>
+<h2 id="generate-api-key-and-log-in-from-cargo">Generate API Key and log in from cargo<a class="zola-anchor" href="#generate-api-key-and-log-in-from-cargo" aria-label="Anchor link for: generate-api-key-and-log-in-from-cargo">🔗</a></h2>
+<p>Crates.io only supports logging in using Github accounts.</p>
+<p>Navigate to Account Settings and scroll down to the <em>API Access</em> section. Click new token and give your token a name.</p>
+<p>After giving your token a name, there is going to be a <code>cargo login</code> command with a random token value. Run this command to log in.</p>
+<h2 id="run-cargo-publish">Run cargo publish<a class="zola-anchor" href="#run-cargo-publish" aria-label="Anchor link for: run-cargo-publish">🔗</a></h2>
+<p>My crate was at the top of the new crates column of crates.io</p>
+<p>Like I mentioned earlier, I had doc strings in my code that I expected to publish to docs.rs. This can take a few minutes. Wait a few minutes. It’ll make it there.</p>
+<p>I later followed up with writing a complete README.md, and added badges. That’s all it took to make my little library look fancy.</p>
+<p>If you were on the fence about publishing to crates.io, I hope you are now convinced that it was not.</p>
+<hr />
+<h4 id="before-you-go-some-info-about-my-crate">Before you go, some info about my crate:<a class="zola-anchor" href="#before-you-go-some-info-about-my-crate" aria-label="Anchor link for: before-you-go-some-info-about-my-crate">🔗</a></h4>
+<p><a href="https://crates.io/crates/git-url-parse">git-url-parse</a>.</p>
+<p>I wrote it because common ssh-based git repo urls don’t fit a standard like:</p>
+<ul>
+<li><a href="https://url.spec.whatwg.org/">the living URL standard</a></li>
+<li><a href="https://tools.ietf.org/html/rfc1738">RFC 1738</a></li>
+<li><a href="https://tools.ietf.org/html/rfc1808.html">RFC 1808</a></li>
+<li>etc.</li>
+</ul>
+<p>As such, parsing is not supported by many languages’ standard library, including Rust.</p>
+<p>Anyway, I hope you'll check it out! Thanks!</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    <div class="previous-post">
+        <p>Previous Post</p>
+        <a href=https://tjtelan.com/blog/using-a-database-grpc-with-rust/>Using a database + gRPC with Rust</a> <span>2019-04-25</span>
+    </div>
+    
+    
+    <div class="next-post">
+        <p>Next Post</p>
+        <a href=https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/>How to link multiple docker-compose services via network</a> <span>2020-06-11</span>
+    </div>
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

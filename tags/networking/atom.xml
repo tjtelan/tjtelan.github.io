@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - networking</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/networking/atom.xml" rel="self" type="application/atom+xml"/>
+	<link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-06-11T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/networking/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How to link multiple docker-compose services via network</title>
+		<published>2020-06-11T00:00:00+00:00</published>
+		<updated>2020-06-11T00:00:00+00:00</updated>
+		<link href="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" type="text/html"/>
+		<id>https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/</id>
+		<content type="html">&lt;p&gt;This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;The desired result was to be able to define a docker-compose.yml in one file, and in a second docker-compose.yml have the ability to reach the first service via service or container name for development purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;Default scenario: Two separate docker-compose.yml and two separate default networks&lt;a class=&quot;zola-anchor&quot; href=&quot;#default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot; aria-label=&quot;Anchor link for: default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s take a simple docker compose file.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;sleep infinity
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When it starts up, a default network is created. Its name is based on the service name and the directory name of the docker-compose.yml file.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; network &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose1_default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; with the default driver
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;second-docker-compose-file&quot;&gt;Second docker compose file&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-docker-compose-file&quot; aria-label=&quot;Anchor link for: second-docker-compose-file&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;sleep infinity
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Starting services in a second docker compose file, we see the same behavior. A new default network is created and used.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; network &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose2_default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;quot; with the default driver
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A side-effect of these isolated networks are that the containers are unable to ping one another by service name or container name.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-from-service-1-ping-service-2&quot;&gt;Test: From Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-from-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-from-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping compose2_service2_1 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose2_service2_1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;test-service-2-ping-service-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping compose1_service1_1 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ping:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bad address &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compose1_service1_1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;new-scenario-sharing-a-network-between-services&quot;&gt;New scenario: Sharing a network between services&lt;a class=&quot;zola-anchor&quot; href=&quot;#new-scenario-sharing-a-network-between-services&quot; aria-label=&quot;Anchor link for: new-scenario-sharing-a-network-between-services&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want define services in multiple docker-compose.yml files, and also have network connectivity between the services, you need to configure your services to use the same network.&lt;&#x2F;p&gt;
+&lt;p&gt;To create an external network, you can run &lt;code&gt;docker network create &amp;lt;name&amp;gt;&lt;&#x2F;code&gt;. -- where &lt;code&gt;&amp;lt;name&amp;gt;&lt;&#x2F;code&gt; can be a single string without spaces.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;creating-the-network&quot;&gt;Creating the network&lt;a class=&quot;zola-anchor&quot; href=&quot;#creating-the-network&quot; aria-label=&quot;Anchor link for: creating-the-network&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker network create external-example
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;2af4d92c2054e9deb86edaea8bb55ecb74f84a62aec7614c9f09fee386f248a6
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;modified-first-docker-compose-file-with-network-configured&quot;&gt;Modified first docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-first-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-first-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sleep infinity 
+
+networks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;external-example 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;modified-second-docker-compose-file-with-network-configured&quot;&gt;Modified second docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-second-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-second-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;busybox 
+    command&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sleep infinity 
+
+networks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: 
+      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;external-example 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; pwd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+
+$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker-compose up&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d
+Creating&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After running &lt;code&gt;docker-compose up -d&lt;&#x2F;code&gt; on both docker-compose.yml files, we see that no new networks were created.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker network ls
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NETWORK&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; ID          NAME                DRIVER              SCOPE
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;25e0c599d5e5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        bridge              bridge              local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;2af4d92c2054&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        external-example    bridge              local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;7df4631e9cff&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        host                host                local
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;194d4156d7ab&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;        none                null                local
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With the containers using the &lt;code&gt;external-example&lt;&#x2F;code&gt; network, they are able to ping one another.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-service-1-ping-service-2&quot;&gt;Test: Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service2 (172.24.0.3)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.3: seq=0 ttl=64 time=0.054 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service2 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.054&#x2F;0.054&#x2F;0.054 ms
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping compose2_service2_1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 (172.24.0.2)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.2: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;test-service-2-ping-service-1-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b303b;&quot;&gt;
+&lt;code&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service1 (172.24.0.2)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.2: seq=0 ttl=64 time=0.041 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; service1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.041&#x2F;0.041&#x2F;0.041 ms
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt;$ docker exec&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -it&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose2_service2_1 ping compose1_service1_1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PING&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 (172.24.0.3)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; 56 data bytes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;64&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; bytes from 172.24.0.3: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;^C
+---&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; compose1_service1_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;round-trip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c0c5ce;&quot;&gt; min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As a note, you can configure your services to use a custom container name by declaring the &lt;code&gt;container_name&lt;&#x2F;code&gt; key under each service (i.e., at the same level as &lt;code&gt;image&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;compose&#x2F;compose-file&#x2F;#container_name&quot;&gt;Link to Docker-compose docs - container_name&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;takeaway&quot;&gt;Takeaway&lt;a class=&quot;zola-anchor&quot; href=&quot;#takeaway&quot; aria-label=&quot;Anchor link for: takeaway&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You can connect services defined across multiple docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;In order to do this you’ll need to:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create an external network with &lt;code&gt;docker network create &amp;lt;network name&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;In each of your docker-compose.yml  configure the default network to use your externally created network with the &lt;code&gt;networks&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;li&gt;
+&lt;li&gt;You can use either the service name or container name to connect between containers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+	</entry>
+</feed>
