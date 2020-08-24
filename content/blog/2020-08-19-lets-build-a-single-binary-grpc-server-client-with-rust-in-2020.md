@@ -5,7 +5,7 @@ updated = 2020-08-19
 draft = false
 description = "A detailed quick-start example for experienced devs using gRPC with Rust"
 [taxonomies]
-tags = ["rust", "grpc", "cli"]
+tags = ["rust", "grpc", "cli", "structopt", "tonic", "protobuf"]
 categories = ["how-to"]
 +++
 
@@ -76,7 +76,7 @@ $ cd cli-grpc-tonic-blocking
 
 ```
 
-We will use a crate called [StructOpt](https://crates.io/crates/structopt). StructOpt utilizes the [Clap](https://crates.io/crates/clap) crate which is a powerful command line parser. But Clap can be a little complicated to use, so structopt additionally provides a lot of convenient functionality Rust a [#[derive] attribute](https://doc.rust-lang.org/reference/attributes/derive.html) so we don’t have to write as much code.
+We will use a crate called [StructOpt](https://crates.io/crates/structopt). StructOpt utilizes the [Clap](https://crates.io/crates/clap) crate which is a powerful command line parser. But Clap can be a little complicated to use, so StructOpt additionally provides a lot of convenient functionality Rust a [#[derive] attribute](https://doc.rust-lang.org/reference/attributes/derive.html) so we don’t have to write as much code.
 
 
 ```shell
@@ -304,7 +304,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 Our `main()` is short and focused.
 
-Our return type is a `Result`. We return `()` when things are good, and returns a boxed [trait object](https://doc.rust-lang.org/reference/types/trait-object.html) that implements the `std::error::Error` trait as our error (the return trait object is boxed, because we don’t Rust doesn’t know how much space to allocate).
+Our return type is a `Result`. We return `()` when things are good, and returns a boxed [trait object](https://doc.rust-lang.org/reference/types/trait-object.html) that implements the `std::error::Error` trait as our error (the return trait object is boxed, because Rust doesn’t know how much space to allocate).
 
 We parse the user input using our StructOpt customized `ApplicationArguments` struct with `from_args()`. What’s great is invalid inputs are handled, and so we don’t need to spend any time straying from the happy path.
 
@@ -919,6 +919,14 @@ pub async fn start_server(opts: ServerOptions) -> Result<(), Box<dyn std::error:
 
 And that’s the server implementation and the frontend code for starting the server. It is a surprisingly small amount of code.
 
+You can start an instance of the server by running:
+
+```shell
+$ cargo run -- server
+[...]
+Start the server on: "127.0.0.1:50051"
+RemoteCliServer listening on 127.0.0.1:50051
+```
 
 ## Client
 
