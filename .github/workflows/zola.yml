@@ -1,30 +1,30 @@
 on:
   push:
     branches:
-      - zola 
+      - main 
   pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/zola'
+    if: github.ref != 'refs/heads/main'
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: 'Build only' 
-        uses: tjtelan/zola-deploy-action@master
+        uses: tjtelan/zola-deploy-action@main
         env:
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
           BUILD_ONLY: true
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/zola'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: 'Build and deploy'
-        uses: tjtelan/zola-deploy-action@master
+        uses: tjtelan/zola-deploy-action@main
         env:
-          PAGES_BRANCH: master
+          PAGES_BRANCH: gh-pages 
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
