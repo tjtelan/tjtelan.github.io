@@ -20,7 +20,7 @@ I’ll organize my reflections into 3 sections:
 *   Short-term objectives that I can influence
 *   Long-term aspirations
 
-_If you’re interested how I got started, [I wrote a post about it that you can check out!](http://127.0.0.1:1111/blog/what-i-learned-running-a-live-programming-stream-from-linux/)_
+_If you’re interested how I got started, [I wrote a post about it that you can check out!](@/blog/2020-07-29-what-I-learned-running-a-live-programming-stream-from-linux.md)_
 
 ## Things completely in my control
 
