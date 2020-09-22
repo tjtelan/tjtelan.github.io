@@ -40,7 +40,4 @@ hyde_links = [
 ]
 ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "content/blog/*.tmpl"]
 
-#google_analytics_id = "UA-21509172-1"
 google_analytics_id = "testtest123"
-
-production_mode = false 

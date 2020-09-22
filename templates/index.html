@@ -68,7 +68,7 @@
       <h2>Recent posts</h2>
       <ul>
         {% for page in blog.pages | slice(end=5) %}
-        <li>
+        <li {%if page.draft%}class="draft"{% endif%}>
           <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
           <span class="post-summary">
             {% if page.description %}{{ page.description }}{% endif %}

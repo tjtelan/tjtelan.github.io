@@ -9,5 +9,8 @@ title = "Shortcodes"
 ## Callout ##
 Default class is `.message` , additional classes can be added (won't replace message). Use
 
-{{ callout(class="note") }}
+{#
+{% callout(class="note") %}
 Callout. **Sed posuere** consectetur est at lobortis.
+{% end %}
+#}
