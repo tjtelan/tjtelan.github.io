@@ -3,9 +3,9 @@ title = "Reflections after 2 months of live coding"
 date = 2020-09-22
 updated = 2020-09-22
 draft = false
-description = "Sharing thoughts, experiences, and goals about live code streaming"
+description = "Sharing thoughts, experiences, and goals about live-coding Rust on Twitch"
 [taxonomies]
-tags = ["streaming", "twitch"]
+tags = ["streaming", "twitch", "livecoding", "rust"]
 categories = ["review"]
 +++
 I started streaming on Twitch this summer. I have been streaming Rust development once a week.
@@ -22,12 +22,11 @@ I’ll organize my reflections into 3 sections:
 
 _If you’re interested how I got started, [I wrote a post about it that you can check out!](http://127.0.0.1:1111/blog/what-i-learned-running-a-live-programming-stream-from-linux/)_
 
-## **Things completely in my control**
+## Things completely in my control
 
 Like most things in life, there’s not much completely within my control. But I can tinker with my channel's look and feel, the time and duration I stream, and what I work on during each stream.
 
-
-### **Content**
+### Content
 
 **Working on a project provides natural boundaries.** Before beginning a stream, I don’t need to know 100% what I’m going to accomplish or how. But I’m more mentally present if I am not thinking too much about what I need to do next. To help with that, I like to plan a predetermined, single direction per stream. I choose a reasonably-sized goal to work on for each stream, and try to roughly break down the steps so I have a small map to follow during the stream.
 
@@ -35,16 +34,13 @@ I also expose project management over stream (via Github projects), which keeps 
 
 **Learn from my mistake.** If you cross-stream to YouTube, be mindful of Content ID. I experimented with background music and naively loaded up another YouTube steam for a short moment. Don’t do this! Pretty quickly it was automatically flagged. Look for royalty-free music instead.
 
-
-### **Viewer experience**
+### Viewer experience
 
 As I’ve continued on, I've put more effort into improving the experience of viewing my stream These are my key takeaways:
 
 **Know your limits.** I’ve learned that 3 hours is about my maximum session length. Any longer and I start to feel low energy and my voice gets tired from all the talking. Not to mention, my current viewership and audience engagement doesn't justify being online for that long.
 
 **Show your process**. There are two steps (where I’m not actively coding) that I include on my stream as part of my process: diagrams and project management. 
-
-
 
 *   Writing code is a lot of effort, especially if you don’t know where you’re going. For me, drawing out diagrams of structures or algorithms is like writing an outline before I start coding. I’ve been learning Figma to make nice diagrams for streams.
 *   If I’m practicing project management, I’ll do it live. Lately, I’ve been using Github projects to manage my roadmap and planning.
@@ -59,11 +55,11 @@ This is an opportunity to show real parts of my process, and there’s no reason
 
 **Back in five.** Have OBS scenes to switch to for bathroom breaks or intentional moments away from the keyboard.  I think this is just polite as a non-gamer stream. It’s a bit of a bummer to open up a stream to an empty chair and no indication of when the person will be coming back.
 
-## **Short-term objectives I can influence**
+## Short-term objectives I can influence
 
 I have set a few new long-term goals for myself. But I'll always need to deal with the same obstacles to broadcasting effectively, and get viewers to agree to hang out and talk to me.
 
-### **Asking myself questions first**
+### Asking myself questions first
 
 **Practice makes perfect.** If you are going to be exploring a new library on your stream, then practice using it for a non-trivial amount of time prior to broadcast. This will serve the purpose of defining a direction for the stream, in addition to building familiarity of where some of the pitfalls are in case of roadblocks. Having some familiarity with the tools or systems I’m working with also makes me feel more confident in demonstrating it, even when I don’t know how to do everything I plan on doing.
 
@@ -92,7 +88,7 @@ If I look at the more successful live-coding streamers, they have been on Twitch
 *   Coming up with project ideas that are interesting and/or novel
 *   Determining what time of day to start my stream, so people are more likely to stop by and stick around for a while
 *   Reaching the requirements for Twitch Affiliate
-*   Joining a team: my goal is to join the[ Rustaceans](https://www.twitch.tv/team/rustaceans) Twitch team once I reach Affiliate status.
+*   Joining a team: my goal is to join the [Rustaceans](https://www.twitch.tv/team/rustaceans) Twitch team once I reach Affiliate status.
 
 ### Networking
 
