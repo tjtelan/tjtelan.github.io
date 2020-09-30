@@ -32,7 +32,7 @@ hyde_links = [
   {url = "/about/", name = "About"},
   {url = "https://github.com/tjtelan", name = "Github", icon = "/nav-icons/github.svg"},
   {url = "https://dev.to/tjtelan", name = "Dev.to", icon = "/nav-icons/dev-dot-to.svg"},
-  {url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow", icon = "/nav-icons/stackoverflow.svg"},
+  #{url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow", icon = "/nav-icons/stackoverflow.svg"},
   {url = "https://twitter.com/ThatTJTelan", name = "Twitter", icon = "/nav-icons/twitter.svg"},
   {url = "https://www.twitch.tv/tjtelan", name = "Twitch", icon = "/nav-icons/twitch.svg"},
   {url = "https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g", name = "YouTube", icon = "/nav-icons/youtube.svg"},
