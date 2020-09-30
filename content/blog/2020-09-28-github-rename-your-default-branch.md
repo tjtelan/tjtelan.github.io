@@ -1,5 +1,5 @@
 +++
-title = "Rename your default Github branch"
+title = "9 steps to rename your default Github branch safely"
 date = 2020-09-30
 updated = 2020-09-30
 draft = false
