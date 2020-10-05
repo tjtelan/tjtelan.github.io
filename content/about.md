@@ -18,6 +18,7 @@ I write about:
 
 ### I post my blogs here 
 * [Dev.to](https://dev.to/tjtelan).
+* [Medium](https://medium.com/@tjtelan)
 
 ### Newsletter!
 
