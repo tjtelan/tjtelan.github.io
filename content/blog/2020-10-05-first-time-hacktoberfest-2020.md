@@ -60,7 +60,7 @@ All 4 PRs were made before this rule change was stated to go into effect (Oct 3 
 
 {{ image(path="images/2020-10-05-first-time-hacktoberfest-2020/profile-1.png", width=800, caption="4 PRs. All earlier than Oct 3 @ 12:00 UTC") }}
 
-Changes to the rules could have been communicated somewhere on the profile page in the legend, but were not. Or through email, like the message I recieved when I made my first PR.
+Changes to the rules could have been communicated somewhere on the profile page in the legend, but were not. Or through email, like the message I received when I made my first PR.
 
 I just noticed all my maturation times jump from about a week to about 2 weeks. 3 of these were PRs that were already merged too.
 
@@ -98,7 +98,7 @@ As I continue to dig into the changes, it appears that there was a [tweet](https
 
 [This message](https://hacktoberfest.digitalocean.com/hacktoberfest-update) appears on their site, but I only got to it through the PR. I don't know how else I would have found it because it isn't on the front page or anywhere I'd easily find.
 
-On one account, I've been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than never. I cannot confirm this myself, since at the time of this writing, I haven't recieved any email regarding rule changes.
+On one account, I've been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than never. I cannot confirm this myself, since at the time of this writing, I haven't received any email regarding rule changes.
 
 ---
 
