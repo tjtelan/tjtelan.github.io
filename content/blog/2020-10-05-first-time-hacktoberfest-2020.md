@@ -98,7 +98,7 @@ As I continue to dig into the changes, it appears that there was a [tweet](https
 
 [This message](https://hacktoberfest.digitalocean.com/hacktoberfest-update) appears on their site, but I only got to it through the PR. I don't know how else I would have found it because it isn't on the front page or anywhere I'd easily find.
 
-On one account, I've been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than. I cannot confirm this myself, since at the time of this writing, I haven't recieved any email regarding rule changes.
+On one account, I've been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than never. I cannot confirm this myself, since at the time of this writing, I haven't recieved any email regarding rule changes.
 
 ---
 
