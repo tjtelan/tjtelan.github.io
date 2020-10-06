@@ -5,7 +5,7 @@ updated = 2020-10-05
 draft = false 
 description = "My experience and opinion on my first Hacktoberfest in 2020"
 [taxonomies]
-tags = ["hacktoberfest", "opensource"]
+tags = ["hacktoberfest", "opensource", "github", "rust"]
 categories = ["review"]
 +++
 ## So... what is Hacktoberfest?
