@@ -1,21 +1,34 @@
-{% if height and width %}
-{% set resized = resize_image(path=path, height=height, width=width, op=op) %}
-{% elif width %}
-{% set resized = resize_image(path=path, width=width, op="fit_width") %}
-{% elif height %}
-{% set resized = resize_image(path=path, height=height, op="fit_height") %}
+{#
+    Usage: 
+
+    image(url="<url to image>"[, caption=""][, alt=""][, width=""][, height=""]) }}
+
+    or
+
+    image(path="<relative path to local image>"[, caption=""][, alt=""][, width=""][, height=""]) }}
+#}
+
+
+
+{%- if url -%}
+<div class="blog-image">
+    {%- if caption -%}<figure>{%- endif %}
+        <img src="{{ url }}"{%- if alt %} alt="{{ alt }}"{% elif caption %} alt="{{ caption }}"{%- endif %}{%- if width %} width="{{ width }}"{%- endif %} {%- if height %} height="{{ height }}"{%- endif %}/>
+        {%- if caption -%}<figcaption>{{ caption }}</figcaption>{%- endif %}
+    {%- if caption -%}</figure>{%- endif %}
+</div>
+{% else %} {# else path is being used... #}
+    {% if height and width %}
+        {% set resized = resize_image(path=path, height=height, width=width, op=op) %}
+    {% elif width %}
+        {% set resized = resize_image(path=path, width=width, op="fit_width") %}
+    {% elif height %}
+        {% set resized = resize_image(path=path, height=height, op="fit_height") %}
+    {% endif %}
+<div class="blog-image">
+    {%- if caption -%}<figure>{%- endif %}
+        <img src="{% if resized %}{{ resized | safe }}{% else %}{{ path }}{% endif %}"{%- if alt %} alt="{{ alt }}"{% elif caption %} alt="{{ caption }}"{%- endif %} />
+        {%- if caption -%}<figcaption>{{ caption }}</figcaption>{%- endif %}
+    {%- if caption -%}</figure>{%- endif %}
+</div>
 {% endif %}
-
-{%- if caption -%}
-<div class="blog-image">
-    <figure>
-        <img src="{% if resized %}{{ resized | safe }}{% else %}{{ path }}{% endif %}"{%- if caption %} alt="{{ caption }}"{%- endif %} />
-        <figcaption>{{ caption }}</figcaption>
-    </figure>
-</div>
-
-{%- else -%}
-<div class="blog-image">
-    <img src="{% if resized %}{{ resized | safe }}{% else %}{{ path }}{% endif %}"{%- if caption %} alt="{{ caption }}"{%- endif %} />
-</div>
-{%- endif -%}
