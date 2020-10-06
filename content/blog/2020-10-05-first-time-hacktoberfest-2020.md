@@ -86,7 +86,7 @@ But I’m mostly in my raw feelings, because I feel like the focused energy of t
 
 {{ image(url="https://media.giphy.com/media/4TtrENnFsz4EWkU6gz/giphy.gif") }}
 
-Hard to say at this moment, but what incentive do I have? I can contribute any time to small projects, and I most likely will.
+Hard to say at this moment, but what incentive do I have? I can contribute any time to small projects, and I most likely will. I have to thank Digital Ocean for helping me realize that.
 
 The spirit to drive help to small projects is one of my favorite parts of open source, and I think that Hacktoberfest probably started out with that ethos before their audience made it about T-shirts and stickers.
 
@@ -102,6 +102,10 @@ On one account, I've been told that an email was sent out to highlight rule chan
 
 ---
 
-Depending on how the changes affect the mood and the outcome of this year's event, I could probably warm up to the idea of 2021.
+Depending on how the changes affect the mood and the outcome of this year's event, I could probably warm up to the idea of 2021. Either way, I'll still be opening PRs against something.
 
-BUT I don’t appreciate rules being changed in such an underhanded manner and without care to communicate them effectively. I expect better communication from a worldwide event.
+I'll give credit where it is due to the Hacktoberfest team for responding to abusive participants. BUT I don’t appreciate rules being changed without care to communicate them effectively. I expect better communication from a worldwide event. Please learn from this!
+
+---
+
+Anyway, if you've made it this far, don't wait for October to contribute to open source! 
