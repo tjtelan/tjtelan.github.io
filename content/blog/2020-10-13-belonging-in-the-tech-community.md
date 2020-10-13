@@ -54,4 +54,4 @@ I don't know what options to try next. I’m not fishing for pity, but I am look
 
 ---
 
-Join the discussion on my post at [Dev.to](https://dev.to/tjtelan/what-can-i-do-to-feel-like-i-belong-in-the-tech-community-1k7k)
+Join the discussion on my post at [Dev.to](https://dev.to/tjtelan/what-can-i-do-to-feel-like-i-belong-in-the-tech-community-1k7k) or on [Twitter](https://twitter.com/ThatTJTelan/status/1316132042476670976)
