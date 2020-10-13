@@ -51,3 +51,7 @@ When was the last time you joined a new community? What was the defining moment 
 I don’t feel unwelcome in Tech, but I feel invisible. My attempts to extend my reach out to those who might actually care to connect has random-like results. Not for lack of trying. But admittedly, I am placing too much value in establishing consistency before figuring out what works for me.
 
 I don't know what options to try next. I’m not fishing for pity, but I am looking for advice. How do I find my audience? How can my audience find me?
+
+---
+
+Join the discussion on my post at [Dev.to](https://dev.to/tjtelan/what-can-i-do-to-feel-like-i-belong-in-the-tech-community-1k7k)
