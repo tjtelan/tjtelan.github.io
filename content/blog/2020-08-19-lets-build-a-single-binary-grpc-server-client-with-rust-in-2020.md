@@ -1,7 +1,7 @@
 +++
 title = "Let’s build a single binary gRPC server-client with Rust in 2020"
 date = 2020-08-19
-updated = 2020-08-19
+updated = 2020-10-16
 draft = false
 description = "A detailed quick-start example for experienced devs using gRPC with Rust"
 [taxonomies]
@@ -9,7 +9,7 @@ tags = ["rust", "grpc", "cli", "structopt", "tonic", "protobuf"]
 categories = ["how-to"]
 +++
 
-{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/rust_grpc_hero.png", width=640) }}
+{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/rust_grpc_hero.png", width=640, alt="The Rust logo plus the gRPC logo") }}
 
 There are plenty of resources for the basics of Rust and for protocol buffers + gRPC, so I don’t want to waste your time with heavy introductions. I want to bring you to action as soon as possible.
 
@@ -36,7 +36,7 @@ In this example, I will be writing a remote command-line server/client.
 
 The client will take in a command line command and send it to the server who will execute the command and send back the contents of standard out.
 
-{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/user_diagram_steps.png", width=640, caption="Diagram of the interaction we'll be working with") }}
+{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/user_diagram_steps.png", width=640, caption="Diagram of the interaction we'll be working with", alt="Block diagram with our actors User, Client and Server. Data flows from user to client, then server before looping back.") }}
 
 For simplicity sake, this example will wait for the execution to complete on the server side before returning output. In a future post I will demonstrate how to stream output back to a client.
 
@@ -56,7 +56,7 @@ This is not just a simple Hello World.
 
 I want to provide an example with a realistic application as a foundation. It has potential to be used for something useful, but keep in mind, this example is just a basic script runner and is not secure. 
 
-{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/multi_server.png", width=640, caption="This configuration is possible but out of scope") }}
+{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/multi_server.png", width=640, caption="This configuration is possible but out of scope", alt="A more complex diagram to illustrate how the user, client, server interaction scales. One user, one client, many servers.") }}
 
 One could run multiple instances of this server on multiple hosts and use the client to run shell commands on each of them similar to continuous integration tools like jenkins, puppet, or ansible. (Hot take: CI is just fancy shell scripting anyway)
 
@@ -65,19 +65,9 @@ I do not recommend running this code as-is in any important environment. For dem
 
 ## Writing the command line interface
 
-{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/bash_logo.png", width=200) }}
+{{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/bash_logo.png", width=200, alt="The Bourne again shell (BASH) logo") }}
 
 The command line interface is the foundation that will allow us to package our gRPC server and client into the same binary. We’re going to start our new crate with the CLI first.
-
-```shell
-$ cargo new cli-grpc-tonic-blocking
- 	Created binary (application) `cli-grpc-tonic-blocking` package
-$ cd cli-grpc-tonic-blocking
-
-```
-
-We will use a crate called [StructOpt](https://crates.io/crates/structopt). StructOpt utilizes the [Clap](https://crates.io/crates/clap) crate which is a powerful command line parser. But Clap can be a little complicated to use, so StructOpt additionally provides a lot of convenient functionality Rust a [#[derive] attribute](https://doc.rust-lang.org/reference/attributes/derive.html) so we don’t have to write as much code.
-
 
 ```shell
 $ cargo new cli-grpc-tonic-blocking
@@ -85,9 +75,10 @@ $ cargo new cli-grpc-tonic-blocking
 $ cd cli-grpc-tonic-blocking
 ```
 
+We will use a crate called [StructOpt](https://crates.io/crates/structopt). StructOpt utilizes the [Clap](https://crates.io/crates/clap) crate which is a powerful command line parser. But Clap can be a little complicated to use, so StructOpt additionally provides a lot of convenient functionality Rust a [#[derive] attribute](https://doc.rust-lang.org/reference/attributes/derive.html) so we don’t have to write as much code.
 
-cargo.toml
 
+**cargo.toml**
 
 ```toml
 [package]
@@ -155,7 +146,7 @@ We will provide the option for the server address in a flag `--server-addr`
 
 I’m going to break down the current `main.rs` into their structs, enums and functions to describe how StructOpt is utilized.
 
-Skip down to the next section `All together` if you want to check it out in a single code block.
+**Skip down to the next section [All together](#all-together) if you want to review this file in a single code block.**
 
 
 #### In parts
@@ -172,23 +163,27 @@ struct ApplicationArguments {
 }
 ```
 
-Like the comment says, this will be the main struct that you work with to parse args from the user input. 
+* Like the comment says, this will be the main struct that you work with to parse args from the user input. 
 
-We use `derive(StructOpt)` on this struct to let the compiler know to generate the command line parser.
+* We use `derive(StructOpt)` on this struct to let the compiler know to generate the command line parser.
 
-The `structopt(name)` attribute is reflected in the generated CLI help. Rust will use this name instead of the name of the crate, which again is `cli-grpc-tonic-blocking`. It is purely cosmetic.
+* The `structopt(name)` attribute is reflected in the generated CLI help. Rust will use this name instead of the name of the crate, which again is `cli-grpc-tonic-blocking`. It is purely cosmetic.
 
-The `structopt(flatten)` attribute is used on the ApplicationArguments struct field. The result effectively replaces this field with the contents of the `SubCommand` type, which we’ll get to next. 
+* The `structopt(flatten)` attribute is used on the ApplicationArguments struct field. The result effectively replaces this field with the contents of the `SubCommand` type, which we’ll get to next. 
 
 If we didn’t use flatten, then the user would need to use the CLI like this:
 
 ```shell
+## No subcommand flattening
+
 $ remotecli subcommand <subcommand> … 
 ```
 
 But with the flattening we get a simplified form without the `subcommand` literal.
 
 ```shell
+## With subcommand flattening
+
 $ remotecli <subcommand> ...
 ```
 
@@ -209,19 +204,19 @@ pub enum SubCommand {
 }
 ```
 
-We’re working with an enum this time. But again, the most important part is the `derive(StructOpt)` attribute.
+* We’re working with an enum this time. But again, the most important part is the `derive(StructOpt)` attribute.
 
-The reason to use an enum is to provide some development comfort. Each field in the enum takes in a struct where additional parsing occurs in the event that the subcommand is chosen. But this pattern enables us to not mix that up within this enum and make the code unfocused, and hard to read.
-
----
-
-The second most important detail is to notice the comments with 3 slashes `///`.
-
-These are doc-comments, and their placement is intentional. Rust will use these comments in the generated help command. The 2 slash comments are notes just for you, the developer, and are not seen by the user.
+* The reason to use an enum is to provide some development comfort. Each field in the enum takes in a struct where additional parsing occurs in the event that the subcommand is chosen. But this pattern enables us to not mix that up within this enum and make the code unfocused, and hard to read.
 
 ---
 
-For the first subcommand, admittedly I named this field `StartServer` so I could show off using the `structopt(name)` attribute.
+* The second most important detail is to notice the comments with 3 slashes `///`.
+
+* These are [doc comments](https://doc.rust-lang.org/reference/comments.html#doc-comments), and their placement is intentional. Rust will use these comments in the generated help command. The 2 slash comments are notes just for you, the developer, and are not seen by the user.
+
+---
+
+* For the first subcommand, admittedly I named this field `StartServer` so I could show off using the `structopt(name)` attribute.
 
 Without the attribute, the user would experience the subcommand transformed by default into the “kebab-case” form `start-command`. With the `name` defined on the StartServer field, we tell Rust that we want the user to use `server` instead.
 
@@ -229,19 +224,19 @@ Without the attribute, the user would experience the subcommand transformed by d
 
 ---
 
-The second subcommand `Run`... you’ll have to forgive my hand waving.
+The second subcommand `Run`... you’ll have to forgive my 👋hand waving👋.
 
-Remember that StructOpt is built on top of the [Clap](https://crates.io/crates/clap) crate.
+* Remember that StructOpt is built on top of the [Clap](https://crates.io/crates/clap) crate.
 
-Clap is quite flexible, but I thought it was much harder to use. StructOpt offers the ability to pass configuration to Clap and we’re setting a configuration setting w/ respect to the parsing behavior for only this subcommand.
+* Clap is quite flexible, but I thought it was much harder to use. StructOpt offers the ability to pass configuration to Clap and we’re setting a configuration setting w/ respect to the parsing behavior for only this subcommand.
 
 ---
 
-We want to pass a full command from the client to the server. But we don’t necessarily know how long that command will be and we don’t want the full command to be parsed.
+* We want to pass a full command from the client to the server. But we don’t necessarily know how long that command will be and we don’t want the full command to be parsed.
 
-The technical description for this kind of CLI parameter is a “Variable-length Argument” or a VarArg in this case. It is a hint for how to parse the last argument so you don’t need to define an end length -- it just trails off.
+* The technical description for this kind of CLI parameter is a “Variable-length Argument” or a VarArg in this case. It is a hint for how to parse the last argument so you don’t need to define an end length -- it just trails off.
 
-We are configuring the `Run` subcommand to tell Rust that this uses a VarArg. See [the Clap docs](https://docs.rs/clap/2.33.1/clap/enum.AppSettings.html#variant.TrailingVarArg) for more info about this and other AppSettings.
+* We are configuring the `Run` subcommand to tell Rust that this uses a VarArg. See [the Clap docs](https://docs.rs/clap/2.33.1/clap/enum.AppSettings.html#variant.TrailingVarArg) for more info about this and other AppSettings.
 
 
 ##### ServerOptions
@@ -256,11 +251,11 @@ pub struct ServerOptions {
    pub server_listen_addr: String,
 }
 ```
-Our `server` subcommand has a single configurable option.
+* Our `server` subcommand has a single configurable option.
 
-The `structopt(long)` attribute specifies that this is an option that the user will specify with the double-hyphen pattern with the name of the option, which will be in kebab-case by default. Therefore the user would use this as `--server-listen-addr`.
+* The `structopt(long)` attribute specifies that this is an option that the user will specify with the double-hyphen pattern with the name of the option, which will be in kebab-case by default. Therefore the user would use this as `--server-listen-addr`.
 
-`structopt(default_value)` is hopefully self-explanatory enough. If the user doesn’t override, the default value will be used. The default value type is a string slice `&str`, but structopt is converting it into a `String` by default.
+* `structopt(default_value)` is hopefully self-explanatory enough. If the user doesn’t override, the default value will be used. The default value type is a string slice `&str`, but structopt is converting it into a `String` by default.
 
 
 ##### RemoteCommandOptions
@@ -304,20 +299,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 Our `main()` is short and focused.
 
-Our return type is a `Result`. We return `()` when things are good, and returns a boxed [trait object](https://doc.rust-lang.org/reference/types/trait-object.html) that implements the `std::error::Error` trait as our error (the return trait object is boxed, because Rust doesn’t know how much space to allocate).
+* Our return type is a `Result`. We return `()` when things are good, and returns a boxed [trait object](https://doc.rust-lang.org/reference/types/trait-object.html) that implements the `std::error::Error` trait as our error (the return trait object is boxed, because Rust doesn’t know how much space to allocate).
 
-We parse the user input using our StructOpt customized `ApplicationArguments` struct with `from_args()`. What’s great is invalid inputs are handled, and so we don’t need to spend any time straying from the happy path.
+* We parse the user input using our StructOpt customized `ApplicationArguments` struct with `from_args()`. What’s great is invalid inputs are handled, and so we don’t need to spend any time straying from the happy path.
 
-After the parsing, we need to know what action to take next. We’ll either take a server action, or take a client action.
+* After the parsing, we need to know what action to take next. We’ll either take a server action, or take a client action.
 
-We pattern match on our `SubCommand` struct, and [destructure the enum’s internal structs](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring/destructure_enum.html) for the additional arguments.
+* We pattern match on our `SubCommand` struct, and [destructure the enum’s internal structs](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring/destructure_enum.html) for the additional arguments.
 
-We eventually will call out to the respective server or client to pass along the args. However for now we call `println!()` to display the values.
+* We eventually will call out to the respective server or client to pass along the args. However for now we call `println!()` to display the values.
 
 
 #### All together
 
-main.rs
+**main.rs**
 
 ```rust
 use structopt::StructOpt;
@@ -457,37 +452,39 @@ We start the file off by declaring the particular version of syntax we’re usin
 
 ---
 
-We need to provide a package name.
+* We need to provide a package name.
 
-The [proto3 docs](https://developers.google.com/protocol-buffers/docs/overview#packages) say this is optional, but our protobuf Rust code generator [Prost](https://crates.io/crates/prost) requires it to be defined for module namespacing and naming the resulting file.
-
----
-
-Defined are 2 data structures, called `message`s.
-
-The order of the fields are numbered and are important for identifying fields in the wire protocol when they are serialized/deserialized for gRPC communication.
-
-The numbers in the message must be unique and the best practice is to not change the numbers once in use. 
-
-For more details, read more about Field numbers [in the docs](https://developers.google.com/protocol-buffers/docs/proto3#assigning_field_numbers).
+* The [proto3 docs](https://developers.google.com/protocol-buffers/docs/overview#packages) say this is optional, but our protobuf Rust code generator [Prost](https://crates.io/crates/prost) requires it to be defined for module namespacing and naming the resulting file.
 
 ---
 
-The `CommandInput` message has 2 `string` fields - one singular and the other `repeated`. 
+* Defined are 2 data structures, called `message`s.
 
-The main executable, which we refer to as `command` the first word of the user input.
+* The order of the fields are numbered and are important for identifying fields in the wire protocol when they are serialized/deserialized for gRPC communication.
 
-The rest of the user input is reserved for `args`.
+* The numbers in the message must be unique and the best practice is to not change the numbers once in use. 
 
-The separation is meant to provide structure for the way a command interpreter like Bash defines commands.
-
----
-
-The `CommandOutput` message doesn’t need quite as much structure. After a command is run, the Standard Output will be returned as a single block of text.
+(For more details, read more about Field numbers [in the docs](https://developers.google.com/protocol-buffers/docs/proto3#assigning_field_numbers).)
 
 ---
 
-Finally, we define a service `RemoteCLI` with a single endpoint `Shell`. `Shell` takes a `CommandInput` and returns a `CommandOutput`.
+* The `CommandInput` message has 2 `string` fields - one singular and the other `repeated`. 
+
+* The main executable, which we refer to as `command` the first word of the user input.
+
+* The rest of the user input is reserved for `args`.
+
+* The separation is meant to provide structure for the way a command interpreter like Bash defines commands.
+
+---
+
+* The `CommandOutput` message doesn’t need quite as much structure. After a command is run, the Standard Output will be returned as a single block of text.
+
+---
+
+* Finally, we define a service `RemoteCLI` with a single endpoint `Shell`.
+
+* `Shell` takes a `CommandInput` and returns a `CommandOutput`.
 
 
 ### Compile the protobuf with Tonic
@@ -528,7 +525,7 @@ We’re using `tonic_build` to compile our proto into Rust. We’ll see more `to
 
 But for now we only need to add this crate into our `Cargo.toml` as a build dependency.
 
-#### Cargo.toml
+**Cargo.toml**
 
 ```toml
 [package]
@@ -613,7 +610,7 @@ tokio = { version = "0.2", features = ["full"] }
 tonic-build = "0.3.0"
 ```
 
-This is the last change we’ll be making to Cargo.toml.
+*This is the last change we’ll be making to Cargo.toml.*
 
 We’re adding in `tonic` and `prost` as we implement the gRPC server/client. [Prost](https://crates.io/crates/prost) is the implementation of protocol buffers in Rust, and is needed to compile the generated code when we include it into the rest of the package.
 
@@ -629,7 +626,9 @@ To keep the implementations organized, we’ll separate the server and client co
 
 ### remotecli/server.rs
 
-Similar to the frontend CLI walkthrough, I’ll break this file up into pieces and review them. At the bottom of this file’s section I’ll have the complete file there for copy/paste purposes.
+Similar to the frontend CLI walkthrough, I’ll break this file up into pieces and review them.
+
+**At the [bottom of this file’s section](#remotecli-server-rs-all-together) I’ll have the complete file there for copy/paste purposes.**
 
 #### Imports
 
@@ -654,26 +653,25 @@ use crate::ServerOptions;
 use std::process::{Command, Stdio};
 ```
 
+* At the top of the file, we declare a module `remotecli_proto` that is intended to be scoped only in this file. The name `remotecli_proto` is arbitrary and for clarity purposes. 
 
-At the top of the file, we declare a module `remotecli_proto` that is intended to be scoped only in this file. The name `remotecli_proto` is arbitrary and for clarity purposes. 
-
-The `tonic::include_proto!()` macro effectively copy/pastes our protobuf translated Rust code (as per protobuf package name)  into the module.
-
----
-
-The naming conventions of the protobuf translation can be a little confusing at first, but it is all consistent.
-
-Our protobuf’s `RemoteCLI` service generates separate client and server modules using [snake case](https://en.wikipedia.org/wiki/Snake_case) + `_server` or `_client`. While generated trait definitions use [Pascal case](https://en.wikipedia.org/wiki/Camel_case) (a specific form of camel case with initial letter capitalized).
-
-From the server specific generated code, we are importing a trait `RemoteCli` which requires that we implement our gRPC endpoint `Shell` with the same function signature.
-
-Additionally we import `RemoteCliServer`, a generated server implementation that handles all the gRPC networking semantics but requires that we instantiate with a struct that implements the `RemoteCli` trait.
+* The `tonic::include_proto!()` macro effectively copy/pastes our protobuf translated Rust code (as per protobuf package name)  into the module.
 
 ---
 
-The last import from the gRPC code are our protobuf messages `CommandInput` and `CommandOutput`
+* The naming conventions of the protobuf translation can be a little confusing at first, but it is all consistent.
 
-From our frontend, we are importing the `ServerOptions` struct, since we are going to pass the user input in for the server listening address.
+* Our protobuf’s `RemoteCLI` service generates separate client and server modules using [snake case](https://en.wikipedia.org/wiki/Snake_case) + `_server` or `_client`. While generated trait definitions use [Pascal case](https://en.wikipedia.org/wiki/Camel_case) (a specific form of camel case with initial letter capitalized).
+
+* From the server specific generated code, we are importing a trait `RemoteCli` which requires that we implement our gRPC endpoint `Shell` with the same function signature.
+
+* Additionally we import `RemoteCliServer`, a generated server implementation that handles all the gRPC networking semantics but requires that we instantiate with a struct that implements the `RemoteCli` trait.
+
+---
+
+* The last import from the gRPC code are our protobuf messages `CommandInput` and `CommandOutput`
+
+* From our frontend, we are importing the `ServerOptions` struct, since we are going to pass the user input in for the server listening address.
 
 ---
 
@@ -715,25 +713,25 @@ impl RemoteCli for Cli {
 }
 ```
 
-We declare our own struct `Cli` because we need to `impl RemoteCli`.
+* We declare our own struct `Cli` because we need to `impl RemoteCli`.
 
-Our generated code uses an `async` method. We add `#[tonic::async_trait]` to our trait impl so the server can use `async fn` on our method. We just have one method to define, `async fn shell()`.
-
----
-
-I’m waving my hands here for the function signature, but the way I initially learned how to write them was to go into the generated code, skimmed the code within the `remote_cli_server` module and modified the crate paths.
+* Our generated code uses an `async` method. We add `#[tonic::async_trait]` to our trait impl so the server can use `async fn` on our method. We just have one method to define, `async fn shell()`.
 
 ---
 
-The first thing we do when we enter `shell` is peel off the `tonic` wrapping from `request` with `.into_inner()`. We further separate the ownership of data into `command` and `args` vars.
-
-We build out `process` as the `std::process::Command` struct so we can spawn the user’s process and capture stdout.
-
-Then we wait for `process` to exit and collect the output with `.wait_with_output()`. We just want `stdout` so we further take ownership of just that handle.
+* I’m 👋waving my hands👋 here for the function signature, but the way I initially learned how to write them was to go into the generated code, skimmed the code within the `remote_cli_server` module and modified the crate paths.
 
 ---
 
-Last, we build a `tonic::Response`, converting the process stdout into a `String` while we instantiate our `CommandOutput`. Finally wrapping the `Response` in a `Result` and returning it to the client.
+* The first thing we do when we enter `shell` is peel off the `tonic` wrapping from `request` with `.into_inner()`. We further separate the ownership of data into `command` and `args` vars.
+
+* We build out `process` as the `std::process::Command` struct so we can spawn the user’s process and capture stdout.
+
+* Then we wait for `process` to exit and collect the output with `.wait_with_output()`. We just want `stdout` so we further take ownership of just that handle.
+
+---
+
+* Last, we build a `tonic::Response`, converting the process stdout into a `String` while we instantiate our `CommandOutput`. Finally wrapping the `Response` in a `Result` and returning it to the client.
 
 #### start_server
 
@@ -753,23 +751,23 @@ pub async fn start_server(opts: ServerOptions) -> Result<(), Box<dyn std::error:
 }
 ```
 
-This function will be used by the frontend for the purpose of starting the server.
+* This function will be used by the frontend for the purpose of starting the server.
 
 ---
 
-The listening address is passed in through `opts`. It’s passed in as a `String`, but the compiler figures out what type we mean when we call `.parse()` due to how we use it later.
+* The listening address is passed in through `opts`. It’s passed in as a `String`, but the compiler figures out what type we mean when we call `.parse()` due to how we use it later.
 
 ---
 
-We instantiate `cli_server` with the `Cli` struct which we implemented as the protobuf trait `RemoteCli`. 
+* We instantiate `cli_server` with the `Cli` struct which we implemented as the protobuf trait `RemoteCli`. 
 
 ---
 
-`tonic::Server::builder()` creates our gRPC server instance.
+* `tonic::Server::builder()` creates our gRPC server instance.
 
-The `.add_service()` method takes `RemoteCliServer::new(cli_server)` to create a gRPC server with our generated endpoints via `RemoteCliServer` and our trait impl via `cli_server`.
+* The `.add_service()` method takes `RemoteCliServer::new(cli_server)` to create a gRPC server with our generated endpoints via `RemoteCliServer` and our trait impl via `cli_server`.
 
-The `serve()` method takes in our parsed listening address, providing the hint the compiler needed to infer the required type and returns an `async Result&lt;> ` for us to `.await` on.
+* The `serve()` method takes in our parsed listening address, providing the hint the compiler needed to infer the required type and returns an `async Result&lt;> ` for us to `.await` on.
 
 ### main.rs - so far
 
@@ -837,13 +835,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-We now import our `remotecli` module.
+* We now import our `remotecli` module.
 
-The `main()` function changes slightly as well. First, we change the function to be `async`.
+* The `main()` function changes slightly as well. First, we change the function to be `async`.
 
-We add the `#[tokio::main]` attribute to mark the async function for execution.
+* We add the `#[tokio::main]` attribute to mark the async function for execution.
 
-And we call our new `start_server()` to actually start a server when the user runs the `server` subcommand.
+* And we call our new `start_server()` to actually start a server when the user runs the `server` subcommand.
 
 
 ### remotecli/server.rs all together
@@ -919,6 +917,8 @@ pub async fn start_server(opts: ServerOptions) -> Result<(), Box<dyn std::error:
 
 And that’s the server implementation and the frontend code for starting the server. It is a surprisingly small amount of code.
 
+---
+
 You can start an instance of the server by running:
 
 ```shell
@@ -960,7 +960,9 @@ We’re declaring the client module within `mod.rs`
 
 ### remotecli/client.rs
 
-Our client is a lot more straightforward. But splitting the module up into pieces for description purposes. Again, full file is at the end of the secion
+Our client is a lot more straightforward. But splitting the module up into pieces for description purposes. 
+
+**Again, full file is at [the end of the section](#remotecli-client-rs-all-together)**
 
 #### Imports
 
@@ -978,11 +980,11 @@ use remotecli_proto::CommandInput;
 use crate::RemoteCommandOptions;
 ```
 
-Just like in our server, we create a module `remotecli_proto` and we use the `tonic::include_proto!()` macro to copy/paste our generated code into this module.
+* Just like in our server, we create a module `remotecli_proto` and we use the `tonic::include_proto!()` macro to copy/paste our generated code into this module.
 
-We then include the generated `RemoteCliClient` to connect, and the `CommandInput` struct since that is what we send over to the server.
+* We then include the generated `RemoteCliClient` to connect, and the `CommandInput` struct since that is what we send over to the server.
 
-Last include is the `RemoteCommandOptions` struct from the frontend so we can pass in the server address we want to connect to.
+* Last include is the `RemoteCommandOptions` struct from the frontend so we can pass in the server address we want to connect to.
 
 
 #### client_run
@@ -1006,21 +1008,21 @@ pub async fn client_run(rc_opts: RemoteCommandOptions) -> Result<(), Box<dyn std
 }
 ```
 
-The helper function `client_run()` is an `async` function like our server. The frontend passes in a `RemoteCommandOptions` struct for the server address info as well as our raw user command.
+* The helper function `client_run()` is an `async` function like our server. The frontend passes in a `RemoteCommandOptions` struct for the server address info as well as our raw user command.
 
 ---
 
-First thing we do is create `client` and connect to the server with `RemoteCliClient::connect` and do an `.await`.
+* First thing we do is create `client` and connect to the server with `RemoteCliClient::connect` and do an `.await`.
 
 ---
 
-Then we build our request by creating a `tonic::Request` struct with our `CommandInput`.
+* Then we build our request by creating a `tonic::Request` struct with our `CommandInput`.
 
-The user command is raw and needs to be sliced up to fit the shape of what the server expects. The first word of the user command is the shell command, and the rest are the arguments.
+* The user command is raw and needs to be sliced up to fit the shape of what the server expects. The first word of the user command is the shell command, and the rest are the arguments.
 
 ---
 
-Lastly we use `client` and call our endpoint with our request and `.await` for the execution to complete.
+* Lastly we use `client` and call our endpoint with our request and `.await` for the execution to complete.
 
 ### main.rs
 
