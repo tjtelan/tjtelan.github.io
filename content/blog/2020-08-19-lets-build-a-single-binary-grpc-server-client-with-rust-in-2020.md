@@ -767,7 +767,7 @@ pub async fn start_server(opts: ServerOptions) -> Result<(), Box<dyn std::error:
 
 * The `.add_service()` method takes `RemoteCliServer::new(cli_server)` to create a gRPC server with our generated endpoints via `RemoteCliServer` and our trait impl via `cli_server`.
 
-* The `serve()` method takes in our parsed listening address, providing the hint the compiler needed to infer the required type and returns an `async Result&lt;> ` for us to `.await` on.
+* The `serve()` method takes in our parsed listening address, providing the hint the compiler needed to infer the required type and returns an `async Result<T> ` for us to `.await` on.
 
 ### main.rs - so far
 
