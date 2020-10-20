@@ -2,7 +2,7 @@
 title = "My Hacktoberfest 2020 is Complete"
 date = 2020-10-19
 updated = 2020-10-19
-draft = true
+draft = false
 description = "I finished Hacktoberfest 2020. How did I do? What did I get?"
 [taxonomies]
 tags = ["hacktoberfest", "opensource", "github", "rust"]
