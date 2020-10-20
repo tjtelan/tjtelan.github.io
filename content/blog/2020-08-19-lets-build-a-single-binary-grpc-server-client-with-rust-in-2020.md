@@ -1,7 +1,7 @@
 +++
 title = "Let’s build a single binary gRPC server-client with Rust in 2020"
 date = 2020-08-19
-updated = 2020-10-16
+updated = 2020-10-19
 draft = false
 description = "A detailed quick-start example for experienced devs using gRPC with Rust"
 [taxonomies]
@@ -104,7 +104,9 @@ Note: While we are in development you can use `cargo run --` to run our cli bina
 
 When we start our server, we want to pass in the subcommand `server`
 
-`cargo run -- server`
+```shell
+$ cargo run -- server
+```
 
 ##### Optional arguments for the server
 
@@ -169,7 +171,7 @@ struct ApplicationArguments {
 
 * The `structopt(name)` attribute is reflected in the generated CLI help. Rust will use this name instead of the name of the crate, which again is `cli-grpc-tonic-blocking`. It is purely cosmetic.
 
-* The `structopt(flatten)` attribute is used on the ApplicationArguments struct field. The result effectively replaces this field with the contents of the `SubCommand` type, which we’ll get to next. 
+* The `structopt(flatten)` attribute is used on the `ApplicationArguments` struct field. The result effectively replaces this field with the contents of the `SubCommand` type, which we’ll get to next. 
 
 If we didn’t use flatten, then the user would need to use the CLI like this:
 
@@ -416,7 +418,7 @@ $ tree
 ├── proto
 │   └── cli.proto
 └── src
-	└── main.rs
+    └── main.rs
 ```
 
 I like to keep the protobuf in a directory named `proto` typically at the same level as the `Cargo.toml` because as we’ll see soon, the build script will need to reference a path to the protobuf for compilation. The file name itself is arbitrary and [naming things is hard](https://www.karlton.org/2017/12/naming-things-hard/) so do your best to support your future self with meaningful names.
@@ -487,7 +489,7 @@ We start the file off by declaring the particular version of syntax we’re usin
 * `Shell` takes a `CommandInput` and returns a `CommandOutput`.
 
 
-### Compile the protobuf with Tonic
+### Compile the protobuf into Rust code with Tonic
 
 {{ image(path="images/2020-08-19-lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/tonic-banner.png", width=640) }}
 
@@ -507,7 +509,7 @@ $ tree
 ├── proto
 │   └── cli.proto
 └── src
-	└── main.rs
+    └── main.rs
 ```
 
 
@@ -581,10 +583,10 @@ $ tree
 ├── proto
 │   └── cli.proto
 └── src
-	├── main.rs
-	└── remotecli
-    		├── mod.rs
-    		└── server.rs
+    ├── main.rs
+    └── remotecli
+        ├── mod.rs
+        └── server.rs
 ```
 
 ### Cargo.toml
@@ -940,11 +942,11 @@ $ tree
 ├── proto
 │   └── cli.proto
 └── src
-	├── main.rs
-	└── remotecli
-    		├── client.rs
-    		├── mod.rs
-    		└── server.rs
+    ├── main.rs
+    └── remotecli
+      	├── client.rs
+        ├── mod.rs
+        └── server.rs
 ```
 
 
@@ -1121,6 +1123,36 @@ pub async fn client_run(rc_opts: RemoteCommandOptions) -> Result<(), Box<dyn std
    Ok(())
 }
 ```
+
+### Final demonstration
+
+To see this server-client end-to-end, we'll need two terminal windows open. In one, run the server, and in the other we'll run a simple `ls` command.
+
+#### Server
+
+```shell
+$ cargo run -- server
+[...]
+Start the server on: "127.0.0.1:50051"
+RemoteCliServer listening on 127.0.0.1:50051
+```
+
+#### Client
+
+```shell
+$ cargo run -- run ls
+```
+
+#### Output
+
+```shell
+Run command: '["ls"]'
+RESPONSE=Response { metadata: MetadataMap { headers: {"content-type": "application/grpc", "date": "Wed, 19 Aug 2020 00:00:25 GMT", "grpc-status": "0"} }, message: CommandOutput { output: "build.rs\nCargo.toml\nproto\nsrc\n" } }
+```
+
+As we see, there is still work left to do in order to format the output in a more human readable way. But that is an exercise left to the reader.
+
+
 
 ## Conclusion
 
