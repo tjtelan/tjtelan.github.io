@@ -1164,4 +1164,4 @@ Protocol buffers (or protobufs) were used to define the interfaces of the server
 
 `Tokio` was our async runtime. We experienced how little code was necessary to support `async`/`await` patterns.
 
-I hope that this walkthrough satisfies some curiosity about using gRPC for your backend code. As well as piqued your interest in writing some Rust code.
+Thanks for joining me as I stepped through the details. I hope that this walkthrough satisfies some curiosity about using gRPC for your backend code. As well as piqued your interest in writing some Rust code.
