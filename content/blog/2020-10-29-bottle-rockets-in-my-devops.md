@@ -5,7 +5,7 @@ updated = 2020-10-29
 draft = false 
 description = "Why DevOps thinking is not new. A story that demonstrates the benefits from outside the software industry"
 [taxonomies]
-tags = ["devops"]
+tags = ["devops", "devrel", "dx"]
 categories = ["devops"]
 +++
 Why is DevOps such a hot trend when many find it hard to concretely define? It is just for big companies? Could you be practicing DevOps as a small software organization and not even know it? What are the outputs of DevOps activities? How do you explain DevOps to your less-technical colleagues?
