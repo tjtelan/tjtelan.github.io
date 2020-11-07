@@ -2,8 +2,8 @@
 title = "DevOps is not a role"
 date = 2020-11-06
 updated = 2020-11-06
-draft = true
-description = ""
+draft = false 
+description = "This is the first of a series about helping your organization embrace DevOps"
 [taxonomies]
 tags = ["devops"]
 categories = ["devops"]
