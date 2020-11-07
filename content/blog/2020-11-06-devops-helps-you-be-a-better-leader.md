@@ -5,7 +5,7 @@ updated = 2020-11-07
 draft = false 
 description = "This is the first of a series about helping your organization embrace DevOps"
 [taxonomies]
-tags = ["devops", "leadership"]
+tags = ["devops", "leadership", "management"]
 categories = ["devops"]
 +++
 
