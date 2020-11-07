@@ -1,11 +1,11 @@
 +++
-title = "Dear Management: DevOps is not a role"
+title = "DevOps Helps you be a Better Leader"
 date = 2020-11-06
 updated = 2020-11-07
 draft = false 
 description = "This is the first of a series about helping your organization embrace DevOps"
 [taxonomies]
-tags = ["devops"]
+tags = ["devops", "leadership"]
 categories = ["devops"]
 +++
 
