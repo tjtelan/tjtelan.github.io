@@ -1,7 +1,7 @@
 +++
-title = "DevOps is not a role"
+title = "Dear Management: DevOps is not a role"
 date = 2020-11-06
-updated = 2020-11-06
+updated = 2020-11-07
 draft = false 
 description = "This is the first of a series about helping your organization embrace DevOps"
 [taxonomies]
