@@ -2,7 +2,7 @@
 title = "Quick Primer to Practical Reproducible builds: Reference Environments"
 date = 2020-11-27
 updated = 2020-11-27
-draft = true
+draft = false 
 description = "Make contributing easy. The system requirements to build your code is just as important as the code itself."
 [taxonomies]
 tags = ["devops", "automation", "scripting", "config-management", "virtual-machine", "containers"]
