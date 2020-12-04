@@ -110,16 +110,16 @@ An example interaction would look like this
 
 Inserts into the database - Client side:
 
-    1. User input 
-    2. Create Diesel struct + any data manipulation 
-    3. Convert Diesel struct into Proto struct 
-    4. Send Proto struct in gRPC call
+1. User input 
+2. Create Diesel struct + any data manipulation 
+3. Convert Diesel struct into Proto struct 
+4. Send Proto struct in gRPC call
 
 Inserts into the database - Server side:
 
-    1. Receive Proto struct
-    2. Convert Proto struct into Diesel struct + Any data manipulation
-    3. Insert into DB
+1. Receive Proto struct
+2. Convert Proto struct into Diesel struct + Any data manipulation
+3. Insert into DB
 
 #### The Last complicated detail : Rust custom types mapping to Postgres Enums
 
