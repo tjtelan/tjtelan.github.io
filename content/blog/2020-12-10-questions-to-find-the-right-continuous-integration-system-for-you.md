@@ -162,7 +162,9 @@ These are some categorized rhetorical questions that you or your organization sh
 
 
 
-*   Do you need to be deployed on-site? What are the upfront and ongoing costs associated?
+*   Do you need to be deployed on-site?
+*   What are the upfront and ongoing costs associated?
+*   Do you have secrets (like private keys, API tokens) that are needed at build time?
 
 
 #### Contributor model
@@ -171,7 +173,6 @@ These are some categorized rhetorical questions that you or your organization sh
 
 *   How are contributors logging in?
 *   What are the costs associated per seat?
-*   Can
 
 
 #### Maintenance
