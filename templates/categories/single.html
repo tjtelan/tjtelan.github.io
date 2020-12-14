@@ -1,5 +1,9 @@
 {% extends "index.html" %}
 
+{% block title %}
+Category posts: {{ term.name }} &middot; {{ super() }}
+{% endblock title %}
+
 {% block feed %}
   {% if config.generate_feed %}
   {% set feed_path = "categories/" ~ term.name ~ "/atom.xml" %}

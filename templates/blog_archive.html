@@ -1,5 +1,9 @@
 {% extends "index.html" %}
 
+{% block title %}
+All Posts &middot; {{ super() }}
+{% endblock title %}
+
 {% block content %}
       {% set blog = get_section(path="blog/_index.md") %}
       <h2>All posts</h2>

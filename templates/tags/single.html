@@ -1,5 +1,9 @@
 {% extends "index.html" %}
 
+{% block title %}
+Tagged Posts: {{ term.name }} &middot; {{ super() }}
+{% endblock title %}
+
 {% block feed %}
   {% if config.generate_feed %}
   {% set feed_path = "tags/" ~ term.name ~ "/atom.xml" %}

@@ -1,5 +1,9 @@
 {% extends "index.html" %}
 
+{% block title %}
+Now &middot; {{ page.date }} &middot; {{ super() }}
+{% endblock title %}
+
 {% block content %}
   <div class="post">
     <h1 class="post-title">What I'm doing now</h1>

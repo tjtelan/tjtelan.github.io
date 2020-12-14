@@ -1,4 +1,9 @@
 {% extends "index.html" %}
+
+{% block title %}
+{{ page.title }} &middot; {{ super() }}
+{% endblock title %}
+
 {% block extra_head %}
   <!-- Facebook open graph tags-->
   <meta property="og:type" content="website" />
