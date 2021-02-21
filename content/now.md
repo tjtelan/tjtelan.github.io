@@ -1,16 +1,32 @@
 +++
-title = "Keeping a sustainable pace for the rest of 2020"
+title = "Trying new things"
 template = "now.html"
-date = 2020-09-22
+date = 2021-02-21
 +++
-The challenge of making the best of a very uncertain situation... I feel like I'm able to take it on now.
-
-I'm very fortunate that my partner has been able to support the both of us. It's with that structure that I have been able to take all of these risks and invest in myself.
+Been a long time since I made an update on what is going on. The short: I'm trying to figure out the pace for creating content for 2021.
 
 ---
 
-I just posted a [reflection](@/blog/2020-09-22-reflections-after-2-months-of-live-coding.md) of my summer experience with streaming on Twitch.
+I haven't been streaming because my available schedule is changing to accomodate new projects (that I'm not ready to talk about yet). It is giving me a lot of opportunity to build deeper understanding of coding in Rust. However, I want to give myself a chance to succeed before returning to Twitch/YouTube.
 
-Honestly, Twitch has been going better than I expected with the effort I have been putting in. I'm committing more into improving my viewership with experiments in how I market and network within the Rust and larger tech communities that I am a part of. I plan on increasing the frequency of streams once I set up more systems to manage my time and keep myself accountable.
+---
 
-I'm also experimenting with syndicating onto more platforms, and submitting my blog posts directly to other sites. [Dev.to](https://dev.to) has been great for me, and I'm eyeing Reddit and Medium.
+Still working on Orbital though. Orbital is starting to reach an important stability milestone. I believe it will soon be useful for my personal usage, which I think will help accelerate development.
+
+---
+
+Last topic I want to share. I've been pulling out more of Orbital's git workflows with the [git2](https://crates.io/crates/git2) crate into multiple crates.
+
+* [git-meta](https://crates.io/crates/git-meta)
+
+Git-meta is an higher-level abstraction layer for working with git repos on your local machine. Most people don't need to know the internals of git in order to use it. I am hoping this can be a library that simplifies using git to the mental model most people have.
+
+I wrote it so I could clone/open repos, and look at branches, and a few details about specific commits. Details such as its hash, its commit message and what files have changed.
+
+Also you can check on whether new commits exist at your git host that have not yet been pulled in.
+
+* [git-event](https://crates.io/crates/git-event)
+
+Git-event is an application using git-meta in order to enable other developers to create their own git-ops workflows. That is, they will be able to watch a repo and run their own code whenever a new commit is found. (Or if new commits change specific files or within paths)
+
+Orbital's polling functionality uses git-event in order to start new builds.
