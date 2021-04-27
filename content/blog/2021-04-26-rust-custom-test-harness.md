@@ -9,6 +9,13 @@ tags = ["rust", "testing", "integration"]
 categories = ["how-to"]
 +++
 
+> This is a post I wrote for [Fluvio's blog](https://www.fluvio.io/blog/2021/04/rust-custom-test-harness/)
+> 
+> Check out [Fluvio on Github](https://github.com/infinyon/fluvio)
+> 
+> I've posted here for archival purposes.
+
+{{ image(path="images/2021-04-26-rust-custom-test-harness/banner-short-notitle.png",width=640, alt="The Rust logo plus the Ferris the crab holding a screwdriver and hammer") }}
 
 I ran into a problem effectively using `cargo test` in [Fluvio](https://github.com/infinyon/fluvio) for integration testing.
 
