@@ -1,12 +1,17 @@
 on:
   push:
     branches:
-      - main 
+      - staging
+      - trying
   pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/staging'
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
@@ -18,7 +23,7 @@ jobs:
           BUILD_ONLY: true
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/staging'
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
@@ -28,3 +33,11 @@ jobs:
           PAGES_BRANCH: gh-pages 
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
+  done:
+    name: Done
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    needs: [build_and_deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Done
+        run: echo "Done!"
