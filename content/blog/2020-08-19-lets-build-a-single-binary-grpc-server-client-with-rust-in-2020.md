@@ -69,7 +69,7 @@ I do not recommend running this code as-is in any important environment. For dem
 
 The command line interface is the foundation that will allow us to package our gRPC server and client into the same binary. We’re going to start our new crate with the CLI first.
 
-```shell
+```bash
 $ cargo new cli-grpc-tonic-blocking
     Created binary (application) `cli-grpc-tonic-blocking` package
 $ cd cli-grpc-tonic-blocking
@@ -104,7 +104,7 @@ Note: While we are in development you can use `cargo run --` to run our cli bina
 
 When we start our server, we want to pass in the subcommand `server`
 
-```shell
+```bash
 $ cargo run -- server
 ```
 
@@ -119,7 +119,7 @@ We will provide the option for the server listening address in a flag `--server-
 
 When the user runs a command from our client, we want to use the subcommand `run`. 
 
-```shell
+```bash
 $ cargo run -- run
 ```
 
@@ -128,13 +128,13 @@ $ cargo run -- run
 
 Anything after the `subcommand run` will be the command we pass to the server to execute. A command has an executable name and optionally also arguments.
 
-```shell
+```bash
 $ cargo run -- <executable> [args]
 ```
 
 Or to illustrate with how one would use this command w/o cargo if it were named `remotecli`:
 
-```shell
+```bash
 $ remotecli run <executable> [args]
 ```
 
@@ -175,7 +175,7 @@ struct ApplicationArguments {
 
 If we didn’t use flatten, then the user would need to use the CLI like this:
 
-```shell
+```bash
 ## No subcommand flattening
 
 $ remotecli subcommand <subcommand> … 
@@ -183,7 +183,7 @@ $ remotecli subcommand <subcommand> …
 
 But with the flattening we get a simplified form without the `subcommand` literal.
 
-```shell
+```bash
 ## With subcommand flattening
 
 $ remotecli <subcommand> ...
@@ -410,7 +410,7 @@ For what it’s worth, an added bonus are servers and clients having the possibi
 
 Before jumping into the protobuf, I wanted to mention my practice for where to keep the file itself.
 
-```shell
+```bash
 $ tree
 .
 ├── Cargo.lock
@@ -501,7 +501,7 @@ The way we accomplish that is by using a [build script](https://doc.rust-lang.or
 
 Cargo will run your build script if you have a file named `build.rs` in your project root.
 
-```shell
+```bash
 $ tree
 .
 ├── build.rs
@@ -551,7 +551,7 @@ You can look at the resulting Rust code in your `target` directory when you `car
 
 You’ll have more than one directory with your package name plus extra generated characters due to build script output. So you may need to look through multiple directories.
 
-```shell
+```bash
 $ tree target/debug/build/cli-grpc-tonic-blocking-aa0556a3d0cd89ff/
 target/debug/build/cli-grpc-tonic-blocking-aa0556a3d0cd89ff/
 ├── invoked.timestamp
@@ -566,7 +566,7 @@ I’ll leave the contents of the generated code to those following along, since 
 
 This code will only generate once. Or unless you make changes to `build.rs`. So if you make changes to your proto and you want to regenerate code, you can force a code regen by using `touch`.
 
-```shell
+```bash
 $ touch build.rs
 $ cargo build
 ```
@@ -575,7 +575,7 @@ $ cargo build
 
 Moving onto writing our server now that we can use the protobuf generated code. We’re going to write the server (and client) in a new module.
 
-```shell
+```bash
 $ tree
 .
 ├── build.rs
@@ -923,7 +923,7 @@ And that’s the server implementation and the frontend code for starting the se
 
 You can start an instance of the server by running:
 
-```shell
+```bash
 $ cargo run -- server
 [...]
 Start the server on: "127.0.0.1:50051"
@@ -934,7 +934,7 @@ RemoteCliServer listening on 127.0.0.1:50051
 
 We’re in the homestretch. Implementing a client. We’re going to create a new module within `remotecli` called `client.rs` that will follow the same patterns as we established for the server.
 
-```shell
+```bash
 $ tree
 .
 ├── build.rs
@@ -1130,7 +1130,7 @@ To see this server-client end-to-end, we'll need two terminal windows open. In o
 
 #### Server
 
-```shell
+```bash
 $ cargo run -- server
 [...]
 Start the server on: "127.0.0.1:50051"
@@ -1139,13 +1139,13 @@ RemoteCliServer listening on 127.0.0.1:50051
 
 #### Client
 
-```shell
+```bash
 $ cargo run -- run ls
 ```
 
 #### Output
 
-```shell
+```bash
 Run command: '["ls"]'
 RESPONSE=Response { metadata: MetadataMap { headers: {"content-type": "application/grpc", "date": "Wed, 19 Aug 2020 00:00:25 GMT", "grpc-status": "0"} }, message: CommandOutput { output: "build.rs\nCargo.toml\nproto\nsrc\n" } }
 ```
