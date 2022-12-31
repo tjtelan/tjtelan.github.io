@@ -66,14 +66,14 @@ To start the migration, we want to branch off `master` into a local branch named
 
 We’ll work from a fresh clone (assuming our default branch is `master`):
 
-```shell
+```bash
 $ git clone <url>
 $ cd <repo> 
 ```
 
 In the new clone, we will create our new branch, `main`, and push it to Github.
 
-```shell
+```bash
 $ git checkout -b main
 Switched to a new branch 'main'
 
@@ -248,7 +248,7 @@ At the branch listing, find one of the rows with `master` listed, and click the 
 
 ### Through the cli
 
-```shell
+```bash
 $ git push --delete -u origin master
 To github.com:tjtelan/example-repo.git
  - [deleted]     	master
@@ -256,7 +256,7 @@ To github.com:tjtelan/example-repo.git
 
 ## 9. Delete `master` branch from local clone
 
-```shell
+```bash
 $ git branch -D master
 ```
 

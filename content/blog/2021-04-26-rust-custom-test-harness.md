@@ -63,7 +63,7 @@ By default, libtest will compile each of your `#[test]` labeled functions into t
 
 First we’re going to create an integration test directory at the root of the crate where we’re going to build our integration test focused binary.
 
-```shell
+```bash
 $ mkdir integration
 $ touch integration/main.rs
 
@@ -261,7 +261,7 @@ fn main() {
 }
 ```
 
-```shell
+```bash
 $ cargo test integration
    Compiling blog-post-example v0.1.0 (/home/telant/Documents/blog-post-example)
 	Finished test [unoptimized + debuginfo] target(s) in 0.21s
