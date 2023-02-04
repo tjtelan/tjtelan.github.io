@@ -13,10 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/staging'
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@main
-      - name: "Build only"
-        uses: tjtelan/zola-deploy-action@main
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+        with:
+          set-safe-directory: '*'
+      - name: 'Build only'
+        uses: shalzz/zola-deploy-action@v0.16.1-1
         env:
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
@@ -25,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/staging'
     steps:
-      - name: "Checkout"
+      - name: 'Checkout'
         uses: actions/checkout@main
-      - name: "Build and deploy"
-        uses: shalzz/zola-deploy-action@v0.16.1
+      - name: 'Build and deploy'
+        uses: shalzz/zola-deploy-action@v0.16.1-1
         env:
           PAGES_BRANCH: gh-pages
           BUILD_DIR: .
