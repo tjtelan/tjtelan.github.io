@@ -14,11 +14,11 @@ jobs:
     if: github.ref != 'refs/heads/staging'
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
         with:
-          set-safe-directory: '/github/workspace'
+          set-safe-directory: '*'
       - name: 'Build only'
-        uses: tjtelan/zola-deploy-action@main
+        uses: shalzz/zola-deploy-action@v0.16.1
         env:
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
