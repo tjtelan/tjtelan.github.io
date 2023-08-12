@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - vmware</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/vmware/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2018-11-27T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/vmware/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Deploy Postfix Gmail relay with Ansible on Raspberry Pi</title>
+		<published>2018-11-27T00:00:00+00:00</published>
+		<updated>2018-11-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/" type="text/html"/>
+		<id>https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/</id>
+		<content type="html">&lt;h2 id=&quot;why-would-we-want-to-do-this&quot;&gt;Why would we want to do this?&lt;a class=&quot;zola-anchor&quot; href=&quot;#why-would-we-want-to-do-this&quot; aria-label=&quot;Anchor link for: why-would-we-want-to-do-this&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The virtualization servers at work are running VMWare ESXi, with Vcenter Server Applicance (VCSA) as our bridge to using cool, free tools like Packer, and Terraform to automate my interactions with virtual resources.&lt;&#x2F;p&gt;
+&lt;p&gt;A downside we discovered is VCSA&#x27;s lack of support for SMTP that requires auth, which Google requires when you send mail through them.&lt;&#x2F;p&gt;
+&lt;p&gt;Postfix can handle the anonymous request from VCSA, and send it out to gmail with provided creds.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-do-i-get-started&quot;&gt;How do I get started?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-do-i-get-started&quot; aria-label=&quot;Anchor link for: how-do-i-get-started&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Since we wanted to get an email whenever there as an issue with the virtualization servers, it made sense to hostthis service on its own hardware.&lt;&#x2F;p&gt;
+&lt;p&gt;I am going to be hosting this service using a Raspberry Pi 3 model B running Raspbian Stretch, and configuring it from my host using Ansible. This detail is not critical for following this guide. Any Debian-derived OS (like Ubuntu) that Ansible supports will work for hosting.&lt;&#x2F;p&gt;
+&lt;p&gt;You just need to make sure SSH is turned on, and that you have the IP address. (The default username&#x2F;pass on RasPis is &lt;code&gt;pi&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;raspberry&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;p&gt;At minimum, you need the following tools installed on your host:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 3&lt;&#x2F;li&gt;
+&lt;li&gt;Ansible 2.7&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Download this helpful role for installing Postfix. At the time of this writing, it was the best public Postfix Ansible role, because its documentation had examples of how to configure the deployment as a gmail relay. Very straight forward.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you install this role in your Ansible client&#x27;s &lt;code&gt;role_path&lt;&#x2F;code&gt;,  then you can use the example playbook I slightly modified, (and annotated) from the ansible-postfix README.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;example-ansible-playbook&quot;&gt;Example ansible playbook&lt;a class=&quot;zola-anchor&quot; href=&quot;#example-ansible-playbook&quot; aria-label=&quot;Anchor link for: example-ansible-playbook&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;---
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;Setup basic raspberry pi host as SMTP relay (Rasbian)&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;hosts&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;mailproxy&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;vars&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_mynetworks&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv4 localhost loopback subnet
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;127.0.0.0&#x2F;8&amp;#39;             
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv4 mapped IPv6 localhost loopback subnet
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;[::ffff:127.0.0.0]&#x2F;104&amp;#39;  
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv6 localhost loopback address
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;[::1]&#x2F;128&amp;#39;               
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the local private network subnet, like the IPv4 address space from your home router
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This addition allows other hosts on the network to send mail through this relay!
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;192.168.0.0&#x2F;24&amp;#39;          
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_smtpd_relay_restrictions&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says to permit requests if the client is in the $mynetworks whitelist
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_mynetworks
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;permit_mynetworks&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says relay the request if client is authenticated to the smtp server
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_sasl_authenticated
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;permit_sasl_authenticated&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says to reject the request unless it knows about the destination (the domain)
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#reject_unauth_destination
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;reject_unauth_destination&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Lastly, I believe the order of these restrictions matter, so this last one must catch the rest of the garbage requests
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_relayhost&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;smtp.gmail.com&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_smtp_tls_cafile&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;&#x2F;etc&#x2F;ssl&#x2F;certs&#x2F;ca-certificates.crt&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_relaytls&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_sasl_user&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;username@gmail.com&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_sasl_password&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;apppasswordgeneratedgarbage&amp;#39;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;roles&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ansible-postfix&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;some-additional-notes&quot;&gt;Some additional notes&lt;a class=&quot;zola-anchor&quot; href=&quot;#some-additional-notes&quot; aria-label=&quot;Anchor link for: some-additional-notes&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;To configure vCenter, I followed this guide. It might be helpful to note that I only found these instructions to work with the Flash-based client, not the HTML5-based client. But it would be really great if the settings could be configured over the command line with VMWare&#x27;s vSphere CLI tool, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;vmware&#x2F;govmomi&#x2F;tree&#x2F;master&#x2F;govc&quot;&gt;govc&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.vmware.com&#x2F;en&#x2F;VMware-vSphere&#x2F;6.5&#x2F;com.vmware.vsphere.vcenterhost.doc&#x2F;GUID-467DA288-7844-48F5-BB44-99DE6F6160A4.html&quot;&gt;VMWare Docs - Configure Mail Sender Settings - VSphere 6.5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Without the &lt;code&gt;postfix_mynetworks&lt;&#x2F;code&gt; addition of my local network, I was unable to successfully see email alerts from VCSA being sent from Postfix&lt;&#x2F;li&gt;
+&lt;li&gt;This also differs from the Oefenweb&#x2F;ansible-postfix example, in that I am not setting any &lt;code&gt;postfix_aliases&lt;&#x2F;code&gt;, since it was my experience that it didn&#x27;t ever work. Email was always from whoever was configured as &lt;code&gt;postfix_sasl_user&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;test-the-configuration&quot;&gt;Test the configuration&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-the-configuration&quot; aria-label=&quot;Anchor link for: test-the-configuration&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Here is how to send a test email, from the Raspberry Pi, using &lt;code&gt;mail&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;pi@raspberrypi:~ $ echo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Hello world, it&amp;#39;s ya boi, RaspberryPi&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span&gt;mail -s &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;[SMTP proxy] Hello World&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; your.email@domain.com
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+</feed>

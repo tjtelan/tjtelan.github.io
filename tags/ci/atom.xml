@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - ci</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/ci/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-12-10T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/ci/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Questions to Find the Right Continuous Integration System for You</title>
+		<published>2020-12-10T00:00:00+00:00</published>
+		<updated>2020-12-10T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/" type="text/html"/>
+		<id>https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/</id>
+		<content type="html">&lt;p&gt;Continuous integration is fancy shell scripting. It even uses shell scripting terminology like pipelines, but is obscured with marketing and many seemingly complex and different methods of configuration.&lt;&#x2F;p&gt;
+&lt;p&gt;The purpose of this post is to discuss Continuous Integration (CI) Systems at a high level if you are considering switching to a new service. I want to introduce you to a few talking points that aren&#x27;t discussed enough in order to help you make a decision.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-are-the-goals-of-continuous-integration-ci&quot;&gt;What are the goals of Continuous Integration (CI)?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-are-the-goals-of-continuous-integration-ci&quot; aria-label=&quot;Anchor link for: what-are-the-goals-of-continuous-integration-ci&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The functions of continuous integration are very flexible and therefore, and the goals are super simple. Automatically run scripts upon the occurrence of an event.&lt;&#x2F;p&gt;
+&lt;p&gt;Common events can be a git commit or a timer event set to run every 5 minutes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-does-ci-differ-from-shell-scripting&quot;&gt;How does CI differ from shell scripting?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-does-ci-differ-from-shell-scripting&quot; aria-label=&quot;Anchor link for: how-does-ci-differ-from-shell-scripting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Continuous integration has a narrow context in which it is intended to run. It has extra structure in order to tell a tighter story. (The CI story leads into another story called Continuous Delivery&#x2F;Deployment (CD), but we will only be focusing on CI)&lt;&#x2F;p&gt;
+&lt;p&gt;A best practice of CI is to automatically build and&#x2F;or run tests on every commit in order to validate whether the codebase builds&#x2F;tests are complete without errors.&lt;&#x2F;p&gt;
+&lt;p&gt;Basic structure defines conditions as well as commands or actions that should be executed when an event occurs. Conditions such as a new commit in a specific branch, or file paths. Or keywords in commit messages.&lt;&#x2F;p&gt;
+&lt;p&gt;On the more advanced side, platform specific features like plugins may be introduced for sending or receiving events from other systems, initiating external triggers based on other pipelines, caching, cleaning up and notifications.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-type-of-ci-systems-that-exist-today&quot;&gt;What type of CI systems that exist today?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-type-of-ci-systems-that-exist-today&quot; aria-label=&quot;Anchor link for: what-type-of-ci-systems-that-exist-today&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;There is no shortage of software that is designed for Continuous Integration. What I believe sets these platforms apart from each other is:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The experience and effort involved with setting up a new environment for your organization&lt;&#x2F;li&gt;
+&lt;li&gt;Path to configuring new pipelines, and maintaining them over time.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;If your organization regularly exercises the creation of new environments, like in consulting orgs, it is reasonable to gain the experience with an open source tool that won’t cost you any money with licensing.&lt;&#x2F;p&gt;
+&lt;p&gt;Otherwise, I might suggest picking a system the reduces the friction for pipeline creation and maintenance.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Styles of setting up new pipelines falls into two categories.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;stateful-webui-pipeline-config&quot;&gt;Stateful (WebUI) pipeline config&lt;a class=&quot;zola-anchor&quot; href=&quot;#stateful-webui-pipeline-config&quot; aria-label=&quot;Anchor link for: stateful-webui-pipeline-config&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Jenkins is the primary example of configuration via WebUI, as it is the functionality out of the box. Adding pipelines in this system requires a user to log into the WebUI, configure connections to builder systems and methodically define pipelines.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros&quot; aria-label=&quot;Anchor link for: pros&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The biggest player in this space, Jenkins, is free to install with flexible system requirements.&lt;&#x2F;li&gt;
+&lt;li&gt;Relatively low skill required to get started. Setup of pipelines and any subsequent edits are performed through the browser with a few clicks.&lt;&#x2F;li&gt;
+&lt;li&gt;Many plugins exist, which probably suit the needs of your org.&lt;&#x2F;li&gt;
+&lt;li&gt;Most of the CI in this category are older and mature. Very search engine friendly solutions.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons&quot; aria-label=&quot;Anchor link for: cons&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Administration is more difficult and time consuming to perform as footprint increases. Over time the details of the pipeline configuration may drift and be difficult to reproduce for the purposes of documentation or migration.&lt;&#x2F;li&gt;
+&lt;li&gt;It is easy to neglect this kind of CI installation. Both a testament to stability, and a detriment to your org when unexpected outages occur. Rebuilding can be tedious and error prone.&lt;&#x2F;li&gt;
+&lt;li&gt;Takes a lot of effort to secure natively in a cloud-based future. Typically these CI systems inconveniently end up hiding behind a VPN.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;stateless-file-based-pipeline-config&quot;&gt;Stateless (File-based) pipeline config&lt;a class=&quot;zola-anchor&quot; href=&quot;#stateless-file-based-pipeline-config&quot; aria-label=&quot;Anchor link for: stateless-file-based-pipeline-config&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This is the modern style of CI system. Your TravisCI, Github Action, Azure DevOps&lt;&#x2F;p&gt;
+&lt;p&gt;Typically we find this system is hosted through your git provider, or as a separate hosted service that we allow access to the repos. YAML is the most popular config format. &lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-1&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-1&quot; aria-label=&quot;Anchor link for: pros-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Configuration of pipelines stay versioned alongside the codebases that use them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-1&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-1&quot; aria-label=&quot;Anchor link for: cons-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;No config schema standards, though. most use a yaml format.&lt;&#x2F;li&gt;
+&lt;li&gt;Complexity becomes harder to manage, and requires a commit and push to repos in order to test. Testing contributes clutter in git logs, and uses up build minutes, which is the cost unit that many hosted services bill on.&lt;&#x2F;li&gt;
+&lt;li&gt;Limited self-hosted options that are free.&lt;&#x2F;li&gt;
+&lt;li&gt;Limited self-hosted options that have small system requirements&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;my-opinion&quot;&gt;My opinion&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-opinion&quot; aria-label=&quot;Anchor link for: my-opinion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I strongly prefer the stateless type of configuration because it provides a more code-like arena where documentation can be provided.&lt;&#x2F;p&gt;
+&lt;p&gt;Mixing the workflow of CI pipeline configuration with your organization’s version control practices can be disruptive if you need to push code in order to see the results of changes to your pipeline. It is a price to pay for the ability to easily correlate changes in codebase with changes in pipeline.&lt;&#x2F;p&gt;
+&lt;p&gt;The balance to strike rests on your code hosting provider needs (i.e. costs per user) and the types of technologies and platforms you need to support for building (web, native, mobile, embedded, etc). This flexibility mostly skews support towards building for web-based technologies.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, Jenkins technically has file-based pipeline support via Jenkinsfile, but unless my org was already deeply invested in staying with Jenkins, I would steer clear. It is not the future. It is harder than necessary to use.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-are-the-ci-hosting-options&quot;&gt;What are the CI Hosting Options?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-are-the-ci-hosting-options&quot; aria-label=&quot;Anchor link for: what-are-the-ci-hosting-options&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;self-hosting&quot;&gt;Self-hosting&lt;a class=&quot;zola-anchor&quot; href=&quot;#self-hosting&quot; aria-label=&quot;Anchor link for: self-hosting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Self-hosting means running and maintaining a process on a physical or virtual machine that you have access to.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-2&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-2&quot; aria-label=&quot;Anchor link for: pros-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Somewhat more private for less effort if hosting in a private location.&lt;&#x2F;li&gt;
+&lt;li&gt;Effective use of data center computers. Initial costs may be higher, but maintenance costs are typically lower.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-2&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-2&quot; aria-label=&quot;Anchor link for: cons-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Being responsible for maintenance&lt;&#x2F;li&gt;
+&lt;li&gt;Limited to the platforms that you have available.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;system-as-a-service-hosted&quot;&gt;System as a Service (Hosted)&lt;a class=&quot;zola-anchor&quot; href=&quot;#system-as-a-service-hosted&quot; aria-label=&quot;Anchor link for: system-as-a-service-hosted&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;External systems as a service (Hosted services) allow users to just log in and connect their version control.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-3&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-3&quot; aria-label=&quot;Anchor link for: pros-3&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Not responsible for performing maintenance.&lt;&#x2F;li&gt;
+&lt;li&gt;Typically authentication is provided, with options to support your org’s auth provider&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-3&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-3&quot; aria-label=&quot;Anchor link for: cons-3&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Can be expensive if you require a lot of build time or resources&lt;&#x2F;li&gt;
+&lt;li&gt;Shrinking caps on “free” resources for open source projects&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;issues-to-consider-when-switching-between-ci-platforms&quot;&gt;Issues to Consider when Switching between CI platforms&lt;a class=&quot;zola-anchor&quot; href=&quot;#issues-to-consider-when-switching-between-ci-platforms&quot; aria-label=&quot;Anchor link for: issues-to-consider-when-switching-between-ci-platforms&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;These are some categorized rhetorical questions that you or your organization should ask if you are migrating CI platforms&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;threat-model&quot;&gt;Threat model&lt;a class=&quot;zola-anchor&quot; href=&quot;#threat-model&quot; aria-label=&quot;Anchor link for: threat-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Do you need to be deployed on-site?&lt;&#x2F;li&gt;
+&lt;li&gt;What are the upfront and ongoing costs associated?&lt;&#x2F;li&gt;
+&lt;li&gt;Do you have secrets (like private keys, API tokens) that are needed at build time?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;contributor-model&quot;&gt;Contributor model&lt;a class=&quot;zola-anchor&quot; href=&quot;#contributor-model&quot; aria-label=&quot;Anchor link for: contributor-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;How are contributors logging in?&lt;&#x2F;li&gt;
+&lt;li&gt;What are the costs associated per seat?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;maintenance&quot;&gt;Maintenance&lt;a class=&quot;zola-anchor&quot; href=&quot;#maintenance&quot; aria-label=&quot;Anchor link for: maintenance&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Who is responsible for the health of the pipeline?&lt;&#x2F;li&gt;
+&lt;li&gt;How much time&#x2F;money are you budgeting to spend on maintenance and improvements?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cost-of-build-minutes&quot;&gt;Cost of Build minutes&lt;a class=&quot;zola-anchor&quot; href=&quot;#cost-of-build-minutes&quot; aria-label=&quot;Anchor link for: cost-of-build-minutes&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;For open source projects, how many build minutes are being used?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;responsiveness-needs&quot;&gt;Responsiveness needs&lt;a class=&quot;zola-anchor&quot; href=&quot;#responsiveness-needs&quot; aria-label=&quot;Anchor link for: responsiveness-needs&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;How many concurrent builds does your org require?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;technologies-used&quot;&gt;Technologies used&lt;a class=&quot;zola-anchor&quot; href=&quot;#technologies-used&quot; aria-label=&quot;Anchor link for: technologies-used&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Containerizing builds is popular for isolation. But not all projects can build within a container.&lt;&#x2F;li&gt;
+&lt;li&gt;Apple, Microsoft and embedded projects are not nearly as flexible and may require special considerations or resources.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;delivery-deployment-model&quot;&gt;Delivery&#x2F;Deployment model&lt;a class=&quot;zola-anchor&quot; href=&quot;#delivery-deployment-model&quot; aria-label=&quot;Anchor link for: delivery-deployment-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;What do you need to happen after a build passes?&lt;&#x2F;li&gt;
+&lt;li&gt;Are you creating a build artifact that needs to be stored somewhere?&lt;&#x2F;li&gt;
+&lt;li&gt;What is the desired frequency between build vs delivery&#x2F;deploy?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Not all continuous integration is considered equal. But they all provide basically the same functions. In most cases, it is possible to self-host and do everything yourself. But sometimes it is worth paying money to a product &#x2F; service that takes care of your needs. It is really all about making sure you know what the trade-offs are for your specific case.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</title>
+		<published>2020-06-12T00:00:00+00:00</published>
+		<updated>2020-10-21T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/</id>
+		<content type="html">&lt;h2 id=&quot;my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;My experience using Github Actions for CI&#x2F;CD as a solo contributor&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot; aria-label=&quot;Anchor link for: my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am using Github Actions to build and deploy my website when I push. That is a classic continuous integration &#x2F; continuous deployment workflow. It’s convenient to commit, push and have my site build and deploy as a result. This workflow is simple but only works because I am the only contributor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-for-ci-cd-with-pull-request&quot;&gt;Github Actions for CI&#x2F;CD with Pull Request&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-for-ci-cd-with-pull-request&quot; aria-label=&quot;Anchor link for: github-actions-for-ci-cd-with-pull-request&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is a good practice to run sanity checks on pull requests prior to merging. How would that be accomplished with Github Actions?&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that you can do this but you need to be very intentional with how your jobs are configured.&lt;&#x2F;p&gt;
+&lt;p&gt;In my workflow, I am designating a main branch &lt;code&gt;main&lt;&#x2F;code&gt; that will run full CI&#x2F;CD. Build, test and deploy. And for any other branch, just build and test.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll share my example Github Actions workflow file, then I’ll provide a template that you can modify and use for your own purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-example-github-actions-workflow&quot;&gt;My example Github Actions workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-example-github-actions-workflow&quot; aria-label=&quot;Anchor link for: my-example-github-actions-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s my site’s current workflow file for Github Actions. I’ll break this down.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At the top, I am specifying the events that I want to trigger on with the &lt;code&gt;on&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I want to trigger on push events to the &lt;code&gt;main&lt;&#x2F;code&gt; branch, and all pull requests.&lt;&#x2F;p&gt;
+&lt;p&gt;Later below are 2 jobs that are almost identical. I’ll break them down one at a time then compare their differences.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;build&lt;&#x2F;code&gt; job &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. Or another way to say this is I check that the working branch that triggered this job is not the &lt;code&gt;main&lt;&#x2F;code&gt; branch. I’ll continue forward only if this condition is &lt;code&gt;true&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. I use the &lt;code&gt;actions&#x2F;checkout@main&lt;&#x2F;code&gt; marketplace action to check my code out, and I use my fork of an action for Zola called &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt;. I have an environment variable &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt; set to &lt;code&gt;true&lt;&#x2F;code&gt; which results in building my site but not deploying it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;build_and_deploy&lt;&#x2F;code&gt; job&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job also uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a similar check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. This time I am looking for the working branch to be &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. Same as the previous job, but I am configuring &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt; differently. Rather than setting &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt;, I am defining &lt;code&gt;PAGES_BRANCH&lt;&#x2F;code&gt; to &lt;code&gt;gh-pages&lt;&#x2F;code&gt;, which is where I want to deploy my site code after build.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;last-words-on-job-differences&quot;&gt;Last words on job differences&lt;a class=&quot;zola-anchor&quot; href=&quot;#last-words-on-job-differences&quot; aria-label=&quot;Anchor link for: last-words-on-job-differences&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The only differences are the branch check via &lt;code&gt;github.ref&lt;&#x2F;code&gt;, and the specifics of &lt;code&gt;steps&lt;&#x2F;code&gt;. I happen to be using my own Github Action &lt;code&gt;tjtelan&#x2F;zola-deploy-action&lt;&#x2F;code&gt; but your steps could consist of anything you want to do differently between pull requests and push to your “special” branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-template&quot;&gt;Github Actions template&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-template&quot; aria-label=&quot;Anchor link for: github-actions-template&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here’s a template that you can use for your own push vs PR workflows. By default, I assume &lt;code&gt;main&lt;&#x2F;code&gt; as the special branch, so you’ll need to change that if you want to use a different branch. Additionally, you’ll need to provide all the steps to take after checking code out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sources&quot;&gt;Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.community&#x2F;t&#x2F;how-to-trigger-an-action-on-push-or-pull-request-but-not-both&#x2F;16662&#x2F;3&quot;&gt;Github Community question: How to trigger an action on push or pull request but not both?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;events-that-trigger-workflows&quot;&gt;Github Actions reference: Events that trigger workflows&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;virtual-environments-for-github-hosted-runners&quot;&gt;Github Actions reference: Virtual Environments for Github-hosted runners&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;context-and-expression-syntax-for-github-actions#github-context&quot;&gt;Github Actions reference: Context and expression syntax - Github context&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Learning New Build Systems</title>
+		<published>2017-04-01T00:00:00+00:00</published>
+		<updated>2017-04-01T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/learning-new-build-systems/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-new-build-systems/</id>
+		<content type="html">&lt;p&gt;I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C&#x2F;C++ with make.&lt;&#x2F;p&gt;
+&lt;p&gt;I most recently got to play with Java&#x2F;Maven, and NodeJS&#x2F;Gulp.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The project I was building has a UI written in node, and built into an npm module with gulp. There are also maven pom files that describe the build with gulp using npm run build. This was done so everything could be orchestrated for building into a java jar.&lt;&#x2F;p&gt;
+&lt;p&gt;Things I thought were neat about maven is the plugin system.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m not a huge fan of the pom files using xml, but it is really nice to be able to configure dependencies, and dynamically define build artifacts. The local maven repo is still a little confusing at times, but with more time I think it&#x27;ll make more sense.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The UI build with gulp was more unfamiliar. The build instructions are in javascript, naturally. You can use &lt;code&gt;gulp.task()&lt;&#x2F;code&gt; and define a list of dependencies. But I had some experiences where my dependency lists were not made explicit enough. I suppose this is not much different than makefiles.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

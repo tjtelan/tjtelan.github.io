@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - automation</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/automation/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-11-27T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/automation/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Quick Primer to Practical Reproducible builds: Reference Environments</title>
+		<published>2020-11-27T00:00:00+00:00</published>
+		<updated>2020-11-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/quick-primer-reference-environments/" type="text/html"/>
+		<id>https://tjtelan.com/blog/quick-primer-reference-environments/</id>
+		<content type="html">&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;a class=&quot;zola-anchor&quot; href=&quot;#overview&quot; aria-label=&quot;Anchor link for: overview&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This post is inspired by a larger &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;bitshiftmask&#x2F;status&#x2F;1321623304004866050&quot;&gt;Twitter thread by James Munns&lt;&#x2F;a&gt; about industry practices to follow for embedded systems projects that are not covered in school. Particularly the concept of a reference environment. However this idea is important across all platforms of software development. &lt;&#x2F;p&gt;
+&lt;p&gt;Our aim is to be pragmatic to a wide audience of “Developers” and not to be confused with the goals of the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;reproducible-builds.org&#x2F;&quot;&gt;reproducible builds project&lt;&#x2F;a&gt;. (I’m not worrying about achieving &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;reproducible-builds.org&#x2F;docs&#x2F;deterministic-build-systems&#x2F;&quot;&gt;complete build environment determinism&lt;&#x2F;a&gt;. There is a lot more involved that is out of scope for this discussion, but I encourage others to check it out.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-s-the-benefit&quot;&gt;What’s the benefit?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-s-the-benefit&quot; aria-label=&quot;Anchor link for: what-s-the-benefit&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The benefit of a reference environment is to allow a practical step-by-step plan for individuals to reproduce a suitable environment in order to build from a codebase, produce artifacts and interface with any external hardware.&lt;&#x2F;p&gt;
+&lt;p&gt;I want to help you form a maintainable process of documenting what is needed to build your code, and create artifacts for release.&lt;&#x2F;p&gt;
+&lt;p&gt;The expected outcome is to create a reference environment for build and release purposes.&lt;&#x2F;p&gt;
+&lt;p&gt;An additional side-effect of this effort is a shortening of the effort to onboard new devs and testers into new projects or codebases. Additionally version control of this process will reduce your organization’s institutional knowledge.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;your-reference-environment-can-be-used-for&quot;&gt;Your reference environment can be used for:&lt;a class=&quot;zola-anchor&quot; href=&quot;#your-reference-environment-can-be-used-for&quot; aria-label=&quot;Anchor link for: your-reference-environment-can-be-used-for&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CI environments&lt;&#x2F;li&gt;
+&lt;li&gt;Onboarding new developers&lt;&#x2F;li&gt;
+&lt;li&gt;Projects that don’t get modified very often&lt;&#x2F;li&gt;
+&lt;li&gt;Embedded projects&lt;&#x2F;li&gt;
+&lt;li&gt;Mobile projects&lt;&#x2F;li&gt;
+&lt;li&gt;Projects with private code&lt;&#x2F;li&gt;
+&lt;li&gt;Projects with vendored &#x2F; version pinned code&lt;&#x2F;li&gt;
+&lt;li&gt;Legacy code&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;start-your-reference-environment-in-steps&quot;&gt;Start your reference environment in steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#start-your-reference-environment-in-steps&quot; aria-label=&quot;Anchor link for: start-your-reference-environment-in-steps&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;first-level-automate-what-is-easy-and-document-what-is-hard&quot;&gt;First level: Automate what is easy and Document what is hard&lt;a class=&quot;zola-anchor&quot; href=&quot;#first-level-automate-what-is-easy-and-document-what-is-hard&quot; aria-label=&quot;Anchor link for: first-level-automate-what-is-easy-and-document-what-is-hard&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;You need to have a step-by-step set of commands to run that walk you through downloading and installing your tools in order to enable others to build their own reference environment. Tools and libraries installed through a package manager, and anything manually installed off a website.&lt;&#x2F;p&gt;
+&lt;p&gt;The goal of documenting the setup of your local environment can then be further streamlined the more you automate the step-by-step into scripts that you can provide.&lt;&#x2F;p&gt;
+&lt;p&gt;The experience you want to cultivate is a relatively short step from a fresh clone, to building and modifying code.&lt;&#x2F;p&gt;
+&lt;p&gt;If you use a language that has its own package manager used to compile, such as Javascript’s NPM, Java’s Maven or Rust’s Cargo, then you are able to keep track of the names and version numbers of the libraries you use.&lt;&#x2F;p&gt;
+&lt;p&gt;I recommend that you learn how to use these tools to also remove files created during build. Cached files from previous builds are classic causes of “&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.leadingagile.com&#x2F;2017&#x2F;03&#x2F;works-on-my-machine&#x2F;&quot;&gt;works on my machine&lt;&#x2F;a&gt;” and may hide otherwise obvious issues. Make a habit of trying to reproduce issues starting from a cache-free build by using the same tools for build to also remove the files and directories it creates.&lt;&#x2F;p&gt;
+&lt;p&gt;Not all language package managers come with cleanup functionality, so you may need to install  plugins. Otherwise you should use a tool like &lt;code&gt;make&lt;&#x2F;code&gt;, and create separate &lt;code&gt;make build&lt;&#x2F;code&gt; and &lt;code&gt;make clean&lt;&#x2F;code&gt; targets.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;second-level-shell-scripts&quot;&gt;Second level: Shell scripts&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-level-shell-scripts&quot; aria-label=&quot;Anchor link for: second-level-shell-scripts&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Automation should be driven by makefiles or plain shell scripts like &lt;code&gt;bash&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;zsh&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;fish&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;sh&lt;&#x2F;code&gt; or in windows &lt;code&gt;batch&lt;&#x2F;code&gt; or &lt;code&gt;powershell&lt;&#x2F;code&gt;. The rationale is that these are plain commands that you can copy&#x2F;paste from your terminal, and into the script. You can always call out to another language like &lt;code&gt;python&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;ruby&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;perl&lt;&#x2F;code&gt; or other tools.&lt;&#x2F;p&gt;
+&lt;p&gt;But the initial point of functionality should be plain shell scripting through an executable shell script or a &lt;code&gt;Makefile&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are working from an existing step-by-step document, then you should have a sequence of commands that you can transfer straight into your script. This is a lot fewer commands for your future users (and future you) to deal with.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;third-level-configuration-management&quot;&gt;Third level: Configuration management&lt;a class=&quot;zola-anchor&quot; href=&quot;#third-level-configuration-management&quot; aria-label=&quot;Anchor link for: third-level-configuration-management&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;There are tools that specifically deal with configuration management of your operating system &#x2F; development environment. One of their main selling points is declaring the desired state through config files instead of scripting everything step-by-step. The tools read the config files and check the system for differences. If differences are found, then these tools take specific actions in order to attempt to bring the reality of the system state to be the same as the config.&lt;&#x2F;p&gt;
+&lt;p&gt;The config files lend themselves into achieving automation that is “&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Idempotence&quot;&gt;idempotent&lt;&#x2F;a&gt;”. A simple explanation of idempotency with respect to configuration automation is experienced when running the automation twice in succession. The first time, an automation tool takes a moment to execute because work is being performed. The second time, the tool discovers that there is no work to be done so the execution time is significantly reduced.&lt;&#x2F;p&gt;
+&lt;p&gt;Examples:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ansible&lt;&#x2F;li&gt;
+&lt;li&gt;Saltstack&lt;&#x2F;li&gt;
+&lt;li&gt;Puppet&lt;&#x2F;li&gt;
+&lt;li&gt;Chef&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In your shell scripts, you need to install these config management tools first. But then the tools can replace significant volumes of shell scripts in many cases because their idempotent properties lead to more efficient execution. The more popular tools have an added benefit of wide support of different OSes, allowing your configs to also widely support different OSes.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;next-level-portable-reference-environments-via-virtual-machines-containers&quot;&gt;Next level: Portable Reference Environments via Virtual Machines &amp;amp; Containers&lt;a class=&quot;zola-anchor&quot; href=&quot;#next-level-portable-reference-environments-via-virtual-machines-containers&quot; aria-label=&quot;Anchor link for: next-level-portable-reference-environments-via-virtual-machines-containers&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Building your reference environment within a virtual machine may enable you to be a little less strict about documenting and automating your setup. After you build the environment, you can save a snapshot, back it up or even distribute it to others. This can be convenient and portable in most cases.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also use your scripts or config management to configure virtual machines, or containers. Using tools like &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.vagrantup.com&#x2F;&quot;&gt;Vagrant&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.docker.com&#x2F;&quot;&gt;Docker&lt;&#x2F;a&gt; allow you to store the instructions for building virtual machines (via &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.vagrantup.com&#x2F;docs&#x2F;vagrantfile&quot;&gt;Vagrantfile&lt;&#x2F;a&gt;) or containers (via &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;reference&#x2F;builder&#x2F;&quot;&gt;Dockerfile&lt;&#x2F;a&gt;) alongside your code. This enables potential contribution without the need of installing tools locally because the codebase includes a portable development environment.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;platform-specific-caveats&quot;&gt;Platform specific caveats&lt;a class=&quot;zola-anchor&quot; href=&quot;#platform-specific-caveats&quot; aria-label=&quot;Anchor link for: platform-specific-caveats&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Virtualization or containerization is not an available option for every platform. In these cases, you may be limited to config management or documentation for your reference environments.&lt;&#x2F;p&gt;
+&lt;p&gt;If your project has the following, you may have limited support for a portable reference environment. &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apple products&lt;&#x2F;li&gt;
+&lt;li&gt;Platform-specific tools like IDEs and&#x2F;or compilers&lt;&#x2F;li&gt;
+&lt;li&gt;Hardware requirements such as GPU&lt;&#x2F;li&gt;
+&lt;li&gt;Very old “Legacy” OSes&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The specific tools, and libraries you use in development may seem obvious to you. But as a courtesy to an outsider, or even to yourself in the future, you need to provide requirements needed to build your code.&lt;&#x2F;p&gt;
+&lt;p&gt;Documentation requires discipline to keep up-to-date. Scripts, config management or even a portable environment such as a virtual machine or a container are even better because they are easier to verify for correctness.&lt;&#x2F;p&gt;
+&lt;p&gt;The less critically someone needs to think in order to get started, the easier it will be to focus on what matters. Reference environments are not one-size-fits all. They may be unique per project, or organization. Do future you or future team members a favor and write these details down. It can save a lot of time and avoid works-on-my-machine.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

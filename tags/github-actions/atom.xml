@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - github-actions</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/github-actions/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-10-21T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/github-actions/atom.xml</id>
+	<entry xml:lang="en">
+		<title>9 steps to rename your default Github branch safely</title>
+		<published>2020-09-30T00:00:00+00:00</published>
+		<updated>2020-09-30T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/github-rename-your-default-branch/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-rename-your-default-branch/</id>
+		<content type="html">&lt;p&gt;Want to migrate your git branches from &lt;code&gt;master&lt;&#x2F;code&gt; to &lt;code&gt;main&lt;&#x2F;code&gt;? Your branch protections, in-progress PRs, and drafts can migrate safely. Follow this simple checklist to confidently make these changes and create a seamless experience for yourself and your developer community.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;a class=&quot;zola-anchor&quot; href=&quot;#introduction&quot; aria-label=&quot;Anchor link for: introduction&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;what-s-in-a-branch-name&quot;&gt;What’s in a (branch) name?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-s-in-a-branch-name&quot; aria-label=&quot;Anchor link for: what-s-in-a-branch-name&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If you have existing git repos at Github (or any other git hosting platform), you probably have a branch in your repo named &lt;code&gt;master&lt;&#x2F;code&gt;. Starting October 1st, 2020, Github will officially stop their practice of naming the first branch of new repositories &lt;code&gt;master&lt;&#x2F;code&gt;. Instead, the name &lt;code&gt;main&lt;&#x2F;code&gt; will be used from now on. &lt;&#x2F;p&gt;
+&lt;p&gt;The usage of &lt;code&gt;master&lt;&#x2F;code&gt; is unfortunately deeply ingrained into those who learned how to use git and developed muscle memory. But did you know that Git (the tool) has no technical requirement that you use &lt;code&gt;master&lt;&#x2F;code&gt; as your default branch name? However, because it is the first branch created when you run &lt;code&gt;git init&lt;&#x2F;code&gt;, it’s often the default used. As a result, hosting platforms such as Github or continuous integration systems like Jenkins or TravisCI create workflows that typically use these defaults as release branches.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;can-t-i-just-rename-master-to-main&quot;&gt;Can’t I just rename &lt;code&gt;master&lt;&#x2F;code&gt; to &lt;code&gt;main&lt;&#x2F;code&gt;?&lt;a class=&quot;zola-anchor&quot; href=&quot;#can-t-i-just-rename-master-to-main&quot; aria-label=&quot;Anchor link for: can-t-i-just-rename-master-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Automation and development workflows will make renaming &lt;code&gt;master&lt;&#x2F;code&gt; require more effort than just following &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;6591213&#x2F;how-do-i-rename-a-local-git-branch#6591218&quot;&gt;the first Stack Overflow answer you can find&lt;&#x2F;a&gt; to answer the question. &lt;&#x2F;p&gt;
+&lt;p&gt;In &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;github&#x2F;renaming&quot;&gt;Github’s official statement&lt;&#x2F;a&gt;, they suggest waiting until later in the year to perform this switch yourself if your repo has any of the following conditions:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open pull requests need to be retargeted to the new branch&lt;&#x2F;li&gt;
+&lt;li&gt;Draft releases need to be retargeted to the new branch&lt;&#x2F;li&gt;
+&lt;li&gt;Branch protection policies need to be transferred to the new branch&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Don’t want to wait? While this won’t be as simple as just renaming your branches, you can still perform this switch on your personal or organization’s repos by modifying branch protections, PRs, and draft releases. Follow along to find out how.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;migration-strategy&quot;&gt;Migration strategy&lt;a class=&quot;zola-anchor&quot; href=&quot;#migration-strategy&quot; aria-label=&quot;Anchor link for: migration-strategy&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I will walk through this migration, step-by-step. Feel free to skip the optional steps if they do not apply to your situation. Note that your new default branch name &lt;em&gt;does not&lt;&#x2F;em&gt; have to be called &lt;code&gt;main&lt;&#x2F;code&gt; – this is just Github’s new default and what I will be using in this example (you can call your new branch &lt;code&gt;steve&lt;&#x2F;code&gt;, for all I care).&lt;&#x2F;p&gt;
+&lt;p&gt;This guide is Github-focused, but you should still be able to follow along for other scenarios – these concepts are not exclusive to Github.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are the high-level steps we’ll go through:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Communicate upcoming changes to collaborators&lt;&#x2F;li&gt;
+&lt;li&gt;Mirror&#x2F;copy &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt; branch&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify any CI that specifically triggers on &lt;code&gt;master&lt;&#x2F;code&gt; to use &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Duplicate branch protections from &lt;code&gt;master&lt;&#x2F;code&gt;, and apply them to &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify draft releases to target &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify open pull requests to retarget to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Set the default branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch from local clone&lt;&#x2F;li&gt;
+&lt;li&gt;Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch in remote repo&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;1-communicate-upcoming-changes-to-collaborators&quot;&gt;1. Communicate upcoming changes to collaborators&lt;a class=&quot;zola-anchor&quot; href=&quot;#1-communicate-upcoming-changes-to-collaborators&quot; aria-label=&quot;Anchor link for: 1-communicate-upcoming-changes-to-collaborators&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;This is a very important step!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If your codebase has a significant amount of active development and you plan to rename &lt;code&gt;master&lt;&#x2F;code&gt;, consider the subtle costs and impacts to the workflow. Other developers or operators will need to take action!&lt;&#x2F;p&gt;
+&lt;p&gt;The name of a branch has no bearing on how git functions at a technical level. However, the name of a branch &lt;em&gt;can&lt;&#x2F;em&gt; have high importance because of organizational norms of how development and operations are organized. Not communicating changes to your collaborators about renaming your default branch can cause unnecessary confusion when pushing code and loss of trust.&lt;&#x2F;p&gt;
+&lt;p&gt;You can’t assume that everyone knows enough about git to make the necessary changes to their workflow to participate. (In which case, you can share this guide!)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-mirror-copy-master-branch-to-main-branch&quot;&gt;2. Mirror&#x2F;copy &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt; branch&lt;a class=&quot;zola-anchor&quot; href=&quot;#2-mirror-copy-master-branch-to-main-branch&quot; aria-label=&quot;Anchor link for: 2-mirror-copy-master-branch-to-main-branch&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;To start the migration, we want to branch off &lt;code&gt;master&lt;&#x2F;code&gt; into a local branch named &lt;code&gt;main&lt;&#x2F;code&gt; and push &lt;code&gt;main&lt;&#x2F;code&gt; to remote.&lt;&#x2F;p&gt;
+&lt;p&gt;We’ll work from a fresh clone (assuming our default branch is &lt;code&gt;master&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git clone &amp;lt;url&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ cd &amp;lt;repo&amp;gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the new clone, we will create our new branch, &lt;code&gt;main&lt;&#x2F;code&gt;, and push it to Github.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git checkout -b main
+&lt;&#x2F;span&gt;&lt;span&gt;Switched to a new branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ git push -u origin main
+&lt;&#x2F;span&gt;&lt;span&gt;Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+&lt;&#x2F;span&gt;&lt;span&gt;remote:
+&lt;&#x2F;span&gt;&lt;span&gt;remote: Create a pull request for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; on GitHub by visiting:
+&lt;&#x2F;span&gt;&lt;span&gt;remote:  	https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;example-repo&#x2F;pull&#x2F;new&#x2F;main
+&lt;&#x2F;span&gt;&lt;span&gt;remote:
+&lt;&#x2F;span&gt;&lt;span&gt;To github.com:tjtelan&#x2F;example-repo.git
+&lt;&#x2F;span&gt;&lt;span&gt; * &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;new branch&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt;  	main -&amp;gt; main
+&lt;&#x2F;span&gt;&lt;span&gt;Branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; set up to track remote branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; from &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;origin&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;With the new branch pushed, we can now start making the platform changes w&#x2F; respect to the &lt;code&gt;main&lt;&#x2F;code&gt; branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot;&gt;3. Modify any CI that specifically triggers on &lt;code&gt;master&lt;&#x2F;code&gt; to use &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot; aria-label=&quot;Anchor link for: 3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional. You can skip it if you don’t have any continuous integration (CI).&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;CI is often triggered on events for specific branches. I’ll go over an example of updating CI workflow using Github Actions.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;change-your-trigger-branches&quot;&gt;Change your trigger branches&lt;a class=&quot;zola-anchor&quot; href=&quot;#change-your-trigger-branches&quot; aria-label=&quot;Anchor link for: change-your-trigger-branches&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If your CI is triggered on events to your &lt;code&gt;master&lt;&#x2F;code&gt; branch, you’ll obviously need to change that to &lt;code&gt;main&lt;&#x2F;code&gt; for Actions to react to events on the &lt;code&gt;main&lt;&#x2F;code&gt; branch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;: [ &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; ]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;: [ &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; ]
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Or within your jobs:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;update-any-plugins-referencing-master&quot;&gt;Update any plugins referencing &lt;code&gt;master&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#update-any-plugins-referencing-master&quot; aria-label=&quot;Anchor link for: update-any-plugins-referencing-master&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;For example, if you happen to be using any of Github’s official plugins, such as &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;actions&#x2F;checkout&quot;&gt;actions&#x2F;checkout&lt;&#x2F;a&gt;, &lt;&#x2F;p&gt;
+&lt;p&gt;Change your Github Actions to act on &lt;code&gt;main&lt;&#x2F;code&gt; instead of &lt;code&gt;master&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  	- &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;(or use a tag instead of a branch)&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  	- &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@v2&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you’re using other plugins, you will need to check the repo of those plugins to verify if the author has migrated their &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot;&gt;4. Duplicate branch protections from &lt;code&gt;master&lt;&#x2F;code&gt;, and apply them to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot; aria-label=&quot;Anchor link for: 4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional if you don’t have any branch protection rules.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;&amp;lt;account&amp;gt;&#x2F;&amp;lt;repo&amp;gt;&#x2F;settings&#x2F;branches&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You’ll need to create a new branch protection rule:&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;You’ll probably need to have another window open with the &lt;code&gt;master&lt;&#x2F;code&gt; branch rules open so it’s easier to copy over… At least I did.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Don&amp;#x27;t delete the master branch protection rules before you&amp;#x27;re ready to delete the branch altogeher&quot; &#x2F;&gt;&lt;figcaption&gt;Don&amp;#x27;t delete the master branch protection rules before you&amp;#x27;re ready to delete the branch altogeher&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;After you’re done with all the branch migration, you can delete the branch protection rules for the &lt;code&gt;master&lt;&#x2F;code&gt; branch. There’s no urgency to do it immediately, but you will need to do this before completing the transition to &lt;code&gt;main&lt;&#x2F;code&gt; (Github won’t let you delete a branch that still has active protection rules.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-modify-draft-releases-to-target-main&quot;&gt;5. Modify draft releases to target &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#5-modify-draft-releases-to-target-main&quot; aria-label=&quot;Anchor link for: 5-modify-draft-releases-to-target-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional if you don’t have any draft releases currently targeting &lt;code&gt;master&lt;&#x2F;code&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;In your repo Releases, select Edit on the draft:&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;In the target dropdown, change the branch to &lt;code&gt;main&lt;&#x2F;code&gt; -- and then Save draft. That’s all there is to it!&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;6-modify-open-pull-requests-to-retarget-to-main&quot;&gt;6. Modify open pull requests to retarget to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#6-modify-open-pull-requests-to-retarget-to-main&quot; aria-label=&quot;Anchor link for: 6-modify-open-pull-requests-to-retarget-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional. You can skip this step if you don’t have existing PRs targeting &lt;code&gt;master&lt;&#x2F;code&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So you have existing PRs against &lt;code&gt;master&lt;&#x2F;code&gt;?&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This is an easy fix! You can just edit the PR to use your new branch as the base branch.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;And retarget the base branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;And then confirm changing the base branch.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;7-set-the-default-branch-to-main&quot;&gt;7. Set the default branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#7-set-the-default-branch-to-main&quot; aria-label=&quot;Anchor link for: 7-set-the-default-branch-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Once you’ve got the &lt;code&gt;main&lt;&#x2F;code&gt; branch pushed up to Github, it is easy to set &lt;code&gt;main&lt;&#x2F;code&gt; to be the new default branch.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;&amp;lt;account&amp;gt;&#x2F;&amp;lt;repo&amp;gt;&#x2F;settings&#x2F;branches&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In your repository settings, click the drop-down menu, and select &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Click Update.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Click &lt;code&gt;I understand, update the default branch&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;If your organization needs more time to migrate away from &lt;code&gt;master&lt;&#x2F;code&gt;, you can pause after this step. Commits will need to flow into both &lt;code&gt;main&lt;&#x2F;code&gt; and &lt;code&gt;master&lt;&#x2F;code&gt; until it has been fully transitioned. This may be briefly inconvenient, but it will allow processes to continue until &lt;code&gt;master&lt;&#x2F;code&gt; can be deprecated.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;8-delete-master-branch-in-remote-repo&quot;&gt;8. Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch in remote repo&lt;a class=&quot;zola-anchor&quot; href=&quot;#8-delete-master-branch-in-remote-repo&quot; aria-label=&quot;Anchor link for: 8-delete-master-branch-in-remote-repo&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You have two options to delete the master branch.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;through-the-web-browser&quot;&gt;Through the web browser&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-the-web-browser&quot; aria-label=&quot;Anchor link for: through-the-web-browser&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;On the code tab, click the branch selection drop-down and click the &lt;code&gt;View all branches&lt;&#x2F;code&gt; link&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Note: If you had branch protection rules for &lt;code&gt;master&lt;&#x2F;code&gt;, you will need to delete them prior to this step. Otherwise Github will prevent the branch from being deleted.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;The master branch cannot be deleted because of its branch protection rules&quot; &#x2F;&gt;&lt;figcaption&gt;The master branch cannot be deleted because of its branch protection rules&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;At the branch listing, find one of the rows with &lt;code&gt;master&lt;&#x2F;code&gt; listed, and click the trash icon on the right.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Warning!&lt;&#x2F;strong&gt; There is no additional prompt after clicking this icon. But you have the option to restore the branch while you are still on the page. However, if you’ve made it this far, deleting it is probably what you want&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Deleting the master branch protection rules&quot; &#x2F;&gt;&lt;figcaption&gt;Deleting the master branch protection rules&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;The master branch can now be deleted&quot; &#x2F;&gt;&lt;figcaption&gt;The master branch can now be deleted&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h3 id=&quot;through-the-cli&quot;&gt;Through the cli&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-the-cli&quot; aria-label=&quot;Anchor link for: through-the-cli&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git push --delete -u origin master
+&lt;&#x2F;span&gt;&lt;span&gt;To github.com:tjtelan&#x2F;example-repo.git
+&lt;&#x2F;span&gt;&lt;span&gt; - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;deleted&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt;     	master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;9-delete-master-branch-from-local-clone&quot;&gt;9. Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch from local clone&lt;a class=&quot;zola-anchor&quot; href=&quot;#9-delete-master-branch-from-local-clone&quot; aria-label=&quot;Anchor link for: 9-delete-master-branch-from-local-clone&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git branch -D master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;media.giphy.com&#x2F;media&#x2F;26u4lOMA8JKSnL9Uk&#x2F;giphy.gif&quot; alt=&quot;Spongebob&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;a-branch-by-any-other-name-would-still-merge-as-clean&quot;&gt;A branch by any other name would still merge as clean&lt;a class=&quot;zola-anchor&quot; href=&quot;#a-branch-by-any-other-name-would-still-merge-as-clean&quot; aria-label=&quot;Anchor link for: a-branch-by-any-other-name-would-still-merge-as-clean&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The names of the branches don’t have any bearing on the functionality of git. But the practice of using offensive terminology to describe defaults or importance needs to end. Plus, &lt;code&gt;main&lt;&#x2F;code&gt; as an initial branch name is a better descriptive label for how the branch is conventionally used.&lt;&#x2F;p&gt;
+&lt;p&gt;If you and your collaborators are able to cease the usage of &lt;code&gt;master&lt;&#x2F;code&gt; as your default branch without needing to rely on Github, your git host provider, or your operations team, I encourage you to do it.&lt;&#x2F;p&gt;
+&lt;p&gt;The git project &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sfconservancy.org&#x2F;news&#x2F;2020&#x2F;jun&#x2F;23&#x2F;gitbranchname&#x2F;&quot;&gt;will soon stop using &lt;code&gt;master&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; as the first branch created by &lt;code&gt;git init&lt;&#x2F;code&gt;. So your organization should prioritize this migration as well as making the necessary changes in your tooling and automation sooner rather than later.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</title>
+		<published>2020-06-12T00:00:00+00:00</published>
+		<updated>2020-10-21T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/</id>
+		<content type="html">&lt;h2 id=&quot;my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;My experience using Github Actions for CI&#x2F;CD as a solo contributor&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot; aria-label=&quot;Anchor link for: my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am using Github Actions to build and deploy my website when I push. That is a classic continuous integration &#x2F; continuous deployment workflow. It’s convenient to commit, push and have my site build and deploy as a result. This workflow is simple but only works because I am the only contributor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-for-ci-cd-with-pull-request&quot;&gt;Github Actions for CI&#x2F;CD with Pull Request&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-for-ci-cd-with-pull-request&quot; aria-label=&quot;Anchor link for: github-actions-for-ci-cd-with-pull-request&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is a good practice to run sanity checks on pull requests prior to merging. How would that be accomplished with Github Actions?&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that you can do this but you need to be very intentional with how your jobs are configured.&lt;&#x2F;p&gt;
+&lt;p&gt;In my workflow, I am designating a main branch &lt;code&gt;main&lt;&#x2F;code&gt; that will run full CI&#x2F;CD. Build, test and deploy. And for any other branch, just build and test.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll share my example Github Actions workflow file, then I’ll provide a template that you can modify and use for your own purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-example-github-actions-workflow&quot;&gt;My example Github Actions workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-example-github-actions-workflow&quot; aria-label=&quot;Anchor link for: my-example-github-actions-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s my site’s current workflow file for Github Actions. I’ll break this down.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At the top, I am specifying the events that I want to trigger on with the &lt;code&gt;on&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I want to trigger on push events to the &lt;code&gt;main&lt;&#x2F;code&gt; branch, and all pull requests.&lt;&#x2F;p&gt;
+&lt;p&gt;Later below are 2 jobs that are almost identical. I’ll break them down one at a time then compare their differences.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;build&lt;&#x2F;code&gt; job &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. Or another way to say this is I check that the working branch that triggered this job is not the &lt;code&gt;main&lt;&#x2F;code&gt; branch. I’ll continue forward only if this condition is &lt;code&gt;true&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. I use the &lt;code&gt;actions&#x2F;checkout@main&lt;&#x2F;code&gt; marketplace action to check my code out, and I use my fork of an action for Zola called &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt;. I have an environment variable &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt; set to &lt;code&gt;true&lt;&#x2F;code&gt; which results in building my site but not deploying it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;build_and_deploy&lt;&#x2F;code&gt; job&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job also uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a similar check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. This time I am looking for the working branch to be &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. Same as the previous job, but I am configuring &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt; differently. Rather than setting &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt;, I am defining &lt;code&gt;PAGES_BRANCH&lt;&#x2F;code&gt; to &lt;code&gt;gh-pages&lt;&#x2F;code&gt;, which is where I want to deploy my site code after build.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;last-words-on-job-differences&quot;&gt;Last words on job differences&lt;a class=&quot;zola-anchor&quot; href=&quot;#last-words-on-job-differences&quot; aria-label=&quot;Anchor link for: last-words-on-job-differences&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The only differences are the branch check via &lt;code&gt;github.ref&lt;&#x2F;code&gt;, and the specifics of &lt;code&gt;steps&lt;&#x2F;code&gt;. I happen to be using my own Github Action &lt;code&gt;tjtelan&#x2F;zola-deploy-action&lt;&#x2F;code&gt; but your steps could consist of anything you want to do differently between pull requests and push to your “special” branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-template&quot;&gt;Github Actions template&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-template&quot; aria-label=&quot;Anchor link for: github-actions-template&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here’s a template that you can use for your own push vs PR workflows. By default, I assume &lt;code&gt;main&lt;&#x2F;code&gt; as the special branch, so you’ll need to change that if you want to use a different branch. Additionally, you’ll need to provide all the steps to take after checking code out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sources&quot;&gt;Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.community&#x2F;t&#x2F;how-to-trigger-an-action-on-push-or-pull-request-but-not-both&#x2F;16662&#x2F;3&quot;&gt;Github Community question: How to trigger an action on push or pull request but not both?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;events-that-trigger-workflows&quot;&gt;Github Actions reference: Events that trigger workflows&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;virtual-environments-for-github-hosted-runners&quot;&gt;Github Actions reference: Virtual Environments for Github-hosted runners&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;context-and-expression-syntax-for-github-actions#github-context&quot;&gt;Github Actions reference: Context and expression syntax - Github context&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+</feed>

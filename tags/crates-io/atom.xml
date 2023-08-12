@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - crates.io</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/crates-io/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-02-14T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/crates-io/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Published First Crate on Crates.io</title>
+		<published>2020-02-14T00:00:00+00:00</published>
+		<updated>2020-02-14T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/published-first-crate-on-crates-io/" type="text/html"/>
+		<id>https://tjtelan.com/blog/published-first-crate-on-crates-io/</id>
+		<content type="html">&lt;p&gt;I published &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;git-url-parse&quot;&gt;my first public crate&lt;&#x2F;a&gt;. I thought my library was useful, general, and did not have a similar implementation in crates.io. I hoped that it may get used by the Rust community. It turned out to be very easy to package and upload my code, and I wanted to share my process.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;complete-cargo-toml-with-package-metadata&quot;&gt;Complete Cargo.toml with package metadata&lt;a class=&quot;zola-anchor&quot; href=&quot;#complete-cargo-toml-with-package-metadata&quot; aria-label=&quot;Anchor link for: complete-cargo-toml-with-package-metadata&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;cargo&#x2F;reference&#x2F;manifest.html#package-metadata&lt;&#x2F;p&gt;
+&lt;p&gt;I tried to define the metadata completely. Other than writing the code, this took the longest time. I wanted to make sure the crate listed in an appropriate category. As well as using relevant keywords.&lt;&#x2F;p&gt;
+&lt;p&gt;(My very first version did not have a README or fancy build badges, but I did have docstrings for docs.rs)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;generate-api-key-and-log-in-from-cargo&quot;&gt;Generate API Key and log in from cargo&lt;a class=&quot;zola-anchor&quot; href=&quot;#generate-api-key-and-log-in-from-cargo&quot; aria-label=&quot;Anchor link for: generate-api-key-and-log-in-from-cargo&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Crates.io only supports logging in using Github accounts.&lt;&#x2F;p&gt;
+&lt;p&gt;Navigate to Account Settings and scroll down to the &lt;em&gt;API Access&lt;&#x2F;em&gt; section. Click new token and give your token a name.&lt;&#x2F;p&gt;
+&lt;p&gt;After giving your token a name, there is going to be a &lt;code&gt;cargo login&lt;&#x2F;code&gt; command with a random token value. Run this command to log in.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;run-cargo-publish&quot;&gt;Run cargo publish&lt;a class=&quot;zola-anchor&quot; href=&quot;#run-cargo-publish&quot; aria-label=&quot;Anchor link for: run-cargo-publish&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;My crate was at the top of the new crates column of crates.io&lt;&#x2F;p&gt;
+&lt;p&gt;Like I mentioned earlier, I had doc strings in my code that I expected to publish to docs.rs. This can take a few minutes. Wait a few minutes. It’ll make it there.&lt;&#x2F;p&gt;
+&lt;p&gt;I later followed up with writing a complete README.md, and added badges. That’s all it took to make my little library look fancy.&lt;&#x2F;p&gt;
+&lt;p&gt;If you were on the fence about publishing to crates.io, I hope you are now convinced that it was not.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h4 id=&quot;before-you-go-some-info-about-my-crate&quot;&gt;Before you go, some info about my crate:&lt;a class=&quot;zola-anchor&quot; href=&quot;#before-you-go-some-info-about-my-crate&quot; aria-label=&quot;Anchor link for: before-you-go-some-info-about-my-crate&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;git-url-parse&quot;&gt;git-url-parse&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I wrote it because common ssh-based git repo urls don’t fit a standard like:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;url.spec.whatwg.org&#x2F;&quot;&gt;the living URL standard&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;tools.ietf.org&#x2F;html&#x2F;rfc1738&quot;&gt;RFC 1738&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;tools.ietf.org&#x2F;html&#x2F;rfc1808.html&quot;&gt;RFC 1808&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;etc.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;As such, parsing is not supported by many languages’ standard library, including Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I hope you&#x27;ll check it out! Thanks!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

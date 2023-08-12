@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - jekyll</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/jekyll/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2015-07-05T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/jekyll/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Goodbye Wordpress</title>
+		<published>2015-07-05T00:00:00+00:00</published>
+		<updated>2015-07-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/goodbye-wordpress/" type="text/html"/>
+		<id>https://tjtelan.com/blog/goodbye-wordpress/</id>
+		<content type="html">&lt;p&gt;I am in the process of migrating away from my self-hosted Wordpress to the Github-hosted &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;pages.github.com&#x2F;&quot;&gt;Github Pages&lt;&#x2F;a&gt;, powered by &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;jekyllrb.com&#x2F;&quot;&gt;Jekyll&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I was finding it difficult to motivate myself to write when my wordpress comments kept getting hit by bots. Please excuse the plain styling while I get the hang of using Jekyll.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

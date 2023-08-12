@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - opensource</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/opensource/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-10-19T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/opensource/atom.xml</id>
+	<entry xml:lang="en">
+		<title>My Hacktoberfest 2020 is Complete</title>
+		<published>2020-10-19T00:00:00+00:00</published>
+		<updated>2020-10-19T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/my-hacktoberfest-2020-is-complete/" type="text/html"/>
+		<id>https://tjtelan.com/blog/my-hacktoberfest-2020-is-complete/</id>
+		<content type="html"> 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Hacktoberfest 2020 complete - banner&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This is a followup post to my &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;first-time-hacktoberfest-2020&#x2F;&quot;&gt;previous Hacktoberfest related post&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;TL;DR - Officially I’ve completed Hacktoberfest 2020!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The beginning of the month was a bit rough, and while there were good intentions, the level of communication to participants was not up to par. But eventually the news of the changes rolled out in a much more official way! For what it’s worth, I approve.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Header with update announcing event being opt-in&quot; &#x2F;&gt;&lt;figcaption&gt;Better late than never&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The change to make eligible repos opt-in will hopefully provide less of an unexpected disruption to open source maintainers. I imagine the spike in activity will belong to repos who want the commits. Also I hope the intended effect will cut down on greedy devs gaming the rules with low quality contributions to get free stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;The extended review time was still 2 weeks, but a couple days later after &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;first-time-hacktoberfest-2020&#x2F;&quot;&gt;my post&lt;&#x2F;a&gt;, I got an email acknowledging my 4 PRs. I’ve just been waiting for the clock to run out this entire time.&lt;&#x2F;p&gt;
+&lt;p&gt;However, the time is here. Officially I’ve completed Hacktoberfest 2020!&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Congrats message in my profile&quot; &#x2F;&gt;&lt;figcaption&gt;Congrats message in my profile&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;my-strategy&quot;&gt;My strategy&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-strategy&quot; aria-label=&quot;Anchor link for: my-strategy&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you have never contributed to open source before, I can share what I usually do. I took a simple approach.&lt;&#x2F;p&gt;
+&lt;p&gt;I crawled the Github search for &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;search?l=&amp;amp;p=1&amp;amp;q=label%3Ahacktoberfest+state%3Aopen+no%3Aassignee+is%3Aissue+language%3ARust&amp;amp;ref=advsearch&amp;amp;type=Issues&quot;&gt;Hacktoberfest labeled repos that were written in Rust&lt;&#x2F;a&gt; because I was only interested in writing in that language.&lt;&#x2F;p&gt;
+&lt;p&gt;There were quite a lot, so I picked a handful of the smallest Rust projects where the repo owner asked for some &lt;strong&gt;very specific&lt;&#x2F;strong&gt; contributions that were clear enough that it didn’t require me to ask questions before getting started. All things considered, it only took me a total of 2-3 hours to write code.&lt;&#x2F;p&gt;
+&lt;p&gt;I did a bit of overcommunication with the repo maintainer to be friendly, but also to give the impression that changes can still be made with their feedback. I wanted to offer an opportunity for them to give me feedback so they would be happy with what they would get merged in.&lt;&#x2F;p&gt;
+&lt;p&gt;If you didn’t know, you can &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.github.com&#x2F;en&#x2F;free-pro-team@latest&#x2F;github&#x2F;managing-your-work-on-github&#x2F;linking-a-pull-request-to-an-issue&quot;&gt;reference issues from your commit message&lt;&#x2F;a&gt;, which I did. Additionally I linked the PR to the issue, and I left a message in the issue itself describing my thought process.  There were small changes requested by the maintainers, though every PR was eventually accepted and merged.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-prize&quot;&gt;The Prize&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-prize&quot; aria-label=&quot;Anchor link for: the-prize&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Hacktoberfest Forest 2020 logo&quot; &#x2F;&gt;&lt;figcaption&gt;Am I a digital lorax? Because I wrote code for the trees&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;So I’ve decided to plant a tree instead of receiving a shirt. It was nice that there was an alternative.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Order form for claiming plant a tree prize&quot; &#x2F;&gt;&lt;figcaption&gt;There was only one color and one size. Fun!&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I don’t know what’s next. After completing the form I was told to await instructions from Digital Ocean for how to continue the process of planting the tree.&lt;&#x2F;p&gt;
+&lt;p&gt;Either way, this is the end of the line. Hacktoberfest 2020 is done for me. I feel happy to have made a positive impact.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks to Digital Ocean, Intel, Dev.to and the Hacktoberfest team for making this year happen!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;In the future I will likely crawl the Github search for small Rust projects to contribute to live on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;my Twitch stream&lt;&#x2F;a&gt;. If that interests you, or if you’d like me to contribute to your repo, then I’d appreciate it if you’d &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;give me a follow&lt;&#x2F;a&gt;! &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>A first-timer&#x27;s perspective to Digital Ocean&#x27;s Hacktoberfest 2020</title>
+		<published>2020-10-05T00:00:00+00:00</published>
+		<updated>2020-10-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/first-time-hacktoberfest-2020/" type="text/html"/>
+		<id>https://tjtelan.com/blog/first-time-hacktoberfest-2020/</id>
+		<content type="html">&lt;h2 id=&quot;so-what-is-hacktoberfest&quot;&gt;So... what is Hacktoberfest?&lt;a class=&quot;zola-anchor&quot; href=&quot;#so-what-is-hacktoberfest&quot; aria-label=&quot;Anchor link for: so-what-is-hacktoberfest&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Digital Ocean’s &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hacktoberfest.digitalocean.com&#x2F;&quot;&gt;Hacktoberfest&lt;&#x2F;a&gt; is a month-long event over the month of October aimed at generating an increase of contributions to open source projects. Participants are asked to open PRs against public repositories in Github with “positive contributions”. Swag is offered to the first 70k participants to open 4 qualified PRs.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;l3vRmVv5P01I5NDAA&amp;#x2F;giphy.gif&quot; alt=&quot;Ed from Cowboy Bebop&quot;&#x2F;&gt;&lt;figcaption&gt;A typical hacker&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;and-how-is-it-going&quot;&gt;And… how is it going?&lt;a class=&quot;zola-anchor&quot; href=&quot;#and-how-is-it-going&quot; aria-label=&quot;Anchor link for: and-how-is-it-going&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have mixed opinions that honestly, skew negatively. But I feel like I’m more charitable about my feedback than what I&#x27;ve seen on the internet. I’m not intending to drag Hacktoberfest but I’d like to see improvement.&lt;&#x2F;p&gt;
+&lt;p&gt;2020 is my first year participating in Hacktoberfest. I’ve already been contributing more to the open source community over the last few years. Particularly for the Rust programming language. I set out to use this event as an excuse to help the Rust community out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;positives&quot;&gt;Positives:&lt;a class=&quot;zola-anchor&quot; href=&quot;#positives&quot; aria-label=&quot;Anchor link for: positives&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;the-feeling-of-a-community-effort-to-contribute-to-open-source&quot;&gt;The feeling of a community effort to contribute to Open Source&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-feeling-of-a-community-effort-to-contribute-to-open-source&quot; aria-label=&quot;Anchor link for: the-feeling-of-a-community-effort-to-contribute-to-open-source&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;i.makeagif.com&amp;#x2F;media&amp;#x2F;10-05-2020&amp;#x2F;FTPRH-.gif&quot; alt=&quot;From Tom Goes to the Mayor into. Shaking hands. Community Spirit&quot;&#x2F;&gt;&lt;figcaption&gt;A typical open source PR&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Contributions to open source can happen at any time. I think it’s a nice idea to have a time where people who use open source software are encouraged to contribute meaningfully. Especially for anyone who may feel a bit of intimidation to do so. I’m sure a T-shirt and some stickers can feel very validating to someone who was just using open source before, and now they have some evidence that they contributed too.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;discovering-smaller-projects&quot;&gt;Discovering smaller projects&lt;a class=&quot;zola-anchor&quot; href=&quot;#discovering-smaller-projects&quot; aria-label=&quot;Anchor link for: discovering-smaller-projects&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;1FXYMTuKX91hS&amp;#x2F;giphy.gif&quot; alt=&quot;Bob Ross. Beauty is everywhere&quot;&#x2F;&gt;&lt;figcaption&gt;Bob Ross had amazing commit messages&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This was a great opportunity to explore Github for projects that don’t require a lot of experience or commitment in order to help a maintainer out. The repos I offered code to were all small Rust projects that were doing some practical things. It was fun, and I put some effort into what I wrote in addition to having good interactions with the maintainers.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;negatives&quot;&gt;Negatives:&lt;a class=&quot;zola-anchor&quot; href=&quot;#negatives&quot; aria-label=&quot;Anchor link for: negatives&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot;&gt;This year’s Hot-fix to the rules and the lack of follow-up communication&lt;a class=&quot;zola-anchor&quot; href=&quot;#this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot; aria-label=&quot;Anchor link for: this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;jV4wbvtJxdjnMriYmY&amp;#x2F;giphy.gif&quot; alt=&quot;Spongebob. Communication rainbow&quot;&#x2F;&gt;&lt;figcaption&gt;Talk to your community&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I feel like the communication around the event is not being managed well. Very reactive, and not effective at spreading the word.&lt;&#x2F;p&gt;
+&lt;p&gt;A few days after the start of the event, there was a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;digitalocean&#x2F;hacktoberfest&#x2F;pull&#x2F;596&quot;&gt;significant change in the rules&lt;&#x2F;a&gt;. I only happened to learn about it through the grapevine, as opposed to from Digital Ocean or through the Hacktoberfest front page or profile pages. Rules feel like they are inconsistently applied, and it feels unwelcoming.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Where this change affected me is their change of minimum review times, and probably the validity of my contributions. But I’m confused about what is supposed to apply to me since I had created all my PRs in the first 3 days.&lt;&#x2F;p&gt;
+&lt;p&gt;What makes this more confusing is the conflicting information within the Hacktoberfest FAQ.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, this is likely some old information about the review time of PRs. States 7 days.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;From FAQ. Review time of 7 days&quot; &#x2F;&gt;&lt;figcaption&gt;From FAQ. Review time of 7 days&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Later in the same FAQ it says it’s been updated to 14 days. But only those &lt;strong&gt;before October 3, 2020 @ 12:00 UTC&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Also from FAQ. Review time of 14 days&quot; &#x2F;&gt;&lt;figcaption&gt;Also from FAQ. Review time of 14 days&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;All 4 PRs were made before this rule change was stated to go into effect (Oct 3 @ 12:00 UTC). The latest being Oct 3 @ 6:26 UTC.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;4 PRs. All earlier than Oct 3 @ 12:00 UTC&quot; &#x2F;&gt;&lt;figcaption&gt;4 PRs. All earlier than Oct 3 @ 12:00 UTC&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Changes to the rules could have been communicated somewhere on the profile page in the legend, but were not. Or through email, like the message I received when I made my first PR.&lt;&#x2F;p&gt;
+&lt;p&gt;I just noticed all my maturation times jump from about a week to about 2 weeks. 3 of these were PRs that were already merged too.&lt;&#x2F;p&gt;
+&lt;p&gt;And I’m more annoyed and slightly unmotivated to continue in the event.&lt;&#x2F;p&gt;
+&lt;p&gt;(But tbh, rather than feel angry, I’m psyched that I got a few PRs merged so quickly!)&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Missed opportunity to communicate that this duration has been updated from 7 to 14 days.&quot; &#x2F;&gt;&lt;figcaption&gt;Missed opportunity to communicate that this duration has been updated from 7 to 14 days.&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h4 id=&quot;feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot;&gt;Feeling like corporate-sponsored projects are taking advantage of free labor&lt;a class=&quot;zola-anchor&quot; href=&quot;#feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot; aria-label=&quot;Anchor link for: feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;I think that the core intention of Hacktoberfest is well meaning. But I&#x27;m seeing some non-trivial work in big projects labeled for Hacktoberfest.&lt;&#x2F;p&gt;
+&lt;p&gt;I’m not personally driven by the swag of a free T-shirt. I just want to help the Rust community and level up my skills while I&#x27;m at it. But I feel weird sitting near loud, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.domenic.me&#x2F;hacktoberfest&#x2F;&quot;&gt;negative opinions&lt;&#x2F;a&gt; that I partially agree with. (Although my feelings are a lot more charitable and less intense)&lt;&#x2F;p&gt;
+&lt;p&gt;Before &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;digitalocean&#x2F;hacktoberfest&#x2F;pull&#x2F;596&quot;&gt;the silent rule changes&lt;&#x2F;a&gt;, the premise of projects that must opt-out really placed a huge burden on the maintainers of small projects.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;48Osj6XyU0ptQRfh5V&amp;#x2F;giphy.gif&quot; alt=&quot;A typical maintainer during Hacktoberfest&quot;&#x2F;&gt;&lt;figcaption&gt;A typical maintainer during Hacktoberfest&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;But I’m mostly in my raw feelings, because I feel like the focused energy of the open source community is being taken advantage of by bigger corporate entities for a T-shirt. They are all on the bandwagon to use free energy from eager and inexperienced developers to contribute to their big name-brand projects even though they have their own funding for development.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;but-will-i-participate-next-year&quot;&gt;But... will I participate next year?&lt;a class=&quot;zola-anchor&quot; href=&quot;#but-will-i-participate-next-year&quot; aria-label=&quot;Anchor link for: but-will-i-participate-next-year&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;4TtrENnFsz4EWkU6gz&amp;#x2F;giphy.gif&quot;&#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Hard to say at this moment, but what incentive do I have? I can contribute any time to small projects, and I most likely will. I have to thank Digital Ocean for helping me realize that.&lt;&#x2F;p&gt;
+&lt;p&gt;The spirit to drive help to small projects is one of my favorite parts of open source, and I think that Hacktoberfest probably started out with that ethos before their audience made it about T-shirts and stickers.&lt;&#x2F;p&gt;
+&lt;p&gt;I don’t like the gamified feeling, and maybe that makes this event not for me. The new rule changes will very much change the feel of participation. Probably for the better, since it is opt-in.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;As I continue to dig into the changes, it appears that there was a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;hacktoberfest&#x2F;status&#x2F;1312221208667185153&quot;&gt;tweet&lt;&#x2F;a&gt; made prior to the changes, but from my perspective, if you didn’t use Twitter and follow &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;hacktoberfest&quot;&gt;@hacktoberfest&lt;&#x2F;a&gt;, you’d continue to be lost to the change.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hacktoberfest.digitalocean.com&#x2F;hacktoberfest-update&quot;&gt;This message&lt;&#x2F;a&gt; appears on their site, but I only got to it through the PR. I don&#x27;t know how else I would have found it because it isn&#x27;t on the front page or anywhere I&#x27;d easily find.&lt;&#x2F;p&gt;
+&lt;p&gt;On one account, I&#x27;ve been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than never. I cannot confirm this myself, since at the time of this writing, I haven&#x27;t received any email regarding rule changes.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Depending on how the changes affect the mood and the outcome of this year&#x27;s event, I could probably warm up to the idea of 2021. Either way, I&#x27;ll still be opening PRs against something.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ll give credit where it is due to the Hacktoberfest team for responding to abusive participants. BUT I don’t appreciate rules being changed without care to communicate them effectively. I expect better communication from a worldwide event. Please learn from this!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Anyway, if you&#x27;ve made it this far, don&#x27;t wait for October to contribute to open source! &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Senior Project Update</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/senior-project-update/" type="text/html"/>
+		<id>https://tjtelan.com/blog/senior-project-update/</id>
+		<content type="html">&lt;p&gt;Presentations are just around the corner and I haven&#x27;t been making quite as many updates with regard to my project.&lt;&#x2F;p&gt;
+&lt;p&gt;The quick summary will have to do for now: It is using an ARM based microcontroller (Freescale Kinetis K60 -- tower system). The function it is serving is web-enabled home automation. I&#x27;m using the MQX real-time operating system. Users of this system will control the devices connected to the system through a web browser.&lt;&#x2F;p&gt;
+&lt;p&gt;The code for this project is up on github, so anyone can contribute, customize for themselves or just look at the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;homewatchdog&quot;&gt;code&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I plan to have a reflection up after next Thursday.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Deep breath&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Still so much to add.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - discuss</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/categories/discuss/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-12-03T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/categories/discuss/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Re: Reading More Technical Content Can Help You Improve Your Content Creation Skills</title>
+		<published>2020-12-03T00:00:00+00:00</published>
+		<updated>2020-12-03T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/re-reading-more-technical-content-can-help-you-improve-your-content-creation-skills/" type="text/html"/>
+		<id>https://tjtelan.com/blog/re-reading-more-technical-content-can-help-you-improve-your-content-creation-skills/</id>
+		<content type="html">&lt;p&gt;This post is in response to &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.stephaniemorillo.co&#x2F;post&#x2F;reading-more-technical-content-can-help-you-improve-your-content-creation-skills-here-s-how&quot;&gt;Stephanie Morillo’s post&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The main piece of advice that is elaborated upon is to &lt;strong&gt;read a lot of technical content&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;What I think is very helpful about this post are the questions that are asked. I thought it would be a good idea to answer these questions so that I can share my opinions around how I read through technical content.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-do-i-like-a-piece-of-technical-content&quot;&gt;Why do I like a piece of technical content?&lt;a class=&quot;zola-anchor&quot; href=&quot;#why-do-i-like-a-piece-of-technical-content&quot; aria-label=&quot;Anchor link for: why-do-i-like-a-piece-of-technical-content&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I can answer this in different ways depending on the context that leads me to find technical content. The main two contexts being discovered through social media, or via a search engine.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;through-social-media&quot;&gt;Through social media&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-social-media&quot; aria-label=&quot;Anchor link for: through-social-media&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I spend a lot of time on technical social media, like Reddit, Hacker News, Dev.to, and Twitter and I mostly only read the trending posts. So in these cases, an individual’s or company’s personality drives my interest over the actual content.&lt;&#x2F;p&gt;
+&lt;p&gt;A lot of the time this leads to some cult of personality for popular posts in the comment section. This can’t be helped. However, this kind of engagement occasionally leads to interesting and tangential discussion. I like when the author can participate in the discussion as well, but this is a rare occurrence.&lt;&#x2F;p&gt;
+&lt;p&gt;I prefer concepts over code in the case of social media discovery. Emphasis when I’m reading through something that is about an ecosystem I don’t have experience using. I like having my hand held lightly, and guided through the examples with metaphor or images.&lt;&#x2F;p&gt;
+&lt;p&gt;Bonus points if you both provide links for more context, as well as provide a simplified summary. Help frame how I should think, and even give negative examples for how I should not think if it helps.&lt;&#x2F;p&gt;
+&lt;p&gt;These posts are primarily to entertain me, and then to inform me. I want the attention to readability with layout and markup to be more considered. If there are images to help set tone, I’d rather they be well used memes, or diagrams.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;through-search&quot;&gt;Through search&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-search&quot; aria-label=&quot;Anchor link for: through-search&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If I’m searching for something technical, it’s more likely that I’m doing research, design or implementation. So personality may continue to play a role in my likelihood to revisit an article, but the code snippets and coherence of an explanation is more important.&lt;&#x2F;p&gt;
+&lt;p&gt;Bonus points if consideration was made for keyword searching or organized textbook-like. I don’t need my hand held as much in his case. Just point me in a direction. I don’t want the entire post to be read through carefully unless the post is about low-level detail.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll be grumpy, but I will endure a post that is harder to skim if the content is promising enough.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;who-is-their-intended-audience&quot;&gt;Who is their intended audience?&lt;a class=&quot;zola-anchor&quot; href=&quot;#who-is-their-intended-audience&quot; aria-label=&quot;Anchor link for: who-is-their-intended-audience&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Part of reading a lot of technical content means reading things that are not specifically targeted at myself.&lt;&#x2F;p&gt;
+&lt;p&gt;When the content involves discussion of code, I really prefer a lot of gentle, but explicit nudging around the skill level required to make sense of what is in the post.&lt;&#x2F;p&gt;
+&lt;p&gt;Wide audience is generally my least favorite because content has to be high-level enough to not lose anyone. If you’re aiming wide, then say so or be very obvious. &lt;&#x2F;p&gt;
+&lt;p&gt;Textbook-style is good enough for me. Build up concepts in a reasonable sequence. Or link to posts or definitions that talk about foundational concepts that you’re introducing. Unless you’ve already stated an expected skill level, I will feel like you don’t know the audience you’re writing to.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-does-this-company-individual-do-really-well&quot;&gt;What does this (company&#x2F;individual) do really well?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-does-this-company-individual-do-really-well&quot; aria-label=&quot;Anchor link for: what-does-this-company-individual-do-really-well&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This kind of question is mostly for judging a collection of posts. Any single post may have left positive impressions on me of being informative, concise, funny, easy to read. But I don’t feel like I can judge what the competencies or patterns of a company or individual is until I see other work.&lt;&#x2F;p&gt;
+&lt;p&gt;I look for consistency in voice. Are we having a conversation. Am I reading a monologue? Do you know where your content beats and break things up with whitespace or images? Are you flexible enough with how you present ideas so that I understand you or know what homework I have in order to understand? Visual branding also comes into mind when discussing consistency. &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-does-this-content-help-me-do&quot;&gt;What does this content help me do?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-does-this-content-help-me-do&quot; aria-label=&quot;Anchor link for: what-does-this-content-help-me-do&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;My expectations of what the content offers me is again, dependent on the context in which I was introduced.&lt;&#x2F;p&gt;
+&lt;p&gt;In general, if it is through social media, I’m looking first to have some kind of entertainment aspect. I’m looking for a breadth of information that allows me to insert my own ideas. I know that content creators aren’t always in control of where and when their content is posted, so this isn’t always going to be fair to judge entertainment value when the content is informational. But it is a plus if the author can be engaging and educational because it takes effort to do well.&lt;&#x2F;p&gt;
+&lt;p&gt;Conversely, if it is through organic search, I’m looking for some kind of informational value. Help me solve a problem, or understand a model of thinking better.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-would-doing-or-implementing-x-improve-my-content&quot;&gt;How would doing (or implementing) “X” improve my content?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-would-doing-or-implementing-x-improve-my-content&quot; aria-label=&quot;Anchor link for: how-would-doing-or-implementing-x-improve-my-content&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This is a great question. Often when I ask myself this question, I’m considering the visual branding of an individual. But lately I’ve also been thinking about how my favorite creators structure and pace the flow of information in their posts while balancing their voice. This is why it is a good idea to follow content creators that resonate with you, because everyone learns to strike this balance differently. And typically the more someone writes technical content, the more natural and easier to read they get.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-can-they-improve-upon-to-make-this-content-even-more-effective&quot;&gt;What can they improve upon to make this content even more effective?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-can-they-improve-upon-to-make-this-content-even-more-effective&quot; aria-label=&quot;Anchor link for: what-can-they-improve-upon-to-make-this-content-even-more-effective&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;At least for me, it is easier to edit someone else’s work. Naturally, I’m constantly thinking about how little bits of friction can be smoothed out and so that I could understand it better. This could mean mixing the styles of creators together, and I try to identify creators who are particularly good (or sometimes bad) at one thing so I can pay attention to how their style evolves.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I don’t know if this post will be useful to others, but it was a good exercise for me. If you’re a content creator, I encourage you to read through Stephanie’s original post. Ask yourself these questions and try to give concrete answers. &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Rust in 2021</title>
+		<published>2020-11-17T00:00:00+00:00</published>
+		<updated>2020-11-17T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/rust-2021/" type="text/html"/>
+		<id>https://tjtelan.com/blog/rust-2021/</id>
+		<content type="html">&lt;p&gt;I missed the official call for blog post submissions, I still want to share some ramblings of my hopes for Rust in 2021.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll split this up into two sections: What I hope to see from the community, and what I hope to see for myself.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-i-want-for-the-rust-community-in-2021&quot;&gt;What I want for the Rust community in 2021&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-i-want-for-the-rust-community-in-2021&quot; aria-label=&quot;Anchor link for: what-i-want-for-the-rust-community-in-2021&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn&quot;&gt;I want to see Rust shed some of its reputation for being hard to learn&lt;a class=&quot;zola-anchor&quot; href=&quot;#i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn&quot; aria-label=&quot;Anchor link for: i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;When I was learning Rust, I thought it was harder than necessary. But I would admit that it was due to writing strict idiomatic Rust while I was still figuring out how to be productive.&lt;&#x2F;p&gt;
+&lt;p&gt;I think learners should give themselves patience to learn Rust by writing bad or mediocre code first, and focus productivity later.&lt;&#x2F;p&gt;
+&lt;p&gt;I am not exactly sure how to create the conditions for this outcome. Maybe more people can publish more Rust that looks messy but “just works”.&lt;&#x2F;p&gt;
+&lt;p&gt;I know that Rust in Action is being written and it is for an intermediate-level audience. But perhaps this looks more like encouragement to beginners to ignore the warnings from the compiler. Just write Rust code and form your own opinions.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;more-blog-posts-from-developers-and-management-using-rust-at-work&quot;&gt;More blog posts from developers and management using Rust at work&lt;a class=&quot;zola-anchor&quot; href=&quot;#more-blog-posts-from-developers-and-management-using-rust-at-work&quot; aria-label=&quot;Anchor link for: more-blog-posts-from-developers-and-management-using-rust-at-work&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;For 2021, I don’t even care if it is from one of the many blockchain-related companies using Rust. I want to read more experiences that lay out the decision of why Rust was chosen and how the experience has been.&lt;&#x2F;p&gt;
+&lt;p&gt;I am especially interested when expertise is in another language and a comparison can be made to the other language. Emphasis when performing a rewrite.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Example: &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dropbox.tech&#x2F;infrastructure&#x2F;rewriting-the-heart-of-our-sync-engine&quot;&gt;https:&#x2F;&#x2F;dropbox.tech&#x2F;infrastructure&#x2F;rewriting-the-heart-of-our-sync-engine&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It’s great to hear Rust used in complicated, low-level development, but it would be normalizing to read about more trivial types of applications, just as a way to highlight Rust as being good for general purpose use.&lt;&#x2F;p&gt;
+&lt;p&gt;Anecdotally, I feel like Go has been growing a reputation as being suitable as a scripting language kind for a while and Rust could also check many of the same boxes.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;more-rust-in-devops-tooling&quot;&gt;More Rust in DevOps tooling&lt;a class=&quot;zola-anchor&quot; href=&quot;#more-rust-in-devops-tooling&quot; aria-label=&quot;Anchor link for: more-rust-in-devops-tooling&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;In my experience, the cultures surrounding Rust and DevOps are very similar. They both seem to attract cult-like appeal that demand adopters to adjust to thinking in a different way than they may have been taught.&lt;&#x2F;p&gt;
+&lt;p&gt;The intended reasons are for a “better future experience” that usually alludes to improved cooperation at a non-technical level.&lt;&#x2F;p&gt;
+&lt;p&gt;The implementations of Rust or DevOps shift considerations of future problems earlier in development. Possibly experiencing some of the friction earlier.&lt;&#x2F;p&gt;
+&lt;p&gt;Rust’s benefits are often placed in a context of pure development benefit, which may be ok for now given it is primarily Devs that are writing code. But as a user, there are a few tools in the space that I’m aware of that support DevOps culture (e.g. Habitat, Linkerd) and I want to see more of them.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Link regarding rise of Rust + DevOps: &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;d2iq.com&#x2F;blog&#x2F;rust-devops&quot;&gt;https:&#x2F;&#x2F;d2iq.com&#x2F;blog&#x2F;rust-devops&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;better-rust-interoperability-between-languages&quot;&gt;Better Rust Interoperability between languages&lt;a class=&quot;zola-anchor&quot; href=&quot;#better-rust-interoperability-between-languages&quot; aria-label=&quot;Anchor link for: better-rust-interoperability-between-languages&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Rust is entering other ecosystems through libraries via &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;ch19-01-unsafe-rust.html#using-extern-functions-to-call-external-code&quot;&gt;FFI&lt;&#x2F;a&gt;. People don’t even have to know or care if they are using Rust. &lt;&#x2F;p&gt;
+&lt;p&gt;However, if I’m writing the code myself, it would be nice if FFI were done without needing to be so mindful of C as the common language.&lt;&#x2F;p&gt;
+&lt;p&gt;C++ and Java come to mind as currently Rust interop is a complicated dance. Rust to Javascript is improving through the Deno runtime, or through WebAssembly.&lt;&#x2F;p&gt;
+&lt;p&gt;My motivation is that I’d like to work in the ecosystems where these languages are most often used (Web, Mobile and Embedded), but I stubbornly want to use Rust as much as possible.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;more-shared-experiences-from-people-picking-up-rust-as-a-second-language&quot;&gt;More shared experiences from people picking up Rust as a second language.&lt;a class=&quot;zola-anchor&quot; href=&quot;#more-shared-experiences-from-people-picking-up-rust-as-a-second-language&quot; aria-label=&quot;Anchor link for: more-shared-experiences-from-people-picking-up-rust-as-a-second-language&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The borrow checker has a reputation that scares people away.&lt;&#x2F;p&gt;
+&lt;p&gt;Especially if they are not from a traditional CS&#x2F;Engineering background. And we should be trying to bring these folks into the ecosystem.&lt;&#x2F;p&gt;
+&lt;p&gt;Acceptance of Rust as another language worth knowing by “average devs” would be helped with more beginners writing or talking about it. It’s my observation that a lot of developers who are self-taught or from bootcamps are mostly in the Javascript&#x2F;Python&#x2F;Ruby space for mostly Web facing code. But Rust can be a perfect second language to learn about types and memory management.&lt;&#x2F;p&gt;
+&lt;p&gt;I believe content from this crowd would be my favorites to read since I think they’ll give valid opinions to someone who has been using Rust for years (like me) now overlook or accept without second thoughts.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects&quot;&gt;Increase of copy&#x2F;paste templates to help bootstrap common types of projects&lt;a class=&quot;zola-anchor&quot; href=&quot;#increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects&quot; aria-label=&quot;Anchor link for: increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I have just become aware of &lt;code&gt;cargo generate&lt;&#x2F;code&gt; because of some of the niche project spaces I’m working on: WebAssembly and embedded.&lt;&#x2F;p&gt;
+&lt;p&gt;Today, I keep &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;rust-examples&quot;&gt;my own repo&lt;&#x2F;a&gt; where I offer rough working examples using common servers or patterns.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;my-technical-wishlist&quot;&gt;My technical wishlist&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-technical-wishlist&quot; aria-label=&quot;Anchor link for: my-technical-wishlist&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Rust analyzer support for generated code
+&lt;ul&gt;
+&lt;li&gt;I want support for &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;hyperium&#x2F;tonic&quot;&gt;Tonic&lt;&#x2F;a&gt;’s generated code&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Better tools or patterns for debugging Async&#x2F;Await
+&lt;ul&gt;
+&lt;li&gt;The debugger just makes me realize how little I understand about Futures.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Native Rust for building games
+&lt;ul&gt;
+&lt;li&gt;The end goal being Rust on consoles or in AAA games. I know they are sometimes used through FFI. It’s not a light task to use Rust in this manner.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Native Rust for building mobile apps
+&lt;ul&gt;
+&lt;li&gt;We can technically write apps for both Android and iOS today, but they aren’t exactly popular because building is complicated&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;where-i-plan-to-be-with-rust-in-2021&quot;&gt;Where I plan to be with Rust in 2021&lt;a class=&quot;zola-anchor&quot; href=&quot;#where-i-plan-to-be-with-rust-in-2021&quot; aria-label=&quot;Anchor link for: where-i-plan-to-be-with-rust-in-2021&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;i-plan-to-write-more-rust-that-other-people-find-useful&quot;&gt;I plan to write more Rust that other people find useful.&lt;a class=&quot;zola-anchor&quot; href=&quot;#i-plan-to-write-more-rust-that-other-people-find-useful&quot; aria-label=&quot;Anchor link for: i-plan-to-write-more-rust-that-other-people-find-useful&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;I hope to have &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;orbitalci&#x2F;orbital&quot;&gt;OrbitalCI&lt;&#x2F;a&gt; into more of a Beta quality, and usable by others for feedback&lt;&#x2F;li&gt;
+&lt;li&gt;Publish more crates that allow people to write Rust to interact with existing APIs&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;i-plan-to-have-serious-projects&quot;&gt;I plan to have serious projects&lt;a class=&quot;zola-anchor&quot; href=&quot;#i-plan-to-have-serious-projects&quot; aria-label=&quot;Anchor link for: i-plan-to-have-serious-projects&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;A few serious projects in upcoming Rust niches so that I can produce more educational content (and hopefully even a product that others may use!)&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Embedded&lt;&#x2F;li&gt;
+&lt;li&gt;WebAssembly&lt;&#x2F;li&gt;
+&lt;li&gt;Mobile&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;i-plan-to-start-making-money-with-rust&quot;&gt;I plan to start making money with Rust.&lt;a class=&quot;zola-anchor&quot; href=&quot;#i-plan-to-start-making-money-with-rust&quot; aria-label=&quot;Anchor link for: i-plan-to-start-making-money-with-rust&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;I’ve started my own business in 2020, and I’m not yet making any money. However, I’ve decided to base a lot of my work using Rust. I am enjoying the experience so far. I intend to sharpen my skills throughout 2021 into paid work.&lt;&#x2F;li&gt;
+&lt;li&gt;I hope to make some income through Twitch from livestreaming my coding and other platforms from my writing.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;how-do-i-intend-to-help-the-rust-project&quot;&gt;How do I intend to help the Rust project?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-do-i-intend-to-help-the-rust-project&quot; aria-label=&quot;Anchor link for: how-do-i-intend-to-help-the-rust-project&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;I’m using Rust to build software for my business (in the DevOps tooling space).&lt;&#x2F;li&gt;
+&lt;li&gt;I will be producing more blog posts, with an angle of inviting Python and Javascript programmers to Rust&lt;&#x2F;li&gt;
+&lt;li&gt;I plan on making my first code or docs contribution to the Rust project in 2021.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I see a lot of promise in Rust&#x27;s future in 2021. Much has become stable in 2020 and all that is needed is some time and encouragement.&lt;&#x2F;p&gt;
+&lt;p&gt;I have enough confidence that I plan on using Rust as my main language as well as motivation to get more involved with the community.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Is DevOps Automation a zero-sum game?</title>
+		<published>2020-11-10T00:00:00+00:00</published>
+		<updated>2020-11-10T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/devops-zero-sum/" type="text/html"/>
+		<id>https://tjtelan.com/blog/devops-zero-sum/</id>
+		<content type="html">&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dev.to&#x2F;tjtelan&#x2F;is-devops-automation-a-zero-sum-game-3dg7&quot;&gt;Link to the original discussion on Dev.to&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Some of my intention is to lean into the ambiguity of the definition of DevOps.&lt;&#x2F;p&gt;
+&lt;p&gt;In general, when automation is created and introduced into an organization for the purposes of &amp;quot;progress&amp;quot; for a wide audience, is this improvement gained at the expense of an individual or a team?&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Here&#x27;s a made up example. Automatic alerts in a production environment of a web app for a small US company&#x27;s online order form.&lt;&#x2F;p&gt;
+&lt;p&gt;The primary customer live in US timezones. The assumed culture is that outages are to be avoided. 24&#x2F;7 uptime.&lt;&#x2F;p&gt;
+&lt;p&gt;Before alerting was introduced in this org, outages in production might not be known until traditional work hours when more complex workflows.&lt;&#x2F;p&gt;
+&lt;p&gt;After alerting was introduced, the possibility of non-work hour wake up calls from alerts increased significantly. On-call&#x2F;event-based compensation might balance the fairness to the person responsible, but that&#x27;s a monetary cost paid from the org to offset a forced work-life cost.&lt;&#x2F;p&gt;
+&lt;p&gt;In my opinion, the introduction of automation led to compromise by the individual, with practically no benefit to the business to make no change.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>What can I do to feel like I belong in the Tech community?</title>
+		<published>2020-10-13T00:00:00+00:00</published>
+		<updated>2020-10-13T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/belonging-in-the-tech-community/" type="text/html"/>
+		<id>https://tjtelan.com/blog/belonging-in-the-tech-community/</id>
+		<content type="html">&lt;p&gt;When I was a teenager, in the 00’s, the internet gave me net-positive energy and optimism. It was still very novel, and there was a lot of opportunity to discover niche communities that overlapped with my interests. I felt like part of an in-crowd and it deeply influenced my life.&lt;&#x2F;p&gt;
+&lt;p&gt;I have continuously been connected online (Metaphorically. Bc I grew up with dial-up). Much of the novelty has long worn off.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;it-s-been-an-exhausting-year&quot;&gt;It’s been an exhausting year&lt;a class=&quot;zola-anchor&quot; href=&quot;#it-s-been-an-exhausting-year&quot; aria-label=&quot;Anchor link for: it-s-been-an-exhausting-year&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I was laid off early in the year due to the pandemic. Due to the sudden loss of human interaction, I have been revisiting some of that yearning for connection as I transition to starting a business from scratch (more about that some other time). As a necessity, I am dependent on the internet for the majority of my human interaction. Maybe this is me being mentally old, but I feel the current energy of my echochamber to be more net-negative and I’m hoping I can introduce myself to people who build others up. &lt;&#x2F;p&gt;
+&lt;p&gt;Niche communities are difficult for me to discover with the same ease as when I was young. That’s not a reason enough for me to stop looking! So that’s fine. I’ll start looking where I’m at. For professional reasons, I &lt;em&gt;need&lt;&#x2F;em&gt; to start in Tech. So I’ll need to be more specific, because Tech is HUGE.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;searching-for-my-k-nearest-neighbors&quot;&gt;Searching for my k-nearest neighbors&lt;a class=&quot;zola-anchor&quot; href=&quot;#searching-for-my-k-nearest-neighbors&quot; aria-label=&quot;Anchor link for: searching-for-my-k-nearest-neighbors&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I’ll spare you the rest of the thought exercise. I’ve been focusing my efforts within the Rust community. Why? It’s reignited my joy in writing code again, and I’m trying to start my business with it. &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;insights.stackoverflow.com&#x2F;survey&#x2F;2020#technology-most-loved-dreaded-and-wanted-languages-loved&quot;&gt;And because people love it!&lt;&#x2F;a&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;With a few years under my belt, I’ve finally reached a point in my Rust development that I no longer consider myself a beginner and I can be productive. Great! Well, now what?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-have-i-been-doing&quot;&gt;What have I been doing?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-been-doing&quot; aria-label=&quot;Anchor link for: what-have-i-been-doing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Regularly posting blog posts with a purpose of educating or sharing an experience as a non-expert&lt;&#x2F;li&gt;
+&lt;li&gt;Hanging out around Tech Twitter and occasionally commenting and retweeting&lt;&#x2F;li&gt;
+&lt;li&gt;Streaming writing Rust code for a few hours at least once a week&lt;&#x2F;li&gt;
+&lt;li&gt;Joining so many Slack&#x2F;Discord&#x2F;Matrix&#x2F;Gitter&#x2F;IRC communities. Mostly lurking, but participating occasionally&lt;&#x2F;li&gt;
+&lt;li&gt;Maintaining a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;git-url-parse&quot;&gt;Rust crate&lt;&#x2F;a&gt; and occasionally asking related projects if they would like to depend on it&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;what-have-i-been-expecting&quot;&gt;What have I been expecting?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-been-expecting&quot; aria-label=&quot;Anchor link for: what-have-i-been-expecting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Part of me was hoping eventually after seeing the same same faces, same names… that I would feel like I had joined the community and I’d stop feeling so intimidated. Perhaps that I would have experienced some subtle mutual acknowledgement of acquaintance? (I have since been lowering my expectations, fwiw. I now believe it is my responsibility to initiate the interactions with potential personal meaning or expectation.)&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-have-i-not-been-doing&quot;&gt;What have I not been doing?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-not-been-doing&quot; aria-label=&quot;Anchor link for: what-have-i-not-been-doing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Actively inviting conversation&lt;&#x2F;li&gt;
+&lt;li&gt;Stepping out of my comfort zone to ask for feedback&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;won-t-you-be-my-neighbor&quot;&gt;Won’t you be my neighbor?&lt;a class=&quot;zola-anchor&quot; href=&quot;#won-t-you-be-my-neighbor&quot; aria-label=&quot;Anchor link for: won-t-you-be-my-neighbor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;When was the last time you joined a new community? What was the defining moment when you felt like you belonged?&lt;&#x2F;p&gt;
+&lt;p&gt;I don’t feel unwelcome in Tech, but I feel invisible. My attempts to extend my reach out to those who might actually care to connect has random-like results. Not for lack of trying. But admittedly, I am placing too much value in establishing consistency before figuring out what works for me.&lt;&#x2F;p&gt;
+&lt;p&gt;I don&#x27;t know what options to try next. I’m not fishing for pity, but I am looking for advice. How do I find my audience? How can my audience find me?&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Join the discussion on my post at &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dev.to&#x2F;tjtelan&#x2F;what-can-i-do-to-feel-like-i-belong-in-the-tech-community-1k7k&quot;&gt;Dev.to&lt;&#x2F;a&gt; or on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;ThatTJTelan&#x2F;status&#x2F;1316132042476670976&quot;&gt;Twitter&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

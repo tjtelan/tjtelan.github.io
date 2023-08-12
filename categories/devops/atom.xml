@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - devops</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/categories/devops/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-12-10T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/categories/devops/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Questions to Find the Right Continuous Integration System for You</title>
+		<published>2020-12-10T00:00:00+00:00</published>
+		<updated>2020-12-10T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/" type="text/html"/>
+		<id>https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/</id>
+		<content type="html">&lt;p&gt;Continuous integration is fancy shell scripting. It even uses shell scripting terminology like pipelines, but is obscured with marketing and many seemingly complex and different methods of configuration.&lt;&#x2F;p&gt;
+&lt;p&gt;The purpose of this post is to discuss Continuous Integration (CI) Systems at a high level if you are considering switching to a new service. I want to introduce you to a few talking points that aren&#x27;t discussed enough in order to help you make a decision.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-are-the-goals-of-continuous-integration-ci&quot;&gt;What are the goals of Continuous Integration (CI)?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-are-the-goals-of-continuous-integration-ci&quot; aria-label=&quot;Anchor link for: what-are-the-goals-of-continuous-integration-ci&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The functions of continuous integration are very flexible and therefore, and the goals are super simple. Automatically run scripts upon the occurrence of an event.&lt;&#x2F;p&gt;
+&lt;p&gt;Common events can be a git commit or a timer event set to run every 5 minutes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-does-ci-differ-from-shell-scripting&quot;&gt;How does CI differ from shell scripting?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-does-ci-differ-from-shell-scripting&quot; aria-label=&quot;Anchor link for: how-does-ci-differ-from-shell-scripting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Continuous integration has a narrow context in which it is intended to run. It has extra structure in order to tell a tighter story. (The CI story leads into another story called Continuous Delivery&#x2F;Deployment (CD), but we will only be focusing on CI)&lt;&#x2F;p&gt;
+&lt;p&gt;A best practice of CI is to automatically build and&#x2F;or run tests on every commit in order to validate whether the codebase builds&#x2F;tests are complete without errors.&lt;&#x2F;p&gt;
+&lt;p&gt;Basic structure defines conditions as well as commands or actions that should be executed when an event occurs. Conditions such as a new commit in a specific branch, or file paths. Or keywords in commit messages.&lt;&#x2F;p&gt;
+&lt;p&gt;On the more advanced side, platform specific features like plugins may be introduced for sending or receiving events from other systems, initiating external triggers based on other pipelines, caching, cleaning up and notifications.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-type-of-ci-systems-that-exist-today&quot;&gt;What type of CI systems that exist today?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-type-of-ci-systems-that-exist-today&quot; aria-label=&quot;Anchor link for: what-type-of-ci-systems-that-exist-today&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;There is no shortage of software that is designed for Continuous Integration. What I believe sets these platforms apart from each other is:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The experience and effort involved with setting up a new environment for your organization&lt;&#x2F;li&gt;
+&lt;li&gt;Path to configuring new pipelines, and maintaining them over time.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;If your organization regularly exercises the creation of new environments, like in consulting orgs, it is reasonable to gain the experience with an open source tool that won’t cost you any money with licensing.&lt;&#x2F;p&gt;
+&lt;p&gt;Otherwise, I might suggest picking a system the reduces the friction for pipeline creation and maintenance.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Styles of setting up new pipelines falls into two categories.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;stateful-webui-pipeline-config&quot;&gt;Stateful (WebUI) pipeline config&lt;a class=&quot;zola-anchor&quot; href=&quot;#stateful-webui-pipeline-config&quot; aria-label=&quot;Anchor link for: stateful-webui-pipeline-config&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Jenkins is the primary example of configuration via WebUI, as it is the functionality out of the box. Adding pipelines in this system requires a user to log into the WebUI, configure connections to builder systems and methodically define pipelines.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros&quot; aria-label=&quot;Anchor link for: pros&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The biggest player in this space, Jenkins, is free to install with flexible system requirements.&lt;&#x2F;li&gt;
+&lt;li&gt;Relatively low skill required to get started. Setup of pipelines and any subsequent edits are performed through the browser with a few clicks.&lt;&#x2F;li&gt;
+&lt;li&gt;Many plugins exist, which probably suit the needs of your org.&lt;&#x2F;li&gt;
+&lt;li&gt;Most of the CI in this category are older and mature. Very search engine friendly solutions.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons&quot; aria-label=&quot;Anchor link for: cons&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Administration is more difficult and time consuming to perform as footprint increases. Over time the details of the pipeline configuration may drift and be difficult to reproduce for the purposes of documentation or migration.&lt;&#x2F;li&gt;
+&lt;li&gt;It is easy to neglect this kind of CI installation. Both a testament to stability, and a detriment to your org when unexpected outages occur. Rebuilding can be tedious and error prone.&lt;&#x2F;li&gt;
+&lt;li&gt;Takes a lot of effort to secure natively in a cloud-based future. Typically these CI systems inconveniently end up hiding behind a VPN.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;stateless-file-based-pipeline-config&quot;&gt;Stateless (File-based) pipeline config&lt;a class=&quot;zola-anchor&quot; href=&quot;#stateless-file-based-pipeline-config&quot; aria-label=&quot;Anchor link for: stateless-file-based-pipeline-config&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This is the modern style of CI system. Your TravisCI, Github Action, Azure DevOps&lt;&#x2F;p&gt;
+&lt;p&gt;Typically we find this system is hosted through your git provider, or as a separate hosted service that we allow access to the repos. YAML is the most popular config format. &lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-1&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-1&quot; aria-label=&quot;Anchor link for: pros-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Configuration of pipelines stay versioned alongside the codebases that use them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-1&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-1&quot; aria-label=&quot;Anchor link for: cons-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;No config schema standards, though. most use a yaml format.&lt;&#x2F;li&gt;
+&lt;li&gt;Complexity becomes harder to manage, and requires a commit and push to repos in order to test. Testing contributes clutter in git logs, and uses up build minutes, which is the cost unit that many hosted services bill on.&lt;&#x2F;li&gt;
+&lt;li&gt;Limited self-hosted options that are free.&lt;&#x2F;li&gt;
+&lt;li&gt;Limited self-hosted options that have small system requirements&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;my-opinion&quot;&gt;My opinion&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-opinion&quot; aria-label=&quot;Anchor link for: my-opinion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I strongly prefer the stateless type of configuration because it provides a more code-like arena where documentation can be provided.&lt;&#x2F;p&gt;
+&lt;p&gt;Mixing the workflow of CI pipeline configuration with your organization’s version control practices can be disruptive if you need to push code in order to see the results of changes to your pipeline. It is a price to pay for the ability to easily correlate changes in codebase with changes in pipeline.&lt;&#x2F;p&gt;
+&lt;p&gt;The balance to strike rests on your code hosting provider needs (i.e. costs per user) and the types of technologies and platforms you need to support for building (web, native, mobile, embedded, etc). This flexibility mostly skews support towards building for web-based technologies.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, Jenkins technically has file-based pipeline support via Jenkinsfile, but unless my org was already deeply invested in staying with Jenkins, I would steer clear. It is not the future. It is harder than necessary to use.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-are-the-ci-hosting-options&quot;&gt;What are the CI Hosting Options?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-are-the-ci-hosting-options&quot; aria-label=&quot;Anchor link for: what-are-the-ci-hosting-options&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;self-hosting&quot;&gt;Self-hosting&lt;a class=&quot;zola-anchor&quot; href=&quot;#self-hosting&quot; aria-label=&quot;Anchor link for: self-hosting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Self-hosting means running and maintaining a process on a physical or virtual machine that you have access to.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-2&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-2&quot; aria-label=&quot;Anchor link for: pros-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Somewhat more private for less effort if hosting in a private location.&lt;&#x2F;li&gt;
+&lt;li&gt;Effective use of data center computers. Initial costs may be higher, but maintenance costs are typically lower.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-2&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-2&quot; aria-label=&quot;Anchor link for: cons-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Being responsible for maintenance&lt;&#x2F;li&gt;
+&lt;li&gt;Limited to the platforms that you have available.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;system-as-a-service-hosted&quot;&gt;System as a Service (Hosted)&lt;a class=&quot;zola-anchor&quot; href=&quot;#system-as-a-service-hosted&quot; aria-label=&quot;Anchor link for: system-as-a-service-hosted&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;External systems as a service (Hosted services) allow users to just log in and connect their version control.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;pros-3&quot;&gt;Pros&lt;a class=&quot;zola-anchor&quot; href=&quot;#pros-3&quot; aria-label=&quot;Anchor link for: pros-3&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Not responsible for performing maintenance.&lt;&#x2F;li&gt;
+&lt;li&gt;Typically authentication is provided, with options to support your org’s auth provider&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cons-3&quot;&gt;Cons&lt;a class=&quot;zola-anchor&quot; href=&quot;#cons-3&quot; aria-label=&quot;Anchor link for: cons-3&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Can be expensive if you require a lot of build time or resources&lt;&#x2F;li&gt;
+&lt;li&gt;Shrinking caps on “free” resources for open source projects&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;issues-to-consider-when-switching-between-ci-platforms&quot;&gt;Issues to Consider when Switching between CI platforms&lt;a class=&quot;zola-anchor&quot; href=&quot;#issues-to-consider-when-switching-between-ci-platforms&quot; aria-label=&quot;Anchor link for: issues-to-consider-when-switching-between-ci-platforms&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;These are some categorized rhetorical questions that you or your organization should ask if you are migrating CI platforms&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;threat-model&quot;&gt;Threat model&lt;a class=&quot;zola-anchor&quot; href=&quot;#threat-model&quot; aria-label=&quot;Anchor link for: threat-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Do you need to be deployed on-site?&lt;&#x2F;li&gt;
+&lt;li&gt;What are the upfront and ongoing costs associated?&lt;&#x2F;li&gt;
+&lt;li&gt;Do you have secrets (like private keys, API tokens) that are needed at build time?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;contributor-model&quot;&gt;Contributor model&lt;a class=&quot;zola-anchor&quot; href=&quot;#contributor-model&quot; aria-label=&quot;Anchor link for: contributor-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;How are contributors logging in?&lt;&#x2F;li&gt;
+&lt;li&gt;What are the costs associated per seat?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;maintenance&quot;&gt;Maintenance&lt;a class=&quot;zola-anchor&quot; href=&quot;#maintenance&quot; aria-label=&quot;Anchor link for: maintenance&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Who is responsible for the health of the pipeline?&lt;&#x2F;li&gt;
+&lt;li&gt;How much time&#x2F;money are you budgeting to spend on maintenance and improvements?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;cost-of-build-minutes&quot;&gt;Cost of Build minutes&lt;a class=&quot;zola-anchor&quot; href=&quot;#cost-of-build-minutes&quot; aria-label=&quot;Anchor link for: cost-of-build-minutes&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;For open source projects, how many build minutes are being used?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;responsiveness-needs&quot;&gt;Responsiveness needs&lt;a class=&quot;zola-anchor&quot; href=&quot;#responsiveness-needs&quot; aria-label=&quot;Anchor link for: responsiveness-needs&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;How many concurrent builds does your org require?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;technologies-used&quot;&gt;Technologies used&lt;a class=&quot;zola-anchor&quot; href=&quot;#technologies-used&quot; aria-label=&quot;Anchor link for: technologies-used&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Containerizing builds is popular for isolation. But not all projects can build within a container.&lt;&#x2F;li&gt;
+&lt;li&gt;Apple, Microsoft and embedded projects are not nearly as flexible and may require special considerations or resources.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;delivery-deployment-model&quot;&gt;Delivery&#x2F;Deployment model&lt;a class=&quot;zola-anchor&quot; href=&quot;#delivery-deployment-model&quot; aria-label=&quot;Anchor link for: delivery-deployment-model&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;What do you need to happen after a build passes?&lt;&#x2F;li&gt;
+&lt;li&gt;Are you creating a build artifact that needs to be stored somewhere?&lt;&#x2F;li&gt;
+&lt;li&gt;What is the desired frequency between build vs delivery&#x2F;deploy?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Not all continuous integration is considered equal. But they all provide basically the same functions. In most cases, it is possible to self-host and do everything yourself. But sometimes it is worth paying money to a product &#x2F; service that takes care of your needs. It is really all about making sure you know what the trade-offs are for your specific case.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Quick Primer to Practical Reproducible builds: Reference Environments</title>
+		<published>2020-11-27T00:00:00+00:00</published>
+		<updated>2020-11-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/quick-primer-reference-environments/" type="text/html"/>
+		<id>https://tjtelan.com/blog/quick-primer-reference-environments/</id>
+		<content type="html">&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;a class=&quot;zola-anchor&quot; href=&quot;#overview&quot; aria-label=&quot;Anchor link for: overview&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This post is inspired by a larger &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;bitshiftmask&#x2F;status&#x2F;1321623304004866050&quot;&gt;Twitter thread by James Munns&lt;&#x2F;a&gt; about industry practices to follow for embedded systems projects that are not covered in school. Particularly the concept of a reference environment. However this idea is important across all platforms of software development. &lt;&#x2F;p&gt;
+&lt;p&gt;Our aim is to be pragmatic to a wide audience of “Developers” and not to be confused with the goals of the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;reproducible-builds.org&#x2F;&quot;&gt;reproducible builds project&lt;&#x2F;a&gt;. (I’m not worrying about achieving &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;reproducible-builds.org&#x2F;docs&#x2F;deterministic-build-systems&#x2F;&quot;&gt;complete build environment determinism&lt;&#x2F;a&gt;. There is a lot more involved that is out of scope for this discussion, but I encourage others to check it out.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-s-the-benefit&quot;&gt;What’s the benefit?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-s-the-benefit&quot; aria-label=&quot;Anchor link for: what-s-the-benefit&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The benefit of a reference environment is to allow a practical step-by-step plan for individuals to reproduce a suitable environment in order to build from a codebase, produce artifacts and interface with any external hardware.&lt;&#x2F;p&gt;
+&lt;p&gt;I want to help you form a maintainable process of documenting what is needed to build your code, and create artifacts for release.&lt;&#x2F;p&gt;
+&lt;p&gt;The expected outcome is to create a reference environment for build and release purposes.&lt;&#x2F;p&gt;
+&lt;p&gt;An additional side-effect of this effort is a shortening of the effort to onboard new devs and testers into new projects or codebases. Additionally version control of this process will reduce your organization’s institutional knowledge.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;your-reference-environment-can-be-used-for&quot;&gt;Your reference environment can be used for:&lt;a class=&quot;zola-anchor&quot; href=&quot;#your-reference-environment-can-be-used-for&quot; aria-label=&quot;Anchor link for: your-reference-environment-can-be-used-for&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CI environments&lt;&#x2F;li&gt;
+&lt;li&gt;Onboarding new developers&lt;&#x2F;li&gt;
+&lt;li&gt;Projects that don’t get modified very often&lt;&#x2F;li&gt;
+&lt;li&gt;Embedded projects&lt;&#x2F;li&gt;
+&lt;li&gt;Mobile projects&lt;&#x2F;li&gt;
+&lt;li&gt;Projects with private code&lt;&#x2F;li&gt;
+&lt;li&gt;Projects with vendored &#x2F; version pinned code&lt;&#x2F;li&gt;
+&lt;li&gt;Legacy code&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;start-your-reference-environment-in-steps&quot;&gt;Start your reference environment in steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#start-your-reference-environment-in-steps&quot; aria-label=&quot;Anchor link for: start-your-reference-environment-in-steps&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;first-level-automate-what-is-easy-and-document-what-is-hard&quot;&gt;First level: Automate what is easy and Document what is hard&lt;a class=&quot;zola-anchor&quot; href=&quot;#first-level-automate-what-is-easy-and-document-what-is-hard&quot; aria-label=&quot;Anchor link for: first-level-automate-what-is-easy-and-document-what-is-hard&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;You need to have a step-by-step set of commands to run that walk you through downloading and installing your tools in order to enable others to build their own reference environment. Tools and libraries installed through a package manager, and anything manually installed off a website.&lt;&#x2F;p&gt;
+&lt;p&gt;The goal of documenting the setup of your local environment can then be further streamlined the more you automate the step-by-step into scripts that you can provide.&lt;&#x2F;p&gt;
+&lt;p&gt;The experience you want to cultivate is a relatively short step from a fresh clone, to building and modifying code.&lt;&#x2F;p&gt;
+&lt;p&gt;If you use a language that has its own package manager used to compile, such as Javascript’s NPM, Java’s Maven or Rust’s Cargo, then you are able to keep track of the names and version numbers of the libraries you use.&lt;&#x2F;p&gt;
+&lt;p&gt;I recommend that you learn how to use these tools to also remove files created during build. Cached files from previous builds are classic causes of “&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.leadingagile.com&#x2F;2017&#x2F;03&#x2F;works-on-my-machine&#x2F;&quot;&gt;works on my machine&lt;&#x2F;a&gt;” and may hide otherwise obvious issues. Make a habit of trying to reproduce issues starting from a cache-free build by using the same tools for build to also remove the files and directories it creates.&lt;&#x2F;p&gt;
+&lt;p&gt;Not all language package managers come with cleanup functionality, so you may need to install  plugins. Otherwise you should use a tool like &lt;code&gt;make&lt;&#x2F;code&gt;, and create separate &lt;code&gt;make build&lt;&#x2F;code&gt; and &lt;code&gt;make clean&lt;&#x2F;code&gt; targets.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;second-level-shell-scripts&quot;&gt;Second level: Shell scripts&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-level-shell-scripts&quot; aria-label=&quot;Anchor link for: second-level-shell-scripts&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Automation should be driven by makefiles or plain shell scripts like &lt;code&gt;bash&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;zsh&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;fish&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;sh&lt;&#x2F;code&gt; or in windows &lt;code&gt;batch&lt;&#x2F;code&gt; or &lt;code&gt;powershell&lt;&#x2F;code&gt;. The rationale is that these are plain commands that you can copy&#x2F;paste from your terminal, and into the script. You can always call out to another language like &lt;code&gt;python&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;ruby&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;perl&lt;&#x2F;code&gt; or other tools.&lt;&#x2F;p&gt;
+&lt;p&gt;But the initial point of functionality should be plain shell scripting through an executable shell script or a &lt;code&gt;Makefile&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are working from an existing step-by-step document, then you should have a sequence of commands that you can transfer straight into your script. This is a lot fewer commands for your future users (and future you) to deal with.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;third-level-configuration-management&quot;&gt;Third level: Configuration management&lt;a class=&quot;zola-anchor&quot; href=&quot;#third-level-configuration-management&quot; aria-label=&quot;Anchor link for: third-level-configuration-management&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;There are tools that specifically deal with configuration management of your operating system &#x2F; development environment. One of their main selling points is declaring the desired state through config files instead of scripting everything step-by-step. The tools read the config files and check the system for differences. If differences are found, then these tools take specific actions in order to attempt to bring the reality of the system state to be the same as the config.&lt;&#x2F;p&gt;
+&lt;p&gt;The config files lend themselves into achieving automation that is “&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Idempotence&quot;&gt;idempotent&lt;&#x2F;a&gt;”. A simple explanation of idempotency with respect to configuration automation is experienced when running the automation twice in succession. The first time, an automation tool takes a moment to execute because work is being performed. The second time, the tool discovers that there is no work to be done so the execution time is significantly reduced.&lt;&#x2F;p&gt;
+&lt;p&gt;Examples:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ansible&lt;&#x2F;li&gt;
+&lt;li&gt;Saltstack&lt;&#x2F;li&gt;
+&lt;li&gt;Puppet&lt;&#x2F;li&gt;
+&lt;li&gt;Chef&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In your shell scripts, you need to install these config management tools first. But then the tools can replace significant volumes of shell scripts in many cases because their idempotent properties lead to more efficient execution. The more popular tools have an added benefit of wide support of different OSes, allowing your configs to also widely support different OSes.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;next-level-portable-reference-environments-via-virtual-machines-containers&quot;&gt;Next level: Portable Reference Environments via Virtual Machines &amp;amp; Containers&lt;a class=&quot;zola-anchor&quot; href=&quot;#next-level-portable-reference-environments-via-virtual-machines-containers&quot; aria-label=&quot;Anchor link for: next-level-portable-reference-environments-via-virtual-machines-containers&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Building your reference environment within a virtual machine may enable you to be a little less strict about documenting and automating your setup. After you build the environment, you can save a snapshot, back it up or even distribute it to others. This can be convenient and portable in most cases.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also use your scripts or config management to configure virtual machines, or containers. Using tools like &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.vagrantup.com&#x2F;&quot;&gt;Vagrant&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.docker.com&#x2F;&quot;&gt;Docker&lt;&#x2F;a&gt; allow you to store the instructions for building virtual machines (via &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.vagrantup.com&#x2F;docs&#x2F;vagrantfile&quot;&gt;Vagrantfile&lt;&#x2F;a&gt;) or containers (via &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;reference&#x2F;builder&#x2F;&quot;&gt;Dockerfile&lt;&#x2F;a&gt;) alongside your code. This enables potential contribution without the need of installing tools locally because the codebase includes a portable development environment.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;platform-specific-caveats&quot;&gt;Platform specific caveats&lt;a class=&quot;zola-anchor&quot; href=&quot;#platform-specific-caveats&quot; aria-label=&quot;Anchor link for: platform-specific-caveats&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;Virtualization or containerization is not an available option for every platform. In these cases, you may be limited to config management or documentation for your reference environments.&lt;&#x2F;p&gt;
+&lt;p&gt;If your project has the following, you may have limited support for a portable reference environment. &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apple products&lt;&#x2F;li&gt;
+&lt;li&gt;Platform-specific tools like IDEs and&#x2F;or compilers&lt;&#x2F;li&gt;
+&lt;li&gt;Hardware requirements such as GPU&lt;&#x2F;li&gt;
+&lt;li&gt;Very old “Legacy” OSes&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The specific tools, and libraries you use in development may seem obvious to you. But as a courtesy to an outsider, or even to yourself in the future, you need to provide requirements needed to build your code.&lt;&#x2F;p&gt;
+&lt;p&gt;Documentation requires discipline to keep up-to-date. Scripts, config management or even a portable environment such as a virtual machine or a container are even better because they are easier to verify for correctness.&lt;&#x2F;p&gt;
+&lt;p&gt;The less critically someone needs to think in order to get started, the easier it will be to focus on what matters. Reference environments are not one-size-fits all. They may be unique per project, or organization. Do future you or future team members a favor and write these details down. It can save a lot of time and avoid works-on-my-machine.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>DevOps Helps you be a Better Leader</title>
+		<published>2020-11-06T00:00:00+00:00</published>
+		<updated>2020-11-07T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/devops-helps-you-be-a-better-leader/" type="text/html"/>
+		<id>https://tjtelan.com/blog/devops-helps-you-be-a-better-leader/</id>
+		<content type="html">&lt;p&gt;&lt;em&gt;This is the first of a series about helping your organization embrace DevOps.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;devops-is-misunderstood&quot;&gt;DevOps is misunderstood&lt;a class=&quot;zola-anchor&quot; href=&quot;#devops-is-misunderstood&quot; aria-label=&quot;Anchor link for: devops-is-misunderstood&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;DevOps is buzzwordy – so hot right now. Like all tech development trends, everyone wants it, but everyone also has their own ideas about the kind of problems it will solve. This is a precarious situation, because a lot of people aren’t wrong. But they are unaware that their version of the truth is so narrow that they end up missing the big picture.&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, I’ll discuss DevOps at a high level by addressing: &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;What is (and what isn’t) DevOps&lt;&#x2F;li&gt;
+&lt;li&gt;How DevOps differs from the “normal” development process you may already have&lt;&#x2F;li&gt;
+&lt;li&gt;How practicing DevOps can reduce time and money required for development and operations&lt;&#x2F;li&gt;
+&lt;li&gt;How nurturing a DevOps culture will increase the quality of life for everyone working on your product&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;There are many more topics to discuss, but we must stay focused! This should lay the foundation to allow for constructive conversation about how DevOps works in your organization. &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;who-should-read-this-post&quot;&gt;Who should read this post?&lt;a class=&quot;zola-anchor&quot; href=&quot;#who-should-read-this-post&quot; aria-label=&quot;Anchor link for: who-should-read-this-post&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This post is primarily intended for people who need to know the purpose of DevOps because they’re managing a team or hiring for a DevOps skill set. You also might find it helpful if you’re just wondering what DevOps is all about as a developer, operator, student, or in a related, non-technical role.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;conventions-and-definitions&quot;&gt;Conventions and Definitions&lt;a class=&quot;zola-anchor&quot; href=&quot;#conventions-and-definitions&quot; aria-label=&quot;Anchor link for: conventions-and-definitions&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Let’s start with some definitions and conventions so we’re on the same page.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Environment&lt;&#x2F;strong&gt; or &lt;strong&gt;space&lt;&#x2F;strong&gt; may be used interchangeably. It refers to the location where code is being executed. A laptop or workstation are examples of environments that we can physically touch. But Kubernetes, or “the cloud” are examples of more abstract environments.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Development environment&lt;&#x2F;strong&gt; will refer to any environment that is primarily used by a single person for the purposes of writing code, such as a laptop or a workstation.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Production environment&lt;&#x2F;strong&gt; will refer to any environment that is shared, regardless of whether external customers are using it. An internally used environment used only for testing purposes is a production environment. Big differences between a development environment and a production environment may be complexity or scale at which components are deployed. As well as the amount of targeted automation to perform changes such as deployment or collection of analytics. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Development&lt;&#x2F;strong&gt; &lt;em&gt;(Dev)&lt;&#x2F;em&gt; is a phase and a team we associate with writing code. Specifically, it refers to code that has not yet been released officially to a wider audience. When a project is in development, there is an implication that it may not yet be stable. The people who do the code writing are called Developers, or Dev.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Operations&lt;&#x2F;strong&gt; &lt;em&gt;(Ops)&lt;&#x2F;em&gt; is a phase and a team we associate with building and maintaining the environment(s) used for running code from Development, as well as infrastructure used to support the running code. The people who run code may also be Developers, but they are also commonly known as Operators, Ops, SysAdmins, SREs, Production Engineers, and increasingly (and incorrectly) as DevOps Engineers.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;DevOps&lt;&#x2F;strong&gt; is the art of joining principles from traditional software Development and Operations so both can work better together. DevOps is not a phase of development, nor is it a role, despite the emergence of DevOps engineering roles or teams. It is an organization’s professional culture, and emotional intelligence for working together as a single team. The purpose of DevOps is managing expected behavior of the product in production with respect to constant “change of state” (we’ll talk about that soon).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-problem-devops-solves&quot;&gt;The problem DevOps solves&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-problem-devops-solves&quot; aria-label=&quot;Anchor link for: the-problem-devops-solves&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;An industry trope is the antagonistic rivalry about whose role, Dev or Ops, is more important. But it doesn’t need to be a battle. DevOps is a culture or method of interaction between Dev and Ops and a direct result is shortened feedback loops between writing code (development) and running code (operations). &lt;&#x2F;p&gt;
+&lt;p&gt;Admittedly, “DevOps” is a more complex concept when compared to Dev or Ops, which muddies an otherwise straightforward conversation because the actual tasks of practicing DevOps are not one-size-fits all.&lt;&#x2F;p&gt;
+&lt;p&gt;Software is rarely a single moving piece. The benefit is the flexibility to incrementally change the state of any single piece. The “change of state” refers to updates to code or the supporting infrastructure, and effectively communicating those changes to the people involved. As a system grows in complexity, it takes some effort to make changes without disrupting other pieces.&lt;&#x2F;p&gt;
+&lt;p&gt;DevOps, as a practice, is about managing the changes to those moving pieces in an organized and intentional manner. An example of where DevOps builds this bridge is deploying to production. Thin encourages releasing and running code in a way that Devs and Ops can anticipate each other’s changes, at a high rate. These procedures are preferably automated, for speed and consistency.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;change-the-job-title-on-your-reqs-devops-is-not-a-role&quot;&gt;Change the job title on your reqs: DevOps is not a role!&lt;a class=&quot;zola-anchor&quot; href=&quot;#change-the-job-title-on-your-reqs-devops-is-not-a-role&quot; aria-label=&quot;Anchor link for: change-the-job-title-on-your-reqs-devops-is-not-a-role&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Unfortunately, DevOps is increasingly used as a catch-all for all engineering tasks that do not have an owner. The result is that it starts to lose any specific meaning.&lt;&#x2F;p&gt;
+&lt;p&gt;A recent (and regrettable) trend in job postings is to rebrand SysAdmin or Operations roles into “DevOps engineer” roles. This makes it more difficult for companies and job-seekers alike to make a good match.&lt;&#x2F;p&gt;
+&lt;p&gt;Case in point: coding is often listed as a requirement for a “DevOps Engineer” role, but if that role is actually an operations role, there will be few opportunities to write code. This means that new hires joining with the expectation that their role includes coding will feel misled, and turnover will be increased.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-does-a-solution-look-like&quot;&gt;What does a solution look like?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-does-a-solution-look-like&quot; aria-label=&quot;Anchor link for: what-does-a-solution-look-like&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;So what is DevOps if not a role? Let’s describe practicing DevOps through the actions of the members of the technical organization.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;devops-enabled-dev-vs-pure-development&quot;&gt;DevOps-enabled Dev vs Pure Development&lt;a class=&quot;zola-anchor&quot; href=&quot;#devops-enabled-dev-vs-pure-development&quot; aria-label=&quot;Anchor link for: devops-enabled-dev-vs-pure-development&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Unlike pure development, DevOps is primarily about improving processes and analytics capabilities to remove friction from developers’ workflows, outside of writing code. It is not about product functionality or quality of the product code. For example, Devs define the terms of success or failure of the behavior of their code in production. But thanks to DevOps practices, they can analyze that data to inform their next actions. &lt;&#x2F;p&gt;
+&lt;p&gt;Devs in a DevOps practice have a shorter onboarding process as well. Common tasks such as software requirements for build code and deploying code are documented through automation that is kept up to date. With this, new devs can focus on the codebase on day one, not spending all day reading documentation.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;devops-enabled-ops-vs-pure-operations&quot;&gt;DevOps-enabled Ops vs Pure Operations&lt;a class=&quot;zola-anchor&quot; href=&quot;#devops-enabled-ops-vs-pure-operations&quot; aria-label=&quot;Anchor link for: devops-enabled-ops-vs-pure-operations&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Unlike pure operations, DevOps is proactive about observing how running code is behaving from within the code rather than only observing results. The purpose is to maximize the value of human time by only requiring a person to look into a problem if existing automated strategies fail to resolve it.&lt;&#x2F;p&gt;
+&lt;p&gt;Additionally, the introduction of Continuous Integration&#x2F;Continuous Delivery (or Deployment) pipeline (aka CI&#x2F;CD) is an important collection of automation shared between Devs and Ops. The Devs know how to push code for build for the CI, and the Ops know how to pull build artifacts for deployment. &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;devops-enabled-management&quot;&gt;DevOps-enabled management&lt;a class=&quot;zola-anchor&quot; href=&quot;#devops-enabled-management&quot; aria-label=&quot;Anchor link for: devops-enabled-management&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;There is a lot to be said about DevOps-enabled management, but I will keep it brief (but stay tuned, this will be the topic of a future post). For now, I will be focusing on communication, quality of life of your employees, and a short aside on saving money on cloud operational expenditure.&lt;&#x2F;p&gt;
+&lt;p&gt;As a product manager, DevOps directly serves the priorities and product roadmap, as they will be naturally driven from the analytics of your production environments. More objective discussion can be had with your developers and operators when you can provide more specific details and requirements to what is motivating your decision making as a manager. Data about feature usage or responsiveness can more easily be measured and placed onto a dashboard if the metrics to be tracked are known during development, rather than after a feature is complete. This production data can help facilitate discussions with your stakeholders.&lt;&#x2F;p&gt;
+&lt;p&gt;As a hiring manager, DevOps enables you to be more specific about what it is you are looking for in job applicants. If you’re looking for a candidate with broad skills, you can justify why with actual functions that need served. Otherwise, you can also be much more specific with need for specialized roles since the functions of your direct reports feed into the quality of your analytics. &lt;&#x2F;p&gt;
+&lt;p&gt;Lastly, if you operate in cloud infrastructure such as AWS or Azure, your DevOps practice should condition you to analyze your compute usage for ways to save money. It can show you when you may be able to shut down compute resources for the night to save costs on guaranteed idle time that you would otherwise be paying for. Automation can automatically turn them back on for the work day if needed by devs, but otherwise, you may find that these resources are often unintentionally abandoned by devs.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you are a manager, how do you start a DevOps practice? You start by consistently being data-driven through requests for data from your employees. Show them how the data influences your decision making. The consistency of your requests ought to naturally lead to automation of data collection.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that DevOps is more than operations. It is a professional workplace culture that starts with management through commitment to improve communication. &lt;&#x2F;p&gt;
+&lt;p&gt;To do both drive and support this, management must be very specific about what information they need from their product, then align their processes to reinforce these needs. Realize that this kind of organization of processes is optimal. The perceived constraints your employees experience provides very clear expectations for team success while allowing individual opportunity to be creative and fulfilled without setting expectations that it is any individual person’s responsibility.&lt;&#x2F;p&gt;
+&lt;p&gt;DevOps is a practice that produces solutions that scale to the needs of the organization and humanizes the people who create solutions. It allows people to specialize their craft while providing a structure to let them trust that the rest of their surroundings (infrastructure) will be ready to accept any of their new creations.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Bottle rockets in my DevOps? It’s more likely than you think.</title>
+		<published>2020-10-29T00:00:00+00:00</published>
+		<updated>2020-10-29T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/bottle-rockets-in-my-devops/" type="text/html"/>
+		<id>https://tjtelan.com/blog/bottle-rockets-in-my-devops/</id>
+		<content type="html">&lt;p&gt;Why is DevOps such a hot trend when many find it hard to concretely define? It is just for big companies? Could you be practicing DevOps as a small software organization and not even know it? What are the outputs of DevOps activities? How do you explain DevOps to your less-technical colleagues?&lt;&#x2F;p&gt;
+&lt;p&gt;To help address those questions, I want to tell you a story not about software, but instead about bottle rockets. We’ll take a look at typical DevOps activities and how feedback loops can naturally form and provide opportunities for improvement using DevOps thinking.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Imagine you are building a company that makes and shoots off fireworks. You’re just starting out, so you’re the one making the fireworks.&lt;&#x2F;p&gt;
+&lt;p&gt;The firework is aimed, a fuse is lit, the rocket launches, and features are displayed to your customers. You intentionally design pyrotechnics with an expected outcome. Your customers love the loop-de-loops, whistling, and colorful sparks!&lt;&#x2F;p&gt;
+&lt;p&gt;At first, you’re just building customized fireworks by yourself with cheap kits. Based on positive feedback from customers, you start to develop a specific type of firework. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is essentially how all software products start.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You soon outgrow the capabilities and customizability offered through the kits, and to save on money you develop your own process using raw materials. You build and package every single unit in your garage, and have fireworks shows in a field next to your house. People are buying tickets to your fireworks shows, regardless of how the product was built -- they just want a cool explosion (and yours are the coolest). &lt;&#x2F;p&gt;
+&lt;p&gt;What your audience doesn&#x27;t see are the many experiments and failures that went into building their experience. However, since you work alone, any mishaps are in your private space and they are easy to put out with a fire extinguisher and a bucket of water.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is similar to software development.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Your company wants to expand their market size and offerings. You hire new people to help you build more of what currently sells, as well as help create new designs based on feedback from customers. Building in your garage no longer suits the needs of the business. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is similar to the start of &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.geekwire.com&#x2F;2014&#x2F;amazon-20-years-garage-startup-global-powerhouse&#x2F;&quot;&gt;some&lt;&#x2F;a&gt; &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;news.microsoft.com&#x2F;announcement&#x2F;microsoft-is-born&#x2F;&quot;&gt;legends&lt;&#x2F;a&gt; in &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;HP_Garage&quot;&gt;software&lt;&#x2F;a&gt; &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;mashable.com&#x2F;2013&#x2F;09&#x2F;27&#x2F;google-garage-anniversary&#x2F;&quot;&gt;development&lt;&#x2F;a&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You move into a bigger warehouse with an indoor launchpad. You teach the new people how you work. You build and package units by hand. The new people are not as good at this as you are and they don’t have your intuition, so the quality of output is not as consistent. &lt;&#x2F;p&gt;
+&lt;p&gt;You’re now launching your bottle rockets from inside the warehouse, through a window. The inconsistencies sometimes cause a small fire so everyone has to stop what they’re doing to help put it out.&lt;&#x2F;p&gt;
+&lt;p&gt;You spend the money or time and effort to create special tools so that they don’t needlessly make mistakes.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is similar to &lt;strong&gt;dev tooling&lt;&#x2F;strong&gt;. Dev tooling is domain-specific software or automation created for the purpose of helping developers keep their focus on the details of their problem. It also helps developers to offload the mental burden of tedious tasks such as data processing, reformatting, or validation, onto their tools.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Your company now creates many different types of fireworks, and has showcase displays every week. Every product uses specialized parts so it can be a scramble to get everything done in time. One of your new bottle rocket designers discovers that with a few small modifications, many of your products could use the same, adjustable fuse. Now, many firework designs can be made at the same time, and each fuse can be adjusted in the field prior to ignition. You apply this strategy to other parts and this improves your manufacturing efficiency.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is similar to &lt;strong&gt;microservice architecture&lt;&#x2F;strong&gt;, a style of service-oriented architecture design that enables an application to be composed of several small modules organized by business capabilities. These modules can be developed and updated ad-hoc without requiring a full redeployment of all components.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You get late notice there’s going to be a huge fireworks expo very soon, and your company’s unique fireworks will be the star of the show. &lt;&#x2F;p&gt;
+&lt;p&gt;You return to the product lines to assist with packing units. It’s a terrible experience. &lt;&#x2F;p&gt;
+&lt;p&gt;The work is manual, and for some of the tasks you realize that the same tools can be used by an assembly machine and performed with more precision and consistency. With some extra effort, more machines could be constructed to create units for quality control testing, and package units for shipping. The process of assembly, packing, and launch preparation is now more standardized, and your human workers can focus on designing better fireworks instead of remembering the exact order and specifications of assembly.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is similar to &lt;strong&gt;CI&#x2F;CD&lt;&#x2F;strong&gt; (continuous integration &#x2F; continuous delivery&#x2F;deployment). CI&#x2F;CD is a process that connects development (writing the code) to operations (running the code).&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Typically initiated by a developer pushing code, which builds, tests. This process is called Continuous Integration (CI). The end of a CI process that results in an artifact ready to be deployed is called Continuous Delivery. Going one step further to an automatic deployment of the artifact into production is called Continuous Deployment.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;As your rockets get bigger, you notice that the aiming from the launchpad isn’t going as well as it used to. With the smaller rockets, you were able to eyeball the right trajectory, but this isn’t working as well with these more complex fireworks. Due to your previous standardizations of fuses, the same fuse modules are used for all the rockets. Therefore we can narrow our investigation of the trajectory issues specifically to construction of the complex fireworks. Quality control is now also improved because there are fewer variants introduced. Changes are easier to track and correct using information from internal quality control and from customers.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;This is &lt;strong&gt;observation through metrics and monitoring&lt;&#x2F;strong&gt;. The trajectory was noticed not only holistically because of regular launches internally, and by customers. But also objectively, because we’ve collected data on the distances experienced in a variety of conditions.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You’re building bigger and better bottle rockets, and your customers are thrilled with the exciting displays you’re putting on! They’ve never seen brighter colors or more interesting designs!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Using this somewhat silly story as a stand-in for the software development and deployment process, you can see that DevOps activities are often part of a developing and growing system. With every deployment, you’re trying to shoot a bottle rocket out of the window. &lt;&#x2F;p&gt;
+&lt;p&gt;Picking and choosing DevOps activities to optimize is normal for small but growing software organizations. Be pragmatic. Adopt solutions when you have problems they solve. &lt;&#x2F;p&gt;
+&lt;p&gt;So how do you know what you actually need? You’re likely already addressing the needs you have (but in a much less efficient way). Interested in investing in your team’s DevOps practice? Here are some starting points to think about:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;If your team spends a lot of time moving between projects, consider bulking up your &lt;strong&gt;dev tooling&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;If you frequently find yourself solving the same problem repeatedly or copy&#x2F;pasting and lightly modifying service code, investigate implementing &lt;strong&gt;microservice architecture&lt;&#x2F;strong&gt; to do that job for you.&lt;&#x2F;li&gt;
+&lt;li&gt;If you rely on a single developer’s machine or struggle to consistently build or release minor changes, &lt;strong&gt;CI&#x2F;CD&lt;&#x2F;strong&gt; could be what you’re missing.&lt;&#x2F;li&gt;
+&lt;li&gt;If you make changes based on feelings and not with data, then improve your product observation through collecting &lt;strong&gt;metrics and monitoring&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;A cohesive strategy for packaging, deployment, and response is essential as growth occurs. As the rate of updates increase, the rate of outage-causing failures climbs proportionally. &lt;&#x2F;p&gt;
+&lt;p&gt;It is fatally optimistic to rely on the hope that your product is absent of critical bugs. Reactivity is not a dependable plan, especially in the high-stress situations caused when your bottle rocket explodes on the launchpad. Instead, assume that things will inevitably go wrong sometime, somewhere. Create tangible strategies that bridge writing code (development) and running code (operations) through common language and goals, and rely on procedures that considered the important details back when stress levels were not high. &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>9 steps to rename your default Github branch safely</title>
+		<published>2020-09-30T00:00:00+00:00</published>
+		<updated>2020-09-30T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/github-rename-your-default-branch/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-rename-your-default-branch/</id>
+		<content type="html">&lt;p&gt;Want to migrate your git branches from &lt;code&gt;master&lt;&#x2F;code&gt; to &lt;code&gt;main&lt;&#x2F;code&gt;? Your branch protections, in-progress PRs, and drafts can migrate safely. Follow this simple checklist to confidently make these changes and create a seamless experience for yourself and your developer community.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;a class=&quot;zola-anchor&quot; href=&quot;#introduction&quot; aria-label=&quot;Anchor link for: introduction&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;what-s-in-a-branch-name&quot;&gt;What’s in a (branch) name?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-s-in-a-branch-name&quot; aria-label=&quot;Anchor link for: what-s-in-a-branch-name&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If you have existing git repos at Github (or any other git hosting platform), you probably have a branch in your repo named &lt;code&gt;master&lt;&#x2F;code&gt;. Starting October 1st, 2020, Github will officially stop their practice of naming the first branch of new repositories &lt;code&gt;master&lt;&#x2F;code&gt;. Instead, the name &lt;code&gt;main&lt;&#x2F;code&gt; will be used from now on. &lt;&#x2F;p&gt;
+&lt;p&gt;The usage of &lt;code&gt;master&lt;&#x2F;code&gt; is unfortunately deeply ingrained into those who learned how to use git and developed muscle memory. But did you know that Git (the tool) has no technical requirement that you use &lt;code&gt;master&lt;&#x2F;code&gt; as your default branch name? However, because it is the first branch created when you run &lt;code&gt;git init&lt;&#x2F;code&gt;, it’s often the default used. As a result, hosting platforms such as Github or continuous integration systems like Jenkins or TravisCI create workflows that typically use these defaults as release branches.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;can-t-i-just-rename-master-to-main&quot;&gt;Can’t I just rename &lt;code&gt;master&lt;&#x2F;code&gt; to &lt;code&gt;main&lt;&#x2F;code&gt;?&lt;a class=&quot;zola-anchor&quot; href=&quot;#can-t-i-just-rename-master-to-main&quot; aria-label=&quot;Anchor link for: can-t-i-just-rename-master-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Automation and development workflows will make renaming &lt;code&gt;master&lt;&#x2F;code&gt; require more effort than just following &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;6591213&#x2F;how-do-i-rename-a-local-git-branch#6591218&quot;&gt;the first Stack Overflow answer you can find&lt;&#x2F;a&gt; to answer the question. &lt;&#x2F;p&gt;
+&lt;p&gt;In &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;github&#x2F;renaming&quot;&gt;Github’s official statement&lt;&#x2F;a&gt;, they suggest waiting until later in the year to perform this switch yourself if your repo has any of the following conditions:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open pull requests need to be retargeted to the new branch&lt;&#x2F;li&gt;
+&lt;li&gt;Draft releases need to be retargeted to the new branch&lt;&#x2F;li&gt;
+&lt;li&gt;Branch protection policies need to be transferred to the new branch&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Don’t want to wait? While this won’t be as simple as just renaming your branches, you can still perform this switch on your personal or organization’s repos by modifying branch protections, PRs, and draft releases. Follow along to find out how.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;migration-strategy&quot;&gt;Migration strategy&lt;a class=&quot;zola-anchor&quot; href=&quot;#migration-strategy&quot; aria-label=&quot;Anchor link for: migration-strategy&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I will walk through this migration, step-by-step. Feel free to skip the optional steps if they do not apply to your situation. Note that your new default branch name &lt;em&gt;does not&lt;&#x2F;em&gt; have to be called &lt;code&gt;main&lt;&#x2F;code&gt; – this is just Github’s new default and what I will be using in this example (you can call your new branch &lt;code&gt;steve&lt;&#x2F;code&gt;, for all I care).&lt;&#x2F;p&gt;
+&lt;p&gt;This guide is Github-focused, but you should still be able to follow along for other scenarios – these concepts are not exclusive to Github.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are the high-level steps we’ll go through:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Communicate upcoming changes to collaborators&lt;&#x2F;li&gt;
+&lt;li&gt;Mirror&#x2F;copy &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt; branch&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify any CI that specifically triggers on &lt;code&gt;master&lt;&#x2F;code&gt; to use &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Duplicate branch protections from &lt;code&gt;master&lt;&#x2F;code&gt;, and apply them to &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify draft releases to target &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;(Optional) Modify open pull requests to retarget to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Set the default branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch from local clone&lt;&#x2F;li&gt;
+&lt;li&gt;Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch in remote repo&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;1-communicate-upcoming-changes-to-collaborators&quot;&gt;1. Communicate upcoming changes to collaborators&lt;a class=&quot;zola-anchor&quot; href=&quot;#1-communicate-upcoming-changes-to-collaborators&quot; aria-label=&quot;Anchor link for: 1-communicate-upcoming-changes-to-collaborators&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;This is a very important step!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If your codebase has a significant amount of active development and you plan to rename &lt;code&gt;master&lt;&#x2F;code&gt;, consider the subtle costs and impacts to the workflow. Other developers or operators will need to take action!&lt;&#x2F;p&gt;
+&lt;p&gt;The name of a branch has no bearing on how git functions at a technical level. However, the name of a branch &lt;em&gt;can&lt;&#x2F;em&gt; have high importance because of organizational norms of how development and operations are organized. Not communicating changes to your collaborators about renaming your default branch can cause unnecessary confusion when pushing code and loss of trust.&lt;&#x2F;p&gt;
+&lt;p&gt;You can’t assume that everyone knows enough about git to make the necessary changes to their workflow to participate. (In which case, you can share this guide!)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-mirror-copy-master-branch-to-main-branch&quot;&gt;2. Mirror&#x2F;copy &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt; branch&lt;a class=&quot;zola-anchor&quot; href=&quot;#2-mirror-copy-master-branch-to-main-branch&quot; aria-label=&quot;Anchor link for: 2-mirror-copy-master-branch-to-main-branch&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;To start the migration, we want to branch off &lt;code&gt;master&lt;&#x2F;code&gt; into a local branch named &lt;code&gt;main&lt;&#x2F;code&gt; and push &lt;code&gt;main&lt;&#x2F;code&gt; to remote.&lt;&#x2F;p&gt;
+&lt;p&gt;We’ll work from a fresh clone (assuming our default branch is &lt;code&gt;master&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git clone &amp;lt;url&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ cd &amp;lt;repo&amp;gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the new clone, we will create our new branch, &lt;code&gt;main&lt;&#x2F;code&gt;, and push it to Github.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git checkout -b main
+&lt;&#x2F;span&gt;&lt;span&gt;Switched to a new branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ git push -u origin main
+&lt;&#x2F;span&gt;&lt;span&gt;Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+&lt;&#x2F;span&gt;&lt;span&gt;remote:
+&lt;&#x2F;span&gt;&lt;span&gt;remote: Create a pull request for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; on GitHub by visiting:
+&lt;&#x2F;span&gt;&lt;span&gt;remote:  	https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;example-repo&#x2F;pull&#x2F;new&#x2F;main
+&lt;&#x2F;span&gt;&lt;span&gt;remote:
+&lt;&#x2F;span&gt;&lt;span&gt;To github.com:tjtelan&#x2F;example-repo.git
+&lt;&#x2F;span&gt;&lt;span&gt; * &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;new branch&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt;  	main -&amp;gt; main
+&lt;&#x2F;span&gt;&lt;span&gt;Branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; set up to track remote branch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt; from &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;origin&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;With the new branch pushed, we can now start making the platform changes w&#x2F; respect to the &lt;code&gt;main&lt;&#x2F;code&gt; branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot;&gt;3. Modify any CI that specifically triggers on &lt;code&gt;master&lt;&#x2F;code&gt; to use &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot; aria-label=&quot;Anchor link for: 3-modify-any-ci-that-specifically-triggers-on-master-to-use-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional. You can skip it if you don’t have any continuous integration (CI).&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;CI is often triggered on events for specific branches. I’ll go over an example of updating CI workflow using Github Actions.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;change-your-trigger-branches&quot;&gt;Change your trigger branches&lt;a class=&quot;zola-anchor&quot; href=&quot;#change-your-trigger-branches&quot; aria-label=&quot;Anchor link for: change-your-trigger-branches&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If your CI is triggered on events to your &lt;code&gt;master&lt;&#x2F;code&gt; branch, you’ll obviously need to change that to &lt;code&gt;main&lt;&#x2F;code&gt; for Actions to react to events on the &lt;code&gt;main&lt;&#x2F;code&gt; branch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;: [ &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; ]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;: [ &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; ]
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Or within your jobs:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;update-any-plugins-referencing-master&quot;&gt;Update any plugins referencing &lt;code&gt;master&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#update-any-plugins-referencing-master&quot; aria-label=&quot;Anchor link for: update-any-plugins-referencing-master&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;For example, if you happen to be using any of Github’s official plugins, such as &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;actions&#x2F;checkout&quot;&gt;actions&#x2F;checkout&lt;&#x2F;a&gt;, &lt;&#x2F;p&gt;
+&lt;p&gt;Change your Github Actions to act on &lt;code&gt;main&lt;&#x2F;code&gt; instead of &lt;code&gt;master&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  	- &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;(or use a tag instead of a branch)&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  	- &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    	&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@v2&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you’re using other plugins, you will need to check the repo of those plugins to verify if the author has migrated their &lt;code&gt;master&lt;&#x2F;code&gt; branch to &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot;&gt;4. Duplicate branch protections from &lt;code&gt;master&lt;&#x2F;code&gt;, and apply them to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot; aria-label=&quot;Anchor link for: 4-duplicate-branch-protections-from-master-and-apply-them-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional if you don’t have any branch protection rules.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;&amp;lt;account&amp;gt;&#x2F;&amp;lt;repo&amp;gt;&#x2F;settings&#x2F;branches&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You’ll need to create a new branch protection rule:&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;You’ll probably need to have another window open with the &lt;code&gt;master&lt;&#x2F;code&gt; branch rules open so it’s easier to copy over… At least I did.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Don&amp;#x27;t delete the master branch protection rules before you&amp;#x27;re ready to delete the branch altogeher&quot; &#x2F;&gt;&lt;figcaption&gt;Don&amp;#x27;t delete the master branch protection rules before you&amp;#x27;re ready to delete the branch altogeher&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;After you’re done with all the branch migration, you can delete the branch protection rules for the &lt;code&gt;master&lt;&#x2F;code&gt; branch. There’s no urgency to do it immediately, but you will need to do this before completing the transition to &lt;code&gt;main&lt;&#x2F;code&gt; (Github won’t let you delete a branch that still has active protection rules.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-modify-draft-releases-to-target-main&quot;&gt;5. Modify draft releases to target &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#5-modify-draft-releases-to-target-main&quot; aria-label=&quot;Anchor link for: 5-modify-draft-releases-to-target-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional if you don’t have any draft releases currently targeting &lt;code&gt;master&lt;&#x2F;code&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;In your repo Releases, select Edit on the draft:&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;In the target dropdown, change the branch to &lt;code&gt;main&lt;&#x2F;code&gt; -- and then Save draft. That’s all there is to it!&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;6-modify-open-pull-requests-to-retarget-to-main&quot;&gt;6. Modify open pull requests to retarget to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#6-modify-open-pull-requests-to-retarget-to-main&quot; aria-label=&quot;Anchor link for: 6-modify-open-pull-requests-to-retarget-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;em&gt;This step is optional. You can skip this step if you don’t have existing PRs targeting &lt;code&gt;master&lt;&#x2F;code&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So you have existing PRs against &lt;code&gt;master&lt;&#x2F;code&gt;?&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This is an easy fix! You can just edit the PR to use your new branch as the base branch.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;And retarget the base branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;And then confirm changing the base branch.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;7-set-the-default-branch-to-main&quot;&gt;7. Set the default branch to &lt;code&gt;main&lt;&#x2F;code&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#7-set-the-default-branch-to-main&quot; aria-label=&quot;Anchor link for: 7-set-the-default-branch-to-main&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Once you’ve got the &lt;code&gt;main&lt;&#x2F;code&gt; branch pushed up to Github, it is easy to set &lt;code&gt;main&lt;&#x2F;code&gt; to be the new default branch.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;&amp;lt;account&amp;gt;&#x2F;&amp;lt;repo&amp;gt;&#x2F;settings&#x2F;branches&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In your repository settings, click the drop-down menu, and select &lt;code&gt;main&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Click Update.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Click &lt;code&gt;I understand, update the default branch&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;If your organization needs more time to migrate away from &lt;code&gt;master&lt;&#x2F;code&gt;, you can pause after this step. Commits will need to flow into both &lt;code&gt;main&lt;&#x2F;code&gt; and &lt;code&gt;master&lt;&#x2F;code&gt; until it has been fully transitioned. This may be briefly inconvenient, but it will allow processes to continue until &lt;code&gt;master&lt;&#x2F;code&gt; can be deprecated.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;8-delete-master-branch-in-remote-repo&quot;&gt;8. Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch in remote repo&lt;a class=&quot;zola-anchor&quot; href=&quot;#8-delete-master-branch-in-remote-repo&quot; aria-label=&quot;Anchor link for: 8-delete-master-branch-in-remote-repo&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You have two options to delete the master branch.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;through-the-web-browser&quot;&gt;Through the web browser&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-the-web-browser&quot; aria-label=&quot;Anchor link for: through-the-web-browser&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;On the code tab, click the branch selection drop-down and click the &lt;code&gt;View all branches&lt;&#x2F;code&gt; link&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Note: If you had branch protection rules for &lt;code&gt;master&lt;&#x2F;code&gt;, you will need to delete them prior to this step. Otherwise Github will prevent the branch from being deleted.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;The master branch cannot be deleted because of its branch protection rules&quot; &#x2F;&gt;&lt;figcaption&gt;The master branch cannot be deleted because of its branch protection rules&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;At the branch listing, find one of the rows with &lt;code&gt;master&lt;&#x2F;code&gt; listed, and click the trash icon on the right.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Warning!&lt;&#x2F;strong&gt; There is no additional prompt after clicking this icon. But you have the option to restore the branch while you are still on the page. However, if you’ve made it this far, deleting it is probably what you want&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Deleting the master branch protection rules&quot; &#x2F;&gt;&lt;figcaption&gt;Deleting the master branch protection rules&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;The master branch can now be deleted&quot; &#x2F;&gt;&lt;figcaption&gt;The master branch can now be deleted&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h3 id=&quot;through-the-cli&quot;&gt;Through the cli&lt;a class=&quot;zola-anchor&quot; href=&quot;#through-the-cli&quot; aria-label=&quot;Anchor link for: through-the-cli&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git push --delete -u origin master
+&lt;&#x2F;span&gt;&lt;span&gt;To github.com:tjtelan&#x2F;example-repo.git
+&lt;&#x2F;span&gt;&lt;span&gt; - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;deleted&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt;     	master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;9-delete-master-branch-from-local-clone&quot;&gt;9. Delete &lt;code&gt;master&lt;&#x2F;code&gt; branch from local clone&lt;a class=&quot;zola-anchor&quot; href=&quot;#9-delete-master-branch-from-local-clone&quot; aria-label=&quot;Anchor link for: 9-delete-master-branch-from-local-clone&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ git branch -D master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;media.giphy.com&#x2F;media&#x2F;26u4lOMA8JKSnL9Uk&#x2F;giphy.gif&quot; alt=&quot;Spongebob&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;a-branch-by-any-other-name-would-still-merge-as-clean&quot;&gt;A branch by any other name would still merge as clean&lt;a class=&quot;zola-anchor&quot; href=&quot;#a-branch-by-any-other-name-would-still-merge-as-clean&quot; aria-label=&quot;Anchor link for: a-branch-by-any-other-name-would-still-merge-as-clean&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The names of the branches don’t have any bearing on the functionality of git. But the practice of using offensive terminology to describe defaults or importance needs to end. Plus, &lt;code&gt;main&lt;&#x2F;code&gt; as an initial branch name is a better descriptive label for how the branch is conventionally used.&lt;&#x2F;p&gt;
+&lt;p&gt;If you and your collaborators are able to cease the usage of &lt;code&gt;master&lt;&#x2F;code&gt; as your default branch without needing to rely on Github, your git host provider, or your operations team, I encourage you to do it.&lt;&#x2F;p&gt;
+&lt;p&gt;The git project &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sfconservancy.org&#x2F;news&#x2F;2020&#x2F;jun&#x2F;23&#x2F;gitbranchname&#x2F;&quot;&gt;will soon stop using &lt;code&gt;master&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; as the first branch created by &lt;code&gt;git init&lt;&#x2F;code&gt;. So your organization should prioritize this migration as well as making the necessary changes in your tooling and automation sooner rather than later.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>How to prevent Github Actions from deploying on PR with CI&#x2F;CD</title>
+		<published>2020-06-12T00:00:00+00:00</published>
+		<updated>2020-10-21T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/" type="text/html"/>
+		<id>https://tjtelan.com/blog/github-actions-push-vs-pr-workflow/</id>
+		<content type="html">&lt;h2 id=&quot;my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;My experience using Github Actions for CI&#x2F;CD as a solo contributor&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot; aria-label=&quot;Anchor link for: my-experience-using-github-actions-for-ci-cd-as-a-solo-contributor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am using Github Actions to build and deploy my website when I push. That is a classic continuous integration &#x2F; continuous deployment workflow. It’s convenient to commit, push and have my site build and deploy as a result. This workflow is simple but only works because I am the only contributor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-for-ci-cd-with-pull-request&quot;&gt;Github Actions for CI&#x2F;CD with Pull Request&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-for-ci-cd-with-pull-request&quot; aria-label=&quot;Anchor link for: github-actions-for-ci-cd-with-pull-request&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is a good practice to run sanity checks on pull requests prior to merging. How would that be accomplished with Github Actions?&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that you can do this but you need to be very intentional with how your jobs are configured.&lt;&#x2F;p&gt;
+&lt;p&gt;In my workflow, I am designating a main branch &lt;code&gt;main&lt;&#x2F;code&gt; that will run full CI&#x2F;CD. Build, test and deploy. And for any other branch, just build and test.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll share my example Github Actions workflow file, then I’ll provide a template that you can modify and use for your own purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-example-github-actions-workflow&quot;&gt;My example Github Actions workflow&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-example-github-actions-workflow&quot; aria-label=&quot;Anchor link for: my-example-github-actions-workflow&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s my site’s current workflow file for Github Actions. I’ll break this down.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At the top, I am specifying the events that I want to trigger on with the &lt;code&gt;on&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I want to trigger on push events to the &lt;code&gt;main&lt;&#x2F;code&gt; branch, and all pull requests.&lt;&#x2F;p&gt;
+&lt;p&gt;Later below are 2 jobs that are almost identical. I’ll break them down one at a time then compare their differences.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;build&lt;&#x2F;code&gt; job &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build only&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_ONLY&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. Or another way to say this is I check that the working branch that triggered this job is not the &lt;code&gt;main&lt;&#x2F;code&gt; branch. I’ll continue forward only if this condition is &lt;code&gt;true&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. I use the &lt;code&gt;actions&#x2F;checkout@main&lt;&#x2F;code&gt; marketplace action to check my code out, and I use my fork of an action for Zola called &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt;. I have an environment variable &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt; set to &lt;code&gt;true&lt;&#x2F;code&gt; which results in building my site but not deploying it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;code&gt;build_and_deploy&lt;&#x2F;code&gt; job&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Build and deploy&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;PAGES_BRANCH&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;gh-pages&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;BUILD_DIR&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;.
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;TOKEN&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;${{ secrets.TOKEN }}&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol&gt;
+&lt;li&gt;This job also uses the &lt;code&gt;ubuntu-latest&lt;&#x2F;code&gt; github hosted runner as my environment.&lt;&#x2F;li&gt;
+&lt;li&gt;I do a similar check for the git ref via the &lt;code&gt;github.ref&lt;&#x2F;code&gt; key. This time I am looking for the working branch to be &lt;code&gt;main&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Lastly are my steps. Same as the previous job, but I am configuring &lt;code&gt;tjtelan&#x2F;zola-deploy-action@main&lt;&#x2F;code&gt; differently. Rather than setting &lt;code&gt;BUILD_ONLY&lt;&#x2F;code&gt;, I am defining &lt;code&gt;PAGES_BRANCH&lt;&#x2F;code&gt; to &lt;code&gt;gh-pages&lt;&#x2F;code&gt;, which is where I want to deploy my site code after build.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;last-words-on-job-differences&quot;&gt;Last words on job differences&lt;a class=&quot;zola-anchor&quot; href=&quot;#last-words-on-job-differences&quot; aria-label=&quot;Anchor link for: last-words-on-job-differences&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The only differences are the branch check via &lt;code&gt;github.ref&lt;&#x2F;code&gt;, and the specifics of &lt;code&gt;steps&lt;&#x2F;code&gt;. I happen to be using my own Github Action &lt;code&gt;tjtelan&#x2F;zola-deploy-action&lt;&#x2F;code&gt; but your steps could consist of anything you want to do differently between pull requests and push to your “special” branch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;github-actions-template&quot;&gt;Github Actions template&lt;a class=&quot;zola-anchor&quot; href=&quot;#github-actions-template&quot; aria-label=&quot;Anchor link for: github-actions-template&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;branches&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;pull_request&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;jobs&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref != &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;build_and_deploy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;runs-on&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ubuntu-latest&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;github.ref == &amp;#39;refs&#x2F;heads&#x2F;main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;steps&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;      - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Checkout&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;uses&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;actions&#x2F;checkout@main&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here’s a template that you can use for your own push vs PR workflows. By default, I assume &lt;code&gt;main&lt;&#x2F;code&gt; as the special branch, so you’ll need to change that if you want to use a different branch. Additionally, you’ll need to provide all the steps to take after checking code out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sources&quot;&gt;Sources&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.community&#x2F;t&#x2F;how-to-trigger-an-action-on-push-or-pull-request-but-not-both&#x2F;16662&#x2F;3&quot;&gt;Github Community question: How to trigger an action on push or pull request but not both?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;events-that-trigger-workflows&quot;&gt;Github Actions reference: Events that trigger workflows&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;virtual-environments-for-github-hosted-runners&quot;&gt;Github Actions reference: Virtual Environments for Github-hosted runners&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;help.github.com&#x2F;en&#x2F;actions&#x2F;reference&#x2F;context-and-expression-syntax-for-github-actions#github-context&quot;&gt;Github Actions reference: Context and expression syntax - Github context&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>How to link multiple docker-compose services via network</title>
+		<published>2020-06-11T00:00:00+00:00</published>
+		<updated>2020-06-11T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" type="text/html"/>
+		<id>https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/</id>
+		<content type="html">&lt;p&gt;This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;The desired result was to be able to define a docker-compose.yml in one file, and in a second docker-compose.yml have the ability to reach the first service via service or container name for development purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;Default scenario: Two separate docker-compose.yml and two separate default networks&lt;a class=&quot;zola-anchor&quot; href=&quot;#default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot; aria-label=&quot;Anchor link for: default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s take a simple docker compose file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When it starts up, a default network is created. Its name is based on the service name and the directory name of the docker-compose.yml file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating network &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;compose1_default&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; with the default driver
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;second-docker-compose-file&quot;&gt;Second docker compose file&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-docker-compose-file&quot; aria-label=&quot;Anchor link for: second-docker-compose-file&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Starting services in a second docker compose file, we see the same behavior. A new default network is created and used.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating network &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;compose2_default&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; with the default driver
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A side-effect of these isolated networks are that the containers are unable to ping one another by service name or container name.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-from-service-1-ping-service-2&quot;&gt;Test: From Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-from-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-from-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;service2&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping compose2_service2_1 
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;compose2_service2_1&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;test-service-2-ping-service-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;service1&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping compose1_service1_1 
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;compose1_service1_1&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;new-scenario-sharing-a-network-between-services&quot;&gt;New scenario: Sharing a network between services&lt;a class=&quot;zola-anchor&quot; href=&quot;#new-scenario-sharing-a-network-between-services&quot; aria-label=&quot;Anchor link for: new-scenario-sharing-a-network-between-services&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want define services in multiple docker-compose.yml files, and also have network connectivity between the services, you need to configure your services to use the same network.&lt;&#x2F;p&gt;
+&lt;p&gt;To create an external network, you can run &lt;code&gt;docker network create &amp;lt;name&amp;gt;&lt;&#x2F;code&gt;. -- where &lt;code&gt;&amp;lt;name&amp;gt;&lt;&#x2F;code&gt; can be a single string without spaces.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;creating-the-network&quot;&gt;Creating the network&lt;a class=&quot;zola-anchor&quot; href=&quot;#creating-the-network&quot; aria-label=&quot;Anchor link for: creating-the-network&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ docker network create external-example
+&lt;&#x2F;span&gt;&lt;span&gt;2af4d92c2054e9deb86edaea8bb55ecb74f84a62aec7614c9f09fee386f248a6
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;modified-first-docker-compose-file-with-network-configured&quot;&gt;Modified first docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-first-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-first-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;networks&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;external-example&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;modified-second-docker-compose-file-with-network-configured&quot;&gt;Modified second docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-second-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-second-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;networks&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;external-example&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After running &lt;code&gt;docker-compose up -d&lt;&#x2F;code&gt; on both docker-compose.yml files, we see that no new networks were created.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ docker network ls
+&lt;&#x2F;span&gt;&lt;span&gt;NETWORK ID          NAME                DRIVER              SCOPE
+&lt;&#x2F;span&gt;&lt;span&gt;25e0c599d5e5        bridge              bridge              local
+&lt;&#x2F;span&gt;&lt;span&gt;2af4d92c2054        external-example    bridge              local
+&lt;&#x2F;span&gt;&lt;span&gt;7df4631e9cff        host                host                local
+&lt;&#x2F;span&gt;&lt;span&gt;194d4156d7ab        none                null                local
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With the containers using the &lt;code&gt;external-example&lt;&#x2F;code&gt; network, they are able to ping one another.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-service-1-ping-service-2&quot;&gt;Test: Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span&gt;PING service2 (172.24.0.3): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.3: seq=0 ttl=64 time=0.054 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- service2 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.054&#x2F;0.054&#x2F;0.054 ms
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping compose2_service2_1
+&lt;&#x2F;span&gt;&lt;span&gt;PING compose2_service2_1 (172.24.0.2): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.2: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- compose2_service2_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;test-service-2-ping-service-1-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span&gt;PING service1 (172.24.0.2): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.2: seq=0 ttl=64 time=0.041 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- service1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.041&#x2F;0.041&#x2F;0.041 ms
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping compose1_service1_1
+&lt;&#x2F;span&gt;&lt;span&gt;PING compose1_service1_1 (172.24.0.3): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.3: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- compose1_service1_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As a note, you can configure your services to use a custom container name by declaring the &lt;code&gt;container_name&lt;&#x2F;code&gt; key under each service (i.e., at the same level as &lt;code&gt;image&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;compose&#x2F;compose-file&#x2F;#container_name&quot;&gt;Link to Docker-compose docs - container_name&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;takeaway&quot;&gt;Takeaway&lt;a class=&quot;zola-anchor&quot; href=&quot;#takeaway&quot; aria-label=&quot;Anchor link for: takeaway&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You can connect services defined across multiple docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;In order to do this you’ll need to:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create an external network with &lt;code&gt;docker network create &amp;lt;network name&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;In each of your docker-compose.yml  configure the default network to use your externally created network with the &lt;code&gt;networks&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;li&gt;
+&lt;li&gt;You can use either the service name or container name to connect between containers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Deploy Postfix Gmail relay with Ansible on Raspberry Pi</title>
+		<published>2018-11-27T00:00:00+00:00</published>
+		<updated>2018-11-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/" type="text/html"/>
+		<id>https://tjtelan.com/blog/deploy-postfix-gmail-relay-with-ansible/</id>
+		<content type="html">&lt;h2 id=&quot;why-would-we-want-to-do-this&quot;&gt;Why would we want to do this?&lt;a class=&quot;zola-anchor&quot; href=&quot;#why-would-we-want-to-do-this&quot; aria-label=&quot;Anchor link for: why-would-we-want-to-do-this&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The virtualization servers at work are running VMWare ESXi, with Vcenter Server Applicance (VCSA) as our bridge to using cool, free tools like Packer, and Terraform to automate my interactions with virtual resources.&lt;&#x2F;p&gt;
+&lt;p&gt;A downside we discovered is VCSA&#x27;s lack of support for SMTP that requires auth, which Google requires when you send mail through them.&lt;&#x2F;p&gt;
+&lt;p&gt;Postfix can handle the anonymous request from VCSA, and send it out to gmail with provided creds.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-do-i-get-started&quot;&gt;How do I get started?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-do-i-get-started&quot; aria-label=&quot;Anchor link for: how-do-i-get-started&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Since we wanted to get an email whenever there as an issue with the virtualization servers, it made sense to hostthis service on its own hardware.&lt;&#x2F;p&gt;
+&lt;p&gt;I am going to be hosting this service using a Raspberry Pi 3 model B running Raspbian Stretch, and configuring it from my host using Ansible. This detail is not critical for following this guide. Any Debian-derived OS (like Ubuntu) that Ansible supports will work for hosting.&lt;&#x2F;p&gt;
+&lt;p&gt;You just need to make sure SSH is turned on, and that you have the IP address. (The default username&#x2F;pass on RasPis is &lt;code&gt;pi&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;raspberry&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;p&gt;At minimum, you need the following tools installed on your host:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 3&lt;&#x2F;li&gt;
+&lt;li&gt;Ansible 2.7&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Download this helpful role for installing Postfix. At the time of this writing, it was the best public Postfix Ansible role, because its documentation had examples of how to configure the deployment as a gmail relay. Very straight forward.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;Oefenweb&#x2F;ansible-postfix&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you install this role in your Ansible client&#x27;s &lt;code&gt;role_path&lt;&#x2F;code&gt;,  then you can use the example playbook I slightly modified, (and annotated) from the ansible-postfix README.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;example-ansible-playbook&quot;&gt;Example ansible playbook&lt;a class=&quot;zola-anchor&quot; href=&quot;#example-ansible-playbook&quot; aria-label=&quot;Anchor link for: example-ansible-playbook&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;---
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;Setup basic raspberry pi host as SMTP relay (Rasbian)&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;hosts&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;mailproxy&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;vars&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_mynetworks&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv4 localhost loopback subnet
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;127.0.0.0&#x2F;8&amp;#39;             
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv4 mapped IPv6 localhost loopback subnet
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;[::ffff:127.0.0.0]&#x2F;104&amp;#39;  
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the IPv6 localhost loopback address
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;[::1]&#x2F;128&amp;#39;               
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This is the local private network subnet, like the IPv4 address space from your home router
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# This addition allows other hosts on the network to send mail through this relay!
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;192.168.0.0&#x2F;24&amp;#39;          
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_smtpd_relay_restrictions&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says to permit requests if the client is in the $mynetworks whitelist
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_mynetworks
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;permit_mynetworks&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says relay the request if client is authenticated to the smtp server
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#permit_sasl_authenticated
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;permit_sasl_authenticated&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  This says to reject the request unless it knows about the destination (the domain)
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#  http:&#x2F;&#x2F;www.postfix.org&#x2F;postconf.5.html#reject_unauth_destination
+&lt;&#x2F;span&gt;&lt;span&gt;        - &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;reject_unauth_destination&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Lastly, I believe the order of these restrictions matter, so this last one must catch the rest of the garbage requests
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_relayhost&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;smtp.gmail.com&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_smtp_tls_cafile&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;&#x2F;etc&#x2F;ssl&#x2F;certs&#x2F;ca-certificates.crt&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_relaytls&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_sasl_user&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;username@gmail.com&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;postfix_sasl_password&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;apppasswordgeneratedgarbage&amp;#39;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;roles&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;ansible-postfix&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;some-additional-notes&quot;&gt;Some additional notes&lt;a class=&quot;zola-anchor&quot; href=&quot;#some-additional-notes&quot; aria-label=&quot;Anchor link for: some-additional-notes&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;ul&gt;
+&lt;li&gt;To configure vCenter, I followed this guide. It might be helpful to note that I only found these instructions to work with the Flash-based client, not the HTML5-based client. But it would be really great if the settings could be configured over the command line with VMWare&#x27;s vSphere CLI tool, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;vmware&#x2F;govmomi&#x2F;tree&#x2F;master&#x2F;govc&quot;&gt;govc&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.vmware.com&#x2F;en&#x2F;VMware-vSphere&#x2F;6.5&#x2F;com.vmware.vsphere.vcenterhost.doc&#x2F;GUID-467DA288-7844-48F5-BB44-99DE6F6160A4.html&quot;&gt;VMWare Docs - Configure Mail Sender Settings - VSphere 6.5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Without the &lt;code&gt;postfix_mynetworks&lt;&#x2F;code&gt; addition of my local network, I was unable to successfully see email alerts from VCSA being sent from Postfix&lt;&#x2F;li&gt;
+&lt;li&gt;This also differs from the Oefenweb&#x2F;ansible-postfix example, in that I am not setting any &lt;code&gt;postfix_aliases&lt;&#x2F;code&gt;, since it was my experience that it didn&#x27;t ever work. Email was always from whoever was configured as &lt;code&gt;postfix_sasl_user&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;test-the-configuration&quot;&gt;Test the configuration&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-the-configuration&quot; aria-label=&quot;Anchor link for: test-the-configuration&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Here is how to send a test email, from the Raspberry Pi, using &lt;code&gt;mail&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;pi@raspberrypi:~ $ echo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Hello world, it&amp;#39;s ya boi, RaspberryPi&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span&gt;mail -s &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;[SMTP proxy] Hello World&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; your.email@domain.com
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Learning New Build Systems</title>
+		<published>2017-04-01T00:00:00+00:00</published>
+		<updated>2017-04-01T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/learning-new-build-systems/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-new-build-systems/</id>
+		<content type="html">&lt;p&gt;I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C&#x2F;C++ with make.&lt;&#x2F;p&gt;
+&lt;p&gt;I most recently got to play with Java&#x2F;Maven, and NodeJS&#x2F;Gulp.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The project I was building has a UI written in node, and built into an npm module with gulp. There are also maven pom files that describe the build with gulp using npm run build. This was done so everything could be orchestrated for building into a java jar.&lt;&#x2F;p&gt;
+&lt;p&gt;Things I thought were neat about maven is the plugin system.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m not a huge fan of the pom files using xml, but it is really nice to be able to configure dependencies, and dynamically define build artifacts. The local maven repo is still a little confusing at times, but with more time I think it&#x27;ll make more sense.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The UI build with gulp was more unfamiliar. The build instructions are in javascript, naturally. You can use &lt;code&gt;gulp.task()&lt;&#x2F;code&gt; and define a list of dependencies. But I had some experiences where my dependency lists were not made explicit enough. I suppose this is not much different than makefiles.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

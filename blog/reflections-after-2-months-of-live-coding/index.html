@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Reflections after 2 months of live coding &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/reflections-after-2-months-of-live-coding/" />
+   
+  <meta property="og:title" content="Reflections after 2 months of live coding" />
+  
+  
+  <meta property="og:description" content="Sharing thoughts, experiences, and goals about live-coding Rust on Twitch" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/reflections-after-2-months-of-live-coding/" />
+   
+  <meta name="twitter:title" content="Reflections after 2 months of live coding" />
+  
+  
+  <meta name="twitter:description" content="Sharing thoughts, experiences, and goals about live-coding Rust on Twitch" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Reflections after 2 months of live coding</h1>
+    
+    <span class="post-meta">
+        9 min read
+        &nbsp;&bull;&nbsp;
+        2020-09-22
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/review/">
+              review
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/streaming/">
+              #streaming
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/twitch/">
+              #twitch
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/livecoding/">
+              #livecoding
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+        
+      </span>
+
+    <p>I started streaming on Twitch this summer. I have been streaming Rust development once a week.</p>
+<p>The opportunity presented itself for reasons related to the current state of travel industries (and the economic consequences that followed). It has been an interesting learning experience. </p>
+<p>After experimenting with something, it’s always good to take time to stop and reflect on what has been successful and where there’s room for improvement. The time I’ve spent so far has been challenging and confusing – but also enjoyable. This post is for anyone interested in the experiences of a beginning streamer, or anyone considering dipping their toes into the Twitch pool.</p>
+<p>I’ll organize my reflections into 3 sections:</p>
+<ul>
+<li>Things completely in my control</li>
+<li>Short-term objectives that I can influence</li>
+<li>Long-term aspirations</li>
+</ul>
+<p><em>If you’re interested how I got started, <a href="https://tjtelan.com/blog/what-i-learned-running-a-live-programming-stream-from-linux/">I wrote a post about it that you can check out!</a></em></p>
+<h2 id="things-completely-in-my-control">Things completely in my control<a class="zola-anchor" href="#things-completely-in-my-control" aria-label="Anchor link for: things-completely-in-my-control">🔗</a></h2>
+<p>Like most things in life, there’s not much completely within my control. But I can tinker with my channel's look and feel, the time and duration I stream, and what I work on during each stream.</p>
+<h3 id="content">Content<a class="zola-anchor" href="#content" aria-label="Anchor link for: content">🔗</a></h3>
+<p><strong>Working on a project provides natural boundaries.</strong> Before beginning a stream, I don’t need to know 100% what I’m going to accomplish or how. But I’m more mentally present if I am not thinking too much about what I need to do next. To help with that, I like to plan a predetermined, single direction per stream. I choose a reasonably-sized goal to work on for each stream, and try to roughly break down the steps so I have a small map to follow during the stream.</p>
+<p>I also expose project management over stream (via Github projects), which keeps me focused on individual tasks and keeps my stream content on track.</p>
+<p><strong>Learn from my mistake.</strong> If you cross-stream to YouTube, be mindful of Content ID. I experimented with background music and naively loaded up another YouTube steam for a short moment. Don’t do this! Pretty quickly it was automatically flagged. Look for royalty-free music instead.</p>
+<h3 id="viewer-experience">Viewer experience<a class="zola-anchor" href="#viewer-experience" aria-label="Anchor link for: viewer-experience">🔗</a></h3>
+<p>As I’ve continued on, I've put more effort into improving the experience of viewing my stream These are my key takeaways:</p>
+<p><strong>Know your limits.</strong> I’ve learned that 3 hours is about my maximum session length. Any longer and I start to feel low energy and my voice gets tired from all the talking. Not to mention, my current viewership and audience engagement doesn't justify being online for that long.</p>
+<p><strong>Show your process</strong>. There are two steps (where I’m not actively coding) that I include on my stream as part of my process: diagrams and project management. </p>
+<ul>
+<li>Writing code is a lot of effort, especially if you don’t know where you’re going. For me, drawing out diagrams of structures or algorithms is like writing an outline before I start coding. I’ve been learning Figma to make nice diagrams for streams.</li>
+<li>If I’m practicing project management, I’ll do it live. Lately, I’ve been using Github projects to manage my roadmap and planning.</li>
+</ul>
+<p>This is an opportunity to show real parts of my process, and there’s no reason to hide that from viewers. </p>
+<p><strong>If you don’t know, now you know.</strong> If I don’t know something, I'll open a browser and look up documentation and examples or ask my viewers. It won’t benefit anyone if I’m just struggling. Plus, sometimes the audience can help out . Looking for answers is also a very normal part of coding – no one knows everything, and searching for things effectively is a skill in and of itself.</p>
+<p><strong>Talk it out.</strong> It takes some practice, but speaking out my thought process has definitely  from when I first started. I realized as I was watching other live-coding streamers for research that it’s not exactly interesting to watch in silence as someone types. People usually will help if they know what you're trying to figure out, or ask questions to feel involved.</p>
+<p><strong>Don’t stress.</strong> I also found it helpful to turn off the viewers count if you have the stream manager open. It serves no real time purpose and causes unnecessary mental stress if you're alone in your stream. Always talk like someone is watching.</p>
+<p><strong>Back in five.</strong> Have OBS scenes to switch to for bathroom breaks or intentional moments away from the keyboard.  I think this is just polite as a non-gamer stream. It’s a bit of a bummer to open up a stream to an empty chair and no indication of when the person will be coming back.</p>
+<h2 id="short-term-objectives-i-can-influence">Short-term objectives I can influence<a class="zola-anchor" href="#short-term-objectives-i-can-influence" aria-label="Anchor link for: short-term-objectives-i-can-influence">🔗</a></h2>
+<p>I have set a few new long-term goals for myself. But I'll always need to deal with the same obstacles to broadcasting effectively, and get viewers to agree to hang out and talk to me.</p>
+<h3 id="asking-myself-questions-first">Asking myself questions first<a class="zola-anchor" href="#asking-myself-questions-first" aria-label="Anchor link for: asking-myself-questions-first">🔗</a></h3>
+<p><strong>Practice makes perfect.</strong> If you are going to be exploring a new library on your stream, then practice using it for a non-trivial amount of time prior to broadcast. This will serve the purpose of defining a direction for the stream, in addition to building familiarity of where some of the pitfalls are in case of roadblocks. Having some familiarity with the tools or systems I’m working with also makes me feel more confident in demonstrating it, even when I don’t know how to do everything I plan on doing.</p>
+<p><strong>&lt;human&gt; has entered the chat.</strong> People who chat will often not talk about the code you're writing. This isn't a negative! People usually just want to get to know me. Keep in mind, Twitch is not a lecture hall (unless that’s actually what your stream actually is).</p>
+<p>Yes, it can feel a little disruptive to your train of thought if you’re only prepared to talk about what you’re working on. But that's another reason why to prepare with a plan and practice with any new tools.</p>
+<h3 id="reaching-an-audience">Reaching an audience<a class="zola-anchor" href="#reaching-an-audience" aria-label="Anchor link for: reaching-an-audience">🔗</a></h3>
+<p><strong>On Twitch.</strong> Twitch does little to promote for you as a small streamer. So experimenting with self-promotion is a must.</p>
+<p>The lack of promotion can be a double-edged sword, compared to YouTube. The requirements for Twitch Affiliate are more modest but still take effort. </p>
+<p><strong>On YouTube.</strong> YouTube technically promotes you through search results, but I still need to experiment with self-promotion. The bar for reaching YouTube Partner is significantly higher. It definitely requires a different strategy to build an audience than Twitch. I am not actively focused on building my audience here... I just use Restream.io to simultaneously go live on YouTube and Twitch.</p>
+<h2 id="long-term-aspirations">Long-term aspirations<a class="zola-anchor" href="#long-term-aspirations" aria-label="Anchor link for: long-term-aspirations">🔗</a></h2>
+<p>Truthfully, I don’t have any desire to make a living as a full-time streamer. However, I would like to have diverse sources of income, including anything I can make through streaming and anything I create while streaming. So for that reason alone, it makes it feel more important to take this a little seriously so that I will be able to meet the requirements for Twitch Affiliate.</p>
+<h3 id="twitch-specific-channel-improvements">Twitch-specific channel improvements<a class="zola-anchor" href="#twitch-specific-channel-improvements" aria-label="Anchor link for: twitch-specific-channel-improvements">🔗</a></h3>
+<p>If I look at the more successful live-coding streamers, they have been on Twitch for a while, they’ve put some effort in their visual branding, and they are on a Twitch team. I believe that these are all realistically achievable for me if I put in the work. Here are improvements I am actively planning or working on:</p>
+<ul>
+<li>Visual improvements to my OBS scenes</li>
+<li>Making my Twitch profile more interesting</li>
+<li>Coming up with project ideas that are interesting and/or novel</li>
+<li>Determining what time of day to start my stream, so people are more likely to stop by and stick around for a while</li>
+<li>Reaching the requirements for Twitch Affiliate</li>
+<li>Joining a team: my goal is to join the <a rel="noopener nofollow" target="_blank" href="https://www.twitch.tv/team/rustaceans">Rustaceans</a> Twitch team once I reach Affiliate status.</li>
+</ul>
+<h3 id="networking">Networking<a class="zola-anchor" href="#networking" aria-label="Anchor link for: networking">🔗</a></h3>
+<p>I stated before that Twitch doesn’t do much to promote small streamers. Promotion seems to be geared toward creators who are already reaching an audience. Networking is a creative skill I get to build that wouldn’t normally present itself in the Software industry in this capacity. It will certainly benefit me outside the context of streaming. Here are a few paths for networking:</p>
+<p><strong>Pre-stream promotion.</strong> It can be hard to find the appropriate venue for pre-stream promotion. I’ve personally found that Twitter is not a great place to promote if you don’t have an existing audience. My engagement is very low on my tweets for good reason. But it isn’t the only option I have. </p>
+<p><strong>Find an audience by being active in communities.</strong> I wasn’t really watching other live-coding streams on Twitch prior to doing it myself, but I have noticed that I learn a lot by watching other streamers that are about the same size as myself or larger and taking note of what they do “right”. As well as interacting with them and their audience.</p>
+<p>One nice surprise was finding that there are a lot of small channel live-coders or Rust language enthusiasts like me who show up in my chat to talk, and I’ve been able to make some connections this way.</p>
+<p>I’m also working on being a more active member of the Rust community. I’ve been using this language for a while. I don’t consider myself an expert, but I do feel like the community can benefit from  my voice and experience.</p>
+<p><strong>Talk to the people around me.</strong> I hear that Seattle has a pretty active tech scene (For reasons, I need to state that this is a joke).</p>
+<h3 id="leveling-up">Leveling up<a class="zola-anchor" href="#leveling-up" aria-label="Anchor link for: leveling-up">🔗</a></h3>
+<p>This is a bit of my insecurity presenting itself. But I notice improvements the longer I continue, which encourages me to keep going. I hope to:</p>
+<ul>
+<li>Improve my skill as someone who can design, plan, and write code. Especially in the domains I spend the most time in: Rust, Python, and Javascript.</li>
+<li>Come to terms with my self-consciousness about not being “a good programmer”.</li>
+<li>Write more blog posts(I’m near the end of this one. It gets easier the more I do it.)</li>
+<li>Producing videos for YouTube as companions to blog posts</li>
+</ul>
+<hr />
+<p>If you’ve made it this far, thanks for reading!</p>
+<p>I could not have predicted where I’d be this year. It has not shaped up to be anywhere near what I thought it might be. But I am fortunate that I was able to try something I would have normally not done before.</p>
+<p>If you’re interested in how my story continues to procedurally generate, follow me on Twitch.</p>
+<p><a rel="noopener nofollow" target="_blank" href="https://www.twitch.tv/tjtelan">https://www.twitch.tv/tjtelan</a></p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

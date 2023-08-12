@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - freescale</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/freescale/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-05-27T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/freescale/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Senior Project Update</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/senior-project-update/" type="text/html"/>
+		<id>https://tjtelan.com/blog/senior-project-update/</id>
+		<content type="html">&lt;p&gt;Presentations are just around the corner and I haven&#x27;t been making quite as many updates with regard to my project.&lt;&#x2F;p&gt;
+&lt;p&gt;The quick summary will have to do for now: It is using an ARM based microcontroller (Freescale Kinetis K60 -- tower system). The function it is serving is web-enabled home automation. I&#x27;m using the MQX real-time operating system. Users of this system will control the devices connected to the system through a web browser.&lt;&#x2F;p&gt;
+&lt;p&gt;The code for this project is up on github, so anyone can contribute, customize for themselves or just look at the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;homewatchdog&quot;&gt;code&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I plan to have a reflection up after next Thursday.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Deep breath&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Still so much to add.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>
