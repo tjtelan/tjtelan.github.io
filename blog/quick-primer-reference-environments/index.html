@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Quick Primer to Practical Reproducible builds: Reference Environments &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/quick-primer-reference-environments/" />
+   
+  <meta property="og:title" content="Quick Primer to Practical Reproducible builds: Reference Environments" />
+  
+  
+  <meta property="og:description" content="Make contributing easy. The system requirements to build your code is just as important as the code itself." />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/quick-primer-reference-environments/" />
+   
+  <meta name="twitter:title" content="Quick Primer to Practical Reproducible builds: Reference Environments" />
+  
+  
+  <meta name="twitter:description" content="Make contributing easy. The system requirements to build your code is just as important as the code itself." />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Quick Primer to Practical Reproducible builds: Reference Environments</h1>
+    
+    <span class="post-meta">
+        7 min read
+        &nbsp;&bull;&nbsp;
+        2020-11-27
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/devops/">
+              devops
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/devops/">
+              #devops
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/automation/">
+              #automation
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/scripting/">
+              #scripting
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/config-management/">
+              #config-management
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/virtual-machine/">
+              #virtual-machine
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/containers/">
+              #containers
+            </a>
+          
+        
+      </span>
+
+    <h2 id="overview">Overview<a class="zola-anchor" href="#overview" aria-label="Anchor link for: overview">🔗</a></h2>
+<p>This post is inspired by a larger <a rel="noopener nofollow" target="_blank" href="https://twitter.com/bitshiftmask/status/1321623304004866050">Twitter thread by James Munns</a> about industry practices to follow for embedded systems projects that are not covered in school. Particularly the concept of a reference environment. However this idea is important across all platforms of software development. </p>
+<p>Our aim is to be pragmatic to a wide audience of “Developers” and not to be confused with the goals of the <a rel="noopener nofollow" target="_blank" href="https://reproducible-builds.org/">reproducible builds project</a>. (I’m not worrying about achieving <a rel="noopener nofollow" target="_blank" href="https://reproducible-builds.org/docs/deterministic-build-systems/">complete build environment determinism</a>. There is a lot more involved that is out of scope for this discussion, but I encourage others to check it out.)</p>
+<h2 id="what-s-the-benefit">What’s the benefit?<a class="zola-anchor" href="#what-s-the-benefit" aria-label="Anchor link for: what-s-the-benefit">🔗</a></h2>
+<p>The benefit of a reference environment is to allow a practical step-by-step plan for individuals to reproduce a suitable environment in order to build from a codebase, produce artifacts and interface with any external hardware.</p>
+<p>I want to help you form a maintainable process of documenting what is needed to build your code, and create artifacts for release.</p>
+<p>The expected outcome is to create a reference environment for build and release purposes.</p>
+<p>An additional side-effect of this effort is a shortening of the effort to onboard new devs and testers into new projects or codebases. Additionally version control of this process will reduce your organization’s institutional knowledge.</p>
+<h3 id="your-reference-environment-can-be-used-for">Your reference environment can be used for:<a class="zola-anchor" href="#your-reference-environment-can-be-used-for" aria-label="Anchor link for: your-reference-environment-can-be-used-for">🔗</a></h3>
+<ul>
+<li>CI environments</li>
+<li>Onboarding new developers</li>
+<li>Projects that don’t get modified very often</li>
+<li>Embedded projects</li>
+<li>Mobile projects</li>
+<li>Projects with private code</li>
+<li>Projects with vendored / version pinned code</li>
+<li>Legacy code</li>
+</ul>
+<h2 id="start-your-reference-environment-in-steps">Start your reference environment in steps<a class="zola-anchor" href="#start-your-reference-environment-in-steps" aria-label="Anchor link for: start-your-reference-environment-in-steps">🔗</a></h2>
+<h3 id="first-level-automate-what-is-easy-and-document-what-is-hard">First level: Automate what is easy and Document what is hard<a class="zola-anchor" href="#first-level-automate-what-is-easy-and-document-what-is-hard" aria-label="Anchor link for: first-level-automate-what-is-easy-and-document-what-is-hard">🔗</a></h3>
+<p>You need to have a step-by-step set of commands to run that walk you through downloading and installing your tools in order to enable others to build their own reference environment. Tools and libraries installed through a package manager, and anything manually installed off a website.</p>
+<p>The goal of documenting the setup of your local environment can then be further streamlined the more you automate the step-by-step into scripts that you can provide.</p>
+<p>The experience you want to cultivate is a relatively short step from a fresh clone, to building and modifying code.</p>
+<p>If you use a language that has its own package manager used to compile, such as Javascript’s NPM, Java’s Maven or Rust’s Cargo, then you are able to keep track of the names and version numbers of the libraries you use.</p>
+<p>I recommend that you learn how to use these tools to also remove files created during build. Cached files from previous builds are classic causes of “<a rel="noopener nofollow" target="_blank" href="https://www.leadingagile.com/2017/03/works-on-my-machine/">works on my machine</a>” and may hide otherwise obvious issues. Make a habit of trying to reproduce issues starting from a cache-free build by using the same tools for build to also remove the files and directories it creates.</p>
+<p>Not all language package managers come with cleanup functionality, so you may need to install  plugins. Otherwise you should use a tool like <code>make</code>, and create separate <code>make build</code> and <code>make clean</code> targets.</p>
+<h3 id="second-level-shell-scripts">Second level: Shell scripts<a class="zola-anchor" href="#second-level-shell-scripts" aria-label="Anchor link for: second-level-shell-scripts">🔗</a></h3>
+<p>Automation should be driven by makefiles or plain shell scripts like <code>bash</code>/<code>zsh</code>/<code>fish</code>/<code>sh</code> or in windows <code>batch</code> or <code>powershell</code>. The rationale is that these are plain commands that you can copy/paste from your terminal, and into the script. You can always call out to another language like <code>python</code>/<code>ruby</code>/<code>perl</code> or other tools.</p>
+<p>But the initial point of functionality should be plain shell scripting through an executable shell script or a <code>Makefile</code>.</p>
+<p>If you are working from an existing step-by-step document, then you should have a sequence of commands that you can transfer straight into your script. This is a lot fewer commands for your future users (and future you) to deal with.</p>
+<h3 id="third-level-configuration-management">Third level: Configuration management<a class="zola-anchor" href="#third-level-configuration-management" aria-label="Anchor link for: third-level-configuration-management">🔗</a></h3>
+<p>There are tools that specifically deal with configuration management of your operating system / development environment. One of their main selling points is declaring the desired state through config files instead of scripting everything step-by-step. The tools read the config files and check the system for differences. If differences are found, then these tools take specific actions in order to attempt to bring the reality of the system state to be the same as the config.</p>
+<p>The config files lend themselves into achieving automation that is “<a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Idempotence">idempotent</a>”. A simple explanation of idempotency with respect to configuration automation is experienced when running the automation twice in succession. The first time, an automation tool takes a moment to execute because work is being performed. The second time, the tool discovers that there is no work to be done so the execution time is significantly reduced.</p>
+<p>Examples:</p>
+<ul>
+<li>Ansible</li>
+<li>Saltstack</li>
+<li>Puppet</li>
+<li>Chef</li>
+</ul>
+<p>In your shell scripts, you need to install these config management tools first. But then the tools can replace significant volumes of shell scripts in many cases because their idempotent properties lead to more efficient execution. The more popular tools have an added benefit of wide support of different OSes, allowing your configs to also widely support different OSes.</p>
+<h3 id="next-level-portable-reference-environments-via-virtual-machines-containers">Next level: Portable Reference Environments via Virtual Machines &amp; Containers<a class="zola-anchor" href="#next-level-portable-reference-environments-via-virtual-machines-containers" aria-label="Anchor link for: next-level-portable-reference-environments-via-virtual-machines-containers">🔗</a></h3>
+<p>Building your reference environment within a virtual machine may enable you to be a little less strict about documenting and automating your setup. After you build the environment, you can save a snapshot, back it up or even distribute it to others. This can be convenient and portable in most cases.</p>
+<p>You can also use your scripts or config management to configure virtual machines, or containers. Using tools like <a rel="noopener nofollow" target="_blank" href="https://www.vagrantup.com/">Vagrant</a> or <a rel="noopener nofollow" target="_blank" href="https://www.docker.com/">Docker</a> allow you to store the instructions for building virtual machines (via <a rel="noopener nofollow" target="_blank" href="https://www.vagrantup.com/docs/vagrantfile">Vagrantfile</a>) or containers (via <a rel="noopener nofollow" target="_blank" href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a>) alongside your code. This enables potential contribution without the need of installing tools locally because the codebase includes a portable development environment.</p>
+<h4 id="platform-specific-caveats">Platform specific caveats<a class="zola-anchor" href="#platform-specific-caveats" aria-label="Anchor link for: platform-specific-caveats">🔗</a></h4>
+<p>Virtualization or containerization is not an available option for every platform. In these cases, you may be limited to config management or documentation for your reference environments.</p>
+<p>If your project has the following, you may have limited support for a portable reference environment. </p>
+<ul>
+<li>Apple products</li>
+<li>Platform-specific tools like IDEs and/or compilers</li>
+<li>Hardware requirements such as GPU</li>
+<li>Very old “Legacy” OSes</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">🔗</a></h2>
+<p>The specific tools, and libraries you use in development may seem obvious to you. But as a courtesy to an outsider, or even to yourself in the future, you need to provide requirements needed to build your code.</p>
+<p>Documentation requires discipline to keep up-to-date. Scripts, config management or even a portable environment such as a virtual machine or a container are even better because they are easier to verify for correctness.</p>
+<p>The less critically someone needs to think in order to get started, the easier it will be to focus on what matters. Reference environments are not one-size-fits all. They may be unique per project, or organization. Do future you or future team members a favor and write these details down. It can save a lot of time and avoid works-on-my-machine.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

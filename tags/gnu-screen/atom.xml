@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - gnu-screen</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/gnu-screen/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-04-04T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/gnu-screen/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Cygwin Screen Reattach Workaround</title>
+		<published>2011-04-04T00:00:00+00:00</published>
+		<updated>2011-04-04T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/cygwin-screen-reattach-workaround/" type="text/html"/>
+		<id>https://tjtelan.com/blog/cygwin-screen-reattach-workaround/</id>
+		<content type="html">&lt;p&gt;In an &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;virtualbox-headless-mode-on-windows-7&#x2F;&quot;&gt;earlier post&lt;&#x2F;a&gt; I mentioned how I was using a VM for my irc usage. I was running GNU screen + irssi to keep a persistent connection so I can idle in channels.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve been experimenting with using Cygwin to make my Windows 7 machine my SSH box. So I installed irssi + screen... Looks like everything is all good.&lt;&#x2F;p&gt;
+&lt;p&gt;(BTW: If you use a terminal emulator and you haven&#x27;t looked into GNU screen, I really recommend that you do.)&lt;&#x2F;p&gt;
+&lt;p&gt;However, I&#x27;ve been bumping into issues with reattaching. After running both screen &lt;code&gt;-DR&lt;&#x2F;code&gt; and &lt;code&gt;-DRR&lt;&#x2F;code&gt; just hung there.&lt;&#x2F;p&gt;
+&lt;p&gt;Quick search for a solution led me to [this workaround][cyg-workaround&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#!&#x2F;bin&#x2F;sh
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# Send SIGHUP to each screen to force it to let go and let the server recover
+&lt;&#x2F;span&gt;&lt;span&gt;ps -as &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span&gt;grep screen &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span&gt;cut -c4-7 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span&gt;xargs kill -1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# Reattach
+&lt;&#x2F;span&gt;&lt;span&gt;screen -xRR
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This works for me. I&#x27;d like to not have to go through all the extra trouble, but it is pretty slick.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

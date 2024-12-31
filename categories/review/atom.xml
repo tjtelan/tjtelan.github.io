@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - review</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/categories/review/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2021-01-28T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/categories/review/atom.xml</id>
+	<entry xml:lang="en">
+		<title>9 Insights I Uncovered While Building a Writing Habit</title>
+		<published>2021-01-28T00:00:00+00:00</published>
+		<updated>2021-01-28T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/9-insights-i-uncovered-while-building-writing-habit/" type="text/html"/>
+		<id>https://tjtelan.com/blog/9-insights-i-uncovered-while-building-writing-habit/</id>
+		<content type="html">&lt;h2 id=&quot;building-a-writing-habit&quot;&gt;Building a writing habit&lt;a class=&quot;zola-anchor&quot; href=&quot;#building-a-writing-habit&quot; aria-label=&quot;Anchor link for: building-a-writing-habit&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;In the forever-trying year of 2020, I set my sights on earning the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dev.to&#x2F;badge&#x2F;16-week-streak&quot;&gt;16 week posting streak badge on Dev.to&lt;&#x2F;a&gt; – and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dev.to&#x2F;tjtelan&quot;&gt;I did it&lt;&#x2F;a&gt;! (Then I took a long break from posting.) Before I get started on more tech writing for 2021, I wanted to stop and reflect on this effort.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;how-did-it-go&quot;&gt;How did it go?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-did-it-go&quot; aria-label=&quot;Anchor link for: how-did-it-go&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Pretty well, to be honest. It has been one of the most challenging goals I’ve set for myself. After the 50% mark, I had exhausted the developed ideas in my backlog so it became harder to get in front of my schedule. I had to start the next post immediately after publishing.&lt;&#x2F;p&gt;
+&lt;p&gt;I found a few insights while building my habit for writing, and you might find them helpful, too.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-the-hardest-part-is-getting-started&quot;&gt;1. The hardest part is getting started&lt;a class=&quot;zola-anchor&quot; href=&quot;#1-the-hardest-part-is-getting-started&quot; aria-label=&quot;Anchor link for: 1-the-hardest-part-is-getting-started&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It’s easy to say that some of this is due to the mood of 2020, but it was really easy to fall into self-doubt and self-rejection based on the worry that no one would read what I was going to write. Or that people would read it, but they’d hate it.&lt;&#x2F;p&gt;
+&lt;p&gt;These are still feelings that I sometimes have today. But aside from SEO, marketing on social media, experimenting with the time I post, and other tasks that take effort – whether or not someone clicks and reads is out of my control.&lt;&#x2F;p&gt;
+&lt;p&gt;Due to the mental effort required to overcome these feelings, the hardest part of writing is getting started. As such, it (almost) doesn’t matter what the resulting quality is. Primarily what matters is getting something on one topic on the page, to edit later. &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-editing-is-easier-than-writing&quot;&gt;2. Editing is easier than writing&lt;a class=&quot;zola-anchor&quot; href=&quot;#2-editing-is-easier-than-writing&quot; aria-label=&quot;Anchor link for: 2-editing-is-easier-than-writing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have a much easier time editing than writing from scratch. Knowing this about myself meant that it was a lot more important to complete any kind of first draft, no matter how bad.&lt;&#x2F;p&gt;
+&lt;p&gt;The editing phase takes at least twice as long as writing. This phase may involve complete rewrites of sections, but I still consider that to be less difficult than starting from a blank page. It’s also a lot easier to judge how much I have left to do when the edits are focused on formatting and pacing, and less on content or coherency. &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-don-t-be-a-perfectionist&quot;&gt;3. Don’t be a perfectionist&lt;a class=&quot;zola-anchor&quot; href=&quot;#3-don-t-be-a-perfectionist&quot; aria-label=&quot;Anchor link for: 3-don-t-be-a-perfectionist&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;At least for the content that I’m creating, most people aren’t going to suddenly understand a complicated concept because I wrote a specific sentence in a particular way.&lt;&#x2F;p&gt;
+&lt;p&gt;For the goal I was working toward, it was important to post on a predictable schedule. While it’s good to set your own standards for yourself high, keep in mind that it’s impossible to level up 10x with a single post. Writing well takes practice, and you get more practice if you are able to let go, call a story done, and move on to writing something else.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-writing-consistently-doesn-t-always-yield-consistent-quality&quot;&gt;4. Writing consistently doesn’t always yield consistent quality&lt;a class=&quot;zola-anchor&quot; href=&quot;#4-writing-consistently-doesn-t-always-yield-consistent-quality&quot; aria-label=&quot;Anchor link for: 4-writing-consistently-doesn-t-always-yield-consistent-quality&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I’ll be the first to admit that I think some of my posts are more useful or interesting to read than others. That’s just how it goes sometimes, where ambitions are better than the content produced.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Ira_Glass&quot;&gt;Ira Glass&lt;&#x2F;a&gt; spoke about storytelling and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=X2wLP0izeJE&quot;&gt;the taste gap (and how to close it&lt;&#x2F;a&gt;). He encourages that the most important thing one can do when starting out is to produce quantity over quality. Over time you improve, if you can endure this creative, iterative phase. It is normal for quality to lag behind your ambitions. &lt;&#x2F;p&gt;
+&lt;p&gt;With that in mind, it’s okay to write things that you never publish. I’ve learned that writing can be a method for understanding a topic, or just organizing my thoughts. Not all of that needs to be public.&lt;&#x2F;p&gt;
+&lt;p&gt;What continued to give me encouragement was noticing that my first draft quality was (on average) getting better over time. That was a measurable improvement! &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-be-really-specific-about-who-you-are-talking-to&quot;&gt;5. Be really specific about who you are talking to&lt;a class=&quot;zola-anchor&quot; href=&quot;#5-be-really-specific-about-who-you-are-talking-to&quot; aria-label=&quot;Anchor link for: 5-be-really-specific-about-who-you-are-talking-to&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;When I write, I always start the first draft always with a question: Who am I writing to?&lt;&#x2F;p&gt;
+&lt;p&gt;It doesn’t always matter if the answer is a real person. This person I’m writing to might be based on my past experience, questions people have asked me, interactions I’ve observed, an organization, or just completely made up!&lt;&#x2F;p&gt;
+&lt;p&gt;What is most important is that I focus my message so my intended target audience understands. I don’t want to unintentionally expand the audience or over-explain a concept if it doesn’t benefit the base group of people I am writing to. This technique has made it a lot easier to write in bursts, and edit for clarity. It helps each piece of writing have a consistent voice.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;6-writing-titles-is-hard-because-seo-is-hard&quot;&gt;6. Writing titles is hard (because SEO is hard)&lt;a class=&quot;zola-anchor&quot; href=&quot;#6-writing-titles-is-hard-because-seo-is-hard&quot; aria-label=&quot;Anchor link for: 6-writing-titles-is-hard-because-seo-is-hard&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have to admit: I change the title of each post no less than 3 times, sometimes minutes before publishing the post!&lt;&#x2F;p&gt;
+&lt;p&gt;Different publishing platforms have different audiences, so experiment with what works for your readers. If you plan on cross-posting across multiple platforms or you want to be discovered through search engines, you will need to learn a little bit about marketing and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Search_engine_optimization&quot;&gt;SEO&lt;&#x2F;a&gt;. &lt;&#x2F;p&gt;
+&lt;p&gt;I’m frequently torn between using technical jargon in my titles, or less specific concepts that can be generally applied.&lt;&#x2F;p&gt;
+&lt;p&gt;Playing with this balance is a cheap and interesting game that, in my experience, avoids disappointment by taking a long-term perspective. It’s been validating to see what kind of content does well though organic search visits vs. people sharing links. I’m still caught off guard when an article from many months ago begins to trend. The lesson here is to be patient and see what strategies pay off.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;7-keep-a-backlog-of-ideas&quot;&gt;7. Keep a backlog of ideas&lt;a class=&quot;zola-anchor&quot; href=&quot;#7-keep-a-backlog-of-ideas&quot; aria-label=&quot;Anchor link for: 7-keep-a-backlog-of-ideas&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have a spreadsheet that I use to keep track of ideas in various states. When I think of something that might be a good topic to explore in a post, I add it to the list. These can be title ideas, posts that are in progress, and links to drafts. &lt;&#x2F;p&gt;
+&lt;p&gt;I try not to dismiss an idea too early. Just writing it down gets it out of my mind, with low pressure to fully explore the idea. Sometimes this collection of thoughts ends up presenting patterns or themes that, when combined, contain enough material to create a full post around. This strategy is really practical, and comes in handy when I am feeling like I’m in a creative rut. If I have a deadline to meet, I can always pull from the pile of ideas I already had.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;8-building-structure-and-motivation-for-writing-is-moving-target&quot;&gt;8. Building structure and motivation for writing is moving target&lt;a class=&quot;zola-anchor&quot; href=&quot;#8-building-structure-and-motivation-for-writing-is-moving-target&quot; aria-label=&quot;Anchor link for: 8-building-structure-and-motivation-for-writing-is-moving-target&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I am generally informed about trending topics within tech, but I’m trying to discover my niche and I don’t want to spend an eternity looking for ideas. I’ve also discovered that I’m most creative when I have constraints and have a structure to lean on.&lt;&#x2F;p&gt;
+&lt;p&gt;I have a long-term goal to work for myself creating educational products &#x2F; services &#x2F; consulting. So a structure I lean into is that each post contributes to that long-term goal. &lt;&#x2F;p&gt;
+&lt;p&gt;It’s also important to address shorter-term motivation. My approach has been to identify what motivates me to create, and then slowly build systems to support producing content. Aside from the obvious need to set aside time to write, creating that motivation for a post takes three things: &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The content has to be something that is &lt;strong&gt;not too difficult&lt;&#x2F;strong&gt; for me to create. This means I mostly know the material I’m talking about, and I’m not learning new skills specifically for the post. (It’s not uncommon for me to write about a learning experience, though! I just don’t set out to learn how to do something specifically to write a post)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Something I enjoy creating&lt;&#x2F;strong&gt; - The topic I’m writing about needs to be interesting, or the story I’m telling needs to be meaningful. Otherwise, I’ll get bored writing it (or you’ll get bored reading it).&lt;&#x2F;li&gt;
+&lt;li&gt;The result should &lt;strong&gt;provide value to someone else&lt;&#x2F;strong&gt;. People value their time, so in writing an article, I’m trading my time writing for someone’s time savings. What I communicate can save people time, and that’s meaningful to me. I know I have benefitted from others doing the same.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I really enjoy creating software developer advocacy and tech education content, and the topics I (mostly) write on reinforce these areas.&lt;&#x2F;p&gt;
+&lt;p&gt;I aspire to have objectives that can be described as &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;SMART_criteria&quot;&gt;SMART&lt;&#x2F;a&gt;. Admittedly, my short- and long-term goals are still pretty abstract. I think that’s okay right now, as long as I am making progress in the right direction.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;9-don-t-be-afraid-to-be-seen-trying&quot;&gt;9. Don’t be afraid to be seen trying&lt;a class=&quot;zola-anchor&quot; href=&quot;#9-don-t-be-afraid-to-be-seen-trying&quot; aria-label=&quot;Anchor link for: 9-don-t-be-afraid-to-be-seen-trying&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Credit to a video by &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=hFQRx5iwLtw&quot;&gt;Evelyn From The Internets&lt;&#x2F;a&gt; for helping me articulate my feelings about this point.&lt;&#x2F;p&gt;
+&lt;p&gt;This relates to my previous point of starting being the hardest part. Some of my internal friction stems from the feeling of being afraid to be seen trying something I’m not good at.&lt;&#x2F;p&gt;
+&lt;p&gt;With some rare exceptions, I’ve decided to keep my old content online. It likely won’t be an issue where stuff I created in the past while I was still learning has embarrassed me. Largely, this content is ignored and no one but myself cares about it. &lt;&#x2F;p&gt;
+&lt;p&gt;To be concise, haters gonna hate. That’s what they do. So don’t pay any attention to the inconsiderate folks who “just want to help” but are not actually helpful. The tech community is full of strong personalities that aren’t always inviting or pleasant to engage with. (I’m not saying this is the majority. I see you...) &lt;&#x2F;p&gt;
+&lt;p&gt;I see enough 💩 being talked in social media threads that it constantly occupies space in my mind when I’m about to publish a new piece of content. However, the truth is that most people are not focused on you for even a moment. So a way I like to view that is that most people will not even see you fail – that’s the blessing of no one knowing who you are yet. Therefore, there’s no reason to not try.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Building a writing habit has been very humbling. I learned that I actually know a lot less about certain topics than I thought. I had to research more than I expected. But as I gained experience, I leveled up my time management and my process.&lt;&#x2F;p&gt;
+&lt;p&gt;Now that I’m not trying to post weekly, what I would do differently is to spend more time developing my production processes. And that’s what the focus of this next year will be about.&lt;&#x2F;p&gt;
+&lt;p&gt;Aside from continuing to &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;stream my product development on Twitch&lt;&#x2F;a&gt;, this year I will be creating short videos, starting with some of my more popular blog posts as topics. I hope this will lead into more types of educational content, and more opportunities to work with other people in achieving their goals.&lt;&#x2F;p&gt;
+&lt;p&gt;I started a consulting business (&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;figbeelabs.com&#x2F;&quot;&gt;Figbee Labs&lt;&#x2F;a&gt;) in the latter half of 2020. I will continue to travel out of my comfort zone into the deeper waters and hopefully meet new people or organizations that want to work together. It’s important to me to help people from all backgrounds succeed in sustainably building and running their own software products. I will document my experience over 2021 through posts and various social media. &lt;&#x2F;p&gt;
+&lt;p&gt;If you’ve undertaken a similar challenge, what did you learn about your process? What do you want to achieve with writing this year?&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>My Hacktoberfest 2020 is Complete</title>
+		<published>2020-10-19T00:00:00+00:00</published>
+		<updated>2020-10-19T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/my-hacktoberfest-2020-is-complete/" type="text/html"/>
+		<id>https://tjtelan.com/blog/my-hacktoberfest-2020-is-complete/</id>
+		<content type="html"> 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Hacktoberfest 2020 complete - banner&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This is a followup post to my &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;first-time-hacktoberfest-2020&#x2F;&quot;&gt;previous Hacktoberfest related post&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;TL;DR - Officially I’ve completed Hacktoberfest 2020!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The beginning of the month was a bit rough, and while there were good intentions, the level of communication to participants was not up to par. But eventually the news of the changes rolled out in a much more official way! For what it’s worth, I approve.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Header with update announcing event being opt-in&quot; &#x2F;&gt;&lt;figcaption&gt;Better late than never&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The change to make eligible repos opt-in will hopefully provide less of an unexpected disruption to open source maintainers. I imagine the spike in activity will belong to repos who want the commits. Also I hope the intended effect will cut down on greedy devs gaming the rules with low quality contributions to get free stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;The extended review time was still 2 weeks, but a couple days later after &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;first-time-hacktoberfest-2020&#x2F;&quot;&gt;my post&lt;&#x2F;a&gt;, I got an email acknowledging my 4 PRs. I’ve just been waiting for the clock to run out this entire time.&lt;&#x2F;p&gt;
+&lt;p&gt;However, the time is here. Officially I’ve completed Hacktoberfest 2020!&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Congrats message in my profile&quot; &#x2F;&gt;&lt;figcaption&gt;Congrats message in my profile&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;my-strategy&quot;&gt;My strategy&lt;a class=&quot;zola-anchor&quot; href=&quot;#my-strategy&quot; aria-label=&quot;Anchor link for: my-strategy&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you have never contributed to open source before, I can share what I usually do. I took a simple approach.&lt;&#x2F;p&gt;
+&lt;p&gt;I crawled the Github search for &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;search?l=&amp;amp;p=1&amp;amp;q=label%3Ahacktoberfest+state%3Aopen+no%3Aassignee+is%3Aissue+language%3ARust&amp;amp;ref=advsearch&amp;amp;type=Issues&quot;&gt;Hacktoberfest labeled repos that were written in Rust&lt;&#x2F;a&gt; because I was only interested in writing in that language.&lt;&#x2F;p&gt;
+&lt;p&gt;There were quite a lot, so I picked a handful of the smallest Rust projects where the repo owner asked for some &lt;strong&gt;very specific&lt;&#x2F;strong&gt; contributions that were clear enough that it didn’t require me to ask questions before getting started. All things considered, it only took me a total of 2-3 hours to write code.&lt;&#x2F;p&gt;
+&lt;p&gt;I did a bit of overcommunication with the repo maintainer to be friendly, but also to give the impression that changes can still be made with their feedback. I wanted to offer an opportunity for them to give me feedback so they would be happy with what they would get merged in.&lt;&#x2F;p&gt;
+&lt;p&gt;If you didn’t know, you can &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.github.com&#x2F;en&#x2F;free-pro-team@latest&#x2F;github&#x2F;managing-your-work-on-github&#x2F;linking-a-pull-request-to-an-issue&quot;&gt;reference issues from your commit message&lt;&#x2F;a&gt;, which I did. Additionally I linked the PR to the issue, and I left a message in the issue itself describing my thought process.  There were small changes requested by the maintainers, though every PR was eventually accepted and merged.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-prize&quot;&gt;The Prize&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-prize&quot; aria-label=&quot;Anchor link for: the-prize&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Hacktoberfest Forest 2020 logo&quot; &#x2F;&gt;&lt;figcaption&gt;Am I a digital lorax? Because I wrote code for the trees&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;So I’ve decided to plant a tree instead of receiving a shirt. It was nice that there was an alternative.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Order form for claiming plant a tree prize&quot; &#x2F;&gt;&lt;figcaption&gt;There was only one color and one size. Fun!&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I don’t know what’s next. After completing the form I was told to await instructions from Digital Ocean for how to continue the process of planting the tree.&lt;&#x2F;p&gt;
+&lt;p&gt;Either way, this is the end of the line. Hacktoberfest 2020 is done for me. I feel happy to have made a positive impact.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks to Digital Ocean, Intel, Dev.to and the Hacktoberfest team for making this year happen!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;In the future I will likely crawl the Github search for small Rust projects to contribute to live on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;my Twitch stream&lt;&#x2F;a&gt;. If that interests you, or if you’d like me to contribute to your repo, then I’d appreciate it if you’d &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;give me a follow&lt;&#x2F;a&gt;! &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>A first-timer&#x27;s perspective to Digital Ocean&#x27;s Hacktoberfest 2020</title>
+		<published>2020-10-05T00:00:00+00:00</published>
+		<updated>2020-10-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/first-time-hacktoberfest-2020/" type="text/html"/>
+		<id>https://tjtelan.com/blog/first-time-hacktoberfest-2020/</id>
+		<content type="html">&lt;h2 id=&quot;so-what-is-hacktoberfest&quot;&gt;So... what is Hacktoberfest?&lt;a class=&quot;zola-anchor&quot; href=&quot;#so-what-is-hacktoberfest&quot; aria-label=&quot;Anchor link for: so-what-is-hacktoberfest&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Digital Ocean’s &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hacktoberfest.digitalocean.com&#x2F;&quot;&gt;Hacktoberfest&lt;&#x2F;a&gt; is a month-long event over the month of October aimed at generating an increase of contributions to open source projects. Participants are asked to open PRs against public repositories in Github with “positive contributions”. Swag is offered to the first 70k participants to open 4 qualified PRs.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;l3vRmVv5P01I5NDAA&amp;#x2F;giphy.gif&quot; alt=&quot;Ed from Cowboy Bebop&quot;&#x2F;&gt;&lt;figcaption&gt;A typical hacker&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;and-how-is-it-going&quot;&gt;And… how is it going?&lt;a class=&quot;zola-anchor&quot; href=&quot;#and-how-is-it-going&quot; aria-label=&quot;Anchor link for: and-how-is-it-going&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have mixed opinions that honestly, skew negatively. But I feel like I’m more charitable about my feedback than what I&#x27;ve seen on the internet. I’m not intending to drag Hacktoberfest but I’d like to see improvement.&lt;&#x2F;p&gt;
+&lt;p&gt;2020 is my first year participating in Hacktoberfest. I’ve already been contributing more to the open source community over the last few years. Particularly for the Rust programming language. I set out to use this event as an excuse to help the Rust community out.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;positives&quot;&gt;Positives:&lt;a class=&quot;zola-anchor&quot; href=&quot;#positives&quot; aria-label=&quot;Anchor link for: positives&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;the-feeling-of-a-community-effort-to-contribute-to-open-source&quot;&gt;The feeling of a community effort to contribute to Open Source&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-feeling-of-a-community-effort-to-contribute-to-open-source&quot; aria-label=&quot;Anchor link for: the-feeling-of-a-community-effort-to-contribute-to-open-source&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;i.makeagif.com&amp;#x2F;media&amp;#x2F;10-05-2020&amp;#x2F;FTPRH-.gif&quot; alt=&quot;From Tom Goes to the Mayor into. Shaking hands. Community Spirit&quot;&#x2F;&gt;&lt;figcaption&gt;A typical open source PR&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Contributions to open source can happen at any time. I think it’s a nice idea to have a time where people who use open source software are encouraged to contribute meaningfully. Especially for anyone who may feel a bit of intimidation to do so. I’m sure a T-shirt and some stickers can feel very validating to someone who was just using open source before, and now they have some evidence that they contributed too.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;discovering-smaller-projects&quot;&gt;Discovering smaller projects&lt;a class=&quot;zola-anchor&quot; href=&quot;#discovering-smaller-projects&quot; aria-label=&quot;Anchor link for: discovering-smaller-projects&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;1FXYMTuKX91hS&amp;#x2F;giphy.gif&quot; alt=&quot;Bob Ross. Beauty is everywhere&quot;&#x2F;&gt;&lt;figcaption&gt;Bob Ross had amazing commit messages&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This was a great opportunity to explore Github for projects that don’t require a lot of experience or commitment in order to help a maintainer out. The repos I offered code to were all small Rust projects that were doing some practical things. It was fun, and I put some effort into what I wrote in addition to having good interactions with the maintainers.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;negatives&quot;&gt;Negatives:&lt;a class=&quot;zola-anchor&quot; href=&quot;#negatives&quot; aria-label=&quot;Anchor link for: negatives&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot;&gt;This year’s Hot-fix to the rules and the lack of follow-up communication&lt;a class=&quot;zola-anchor&quot; href=&quot;#this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot; aria-label=&quot;Anchor link for: this-year-s-hot-fix-to-the-rules-and-the-lack-of-follow-up-communication&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;jV4wbvtJxdjnMriYmY&amp;#x2F;giphy.gif&quot; alt=&quot;Spongebob. Communication rainbow&quot;&#x2F;&gt;&lt;figcaption&gt;Talk to your community&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I feel like the communication around the event is not being managed well. Very reactive, and not effective at spreading the word.&lt;&#x2F;p&gt;
+&lt;p&gt;A few days after the start of the event, there was a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;digitalocean&#x2F;hacktoberfest&#x2F;pull&#x2F;596&quot;&gt;significant change in the rules&lt;&#x2F;a&gt;. I only happened to learn about it through the grapevine, as opposed to from Digital Ocean or through the Hacktoberfest front page or profile pages. Rules feel like they are inconsistently applied, and it feels unwelcoming.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Where this change affected me is their change of minimum review times, and probably the validity of my contributions. But I’m confused about what is supposed to apply to me since I had created all my PRs in the first 3 days.&lt;&#x2F;p&gt;
+&lt;p&gt;What makes this more confusing is the conflicting information within the Hacktoberfest FAQ.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, this is likely some old information about the review time of PRs. States 7 days.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;From FAQ. Review time of 7 days&quot; &#x2F;&gt;&lt;figcaption&gt;From FAQ. Review time of 7 days&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Later in the same FAQ it says it’s been updated to 14 days. But only those &lt;strong&gt;before October 3, 2020 @ 12:00 UTC&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Also from FAQ. Review time of 14 days&quot; &#x2F;&gt;&lt;figcaption&gt;Also from FAQ. Review time of 14 days&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;All 4 PRs were made before this rule change was stated to go into effect (Oct 3 @ 12:00 UTC). The latest being Oct 3 @ 6:26 UTC.&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;4 PRs. All earlier than Oct 3 @ 12:00 UTC&quot; &#x2F;&gt;&lt;figcaption&gt;4 PRs. All earlier than Oct 3 @ 12:00 UTC&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Changes to the rules could have been communicated somewhere on the profile page in the legend, but were not. Or through email, like the message I received when I made my first PR.&lt;&#x2F;p&gt;
+&lt;p&gt;I just noticed all my maturation times jump from about a week to about 2 weeks. 3 of these were PRs that were already merged too.&lt;&#x2F;p&gt;
+&lt;p&gt;And I’m more annoyed and slightly unmotivated to continue in the event.&lt;&#x2F;p&gt;
+&lt;p&gt;(But tbh, rather than feel angry, I’m psyched that I got a few PRs merged so quickly!)&lt;&#x2F;p&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;Missed opportunity to communicate that this duration has been updated from 7 to 14 days.&quot; &#x2F;&gt;&lt;figcaption&gt;Missed opportunity to communicate that this duration has been updated from 7 to 14 days.&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;h4 id=&quot;feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot;&gt;Feeling like corporate-sponsored projects are taking advantage of free labor&lt;a class=&quot;zola-anchor&quot; href=&quot;#feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot; aria-label=&quot;Anchor link for: feeling-like-corporate-sponsored-projects-are-taking-advantage-of-free-labor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;p&gt;I think that the core intention of Hacktoberfest is well meaning. But I&#x27;m seeing some non-trivial work in big projects labeled for Hacktoberfest.&lt;&#x2F;p&gt;
+&lt;p&gt;I’m not personally driven by the swag of a free T-shirt. I just want to help the Rust community and level up my skills while I&#x27;m at it. But I feel weird sitting near loud, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.domenic.me&#x2F;hacktoberfest&#x2F;&quot;&gt;negative opinions&lt;&#x2F;a&gt; that I partially agree with. (Although my feelings are a lot more charitable and less intense)&lt;&#x2F;p&gt;
+&lt;p&gt;Before &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;digitalocean&#x2F;hacktoberfest&#x2F;pull&#x2F;596&quot;&gt;the silent rule changes&lt;&#x2F;a&gt;, the premise of projects that must opt-out really placed a huge burden on the maintainers of small projects.&lt;&#x2F;p&gt;
+&lt;div class=&quot;blog-image&quot;&gt;&lt;figure&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;48Osj6XyU0ptQRfh5V&amp;#x2F;giphy.gif&quot; alt=&quot;A typical maintainer during Hacktoberfest&quot;&#x2F;&gt;&lt;figcaption&gt;A typical maintainer during Hacktoberfest&lt;&#x2F;figcaption&gt;&lt;&#x2F;figure&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;But I’m mostly in my raw feelings, because I feel like the focused energy of the open source community is being taken advantage of by bigger corporate entities for a T-shirt. They are all on the bandwagon to use free energy from eager and inexperienced developers to contribute to their big name-brand projects even though they have their own funding for development.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;but-will-i-participate-next-year&quot;&gt;But... will I participate next year?&lt;a class=&quot;zola-anchor&quot; href=&quot;#but-will-i-participate-next-year&quot; aria-label=&quot;Anchor link for: but-will-i-participate-next-year&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;media.giphy.com&amp;#x2F;media&amp;#x2F;4TtrENnFsz4EWkU6gz&amp;#x2F;giphy.gif&quot;&#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Hard to say at this moment, but what incentive do I have? I can contribute any time to small projects, and I most likely will. I have to thank Digital Ocean for helping me realize that.&lt;&#x2F;p&gt;
+&lt;p&gt;The spirit to drive help to small projects is one of my favorite parts of open source, and I think that Hacktoberfest probably started out with that ethos before their audience made it about T-shirts and stickers.&lt;&#x2F;p&gt;
+&lt;p&gt;I don’t like the gamified feeling, and maybe that makes this event not for me. The new rule changes will very much change the feel of participation. Probably for the better, since it is opt-in.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;As I continue to dig into the changes, it appears that there was a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;hacktoberfest&#x2F;status&#x2F;1312221208667185153&quot;&gt;tweet&lt;&#x2F;a&gt; made prior to the changes, but from my perspective, if you didn’t use Twitter and follow &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;hacktoberfest&quot;&gt;@hacktoberfest&lt;&#x2F;a&gt;, you’d continue to be lost to the change.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hacktoberfest.digitalocean.com&#x2F;hacktoberfest-update&quot;&gt;This message&lt;&#x2F;a&gt; appears on their site, but I only got to it through the PR. I don&#x27;t know how else I would have found it because it isn&#x27;t on the front page or anywhere I&#x27;d easily find.&lt;&#x2F;p&gt;
+&lt;p&gt;On one account, I&#x27;ve been told that an email was sent out to highlight rule changes. Pretty late after the fact, but I guess better than never. I cannot confirm this myself, since at the time of this writing, I haven&#x27;t received any email regarding rule changes.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Depending on how the changes affect the mood and the outcome of this year&#x27;s event, I could probably warm up to the idea of 2021. Either way, I&#x27;ll still be opening PRs against something.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ll give credit where it is due to the Hacktoberfest team for responding to abusive participants. BUT I don’t appreciate rules being changed without care to communicate them effectively. I expect better communication from a worldwide event. Please learn from this!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Anyway, if you&#x27;ve made it this far, don&#x27;t wait for October to contribute to open source! &lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Reflections after 2 months of live coding</title>
+		<published>2020-09-22T00:00:00+00:00</published>
+		<updated>2020-09-22T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/reflections-after-2-months-of-live-coding/" type="text/html"/>
+		<id>https://tjtelan.com/blog/reflections-after-2-months-of-live-coding/</id>
+		<content type="html">&lt;p&gt;I started streaming on Twitch this summer. I have been streaming Rust development once a week.&lt;&#x2F;p&gt;
+&lt;p&gt;The opportunity presented itself for reasons related to the current state of travel industries (and the economic consequences that followed). It has been an interesting learning experience. &lt;&#x2F;p&gt;
+&lt;p&gt;After experimenting with something, it’s always good to take time to stop and reflect on what has been successful and where there’s room for improvement. The time I’ve spent so far has been challenging and confusing – but also enjoyable. This post is for anyone interested in the experiences of a beginning streamer, or anyone considering dipping their toes into the Twitch pool.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ll organize my reflections into 3 sections:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Things completely in my control&lt;&#x2F;li&gt;
+&lt;li&gt;Short-term objectives that I can influence&lt;&#x2F;li&gt;
+&lt;li&gt;Long-term aspirations&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;If you’re interested how I got started, &lt;a href=&quot;https:&#x2F;&#x2F;tjtelan.com&#x2F;blog&#x2F;what-i-learned-running-a-live-programming-stream-from-linux&#x2F;&quot;&gt;I wrote a post about it that you can check out!&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;things-completely-in-my-control&quot;&gt;Things completely in my control&lt;a class=&quot;zola-anchor&quot; href=&quot;#things-completely-in-my-control&quot; aria-label=&quot;Anchor link for: things-completely-in-my-control&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Like most things in life, there’s not much completely within my control. But I can tinker with my channel&#x27;s look and feel, the time and duration I stream, and what I work on during each stream.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;content&quot;&gt;Content&lt;a class=&quot;zola-anchor&quot; href=&quot;#content&quot; aria-label=&quot;Anchor link for: content&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Working on a project provides natural boundaries.&lt;&#x2F;strong&gt; Before beginning a stream, I don’t need to know 100% what I’m going to accomplish or how. But I’m more mentally present if I am not thinking too much about what I need to do next. To help with that, I like to plan a predetermined, single direction per stream. I choose a reasonably-sized goal to work on for each stream, and try to roughly break down the steps so I have a small map to follow during the stream.&lt;&#x2F;p&gt;
+&lt;p&gt;I also expose project management over stream (via Github projects), which keeps me focused on individual tasks and keeps my stream content on track.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Learn from my mistake.&lt;&#x2F;strong&gt; If you cross-stream to YouTube, be mindful of Content ID. I experimented with background music and naively loaded up another YouTube steam for a short moment. Don’t do this! Pretty quickly it was automatically flagged. Look for royalty-free music instead.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;viewer-experience&quot;&gt;Viewer experience&lt;a class=&quot;zola-anchor&quot; href=&quot;#viewer-experience&quot; aria-label=&quot;Anchor link for: viewer-experience&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;As I’ve continued on, I&#x27;ve put more effort into improving the experience of viewing my stream These are my key takeaways:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Know your limits.&lt;&#x2F;strong&gt; I’ve learned that 3 hours is about my maximum session length. Any longer and I start to feel low energy and my voice gets tired from all the talking. Not to mention, my current viewership and audience engagement doesn&#x27;t justify being online for that long.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Show your process&lt;&#x2F;strong&gt;. There are two steps (where I’m not actively coding) that I include on my stream as part of my process: diagrams and project management. &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Writing code is a lot of effort, especially if you don’t know where you’re going. For me, drawing out diagrams of structures or algorithms is like writing an outline before I start coding. I’ve been learning Figma to make nice diagrams for streams.&lt;&#x2F;li&gt;
+&lt;li&gt;If I’m practicing project management, I’ll do it live. Lately, I’ve been using Github projects to manage my roadmap and planning.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This is an opportunity to show real parts of my process, and there’s no reason to hide that from viewers. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;If you don’t know, now you know.&lt;&#x2F;strong&gt; If I don’t know something, I&#x27;ll open a browser and look up documentation and examples or ask my viewers. It won’t benefit anyone if I’m just struggling. Plus, sometimes the audience can help out . Looking for answers is also a very normal part of coding – no one knows everything, and searching for things effectively is a skill in and of itself.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Talk it out.&lt;&#x2F;strong&gt; It takes some practice, but speaking out my thought process has definitely  from when I first started. I realized as I was watching other live-coding streamers for research that it’s not exactly interesting to watch in silence as someone types. People usually will help if they know what you&#x27;re trying to figure out, or ask questions to feel involved.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Don’t stress.&lt;&#x2F;strong&gt; I also found it helpful to turn off the viewers count if you have the stream manager open. It serves no real time purpose and causes unnecessary mental stress if you&#x27;re alone in your stream. Always talk like someone is watching.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Back in five.&lt;&#x2F;strong&gt; Have OBS scenes to switch to for bathroom breaks or intentional moments away from the keyboard.  I think this is just polite as a non-gamer stream. It’s a bit of a bummer to open up a stream to an empty chair and no indication of when the person will be coming back.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;short-term-objectives-i-can-influence&quot;&gt;Short-term objectives I can influence&lt;a class=&quot;zola-anchor&quot; href=&quot;#short-term-objectives-i-can-influence&quot; aria-label=&quot;Anchor link for: short-term-objectives-i-can-influence&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I have set a few new long-term goals for myself. But I&#x27;ll always need to deal with the same obstacles to broadcasting effectively, and get viewers to agree to hang out and talk to me.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;asking-myself-questions-first&quot;&gt;Asking myself questions first&lt;a class=&quot;zola-anchor&quot; href=&quot;#asking-myself-questions-first&quot; aria-label=&quot;Anchor link for: asking-myself-questions-first&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Practice makes perfect.&lt;&#x2F;strong&gt; If you are going to be exploring a new library on your stream, then practice using it for a non-trivial amount of time prior to broadcast. This will serve the purpose of defining a direction for the stream, in addition to building familiarity of where some of the pitfalls are in case of roadblocks. Having some familiarity with the tools or systems I’m working with also makes me feel more confident in demonstrating it, even when I don’t know how to do everything I plan on doing.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;lt;human&amp;gt; has entered the chat.&lt;&#x2F;strong&gt; People who chat will often not talk about the code you&#x27;re writing. This isn&#x27;t a negative! People usually just want to get to know me. Keep in mind, Twitch is not a lecture hall (unless that’s actually what your stream actually is).&lt;&#x2F;p&gt;
+&lt;p&gt;Yes, it can feel a little disruptive to your train of thought if you’re only prepared to talk about what you’re working on. But that&#x27;s another reason why to prepare with a plan and practice with any new tools.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;reaching-an-audience&quot;&gt;Reaching an audience&lt;a class=&quot;zola-anchor&quot; href=&quot;#reaching-an-audience&quot; aria-label=&quot;Anchor link for: reaching-an-audience&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;On Twitch.&lt;&#x2F;strong&gt; Twitch does little to promote for you as a small streamer. So experimenting with self-promotion is a must.&lt;&#x2F;p&gt;
+&lt;p&gt;The lack of promotion can be a double-edged sword, compared to YouTube. The requirements for Twitch Affiliate are more modest but still take effort. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;On YouTube.&lt;&#x2F;strong&gt; YouTube technically promotes you through search results, but I still need to experiment with self-promotion. The bar for reaching YouTube Partner is significantly higher. It definitely requires a different strategy to build an audience than Twitch. I am not actively focused on building my audience here... I just use Restream.io to simultaneously go live on YouTube and Twitch.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;long-term-aspirations&quot;&gt;Long-term aspirations&lt;a class=&quot;zola-anchor&quot; href=&quot;#long-term-aspirations&quot; aria-label=&quot;Anchor link for: long-term-aspirations&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Truthfully, I don’t have any desire to make a living as a full-time streamer. However, I would like to have diverse sources of income, including anything I can make through streaming and anything I create while streaming. So for that reason alone, it makes it feel more important to take this a little seriously so that I will be able to meet the requirements for Twitch Affiliate.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;twitch-specific-channel-improvements&quot;&gt;Twitch-specific channel improvements&lt;a class=&quot;zola-anchor&quot; href=&quot;#twitch-specific-channel-improvements&quot; aria-label=&quot;Anchor link for: twitch-specific-channel-improvements&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;If I look at the more successful live-coding streamers, they have been on Twitch for a while, they’ve put some effort in their visual branding, and they are on a Twitch team. I believe that these are all realistically achievable for me if I put in the work. Here are improvements I am actively planning or working on:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Visual improvements to my OBS scenes&lt;&#x2F;li&gt;
+&lt;li&gt;Making my Twitch profile more interesting&lt;&#x2F;li&gt;
+&lt;li&gt;Coming up with project ideas that are interesting and&#x2F;or novel&lt;&#x2F;li&gt;
+&lt;li&gt;Determining what time of day to start my stream, so people are more likely to stop by and stick around for a while&lt;&#x2F;li&gt;
+&lt;li&gt;Reaching the requirements for Twitch Affiliate&lt;&#x2F;li&gt;
+&lt;li&gt;Joining a team: my goal is to join the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;team&#x2F;rustaceans&quot;&gt;Rustaceans&lt;&#x2F;a&gt; Twitch team once I reach Affiliate status.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;networking&quot;&gt;Networking&lt;a class=&quot;zola-anchor&quot; href=&quot;#networking&quot; aria-label=&quot;Anchor link for: networking&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I stated before that Twitch doesn’t do much to promote small streamers. Promotion seems to be geared toward creators who are already reaching an audience. Networking is a creative skill I get to build that wouldn’t normally present itself in the Software industry in this capacity. It will certainly benefit me outside the context of streaming. Here are a few paths for networking:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Pre-stream promotion.&lt;&#x2F;strong&gt; It can be hard to find the appropriate venue for pre-stream promotion. I’ve personally found that Twitter is not a great place to promote if you don’t have an existing audience. My engagement is very low on my tweets for good reason. But it isn’t the only option I have. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Find an audience by being active in communities.&lt;&#x2F;strong&gt; I wasn’t really watching other live-coding streams on Twitch prior to doing it myself, but I have noticed that I learn a lot by watching other streamers that are about the same size as myself or larger and taking note of what they do “right”. As well as interacting with them and their audience.&lt;&#x2F;p&gt;
+&lt;p&gt;One nice surprise was finding that there are a lot of small channel live-coders or Rust language enthusiasts like me who show up in my chat to talk, and I’ve been able to make some connections this way.&lt;&#x2F;p&gt;
+&lt;p&gt;I’m also working on being a more active member of the Rust community. I’ve been using this language for a while. I don’t consider myself an expert, but I do feel like the community can benefit from  my voice and experience.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Talk to the people around me.&lt;&#x2F;strong&gt; I hear that Seattle has a pretty active tech scene (For reasons, I need to state that this is a joke).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;leveling-up&quot;&gt;Leveling up&lt;a class=&quot;zola-anchor&quot; href=&quot;#leveling-up&quot; aria-label=&quot;Anchor link for: leveling-up&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This is a bit of my insecurity presenting itself. But I notice improvements the longer I continue, which encourages me to keep going. I hope to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Improve my skill as someone who can design, plan, and write code. Especially in the domains I spend the most time in: Rust, Python, and Javascript.&lt;&#x2F;li&gt;
+&lt;li&gt;Come to terms with my self-consciousness about not being “a good programmer”.&lt;&#x2F;li&gt;
+&lt;li&gt;Write more blog posts(I’m near the end of this one. It gets easier the more I do it.)&lt;&#x2F;li&gt;
+&lt;li&gt;Producing videos for YouTube as companions to blog posts&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;If you’ve made it this far, thanks for reading!&lt;&#x2F;p&gt;
+&lt;p&gt;I could not have predicted where I’d be this year. It has not shaped up to be anywhere near what I thought it might be. But I am fortunate that I was able to try something I would have normally not done before.&lt;&#x2F;p&gt;
+&lt;p&gt;If you’re interested in how my story continues to procedurally generate, follow me on Twitch.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&quot;&gt;https:&#x2F;&#x2F;www.twitch.tv&#x2F;tjtelan&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>MetaWatch - Unboxing</title>
+		<published>2011-09-16T00:00:00+00:00</published>
+		<updated>2011-09-16T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/metawatch-initial-impression/" type="text/html"/>
+		<id>https://tjtelan.com/blog/metawatch-initial-impression/</id>
+		<content type="html">&lt;p&gt;Without further delay, I&#x27;d like to post the first of several detailed posts about the new &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.metawatch.org&quot;&gt;MetaWatch&lt;&#x2F;a&gt; that I received (after a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;07&#x2F;11&#x2F;fossil-wont-ship-the-meta-watch-until-august-dick-tracy-wannab&#x2F;&quot;&gt;couple&lt;&#x2F;a&gt; &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.engadget.com&#x2F;2011&#x2F;08&#x2F;22&#x2F;fossils-meta-watch-delayed-once-again-clearly-has-trouble-keep&#x2F;&quot;&gt;announcements&lt;&#x2F;a&gt; of delays) with a pretty brief unboxing post.&lt;&#x2F;p&gt;
+&lt;p&gt;(I clearly already opened it immediately after I got it, but this is how it looked.)&lt;&#x2F;p&gt;
+&lt;p&gt;[Unboxing pics]&lt;&#x2F;p&gt;
+&lt;p&gt;The next post will be more focused on the watch itself. More pictures too.&lt;&#x2F;p&gt;
+&lt;p&gt;Edit: Removed the links and the unboxing pics. Never got around to finishing the Metawatch first impression posts, but I still have it so I&#x27;ll obviously be posting on any projects related to it.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

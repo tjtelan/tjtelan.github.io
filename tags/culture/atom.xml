@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - culture</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/culture/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-10-13T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/culture/atom.xml</id>
+	<entry xml:lang="en">
+		<title>What can I do to feel like I belong in the Tech community?</title>
+		<published>2020-10-13T00:00:00+00:00</published>
+		<updated>2020-10-13T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/belonging-in-the-tech-community/" type="text/html"/>
+		<id>https://tjtelan.com/blog/belonging-in-the-tech-community/</id>
+		<content type="html">&lt;p&gt;When I was a teenager, in the 00’s, the internet gave me net-positive energy and optimism. It was still very novel, and there was a lot of opportunity to discover niche communities that overlapped with my interests. I felt like part of an in-crowd and it deeply influenced my life.&lt;&#x2F;p&gt;
+&lt;p&gt;I have continuously been connected online (Metaphorically. Bc I grew up with dial-up). Much of the novelty has long worn off.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;it-s-been-an-exhausting-year&quot;&gt;It’s been an exhausting year&lt;a class=&quot;zola-anchor&quot; href=&quot;#it-s-been-an-exhausting-year&quot; aria-label=&quot;Anchor link for: it-s-been-an-exhausting-year&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I was laid off early in the year due to the pandemic. Due to the sudden loss of human interaction, I have been revisiting some of that yearning for connection as I transition to starting a business from scratch (more about that some other time). As a necessity, I am dependent on the internet for the majority of my human interaction. Maybe this is me being mentally old, but I feel the current energy of my echochamber to be more net-negative and I’m hoping I can introduce myself to people who build others up. &lt;&#x2F;p&gt;
+&lt;p&gt;Niche communities are difficult for me to discover with the same ease as when I was young. That’s not a reason enough for me to stop looking! So that’s fine. I’ll start looking where I’m at. For professional reasons, I &lt;em&gt;need&lt;&#x2F;em&gt; to start in Tech. So I’ll need to be more specific, because Tech is HUGE.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;searching-for-my-k-nearest-neighbors&quot;&gt;Searching for my k-nearest neighbors&lt;a class=&quot;zola-anchor&quot; href=&quot;#searching-for-my-k-nearest-neighbors&quot; aria-label=&quot;Anchor link for: searching-for-my-k-nearest-neighbors&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;I’ll spare you the rest of the thought exercise. I’ve been focusing my efforts within the Rust community. Why? It’s reignited my joy in writing code again, and I’m trying to start my business with it. &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;insights.stackoverflow.com&#x2F;survey&#x2F;2020#technology-most-loved-dreaded-and-wanted-languages-loved&quot;&gt;And because people love it!&lt;&#x2F;a&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;With a few years under my belt, I’ve finally reached a point in my Rust development that I no longer consider myself a beginner and I can be productive. Great! Well, now what?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-have-i-been-doing&quot;&gt;What have I been doing?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-been-doing&quot; aria-label=&quot;Anchor link for: what-have-i-been-doing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Regularly posting blog posts with a purpose of educating or sharing an experience as a non-expert&lt;&#x2F;li&gt;
+&lt;li&gt;Hanging out around Tech Twitter and occasionally commenting and retweeting&lt;&#x2F;li&gt;
+&lt;li&gt;Streaming writing Rust code for a few hours at least once a week&lt;&#x2F;li&gt;
+&lt;li&gt;Joining so many Slack&#x2F;Discord&#x2F;Matrix&#x2F;Gitter&#x2F;IRC communities. Mostly lurking, but participating occasionally&lt;&#x2F;li&gt;
+&lt;li&gt;Maintaining a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;git-url-parse&quot;&gt;Rust crate&lt;&#x2F;a&gt; and occasionally asking related projects if they would like to depend on it&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;what-have-i-been-expecting&quot;&gt;What have I been expecting?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-been-expecting&quot; aria-label=&quot;Anchor link for: what-have-i-been-expecting&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Part of me was hoping eventually after seeing the same same faces, same names… that I would feel like I had joined the community and I’d stop feeling so intimidated. Perhaps that I would have experienced some subtle mutual acknowledgement of acquaintance? (I have since been lowering my expectations, fwiw. I now believe it is my responsibility to initiate the interactions with potential personal meaning or expectation.)&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-have-i-not-been-doing&quot;&gt;What have I not been doing?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-have-i-not-been-doing&quot; aria-label=&quot;Anchor link for: what-have-i-not-been-doing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Actively inviting conversation&lt;&#x2F;li&gt;
+&lt;li&gt;Stepping out of my comfort zone to ask for feedback&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;won-t-you-be-my-neighbor&quot;&gt;Won’t you be my neighbor?&lt;a class=&quot;zola-anchor&quot; href=&quot;#won-t-you-be-my-neighbor&quot; aria-label=&quot;Anchor link for: won-t-you-be-my-neighbor&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;When was the last time you joined a new community? What was the defining moment when you felt like you belonged?&lt;&#x2F;p&gt;
+&lt;p&gt;I don’t feel unwelcome in Tech, but I feel invisible. My attempts to extend my reach out to those who might actually care to connect has random-like results. Not for lack of trying. But admittedly, I am placing too much value in establishing consistency before figuring out what works for me.&lt;&#x2F;p&gt;
+&lt;p&gt;I don&#x27;t know what options to try next. I’m not fishing for pity, but I am looking for advice. How do I find my audience? How can my audience find me?&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;Join the discussion on my post at &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;dev.to&#x2F;tjtelan&#x2F;what-can-i-do-to-feel-like-i-belong-in-the-tech-community-1k7k&quot;&gt;Dev.to&lt;&#x2F;a&gt; or on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;ThatTJTelan&#x2F;status&#x2F;1316132042476670976&quot;&gt;Twitter&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

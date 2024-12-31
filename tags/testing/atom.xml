@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - testing</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/testing/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2021-04-27T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/testing/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How to Build a Custom Integration Test Harness in Rust</title>
+		<published>2021-04-26T00:00:00+00:00</published>
+		<updated>2021-04-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/rust-custom-test-harness/" type="text/html"/>
+		<id>https://tjtelan.com/blog/rust-custom-test-harness/</id>
+		<content type="html">&lt;blockquote&gt;
+&lt;p&gt;This is a post I wrote for &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.fluvio.io&#x2F;blog&#x2F;2021&#x2F;04&#x2F;rust-custom-test-harness&#x2F;&quot;&gt;Fluvio&#x27;s blog&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Check out &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;infinyon&#x2F;fluvio&quot;&gt;Fluvio on Github&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve posted here for archival purposes.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+ 
+    
+        
+    
+&lt;div class=&quot;blog-image&quot;&gt;
+        &lt;img src=&quot;[object]&quot; alt=&quot;The Rust logo plus the Ferris the crab holding a screwdriver and hammer&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I ran into a problem effectively using &lt;code&gt;cargo test&lt;&#x2F;code&gt; in &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;infinyon&#x2F;fluvio&quot;&gt;Fluvio&lt;&#x2F;a&gt; for integration testing.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;let-s-talk-about-integration-testing-in-rust&quot;&gt;Let’s talk about integration testing in Rust&lt;a class=&quot;zola-anchor&quot; href=&quot;#let-s-talk-about-integration-testing-in-rust&quot; aria-label=&quot;Anchor link for: let-s-talk-about-integration-testing-in-rust&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;While creating integration testing for Fluvio, I ran into a problem. Organizing and executing integration tests with &lt;code&gt;cargo test&lt;&#x2F;code&gt; was becoming inefficient. We needed to standardize the setup of a test environment. &lt;&#x2F;p&gt;
+&lt;p&gt;As a lone developer, you can apply one-off customizations when running tests locally. But if you try to extend that strategy to continuous integration, you’ll quickly find that making changes manually becomes burdensome. CI encourages testing many different configurations, which means a successful CI plan requires easy management of test harness variables (a.k.a. Not manually updating variables for every test you need to run).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;cargo test&lt;&#x2F;code&gt; is just not equipped to handle this specialized focus on environment setup, or the cleanup&#x2F;teardown needed after a test is run. When using &lt;code&gt;cargo test&lt;&#x2F;code&gt;, these crucial tasks could only occur outside of the harness or within the logic of a test. Neither of these are good choices. Outside of the harness is not ideal because these processes end up too disconnected and hard to maintain. Likewise, including setup&#x2F;teardown within the logic of a test is inappropriate because it creates mental overhead for a test writer, and may obscure the results of tests.&lt;&#x2F;p&gt;
+&lt;p&gt;I needed to find a way around the limited functionality of &lt;code&gt;cargo test&lt;&#x2F;code&gt; -- keep reading to find out how I did it by creating a standardized setup and teardown as part of our testing harness.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;how-does-cargo-test-work-by-default&quot;&gt;How does &lt;code&gt;cargo test&lt;&#x2F;code&gt; work by default?&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-does-cargo-test-work-by-default&quot; aria-label=&quot;Anchor link for: how-does-cargo-test-work-by-default&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;There is a distinction between unit tests and integration tests in &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;ch11-03-test-organization.html&quot;&gt;the Rust book&lt;&#x2F;a&gt;. The distinction is less about testing strategy and more about defining Rust’s conventions for test organization.&lt;&#x2F;p&gt;
+&lt;p&gt;The main points are that:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Your tests are annotated with &lt;code&gt;#[test]&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;libtest&quot;&gt;libtest&lt;&#x2F;a&gt; harness enumerates through all of your tests (a point we’ll revisit later in more detail)&lt;&#x2F;li&gt;
+&lt;li&gt;libtest returns the pass&#x2F;fail status of the execution&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;what-do-i-need-from-integration-testing&quot;&gt;What do I need from integration testing?&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-do-i-need-from-integration-testing&quot; aria-label=&quot;Anchor link for: what-do-i-need-from-integration-testing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Libtest doesn&#x27;t specifically offer anything to support integration testing patterns.&lt;&#x2F;p&gt;
+&lt;p&gt;Setup of a standard test environment – especially in a complex system – is essential for managing expected behavior when making code changes.&lt;&#x2F;p&gt;
+&lt;p&gt;Unfortunately libtest does not assist with setup or teardown. I needed the ability to abstract away the setup and teardown of my test environment from test code. &lt;&#x2F;p&gt;
+&lt;p&gt;This task will be performed either way. Without harness support, setup&#x2F;teardown will be performed via external shell scripts or padding the setup&#x2F;teardown process within every single integration test... (no one&#x27;s idea of fun).&lt;&#x2F;p&gt;
+&lt;p&gt;It isn’t convenient to manage setup and teardown in a different context than the integration test. This kind of testing overhead leads to hard-to-reproduce and time consuming mistakes.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;where-do-we-get-started-with-a-custom-test-harness&quot;&gt;Where do we get started with a custom test harness?&lt;a class=&quot;zola-anchor&quot; href=&quot;#where-do-we-get-started-with-a-custom-test-harness&quot; aria-label=&quot;Anchor link for: where-do-we-get-started-with-a-custom-test-harness&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;By default, libtest will compile each of your &lt;code&gt;#[test]&lt;&#x2F;code&gt; labeled functions into their own binary crates (with its own &lt;code&gt;main()&lt;&#x2F;code&gt;) and executes it as part of the test. But we’re going to build all our integration tests into a single crate. This is recommended in order to speed up compile time ([&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;endler.dev&#x2F;2020&#x2F;rust-compile-times&#x2F;#combine-all-integration-tests-in-a-single-binary&quot;&gt;1&lt;&#x2F;a&gt;], [&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;matklad.github.io&#x2F;2021&#x2F;02&#x2F;27&#x2F;delete-cargo-integration-tests.html&quot;&gt;2&lt;&#x2F;a&gt;])&lt;&#x2F;p&gt;
+&lt;p&gt;First we’re going to create an integration test directory at the root of the crate where we’re going to build our integration test focused binary.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ mkdir integration
+&lt;&#x2F;span&gt;&lt;span&gt;$ touch integration&#x2F;main.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# Then create a main() function in main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In your Cargo.toml, you want to add &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# Cargo.toml
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# We&amp;#39;ll revisit the `inventory` crate later in the post
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#808080;&quot;&gt;dev-dependencies&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;inventory &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;0.1&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;[[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#808080;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt;]]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;integration&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;path &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;integration&#x2F;main.rs&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;harness &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;false
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This tells cargo test to not use libtest when running the &lt;code&gt;integration&lt;&#x2F;code&gt; test.&lt;&#x2F;p&gt;
+&lt;p&gt;When we run &lt;code&gt;cargo test integration&lt;&#x2F;code&gt;, what cargo will compile &lt;code&gt;integration&#x2F;main.rs&lt;&#x2F;code&gt; and execute it in the same manner as &lt;code&gt;cargo run&lt;&#x2F;code&gt;. This is all a harness is from &lt;code&gt;cargo&lt;&#x2F;code&gt;’s perspective. &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;add-setup-and-teardown-steps&quot;&gt;Add Setup and teardown steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#add-setup-and-teardown-steps&quot; aria-label=&quot;Anchor link for: add-setup-and-teardown-steps&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Next we’ll lay the foundation for our testing pattern. We’ll create 2 functions, &lt;code&gt;setup()&lt;&#x2F;code&gt; and &lt;code&gt;teardown()&lt;&#x2F;code&gt;, and add them to our &lt;code&gt;main()&lt;&#x2F;code&gt; (with reserved space in between for our future tests to be called).&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; main.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span&gt;setup() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Setup&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span&gt;teardown() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Teardown&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span&gt;main() {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; Setup test environment
+&lt;&#x2F;span&gt;&lt;span&gt;   setup();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; TODO: Run the test
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; Teardown test environment
+&lt;&#x2F;span&gt;&lt;span&gt;   teardown();
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;collect-all-integration-tests&quot;&gt;Collect all integration tests&lt;a class=&quot;zola-anchor&quot; href=&quot;#collect-all-integration-tests&quot; aria-label=&quot;Anchor link for: collect-all-integration-tests&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;To do its job, our test runner needs to create a list of all the test functions. Initially, I thought there would be an easy way to do this by leveraging &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;libtest&quot;&gt;libtest&lt;&#x2F;a&gt;&#x27;s &lt;code&gt;#[test]&lt;&#x2F;code&gt; attribute. &lt;&#x2F;p&gt;
+&lt;p&gt;I dug around in &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;libtest&#x2F;blob&#x2F;master&#x2F;libtest&#x2F;lib.rs&quot;&gt;relevant areas of libtest&lt;&#x2F;a&gt; and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;cargo&#x2F;blob&#x2F;master&#x2F;src&#x2F;cargo&#x2F;ops&#x2F;cargo_test.rs&quot;&gt;Cargo test&lt;&#x2F;a&gt; and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust&#x2F;blob&#x2F;master&#x2F;compiler&#x2F;rustc_builtin_macros&#x2F;src&#x2F;test.rs&quot;&gt;Rustc macros&lt;&#x2F;a&gt; code, but long (sad) story short, there is no straightforward way to reuse libtest for the purpose of test collection.&lt;&#x2F;p&gt;
+&lt;p&gt;If that surprises you, then you&#x27;re like me. I had hoped to use the test collection functionality from &lt;code&gt;#[test]&lt;&#x2F;code&gt;, but it wasn’t clear how I could accomplish this. My mental model for how &lt;code&gt;cargo test&lt;&#x2F;code&gt; works needed a refresh.&lt;&#x2F;p&gt;
+&lt;p&gt;Now that we’ve removed the option of using libtest, so that gives you 2 practical options for collecting tests:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Manually modify &lt;code&gt;integration&#x2F;main.rs&lt;&#x2F;code&gt; and add your test in between the setup and teardown
+&lt;ul&gt;
+&lt;li&gt;A quick and straightforward solution if you have a small set of tests&lt;&#x2F;li&gt;
+&lt;li&gt;This option requires us to add new tests to this list, which can be error-prone and tedious as we grow.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Build a test collector. We generate an external test catalog, and modify &lt;code&gt;integration&#x2F;main.rs&lt;&#x2F;code&gt; to execute tests from the catalog.
+&lt;ul&gt;
+&lt;li&gt;This is a long term solution, which we’ll be covering for the rest of the post.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;building-the-test-collector&quot;&gt;Building the test collector&lt;a class=&quot;zola-anchor&quot; href=&quot;#building-the-test-collector&quot; aria-label=&quot;Anchor link for: building-the-test-collector&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;For this test collector, we&#x27;ll be utilizing a crate. The &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;inventory&quot;&gt;inventory&lt;&#x2F;a&gt; crate is a plugin registry system. We&#x27;ll be using it for all the heavy lifting in our test framework, which means we&#x27;ll be treating our tests as plugins.&lt;&#x2F;p&gt;
+&lt;p&gt;In our &lt;code&gt;main.rs&lt;&#x2F;code&gt;, let’s declare a new module &lt;code&gt;tests&lt;&#x2F;code&gt;, where we can organize all the integration tests.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;&#x2F;&#x2F; main.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;+ pub mod tests;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;fn setup() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&amp;quot;Setup&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;fn teardown() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&amp;quot;Teardown&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;fn main() {
+&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;&#x2F; Setup test environment
+&lt;&#x2F;span&gt;&lt;span&gt;   setup();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;&#x2F; TODO: Run the test
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;&#x2F; Teardown test environment
+&lt;&#x2F;span&gt;&lt;span&gt;   teardown();
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In our new module, we’ll start by creating a struct to represent a single test for the plugin registry.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; tests&#x2F;mod.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[derive(Debug)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span&gt;IntegrationTest {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span&gt;name: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;&amp;amp;&amp;#39;static str&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span&gt;test_fn: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn&lt;&#x2F;span&gt;&lt;span&gt;(),
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;inventory::collect&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span&gt;(IntegrationTest);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this example, our struct &lt;code&gt;IntegrationTest&lt;&#x2F;code&gt; has 2 fields. &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;&#x2F;code&gt; is a human-readable name, which can be used as a key for test selection.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;test_fn&lt;&#x2F;code&gt; is a pointer to a function whose signature is non-async, takes no args, and does not return anything.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Note:  You can use functions that take args, and return things.&lt;&#x2F;p&gt;
+&lt;p&gt;For example:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub&lt;&#x2F;span&gt;&lt;span&gt; test_fn: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn&lt;&#x2F;span&gt;&lt;span&gt;(String) -&amp;gt; Result&amp;lt;(), ()&amp;gt;,
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then we call the &lt;code&gt;inventory::collect!()&lt;&#x2F;code&gt;macro to instantiate a plugin registry. When we write our tests, we’ll add to the plugin registry. More on this next.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;adding-new-tests-to-plugin-registry&quot;&gt;Adding new tests to plugin registry&lt;a class=&quot;zola-anchor&quot; href=&quot;#adding-new-tests-to-plugin-registry&quot; aria-label=&quot;Anchor link for: adding-new-tests-to-plugin-registry&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;We’re going to add a new basic test to the plugin registry. Start by adding a new submodule called &lt;code&gt;basic&lt;&#x2F;code&gt; in the tests module. &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; tests&#x2F;mod.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub mod &lt;&#x2F;span&gt;&lt;span&gt;basic;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the &lt;code&gt;basic&lt;&#x2F;code&gt; module, we write our basic test &lt;code&gt;basic_test()&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; tests&#x2F;basic.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;use super&lt;&#x2F;span&gt;&lt;span&gt;::IntegrationTest;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span&gt;basic_test() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Running basic test&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;inventory::submit&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;!&lt;&#x2F;span&gt;&lt;span&gt;(IntegrationTest {
+&lt;&#x2F;span&gt;&lt;span&gt;   name: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;basic&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;   test_fn: basic_test
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We&#x27;ll use &lt;code&gt;inventory::submit!()&lt;&#x2F;code&gt; to register our new test with the &lt;code&gt;IntegrationTest&lt;&#x2F;code&gt; struct we defined earlier.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;name&lt;&#x2F;code&gt; is a friendly, human-readable name. We can use this name as a key to search through the plugin registry.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;test_fn&lt;&#x2F;code&gt; takes the name of our test function. It has the same function signature as we defined. &lt;&#x2F;p&gt;
+&lt;h3 id=&quot;running-tests-from-registry&quot;&gt;Running tests from registry&lt;a class=&quot;zola-anchor&quot; href=&quot;#running-tests-from-registry&quot; aria-label=&quot;Anchor link for: running-tests-from-registry&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;We’ll finish this example up by running all of our registered tests&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;&#x2F;&#x2F; main.rs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;pub mod tests;
+&lt;&#x2F;span&gt;&lt;span&gt;+ use tests::IntegrationTest;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;fn setup() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&amp;quot;Setup&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;fn teardown() {
+&lt;&#x2F;span&gt;&lt;span&gt;   println!(&amp;quot;Teardown&amp;quot;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;fn main() {
+&lt;&#x2F;span&gt;&lt;span&gt;   setup();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;-   &#x2F;&#x2F; TODO: Run the test
+&lt;&#x2F;span&gt;&lt;span&gt;+   &#x2F;&#x2F; Run the tests
+&lt;&#x2F;span&gt;&lt;span&gt;+   for t in inventory::iter::&amp;lt;IntegrationTest&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;+       (t.test_fn)()
+&lt;&#x2F;span&gt;&lt;span&gt;+   }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   teardown();
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ cargo test integration
+&lt;&#x2F;span&gt;&lt;span&gt;   Compiling blog-post-example v0.1.0 (&#x2F;home&#x2F;telant&#x2F;Documents&#x2F;blog-post-example)
+&lt;&#x2F;span&gt;&lt;span&gt;	Finished test &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;unoptimized + debuginfo&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; target(s) in 0.21s
+&lt;&#x2F;span&gt;&lt;span&gt; 	Running target&#x2F;debug&#x2F;deps&#x2F;blog_post_example-e042d787684bb333
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;running 0 tests
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;test result: ok. 0 passed&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;0 failed&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;0 ignored&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;0 measured&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;0 filtered out&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;finished in 0.00s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt; 	Running target&#x2F;debug&#x2F;deps&#x2F;integration-7ed2452642c6f3b6
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Setup
+&lt;&#x2F;span&gt;&lt;span&gt;Running basic test
+&lt;&#x2F;span&gt;&lt;span&gt;Teardown
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;tips-for-extending-the-example&quot;&gt;Tips for extending the example&lt;a class=&quot;zola-anchor&quot; href=&quot;#tips-for-extending-the-example&quot; aria-label=&quot;Anchor link for: tips-for-extending-the-example&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The example runs all of the registered tests. But here are some useful impls if you want to extend even further. For example, adding a CLI, if you want to select individual tests. Or provide options to customize setup or teardown behavior.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span&gt;IntegrationTest {
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span&gt;all_test_names() -&amp;gt; Vec&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;&amp;amp;&amp;#39;static str&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;       inventory::iter::&amp;lt;IntegrationTest&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;           .into_iter()
+&lt;&#x2F;span&gt;&lt;span&gt;           .map(|x| x.name)
+&lt;&#x2F;span&gt;&lt;span&gt;           .collect::&amp;lt;Vec&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;&amp;amp;str&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;&amp;gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span&gt;from_name&amp;lt;S: AsRef&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;str&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;&amp;gt;(test_name: S) -&amp;gt; Option&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;&amp;amp;&amp;#39;static&lt;&#x2F;span&gt;&lt;span&gt; IntegrationTest&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;       inventory::iter::&amp;lt;IntegrationTest&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;           .into_iter()
+&lt;&#x2F;span&gt;&lt;span&gt;           .find(|t| t.name == test_name.as_ref())
+&lt;&#x2F;span&gt;&lt;span&gt;   }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you want to see more of these ideas extended even further, check out &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;infinyon&#x2F;fluvio&#x2F;tree&#x2F;master&#x2F;tests&#x2F;runner&#x2F;src&quot;&gt;Fluvio’s integration test runner&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;We use the CLI to customize setup, handle async testing, and we use an &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;infinyon&#x2F;fluvio&#x2F;blob&#x2F;master&#x2F;tests&#x2F;runner&#x2F;src&#x2F;fluvio-integration-derive&#x2F;src&#x2F;lib.rs&quot;&gt;attribute macro&lt;&#x2F;a&gt; to collect tests.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Rust’s testing ecosystem in the 2018 edition is great for unit testing. But for integration testing it still has room for improvement. Custom harnesses will become more necessary as Rust gains new developers. &lt;&#x2F;p&gt;
+&lt;p&gt;If we want to avoid reinventing the wheel, we need stable support from &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;libtest&#x2F;0.0.1&#x2F;libtest&#x2F;&quot;&gt;libtest&lt;&#x2F;a&gt; or more examples of how to perform test collection and patterns for setup, test, and teardown workflows.&lt;&#x2F;p&gt;
+&lt;p&gt;If you made it this far, thank you for following along with me! I wrote this because I could not find a guide to do this before trying to do this myself, and knowing these things beforehand would have made it much faster. Hopefully others find my experience helpful.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - xmonad</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/xmonad/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2011-05-27T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/xmonad/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Gnome Xmonad Lucid</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/gnome-xmonad-lucid/" type="text/html"/>
+		<id>https://tjtelan.com/blog/gnome-xmonad-lucid/</id>
+		<content type="html">&lt;p&gt;I just got started using tiling window managers because I find that I am a little more productive when I don&#x27;t use the mouse. With Xmonad, I don&#x27;t have to deal with overlapping windows and I never have to use the mouse!&lt;&#x2F;p&gt;
+&lt;p&gt;I did have some trouble integrating Xmonad into my Ubuntu 10.04 install. I couldn&#x27;t interface with my wireless card, and I can&#x27;t always be somewhere with a cable. I had to continue using the NetworkManager app until I had more time to play and look through manuals.&lt;&#x2F;p&gt;
+&lt;p&gt;Luckily, I stumbled upon &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;markhansen.co.nz&#x2F;xmonad-ubuntu-lucid&quot;&gt;this straightforward walkthrough&lt;&#x2F;a&gt; (Link no longer active). Now I am happily using Gnome and Xmonad in Ubuntu 10.04 Lucid!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

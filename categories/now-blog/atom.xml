@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - now-blog</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/categories/now-blog/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2017-04-01T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/categories/now-blog/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Learning New Build Systems</title>
+		<published>2017-04-01T00:00:00+00:00</published>
+		<updated>2017-04-01T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/learning-new-build-systems/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-new-build-systems/</id>
+		<content type="html">&lt;p&gt;I do a lot of devops automation for work. This gives me a lot of opportunity to touch the build systems of many different languages. I have a professional background with Python, and a lot of experience building C&#x2F;C++ with make.&lt;&#x2F;p&gt;
+&lt;p&gt;I most recently got to play with Java&#x2F;Maven, and NodeJS&#x2F;Gulp.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The project I was building has a UI written in node, and built into an npm module with gulp. There are also maven pom files that describe the build with gulp using npm run build. This was done so everything could be orchestrated for building into a java jar.&lt;&#x2F;p&gt;
+&lt;p&gt;Things I thought were neat about maven is the plugin system.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m not a huge fan of the pom files using xml, but it is really nice to be able to configure dependencies, and dynamically define build artifacts. The local maven repo is still a little confusing at times, but with more time I think it&#x27;ll make more sense.&lt;&#x2F;p&gt;
+&lt;p&gt;--&lt;&#x2F;p&gt;
+&lt;p&gt;The UI build with gulp was more unfamiliar. The build instructions are in javascript, naturally. You can use &lt;code&gt;gulp.task()&lt;&#x2F;code&gt; and define a list of dependencies. But I had some experiences where my dependency lists were not made explicit enough. I suppose this is not much different than makefiles.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Status Update</title>
+		<published>2016-06-25T00:00:00+00:00</published>
+		<updated>2016-06-25T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/status-update/" type="text/html"/>
+		<id>https://tjtelan.com/blog/status-update/</id>
+		<content type="html">&lt;p&gt;Another Status update post.&lt;&#x2F;p&gt;
+&lt;p&gt;Its been about 3 months since starting my new job. I get to work on a lot of devops-y type of tasks, which is fun, and a much more positive life change.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;quick-rundown-on-some-things-i-ve-completed-so-far-in-no-order-of-importance-possibly-future-topics&quot;&gt;Quick rundown on some things I&#x27;ve completed so far, in no order of importance. Possibly future topics&lt;a class=&quot;zola-anchor&quot; href=&quot;#quick-rundown-on-some-things-i-ve-completed-so-far-in-no-order-of-importance-possibly-future-topics&quot; aria-label=&quot;Anchor link for: quick-rundown-on-some-things-i-ve-completed-so-far-in-no-order-of-importance-possibly-future-topics&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Learn to get used to using OS X as my primary development system&lt;&#x2F;li&gt;
+&lt;li&gt;Get familiar with using Homebrew for installing packages&lt;&#x2F;li&gt;
+&lt;li&gt;Play with Ansible in an OS X environment&lt;&#x2F;li&gt;
+&lt;li&gt;Beginning to use Chef to manage the team&#x27;s testing environment.&lt;&#x2F;li&gt;
+&lt;li&gt;Learn about Fluentd, to process development logs (and run arbitrary commands based on events. Lots here to talk about)&lt;&#x2F;li&gt;
+&lt;li&gt;A lot of Docker! Docker-machine, Docker-compose with Virtualbox, then native Docker engine (1.12) in OS X&lt;&#x2F;li&gt;
+&lt;li&gt;Some integrating of Eclipse and Docker via Docker Tooling plugin. (Perhaps more to talk about in the future)&lt;&#x2F;li&gt;
+&lt;li&gt;AWS. Just getting familiar with this environment. Mostly S3, EC2, ECR, CloudFront, so far...&lt;&#x2F;li&gt;
+&lt;li&gt;Shippable for CI. (They use containers for building our github check-ins. I think this is an interesting service)&lt;&#x2F;li&gt;
+&lt;li&gt;Blackbox frontend testing with Selenium and Appium&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;topics-outside-of-tech-i-ve-been-spending-time-doing&quot;&gt;Topics outside of tech I&#x27;ve been spending time doing&lt;a class=&quot;zola-anchor&quot; href=&quot;#topics-outside-of-tech-i-ve-been-spending-time-doing&quot; aria-label=&quot;Anchor link for: topics-outside-of-tech-i-ve-been-spending-time-doing&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Working on the house (I don&#x27;t have a functional workshop yet, but soon)&lt;&#x2F;li&gt;
+&lt;li&gt;Time and goal management&lt;&#x2F;li&gt;
+&lt;li&gt;Watching a lot of YouTube&lt;&#x2F;li&gt;
+&lt;li&gt;Getting more involved with many social media type apps&lt;&#x2F;li&gt;
+&lt;li&gt;Gardening&lt;&#x2F;li&gt;
+&lt;li&gt;Biking&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It&#x27;s always been a goal of mine to make this blog something to hold myself accountable. So even if it is a post once in a while, I want to get my voice out there. In an effort to post more often, I&#x27;ll be experimenting with this space to post non-tech stuff that hopefully brings some value.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Goodbye Wordpress</title>
+		<published>2015-07-05T00:00:00+00:00</published>
+		<updated>2015-07-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/goodbye-wordpress/" type="text/html"/>
+		<id>https://tjtelan.com/blog/goodbye-wordpress/</id>
+		<content type="html">&lt;p&gt;I am in the process of migrating away from my self-hosted Wordpress to the Github-hosted &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;pages.github.com&#x2F;&quot;&gt;Github Pages&lt;&#x2F;a&gt;, powered by &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;jekyllrb.com&#x2F;&quot;&gt;Jekyll&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I was finding it difficult to motivate myself to write when my wordpress comments kept getting hit by bots. Please excuse the plain styling while I get the hang of using Jekyll.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Learning Android to Play with Metawatch Manager</title>
+		<published>2012-05-14T00:00:00+00:00</published>
+		<updated>2012-05-14T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve been meaning to learn how to develop for Android since the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;HTC_Dream&quot;&gt;G1&lt;&#x2F;a&gt; (the first Android handset) was released.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also been meaning to develop for my Metawatch since I got it last September, but since launch, a lack of a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.metawatch.org&#x2F;forums&#x2F;thread&#x2F;200&#x2F;official-free-cheap-development-environment&quot;&gt;free&#x2F;cheap development
+environment&lt;&#x2F;a&gt; continues to slow my momentum (and interest) in messing with what is otherwise a nice looking, basic functioning watch. (That also has a motor in it...)&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m going to take on both of these goals at the same time.&lt;&#x2F;p&gt;
+&lt;p&gt;I was using the official version of the Metawatch Manager, the software installed in Android that is responsible for sending notifications (and text messages, phone calls...) to the watch to drive the motor and make you look at the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;I later moved onto an app I found in the Android market (err... Google Play). &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;play.google.com&#x2F;store&#x2F;apps&#x2F;details?id=com.kupriyanov.metawatch&amp;amp;hl=en&quot;&gt;Manager for MetaWatch&lt;&#x2F;a&gt; I&#x27;ve been finding that I really like what the app has offered me over the official one, but it is a little bit buggy and I&#x27;m also looking to add some features. It would be great to add the geeky, personal touch that I&#x27;ve been missing that shows that this is my project.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I&#x27;m going to get back to the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;lmgtfy.com&#x2F;?q=android+tutorial&quot;&gt;Android tutorial&lt;&#x2F;a&gt; I&#x27;m reading.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;MetaWatchOpenProjects&#x2F;MWM-for-Android&quot;&gt;Official Metawatch Manager github project&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Metawatch Has Arrived</title>
+		<published>2011-09-12T00:00:00+00:00</published>
+		<updated>2011-09-12T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/metawatch-has-arrived/" type="text/html"/>
+		<id>https://tjtelan.com/blog/metawatch-has-arrived/</id>
+		<content type="html">&lt;p&gt;I just got my digital &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.metawatch.org&quot;&gt;MetaWatch&lt;&#x2F;a&gt; this morning after 3 months of delays from TI.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m still playing around with the watch. Currently just got the Android apk installed on my phone and paired the watch to it. &lt;del&gt;There was no default UI to change the time&lt;&#x2F;del&gt;, &lt;em&gt;I was too lazy to read the user guide&lt;&#x2F;em&gt;, so I really needed to pair to use this as a watch.&lt;&#x2F;p&gt;
+&lt;p&gt;There will be a more in-depth post soon, but here are a couple of pictures of the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;lh6.googleusercontent.com&#x2F;-eIw6oya1u_M&#x2F;Tm5UY8kgqLI&#x2F;AAAAAAAAAHU&#x2F;7lb9llwH_mA&#x2F;h301&#x2F;11%2B-%2B1&quot; alt=&quot;Metawatch charging&quot; title=&quot;Metawatch charging&quot; &#x2F;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;lh5.googleusercontent.com&#x2F;-HU0RYcterXg&#x2F;Tm5Us5KDW9I&#x2F;AAAAAAAAAHg&#x2F;I7OgGYcqrkE&#x2F;h301&#x2F;11%2B-%2B1&quot; alt=&quot;Usb clip + pins on watch underside&quot; title=&quot;Usb clip + pins on watch underside&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Ubuntu Breakup</title>
+		<published>2011-07-06T00:00:00+00:00</published>
+		<updated>2011-07-06T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/ubuntu-breakup/" type="text/html"/>
+		<id>https://tjtelan.com/blog/ubuntu-breakup/</id>
+		<content type="html">&lt;p&gt;Summer means I can experiment with my laptop again!&lt;&#x2F;p&gt;
+&lt;p&gt;Something I&#x27;ve had on my to-do list for awhile is to try out another Linux distro. In the past I&#x27;ve tried a handful of different ones: starting back in the day with &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.redhat.com&quot;&gt;Red Hat&lt;&#x2F;a&gt;, some live usb trials using &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.damnsmalllinux.org&quot;&gt;DSL&lt;&#x2F;a&gt;, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.puppylinux.org&quot;&gt;Puppy&lt;&#x2F;a&gt;, maintanence with &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.sysresccd.org&#x2F;Main_Page&quot;&gt;SystemRescueCd&lt;&#x2F;a&gt; and a couple of attempts at learning projects with &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.backtrack-linux.org&quot;&gt;Backtrack&lt;&#x2F;a&gt;, &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.linuxfromscratch.org&quot;&gt;LFS&lt;&#x2F;a&gt; and &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.damnvulnerablelinux.org&quot;&gt;DVL&lt;&#x2F;a&gt;, a really serious trial with &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.gentoo.org&quot;&gt;Gentoo&lt;&#x2F;a&gt; but always giving up and settling with &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.ubuntu.com&quot;&gt;Ubuntu&lt;&#x2F;a&gt; since it just worked.&lt;&#x2F;p&gt;
+&lt;p&gt;However, my general usage has changed significantly from when I started using Ubuntu. Also, I noticed that I&#x27;ve just been resisting basically any upgrades to the OS to the point where I&#x27;ve only been running the LTS versions to guarantee that I wouldn&#x27;t lose hardware and power saving support after an upgrade (probably a little irrational).&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve been migrating off of the default Ubuntu install for a while now, and I just want a little more control. Starting to sound a little bit like a breakup, but I just want more control while safely distancing myself from Linux beginners.&lt;&#x2F;p&gt;
+&lt;p&gt;I picked &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;archlinux.org&quot;&gt;Arch&lt;&#x2F;a&gt; because of its similarities to BSD. I manage &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.freebsd.org&quot;&gt;FreeBSD&lt;&#x2F;a&gt; servers at work, and I think it is really great. Easy to set up, Ports package management system is amazing, knowledgable (yet kind of stiff) community. However, I don&#x27;t want to run a FreeBSD desktop, no thanks, sorry.&lt;&#x2F;p&gt;
+&lt;p&gt;The learning curve was not as steep as I anticipated. One of the goals I needed to achieve before allowing myself to have a GUI environment was to learn how to use my wifi card in command line. Done and done. To reward myself, I installed &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;awesome.naquadah.org&quot;&gt;AwesomeWM&lt;&#x2F;a&gt;. I picked this instead of the Xmonad from my previous posts because of the configuration language. I just don&#x27;t see myself enjoying Haskell over Lua for simple tweaks. If I&#x27;m using this computer everyday, I don&#x27;t want to make it a chore.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I&#x27;ll probably be checking in with some new stuff soon!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Gnome Xmonad Lucid</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/gnome-xmonad-lucid/" type="text/html"/>
+		<id>https://tjtelan.com/blog/gnome-xmonad-lucid/</id>
+		<content type="html">&lt;p&gt;I just got started using tiling window managers because I find that I am a little more productive when I don&#x27;t use the mouse. With Xmonad, I don&#x27;t have to deal with overlapping windows and I never have to use the mouse!&lt;&#x2F;p&gt;
+&lt;p&gt;I did have some trouble integrating Xmonad into my Ubuntu 10.04 install. I couldn&#x27;t interface with my wireless card, and I can&#x27;t always be somewhere with a cable. I had to continue using the NetworkManager app until I had more time to play and look through manuals.&lt;&#x2F;p&gt;
+&lt;p&gt;Luckily, I stumbled upon &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;markhansen.co.nz&#x2F;xmonad-ubuntu-lucid&quot;&gt;this straightforward walkthrough&lt;&#x2F;a&gt; (Link no longer active). Now I am happily using Gnome and Xmonad in Ubuntu 10.04 Lucid!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Senior Project Update</title>
+		<published>2011-05-27T00:00:00+00:00</published>
+		<updated>2011-05-27T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/senior-project-update/" type="text/html"/>
+		<id>https://tjtelan.com/blog/senior-project-update/</id>
+		<content type="html">&lt;p&gt;Presentations are just around the corner and I haven&#x27;t been making quite as many updates with regard to my project.&lt;&#x2F;p&gt;
+&lt;p&gt;The quick summary will have to do for now: It is using an ARM based microcontroller (Freescale Kinetis K60 -- tower system). The function it is serving is web-enabled home automation. I&#x27;m using the MQX real-time operating system. Users of this system will control the devices connected to the system through a web browser.&lt;&#x2F;p&gt;
+&lt;p&gt;The code for this project is up on github, so anyone can contribute, customize for themselves or just look at the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tjtelan&#x2F;homewatchdog&quot;&gt;code&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I plan to have a reflection up after next Thursday.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Deep breath&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Still so much to add.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

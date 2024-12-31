@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - docker</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/docker/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2020-06-11T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/docker/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How to link multiple docker-compose services via network</title>
+		<published>2020-06-11T00:00:00+00:00</published>
+		<updated>2020-06-11T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/" type="text/html"/>
+		<id>https://tjtelan.com/blog/how-to-link-multiple-docker-compose-via-network/</id>
+		<content type="html">&lt;p&gt;This scenario came from a question I was asked docker-compose and network connectivity between services defined in different docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;The desired result was to be able to define a docker-compose.yml in one file, and in a second docker-compose.yml have the ability to reach the first service via service or container name for development purposes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;Default scenario: Two separate docker-compose.yml and two separate default networks&lt;a class=&quot;zola-anchor&quot; href=&quot;#default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot; aria-label=&quot;Anchor link for: default-scenario-two-separate-docker-compose-yml-and-two-separate-default-networks&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s take a simple docker compose file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When it starts up, a default network is created. Its name is based on the service name and the directory name of the docker-compose.yml file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating network &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;compose1_default&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; with the default driver
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;second-docker-compose-file&quot;&gt;Second docker compose file&lt;a class=&quot;zola-anchor&quot; href=&quot;#second-docker-compose-file&quot; aria-label=&quot;Anchor link for: second-docker-compose-file&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Starting services in a second docker compose file, we see the same behavior. A new default network is created and used.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating network &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;compose2_default&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt; with the default driver
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A side-effect of these isolated networks are that the containers are unable to ping one another by service name or container name.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-from-service-1-ping-service-2&quot;&gt;Test: From Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-from-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-from-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;service2&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping compose2_service2_1 
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;compose2_service2_1&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;test-service-2-ping-service-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;service1&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping compose1_service1_1 
+&lt;&#x2F;span&gt;&lt;span&gt;ping: bad address &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;compose1_service1_1&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;new-scenario-sharing-a-network-between-services&quot;&gt;New scenario: Sharing a network between services&lt;a class=&quot;zola-anchor&quot; href=&quot;#new-scenario-sharing-a-network-between-services&quot; aria-label=&quot;Anchor link for: new-scenario-sharing-a-network-between-services&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want define services in multiple docker-compose.yml files, and also have network connectivity between the services, you need to configure your services to use the same network.&lt;&#x2F;p&gt;
+&lt;p&gt;To create an external network, you can run &lt;code&gt;docker network create &amp;lt;name&amp;gt;&lt;&#x2F;code&gt;. -- where &lt;code&gt;&amp;lt;name&amp;gt;&lt;&#x2F;code&gt; can be a single string without spaces.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;creating-the-network&quot;&gt;Creating the network&lt;a class=&quot;zola-anchor&quot; href=&quot;#creating-the-network&quot; aria-label=&quot;Anchor link for: creating-the-network&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ docker network create external-example
+&lt;&#x2F;span&gt;&lt;span&gt;2af4d92c2054e9deb86edaea8bb55ecb74f84a62aec7614c9f09fee386f248a6
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;modified-first-docker-compose-file-with-network-configured&quot;&gt;Modified first docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-first-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-first-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service1&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;networks&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;external-example&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose1
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose1_service1_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;modified-second-docker-compose-file-with-network-configured&quot;&gt;Modified second docker-compose file with network configured&lt;a class=&quot;zola-anchor&quot; href=&quot;#modified-second-docker-compose-file-with-network-configured&quot; aria-label=&quot;Anchor link for: modified-second-docker-compose-file-with-network-configured&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;3&amp;#39; 
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;service2&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;busybox&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;sleep infinity&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;networks&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;external&lt;&#x2F;span&gt;&lt;span&gt;: 
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;external-example&lt;&#x2F;span&gt;&lt;span&gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Restarting the services&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ pwd
+&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;tmp&#x2F;docker-example&#x2F;compose2
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker-compose up -d
+&lt;&#x2F;span&gt;&lt;span&gt;Creating compose2_service2_1 ... done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After running &lt;code&gt;docker-compose up -d&lt;&#x2F;code&gt; on both docker-compose.yml files, we see that no new networks were created.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;$ docker network ls
+&lt;&#x2F;span&gt;&lt;span&gt;NETWORK ID          NAME                DRIVER              SCOPE
+&lt;&#x2F;span&gt;&lt;span&gt;25e0c599d5e5        bridge              bridge              local
+&lt;&#x2F;span&gt;&lt;span&gt;2af4d92c2054        external-example    bridge              local
+&lt;&#x2F;span&gt;&lt;span&gt;7df4631e9cff        host                host                local
+&lt;&#x2F;span&gt;&lt;span&gt;194d4156d7ab        none                null                local
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With the containers using the &lt;code&gt;external-example&lt;&#x2F;code&gt; network, they are able to ping one another.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;test-service-1-ping-service-2&quot;&gt;Test: Service 1 ping Service 2&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-1-ping-service-2&quot; aria-label=&quot;Anchor link for: test-service-1-ping-service-2&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping service2
+&lt;&#x2F;span&gt;&lt;span&gt;PING service2 (172.24.0.3): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.3: seq=0 ttl=64 time=0.054 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- service2 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.054&#x2F;0.054&#x2F;0.054 ms
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose1_service1_1 ping compose2_service2_1
+&lt;&#x2F;span&gt;&lt;span&gt;PING compose2_service2_1 (172.24.0.2): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.2: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- compose2_service2_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;test-service-2-ping-service-1-1&quot;&gt;Test: Service 2 ping Service 1&lt;a class=&quot;zola-anchor&quot; href=&quot;#test-service-2-ping-service-1-1&quot; aria-label=&quot;Anchor link for: test-service-2-ping-service-1-1&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By service name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping service1
+&lt;&#x2F;span&gt;&lt;span&gt;PING service1 (172.24.0.2): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.2: seq=0 ttl=64 time=0.041 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- service1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.041&#x2F;0.041&#x2F;0.041 ms
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# By container name
+&lt;&#x2F;span&gt;&lt;span&gt;$ docker exec -it compose2_service2_1 ping compose1_service1_1
+&lt;&#x2F;span&gt;&lt;span&gt;PING compose1_service1_1 (172.24.0.3): 56 data bytes
+&lt;&#x2F;span&gt;&lt;span&gt;64 bytes from 172.24.0.3: seq=0 ttl=64 time=0.042 ms
+&lt;&#x2F;span&gt;&lt;span&gt;^C
+&lt;&#x2F;span&gt;&lt;span&gt;--- compose1_service1_1 ping statistics ---
+&lt;&#x2F;span&gt;&lt;span&gt;1 packets transmitted, 1 packets received, 0% packet loss
+&lt;&#x2F;span&gt;&lt;span&gt;round-trip min&#x2F;avg&#x2F;max = 0.042&#x2F;0.042&#x2F;0.042 ms
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As a note, you can configure your services to use a custom container name by declaring the &lt;code&gt;container_name&lt;&#x2F;code&gt; key under each service (i.e., at the same level as &lt;code&gt;image&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.docker.com&#x2F;compose&#x2F;compose-file&#x2F;#container_name&quot;&gt;Link to Docker-compose docs - container_name&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;takeaway&quot;&gt;Takeaway&lt;a class=&quot;zola-anchor&quot; href=&quot;#takeaway&quot; aria-label=&quot;Anchor link for: takeaway&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;You can connect services defined across multiple docker-compose.yml files.&lt;&#x2F;p&gt;
+&lt;p&gt;In order to do this you’ll need to:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create an external network with &lt;code&gt;docker network create &amp;lt;network name&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;In each of your docker-compose.yml  configure the default network to use your externally created network with the &lt;code&gt;networks&lt;&#x2F;code&gt; top-level key.&lt;&#x2F;li&gt;
+&lt;li&gt;You can use either the service name or container name to connect between containers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+	</entry>
+</feed>

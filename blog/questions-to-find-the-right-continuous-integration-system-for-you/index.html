@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Questions to Find the Right Continuous Integration System for You &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/" />
+   
+  <meta property="og:title" content="Questions to Find the Right Continuous Integration System for You" />
+  
+  
+  <meta property="og:description" content="Questions to ask if you&#x27;re considering switching CI systems" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/questions-to-find-the-right-continuous-integration-system-for-you/" />
+   
+  <meta name="twitter:title" content="Questions to Find the Right Continuous Integration System for You" />
+  
+  
+  <meta name="twitter:description" content="Questions to ask if you&#x27;re considering switching CI systems" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Questions to Find the Right Continuous Integration System for You</h1>
+    
+    <span class="post-meta">
+        7 min read
+        &nbsp;&bull;&nbsp;
+        2020-12-10
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/devops/">
+              devops
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/devops/">
+              #devops
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/ci/">
+              #ci
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/leadership/">
+              #leadership
+            </a>
+          
+        
+      </span>
+
+    <p>Continuous integration is fancy shell scripting. It even uses shell scripting terminology like pipelines, but is obscured with marketing and many seemingly complex and different methods of configuration.</p>
+<p>The purpose of this post is to discuss Continuous Integration (CI) Systems at a high level if you are considering switching to a new service. I want to introduce you to a few talking points that aren't discussed enough in order to help you make a decision.</p>
+<h2 id="what-are-the-goals-of-continuous-integration-ci">What are the goals of Continuous Integration (CI)?<a class="zola-anchor" href="#what-are-the-goals-of-continuous-integration-ci" aria-label="Anchor link for: what-are-the-goals-of-continuous-integration-ci">🔗</a></h2>
+<p>The functions of continuous integration are very flexible and therefore, and the goals are super simple. Automatically run scripts upon the occurrence of an event.</p>
+<p>Common events can be a git commit or a timer event set to run every 5 minutes.</p>
+<h2 id="how-does-ci-differ-from-shell-scripting">How does CI differ from shell scripting?<a class="zola-anchor" href="#how-does-ci-differ-from-shell-scripting" aria-label="Anchor link for: how-does-ci-differ-from-shell-scripting">🔗</a></h2>
+<p>Continuous integration has a narrow context in which it is intended to run. It has extra structure in order to tell a tighter story. (The CI story leads into another story called Continuous Delivery/Deployment (CD), but we will only be focusing on CI)</p>
+<p>A best practice of CI is to automatically build and/or run tests on every commit in order to validate whether the codebase builds/tests are complete without errors.</p>
+<p>Basic structure defines conditions as well as commands or actions that should be executed when an event occurs. Conditions such as a new commit in a specific branch, or file paths. Or keywords in commit messages.</p>
+<p>On the more advanced side, platform specific features like plugins may be introduced for sending or receiving events from other systems, initiating external triggers based on other pipelines, caching, cleaning up and notifications.</p>
+<h2 id="what-type-of-ci-systems-that-exist-today">What type of CI systems that exist today?<a class="zola-anchor" href="#what-type-of-ci-systems-that-exist-today" aria-label="Anchor link for: what-type-of-ci-systems-that-exist-today">🔗</a></h2>
+<p>There is no shortage of software that is designed for Continuous Integration. What I believe sets these platforms apart from each other is:</p>
+<ul>
+<li>The experience and effort involved with setting up a new environment for your organization</li>
+<li>Path to configuring new pipelines, and maintaining them over time.</li>
+</ul>
+<p>If your organization regularly exercises the creation of new environments, like in consulting orgs, it is reasonable to gain the experience with an open source tool that won’t cost you any money with licensing.</p>
+<p>Otherwise, I might suggest picking a system the reduces the friction for pipeline creation and maintenance.</p>
+<hr />
+<p>Styles of setting up new pipelines falls into two categories.</p>
+<h3 id="stateful-webui-pipeline-config">Stateful (WebUI) pipeline config<a class="zola-anchor" href="#stateful-webui-pipeline-config" aria-label="Anchor link for: stateful-webui-pipeline-config">🔗</a></h3>
+<p>Jenkins is the primary example of configuration via WebUI, as it is the functionality out of the box. Adding pipelines in this system requires a user to log into the WebUI, configure connections to builder systems and methodically define pipelines.</p>
+<h4 id="pros">Pros<a class="zola-anchor" href="#pros" aria-label="Anchor link for: pros">🔗</a></h4>
+<ul>
+<li>The biggest player in this space, Jenkins, is free to install with flexible system requirements.</li>
+<li>Relatively low skill required to get started. Setup of pipelines and any subsequent edits are performed through the browser with a few clicks.</li>
+<li>Many plugins exist, which probably suit the needs of your org.</li>
+<li>Most of the CI in this category are older and mature. Very search engine friendly solutions.</li>
+</ul>
+<h4 id="cons">Cons<a class="zola-anchor" href="#cons" aria-label="Anchor link for: cons">🔗</a></h4>
+<ul>
+<li>Administration is more difficult and time consuming to perform as footprint increases. Over time the details of the pipeline configuration may drift and be difficult to reproduce for the purposes of documentation or migration.</li>
+<li>It is easy to neglect this kind of CI installation. Both a testament to stability, and a detriment to your org when unexpected outages occur. Rebuilding can be tedious and error prone.</li>
+<li>Takes a lot of effort to secure natively in a cloud-based future. Typically these CI systems inconveniently end up hiding behind a VPN.</li>
+</ul>
+<h3 id="stateless-file-based-pipeline-config">Stateless (File-based) pipeline config<a class="zola-anchor" href="#stateless-file-based-pipeline-config" aria-label="Anchor link for: stateless-file-based-pipeline-config">🔗</a></h3>
+<p>This is the modern style of CI system. Your TravisCI, Github Action, Azure DevOps</p>
+<p>Typically we find this system is hosted through your git provider, or as a separate hosted service that we allow access to the repos. YAML is the most popular config format. </p>
+<h4 id="pros-1">Pros<a class="zola-anchor" href="#pros-1" aria-label="Anchor link for: pros-1">🔗</a></h4>
+<ul>
+<li>Configuration of pipelines stay versioned alongside the codebases that use them.</li>
+</ul>
+<h4 id="cons-1">Cons<a class="zola-anchor" href="#cons-1" aria-label="Anchor link for: cons-1">🔗</a></h4>
+<ul>
+<li>No config schema standards, though. most use a yaml format.</li>
+<li>Complexity becomes harder to manage, and requires a commit and push to repos in order to test. Testing contributes clutter in git logs, and uses up build minutes, which is the cost unit that many hosted services bill on.</li>
+<li>Limited self-hosted options that are free.</li>
+<li>Limited self-hosted options that have small system requirements</li>
+</ul>
+<h3 id="my-opinion">My opinion<a class="zola-anchor" href="#my-opinion" aria-label="Anchor link for: my-opinion">🔗</a></h3>
+<p>I strongly prefer the stateless type of configuration because it provides a more code-like arena where documentation can be provided.</p>
+<p>Mixing the workflow of CI pipeline configuration with your organization’s version control practices can be disruptive if you need to push code in order to see the results of changes to your pipeline. It is a price to pay for the ability to easily correlate changes in codebase with changes in pipeline.</p>
+<p>The balance to strike rests on your code hosting provider needs (i.e. costs per user) and the types of technologies and platforms you need to support for building (web, native, mobile, embedded, etc). This flexibility mostly skews support towards building for web-based technologies.</p>
+<p>Also, Jenkins technically has file-based pipeline support via Jenkinsfile, but unless my org was already deeply invested in staying with Jenkins, I would steer clear. It is not the future. It is harder than necessary to use.</p>
+<h2 id="what-are-the-ci-hosting-options">What are the CI Hosting Options?<a class="zola-anchor" href="#what-are-the-ci-hosting-options" aria-label="Anchor link for: what-are-the-ci-hosting-options">🔗</a></h2>
+<h3 id="self-hosting">Self-hosting<a class="zola-anchor" href="#self-hosting" aria-label="Anchor link for: self-hosting">🔗</a></h3>
+<p>Self-hosting means running and maintaining a process on a physical or virtual machine that you have access to.</p>
+<h4 id="pros-2">Pros<a class="zola-anchor" href="#pros-2" aria-label="Anchor link for: pros-2">🔗</a></h4>
+<ul>
+<li>Somewhat more private for less effort if hosting in a private location.</li>
+<li>Effective use of data center computers. Initial costs may be higher, but maintenance costs are typically lower.</li>
+</ul>
+<h4 id="cons-2">Cons<a class="zola-anchor" href="#cons-2" aria-label="Anchor link for: cons-2">🔗</a></h4>
+<ul>
+<li>Being responsible for maintenance</li>
+<li>Limited to the platforms that you have available.</li>
+</ul>
+<h3 id="system-as-a-service-hosted">System as a Service (Hosted)<a class="zola-anchor" href="#system-as-a-service-hosted" aria-label="Anchor link for: system-as-a-service-hosted">🔗</a></h3>
+<p>External systems as a service (Hosted services) allow users to just log in and connect their version control.</p>
+<h4 id="pros-3">Pros<a class="zola-anchor" href="#pros-3" aria-label="Anchor link for: pros-3">🔗</a></h4>
+<ul>
+<li>Not responsible for performing maintenance.</li>
+<li>Typically authentication is provided, with options to support your org’s auth provider</li>
+</ul>
+<h4 id="cons-3">Cons<a class="zola-anchor" href="#cons-3" aria-label="Anchor link for: cons-3">🔗</a></h4>
+<ul>
+<li>Can be expensive if you require a lot of build time or resources</li>
+<li>Shrinking caps on “free” resources for open source projects</li>
+</ul>
+<h2 id="issues-to-consider-when-switching-between-ci-platforms">Issues to Consider when Switching between CI platforms<a class="zola-anchor" href="#issues-to-consider-when-switching-between-ci-platforms" aria-label="Anchor link for: issues-to-consider-when-switching-between-ci-platforms">🔗</a></h2>
+<p>These are some categorized rhetorical questions that you or your organization should ask if you are migrating CI platforms</p>
+<h4 id="threat-model">Threat model<a class="zola-anchor" href="#threat-model" aria-label="Anchor link for: threat-model">🔗</a></h4>
+<ul>
+<li>Do you need to be deployed on-site?</li>
+<li>What are the upfront and ongoing costs associated?</li>
+<li>Do you have secrets (like private keys, API tokens) that are needed at build time?</li>
+</ul>
+<h4 id="contributor-model">Contributor model<a class="zola-anchor" href="#contributor-model" aria-label="Anchor link for: contributor-model">🔗</a></h4>
+<ul>
+<li>How are contributors logging in?</li>
+<li>What are the costs associated per seat?</li>
+</ul>
+<h4 id="maintenance">Maintenance<a class="zola-anchor" href="#maintenance" aria-label="Anchor link for: maintenance">🔗</a></h4>
+<ul>
+<li>Who is responsible for the health of the pipeline?</li>
+<li>How much time/money are you budgeting to spend on maintenance and improvements?</li>
+</ul>
+<h4 id="cost-of-build-minutes">Cost of Build minutes<a class="zola-anchor" href="#cost-of-build-minutes" aria-label="Anchor link for: cost-of-build-minutes">🔗</a></h4>
+<ul>
+<li>For open source projects, how many build minutes are being used?</li>
+</ul>
+<h4 id="responsiveness-needs">Responsiveness needs<a class="zola-anchor" href="#responsiveness-needs" aria-label="Anchor link for: responsiveness-needs">🔗</a></h4>
+<ul>
+<li>How many concurrent builds does your org require?</li>
+</ul>
+<h4 id="technologies-used">Technologies used<a class="zola-anchor" href="#technologies-used" aria-label="Anchor link for: technologies-used">🔗</a></h4>
+<ul>
+<li>Containerizing builds is popular for isolation. But not all projects can build within a container.</li>
+<li>Apple, Microsoft and embedded projects are not nearly as flexible and may require special considerations or resources.</li>
+</ul>
+<h4 id="delivery-deployment-model">Delivery/Deployment model<a class="zola-anchor" href="#delivery-deployment-model" aria-label="Anchor link for: delivery-deployment-model">🔗</a></h4>
+<ul>
+<li>What do you need to happen after a build passes?</li>
+<li>Are you creating a build artifact that needs to be stored somewhere?</li>
+<li>What is the desired frequency between build vs delivery/deploy?</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">🔗</a></h2>
+<p>Not all continuous integration is considered equal. But they all provide basically the same functions. In most cases, it is possible to self-host and do everything yourself. But sometimes it is worth paying money to a product / service that takes care of your needs. It is really all about making sure you know what the trade-offs are for your specific case.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

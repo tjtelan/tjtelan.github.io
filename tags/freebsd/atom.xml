@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - freebsd</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/freebsd/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2013-12-06T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/freebsd/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Pip and bottle.py on NearlyFreeSpeech</title>
+		<published>2013-12-06T00:00:00+00:00</published>
+		<updated>2013-12-06T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/" type="text/html"/>
+		<id>https://tjtelan.com/blog/pip-and-bottle-py-on-nearlyfreespeech/</id>
+		<content type="html">&lt;p&gt;The biggest reason I like using nearlyfreespeech is the ability to prepay my hosting costs. The biggest downside (compared to other hosts) is a lack of straight-forward flexibility for my choice of web development environment. I appreciate the security-focused approach in how they offer features, but I can&#x27;t say that it is always comfortable as a casual user.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;NFS has lots of language support, but non-PHP web development is only supported through CGI)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I&#x27;ve been looking to try out bottle.py (partly because of their routing and partly because Django is not well supported on NFS as of this writing). I did my best to look for some examples online, but came up with only bits and pieces of the solution.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is how the environment was set up on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.nearlyfreespeech.net&#x2F;&quot;&gt;NearlyFreeSpeech.net&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;install-pip&quot;&gt;Install pip&lt;a class=&quot;zola-anchor&quot; href=&quot;#install-pip&quot; aria-label=&quot;Anchor link for: install-pip&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;I prefer using &lt;code&gt;pip&lt;&#x2F;code&gt; over &lt;code&gt;easy_install&lt;&#x2F;code&gt;, so here&#x27;s how to install that:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Create your local site-packages directory.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;# In NFS&amp;#39;s environment, this will end up being &#x2F;home&#x2F;private&#x2F;.local
+&lt;&#x2F;span&gt;&lt;span&gt;$ mkdir -p ~&#x2F;.local&#x2F;lib&#x2F;python2.7&#x2F;site-packages
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Automatically add this location to your execution path at login. Just for convenience.
+&lt;&#x2F;span&gt;&lt;span&gt;$ echo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;PATH=~&#x2F;.local&#x2F;bin:$PATH&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;&amp;gt; ~&#x2F;.profile
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Reload your .profile
+&lt;&#x2F;span&gt;&lt;span&gt;$ source ~&#x2F;.profile
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Use easy_install to install pip
+&lt;&#x2F;span&gt;&lt;span&gt;$ easy_install --prefix=~&#x2F;.local pip
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;## Now we can use pip to install bottle.py
+&lt;&#x2F;span&gt;&lt;span&gt;$ pip install --user bottle
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This installed bottle.py in &#x2F;home&#x2F;private&#x2F;.local&#x2F;bin. Just for example
+purposes, I copied this into my site-root so I wouldn&#x27;t have to play with
+python&#x27;s sys.path. &lt;em&gt;Use your own judgement&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span&gt;$ cp ~&#x2F;.local&#x2F;bin&#x2F;bottle.py &#x2F;home&#x2F;public
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;At this point, I was able to find a relevant &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;2664350&#x2F;problems-with-routing-urls-using-cgi-and-bottle-py&quot;&gt;stackoverflow question&lt;&#x2F;a&gt; specifically dealing with bottle.py and cgi.&lt;&#x2F;p&gt;
+&lt;p&gt;The code is mostly unchanged (I added the shebang at the top), but I&#x27;ll copy it here for copypasta purposes. Put bottle script and .htaccess in place in your site-root.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;home-public-index-py&quot;&gt;&#x2F;home&#x2F;public&#x2F;index.py&lt;a class=&quot;zola-anchor&quot; href=&quot;#home-public-index-py&quot; aria-label=&quot;Anchor link for: home-public-index-py&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;pre data-lang=&quot;python&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-python &quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;#!&#x2F;usr&#x2F;local&#x2F;bin&#x2F;python
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#9b9b9b;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;bottle
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#9b9b9b;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;bottle &lt;&#x2F;span&gt;&lt;span style=&quot;color:#9b9b9b;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;route
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;@route(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;&#x2F;&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span&gt;index():
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Index&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;@route(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;&#x2F;hello&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span&gt;hello():
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;Hello&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;__name__ == &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;#39;__main__&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#9b9b9b;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;wsgiref.handlers &lt;&#x2F;span&gt;&lt;span style=&quot;color:#9b9b9b;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;CGIHandler
+&lt;&#x2F;span&gt;&lt;span&gt; CGIHandler().run(bottle.default_app())
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;home-public-htaccess&quot;&gt;&#x2F;home&#x2F;public&#x2F;.htaccess&lt;a class=&quot;zola-anchor&quot; href=&quot;#home-public-htaccess&quot; aria-label=&quot;Anchor link for: home-public-htaccess&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h4&gt;
+&lt;pre data-lang=&quot;cfg&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-cfg &quot;&gt;&lt;code class=&quot;language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span&gt;DirectoryIndex index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;py
+&lt;&#x2F;span&gt;&lt;span&gt;RewriteEngine &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;on
+&lt;&#x2F;span&gt;&lt;span&gt;RewriteCond %{REQUEST_FILENAME} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;!-&lt;&#x2F;span&gt;&lt;span&gt;f
+&lt;&#x2F;span&gt;&lt;span&gt;RewriteRule &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;^(.*)$ &#x2F;index.py&#x2F;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt; [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;L&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Test this out by going to http:&#x2F;&#x2F;&amp;lt;domain&amp;gt;&#x2F; and http:&#x2F;&#x2F;&amp;lt;domain&amp;gt;&#x2F;hello to confirm that bottle routes work. This works for me, but it is a little bit slow.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m excited to finally have my own non-php stuff to do on NFS. Hopefully you&#x27;ll have fun with this as well.
+Good luck.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Virtualbox Headless-mode on Windows 7</title>
+		<published>2011-03-21T00:00:00+00:00</published>
+		<updated>2011-03-21T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/" type="text/html"/>
+		<id>https://tjtelan.com/blog/virtualbox-headless-mode-on-windows-7/</id>
+		<content type="html">&lt;p&gt;An impromptu reformat of my Windows 7 machine quickly had me frustrated with Virtualbox reconfiguration. It had been so long since I had originally done it, and I had forgotten to document the nuances of that setup. So here goes:&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;purpose&quot;&gt;Purpose&lt;a class=&quot;zola-anchor&quot; href=&quot;#purpose&quot; aria-label=&quot;Anchor link for: purpose&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This specific VM configuration is FreeBSD 8.2 w&#x2F; ZFS on root. I don&#x27;t have the time to set it up from scratch, but I&#x27;m currently using the newest ZFS version available on &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;mfsbsd.vx.sk&quot;&gt;this site&lt;&#x2F;a&gt; (v28, special edition).&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m only planning on using this VM for SSH for a persistent irc connection. I also want this to start automatically at Win7&#x27;s boot.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;install-vm&quot;&gt;Install VM&lt;a class=&quot;zola-anchor&quot; href=&quot;#install-vm&quot; aria-label=&quot;Anchor link for: install-vm&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;So after installing FreeBSD and ports and of course, remembering to &lt;em&gt;ENABLE SSH&lt;&#x2F;em&gt;... I had to test the ssh connection.&lt;&#x2F;p&gt;
+&lt;p&gt;(Remember to open the ports on the host side. I&#x27;m not going to walk you through that step.)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;headless-vm&quot;&gt;Headless VM&lt;a class=&quot;zola-anchor&quot; href=&quot;#headless-vm&quot; aria-label=&quot;Anchor link for: headless-vm&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Now for the headless start.&lt;&#x2F;p&gt;
+&lt;p&gt;I tried creating a .bat file that used &lt;code&gt;VBoxHeadless&lt;&#x2F;code&gt;. This let it start at boot, but it left an annoying cmd.exe window open.&lt;&#x2F;p&gt;
+&lt;p&gt;Apparently a common issue. A common solution I used was to create a .vbs script to run the .bat file. This was both annoying and tedious but effective. Startup at boot and no lingering cmd.exe window.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are the contents of my .bat and .vbs files. I placed these in the same directory, and made a shortcut in the &lt;code&gt;Start &amp;gt; All Programs &amp;gt; Startup&lt;&#x2F;code&gt; to the &lt;code&gt;.vbs&lt;&#x2F;code&gt; file.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;startfreebsdvm-bat&quot;&gt;startfreebsdvm.bat&lt;a class=&quot;zola-anchor&quot; href=&quot;#startfreebsdvm-bat&quot; aria-label=&quot;Anchor link for: startfreebsdvm-bat&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bat&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-bat &quot;&gt;&lt;code class=&quot;language-bat&quot; data-lang=&quot;bat&quot;&gt;&lt;span&gt;D:\&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;Program Files&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;OracleVirtualBoxVBoxHeadless.exe -s FreeBSD startvm-headless.vbs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;Set &lt;&#x2F;span&gt;&lt;span&gt;WshShell =&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt; WScript.CreateObject(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;WScript.Shell&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;obj = WshShell.Run(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;D:Users[username]startfreebsdvm.bat&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;set &lt;&#x2F;span&gt;&lt;span&gt;WshShell =&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt; Nothing&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+</feed>

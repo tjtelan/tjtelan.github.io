@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - summary</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/summary/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2023-02-04T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/summary/atom.xml</id>
+	<entry xml:lang="en">
+		<title>January 2023 recap</title>
+		<published>2023-01-31T00:00:00+00:00</published>
+		<updated>2023-02-04T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/end-of-month-summary/" type="text/html"/>
+		<id>https://tjtelan.com/blog/end-of-month-summary/</id>
+		<content type="html">&lt;p&gt;This is the first of what will be a series of end of month summaries. Structure won’t always be the same. I’m figuring things out as I go.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;professional&quot;&gt;Professional&lt;a class=&quot;zola-anchor&quot; href=&quot;#professional&quot; aria-label=&quot;Anchor link for: professional&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Continuing efforts from December into January, I got to sharpen my design skills. Long story short, we were contracting with a couple of UX designers who were producing wireframes, our engagement was ending. But the team benefitted a lot from having something visual to facilitate communicating between the business or developers. &lt;&#x2F;p&gt;
+&lt;p&gt;I really liked it. It was a nice change from writing Rust code, and I felt that the effort was very impactful. I don’t think I’ll be going full time into doing any proper UX design, but this reinforced how I feel about the importance of communicating effectively in this software development environment.&lt;&#x2F;p&gt;
+&lt;p&gt;As someone who works from home, asynchronous, written communication (with or without visual aid) is more impactful than only communicating face to face. Knowing how to write code has been way less important for me than being capable of expressing ideas or strategy in plain language.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;personal&quot;&gt;Personal&lt;a class=&quot;zola-anchor&quot; href=&quot;#personal&quot; aria-label=&quot;Anchor link for: personal&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Every January, my partner and I participate in vegan January (aka Veganuary). I like the contrast from the family and food heavy holidays, and the routine of starting every year with this self-imposed restriction. &lt;&#x2F;p&gt;
+&lt;p&gt;This is the 7th year we’ve done it, and for the most part it is a non-event. We’re decent home cooks and already eat a mostly plant-based diet, (but I did miss eating eggs for breakfast). As a highlight, I’ve been learning to cook more Filipino food, and most successful experiment was the tofu + potato adobo.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;My theme for 2023 is improving work-life balance. I’ve been working from home since 2020, and I live with unbalance more towards work. It was already unsustainable, so the intent is taking steps to correct it.&lt;&#x2F;p&gt;
+&lt;p&gt;With inspiration from CGP Grey’s &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=snAhsXyO3Ck&quot;&gt;Spaceship You&lt;&#x2F;a&gt; and the intro ritual from every Mr. Rogers Neighborhood episodes I’ve seen, I started creating physical cues between my work-space and the rest of the house.&lt;&#x2F;p&gt;
+&lt;p&gt;Improvements:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Work must be at my desk (with some exceptions for the winter, because my office is in my cold basement), and I have dedicated “work glasses”.&lt;&#x2F;li&gt;
+&lt;li&gt;I have a proper “hobby space” in my garage that doesn’t primarily require sitting at a keyboard and monitor. This required a larger cleaning effort, which alone has improved my quality of life.&lt;&#x2F;li&gt;
+&lt;li&gt;I have dedicated “life glasses”. No day-job work wearing these glasses. No exceptions!&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;community&quot;&gt;Community&lt;a class=&quot;zola-anchor&quot; href=&quot;#community&quot; aria-label=&quot;Anchor link for: community&quot;&gt;🔗&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;A goal is to participate more at my local makerspace. This month I attended a couple events for learning how to use a sewing machine, an embroidery machine, and learning how to use Unity for game making.&lt;&#x2F;p&gt;
+&lt;p&gt;It kind of feels bad to not immediately have these skills click. A quote from Adventure Time gives me comfort. “Sucking is the first step to being good at something”. My hope for writing this experience down is to create a little accountability to myself to not quit.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

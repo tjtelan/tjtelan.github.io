@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Let’s build a single binary gRPC server-client with Rust in 2020 &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/" />
+   
+  <meta property="og:title" content="Let’s build a single binary gRPC server-client with Rust in 2020" />
+  
+  
+  <meta property="og:description" content="A detailed quick-start example for experienced devs using gRPC with Rust" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/" />
+   
+  <meta name="twitter:title" content="Let’s build a single binary gRPC server-client with Rust in 2020" />
+  
+  
+  <meta name="twitter:description" content="A detailed quick-start example for experienced devs using gRPC with Rust" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Let’s build a single binary gRPC server-client with Rust in 2020</h1>
+    
+    <span class="post-meta">
+        29 min read
+        &nbsp;&bull;&nbsp;
+        2020-08-19
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/grpc/">
+              #grpc
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/cli/">
+              #cli
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/structopt/">
+              #structopt
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/tonic/">
+              #tonic
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/protobuf/">
+              #protobuf
+            </a>
+          
+        
+      </span>
+
+     
+    
+        
+    
+<div class="blog-image">
+        <img src="[object]" alt="The Rust logo plus the gRPC logo" />
+</div>
+<p>There are plenty of resources for the basics of Rust and for protocol buffers + gRPC, so I don’t want to waste your time with heavy introductions. I want to bring you to action as soon as possible.</p>
+<p>If you’re here I’ll make a few assumptions about you.</p>
+<ul>
+<li>You can write code in another language, but you have an interest in Rust</li>
+<li>You have basic familiarity with the command line for simple tasks (like listing files with <code>ls</code>)</li>
+<li>You used web service APIs like REST, GraphQL or gRPC in code you’ve written</li>
+<li>You’ve <em>skimmed</em> through the <a rel="noopener nofollow" target="_blank" href="https://developers.google.com/protocol-buffers/docs/proto3">official protocol buffers (v3) docs</a> at least once</li>
+<li>You are looking for some example code that you can copy/paste and modify</li>
+</ul>
+<h3 id="goals-for-the-post">Goals for the post<a class="zola-anchor" href="#goals-for-the-post" aria-label="Anchor link for: goals-for-the-post">🔗</a></h3>
+<p>My goal is to walk through writing a small async Rust CLI application. It will take user input from a client, send it to a remote gRPC server, and return output to the client.</p>
+<p>The finished code is available in my <a rel="noopener nofollow" target="_blank" href="https://github.com/tjtelan/rust-examples">rust-examples repo</a>, as <a rel="noopener nofollow" target="_blank" href="https://github.com/tjtelan/rust-examples/tree/master/cli-grpc-tonic-blocking">cli-grpc-tonic-blocking</a>. But I encourage you to follow along, as I will narrate changes while I make them.</p>
+<h3 id="what-are-we-writing">What are we writing?<a class="zola-anchor" href="#what-are-we-writing" aria-label="Anchor link for: what-are-we-writing">🔗</a></h3>
+<p>In this example, I will be writing a remote command-line server/client.</p>
+<p>The client will take in a command line command and send it to the server who will execute the command and send back the contents of standard out.</p>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="Block diagram with our actors User, Client and Server. Data flows from user to client, then server before looping back." /><figcaption>Diagram of the interaction we&#x27;ll be working with</figcaption></figure>
+</div>
+<p>For simplicity sake, this example will wait for the execution to complete on the server side before returning output. In a future post I will demonstrate how to stream output back to a client.</p>
+<p>I will show you how to:</p>
+<ol>
+<li>Parse command line user input</li>
+<li>Write protocol buffer message types and service interfaces</li>
+<li>Compile protocol buffers into Rust code</li>
+<li>Implement a gRPC client</li>
+<li>Implement a gRPC server (non-streaming)</li>
+<li>Use basic async/await patterns</li>
+</ol>
+<h4 id="bigger-picture-goals">Bigger picture goals<a class="zola-anchor" href="#bigger-picture-goals" aria-label="Anchor link for: bigger-picture-goals">🔗</a></h4>
+<p>This is not just a simple Hello World.</p>
+<p>I want to provide an example with a realistic application as a foundation. It has potential to be used for something useful, but keep in mind, this example is just a basic script runner and is not secure. </p>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="A more complex diagram to illustrate how the user, client, server interaction scales. One user, one client, many servers." /><figcaption>This configuration is possible but out of scope</figcaption></figure>
+</div>
+<p>One could run multiple instances of this server on multiple hosts and use the client to run shell commands on each of them similar to continuous integration tools like jenkins, puppet, or ansible. (Hot take: CI is just fancy shell scripting anyway)</p>
+<p>I do not recommend running this code as-is in any important environment. For demonstrative and educational purposes only!</p>
+<h2 id="writing-the-command-line-interface">Writing the command line interface<a class="zola-anchor" href="#writing-the-command-line-interface" aria-label="Anchor link for: writing-the-command-line-interface">🔗</a></h2>
+ 
+    
+        
+    
+<div class="blog-image">
+        <img src="[object]" alt="The Bourne again shell (BASH) logo" />
+</div>
+<p>The command line interface is the foundation that will allow us to package our gRPC server and client into the same binary. We’re going to start our new crate with the CLI first.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo new cli-grpc-tonic-blocking
+</span><span>    Created binary (application) `cli-grpc-tonic-blocking` package
+</span><span>$ cd cli-grpc-tonic-blocking
+</span></code></pre>
+<p>We will use a crate called <a rel="noopener nofollow" target="_blank" href="https://crates.io/crates/structopt">StructOpt</a>. StructOpt utilizes the <a rel="noopener nofollow" target="_blank" href="https://crates.io/crates/clap">Clap</a> crate which is a powerful command line parser. But Clap can be a little complicated to use, so StructOpt additionally provides a lot of convenient functionality Rust a <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/reference/attributes/derive.html">#[derive] attribute</a> so we don’t have to write as much code.</p>
+<p><strong>cargo.toml</strong></p>
+<pre data-lang="toml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#808080;">package</span><span>]
+</span><span style="color:#569cd6;">name </span><span>= </span><span style="color:#d69d85;">&quot;cli-grpc-tonic-blocking&quot;
+</span><span style="color:#569cd6;">version </span><span>= </span><span style="color:#d69d85;">&quot;0.1.0&quot;
+</span><span style="color:#569cd6;">authors </span><span>= [</span><span style="color:#d69d85;">&quot;T.J. Telan &lt;t.telan@gmail.com&gt;&quot;</span><span>]
+</span><span style="color:#569cd6;">edition </span><span>= </span><span style="color:#d69d85;">&quot;2018
+</span><span>
+</span><span>[</span><span style="color:#808080;">dependencies</span><span>]
+</span><span style="color:#608b4e;"># CLI
+</span><span style="color:#569cd6;">structopt </span><span>= </span><span style="color:#d69d85;">&quot;0.3&quot;
+</span></code></pre>
+<p>In order to bundle our client and server together, we will want to use our CLI to switch between running as a client or running as a server.</p>
+<h3 id="some-ui-design-for-the-cli">Some UI design for the CLI<a class="zola-anchor" href="#some-ui-design-for-the-cli" aria-label="Anchor link for: some-ui-design-for-the-cli">🔗</a></h3>
+<p>Note: While we are in development you can use <code>cargo run --</code> to run our cli binary, and any arguments after the <code>--</code> is passed as arguments to our binary</p>
+<h4 id="starting-the-server">Starting the server<a class="zola-anchor" href="#starting-the-server" aria-label="Anchor link for: starting-the-server">🔗</a></h4>
+<p>When we start our server, we want to pass in the subcommand <code>server</code></p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> --</span><span> server
+</span></code></pre>
+<h5 id="optional-arguments-for-the-server">Optional arguments for the server<a class="zola-anchor" href="#optional-arguments-for-the-server" aria-label="Anchor link for: optional-arguments-for-the-server">🔗</a></h5>
+<p>Most of the time our server will listen to a default address and port, but we want to give the user the option to pick something different.</p>
+<p>We will provide the option for the server listening address in a flag <code>--server-addr-listen</code></p>
+<h4 id="using-the-client">Using the client<a class="zola-anchor" href="#using-the-client" aria-label="Anchor link for: using-the-client">🔗</a></h4>
+<p>When the user runs a command from our client, we want to use the subcommand <code>run</code>. </p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> --</span><span> run
+</span></code></pre>
+<h5 id="required-positional-arguments-for-the-client">Required positional arguments for the client<a class="zola-anchor" href="#required-positional-arguments-for-the-client" aria-label="Anchor link for: required-positional-arguments-for-the-client">🔗</a></h5>
+<p>Anything after the <code>subcommand run</code> will be the command we pass to the server to execute. A command has an executable name and optionally also arguments.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> -- </span><span>&lt;executable&gt; </span><span style="color:#569cd6;">[</span><span>args</span><span style="color:#569cd6;">]
+</span></code></pre>
+<p>Or to illustrate with how one would use this command w/o cargo if it were named <code>remotecli</code>:</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ remotecli run &lt;executable&gt; </span><span style="color:#569cd6;">[</span><span>args</span><span style="color:#569cd6;">]
+</span></code></pre>
+<h5 id="optional-arguments-for-the-client">Optional arguments for the client<a class="zola-anchor" href="#optional-arguments-for-the-client" aria-label="Anchor link for: optional-arguments-for-the-client">🔗</a></h5>
+<p>Just like how our server will have a default listening address and port, our client will assume to connect to the default address. We just want to offer the user the option to connect to a different server.</p>
+<p>We will provide the option for the server address in a flag <code>--server-addr</code></p>
+<h3 id="the-cli-code-so-far">The CLI code so far<a class="zola-anchor" href="#the-cli-code-so-far" aria-label="Anchor link for: the-cli-code-so-far">🔗</a></h3>
+<p>I’m going to break down the current <code>main.rs</code> into their structs, enums and functions to describe how StructOpt is utilized.</p>
+<p><strong>Skip down to the next section <a href="https://tjtelan.com/blog/lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/#all-together">All together</a> if you want to review this file in a single code block.</strong></p>
+<h4 id="in-parts">In parts<a class="zola-anchor" href="#in-parts" aria-label="Anchor link for: in-parts">🔗</a></h4>
+<h5 id="applicationarguments">ApplicationArguments<a class="zola-anchor" href="#applicationarguments" aria-label="Anchor link for: applicationarguments">🔗</a></h5>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#608b4e;">// This is the main arguments structure that we&#39;ll parse from
+</span><span>#[derive(StructOpt, Debug)]
+</span><span>#[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>)]
+</span><span style="color:#569cd6;">struct </span><span>ApplicationArguments {
+</span><span>   #[structopt(flatten)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>subcommand: SubCommand,
+</span><span>}
+</span></code></pre>
+<ul>
+<li>
+<p>Like the comment says, this will be the main struct that you work with to parse args from the user input. </p>
+</li>
+<li>
+<p>We use <code>derive(StructOpt)</code> on this struct to let the compiler know to generate the command line parser.</p>
+</li>
+<li>
+<p>The <code>structopt(name)</code> attribute is reflected in the generated CLI help. Rust will use this name instead of the name of the crate, which again is <code>cli-grpc-tonic-blocking</code>. It is purely cosmetic.</p>
+</li>
+<li>
+<p>The <code>structopt(flatten)</code> attribute is used on the <code>ApplicationArguments</code> struct field. The result effectively replaces this field with the contents of the <code>SubCommand</code> type, which we’ll get to next. </p>
+</li>
+</ul>
+<p>If we didn’t use flatten, then the user would need to use the CLI like this:</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#608b4e;">## No subcommand flattening
+</span><span>
+</span><span>$ remotecli subcommand &lt;subcommand&gt; … 
+</span></code></pre>
+<p>But with the flattening we get a simplified form without the <code>subcommand</code> literal.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#608b4e;">## With subcommand flattening
+</span><span>
+</span><span>$ remotecli &lt;subcommand&gt; ...
+</span></code></pre>
+<p>The reason for this pattern is to allow grouping of the subcommands into a type that we can pattern match on, which is nice for the developer. But at the same time we keep the CLI hierarchy minimal for the user.</p>
+<h5 id="subcommand">SubCommand<a class="zola-anchor" href="#subcommand" aria-label="Anchor link for: subcommand">🔗</a></h5>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#608b4e;">// These are the only valid values for our subcommands
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub enum </span><span>SubCommand {
+</span><span>   </span><span style="color:#608b4e;">/// Start the remote command gRPC server
+</span><span>   #[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>)]
+</span><span>   StartServer(ServerOptions),
+</span><span>   </span><span style="color:#608b4e;">/// Send a remote command to the gRPC server
+</span><span>   #[structopt(setting </span><span style="color:#569cd6;">=</span><span> structopt::clap::AppSettings::TrailingVarArg)]
+</span><span>   Run(RemoteCommandOptions),
+</span><span>}
+</span></code></pre>
+<ul>
+<li>
+<p>We’re working with an enum this time. But again, the most important part is the <code>derive(StructOpt)</code> attribute.</p>
+</li>
+<li>
+<p>The reason to use an enum is to provide some development comfort. Each field in the enum takes in a struct where additional parsing occurs in the event that the subcommand is chosen. But this pattern enables us to not mix that up within this enum and make the code unfocused, and hard to read.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>The second most important detail is to notice the comments with 3 slashes <code>///</code>.</p>
+</li>
+<li>
+<p>These are <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/reference/comments.html#doc-comments">doc comments</a>, and their placement is intentional. Rust will use these comments in the generated help command. The 2 slash comments are notes just for you, the developer, and are not seen by the user.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>For the first subcommand, admittedly I named this field <code>StartServer</code> so I could show off using the <code>structopt(name)</code> attribute.</li>
+</ul>
+<p>Without the attribute, the user would experience the subcommand transformed by default into the “kebab-case” form <code>start-command</code>. With the <code>name</code> defined on the StartServer field, we tell Rust that we want the user to use <code>server</code> instead.</p>
+<p>(You can configure this behavior with the <code>structopt(rename_all)</code> attribute. I won’t be covering that. <a rel="noopener nofollow" target="_blank" href="https://docs.rs/structopt/0.3.16/structopt/#specifying-argument-types">Read more about rename_all in the docs</a>)</p>
+<hr />
+<p>The second subcommand <code>Run</code>... you’ll have to forgive my 👋hand waving👋.</p>
+<ul>
+<li>
+<p>Remember that StructOpt is built on top of the <a rel="noopener nofollow" target="_blank" href="https://crates.io/crates/clap">Clap</a> crate.</p>
+</li>
+<li>
+<p>Clap is quite flexible, but I thought it was much harder to use. StructOpt offers the ability to pass configuration to Clap and we’re setting a configuration setting w/ respect to the parsing behavior for only this subcommand.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>We want to pass a full command from the client to the server. But we don’t necessarily know how long that command will be and we don’t want the full command to be parsed.</p>
+</li>
+<li>
+<p>The technical description for this kind of CLI parameter is a “Variable-length Argument” or a VarArg in this case. It is a hint for how to parse the last argument so you don’t need to define an end length -- it just trails off.</p>
+</li>
+<li>
+<p>We are configuring the <code>Run</code> subcommand to tell Rust that this uses a VarArg. See <a rel="noopener nofollow" target="_blank" href="https://docs.rs/clap/2.33.1/clap/enum.AppSettings.html#variant.TrailingVarArg">the Clap docs</a> for more info about this and other AppSettings.</p>
+</li>
+</ul>
+<h5 id="serveroptions">ServerOptions<a class="zola-anchor" href="#serveroptions" aria-label="Anchor link for: serveroptions">🔗</a></h5>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#608b4e;">// These are the options used by the `server` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>ServerOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_listen_addr: String,
+</span><span>}
+</span></code></pre>
+<ul>
+<li>
+<p>Our <code>server</code> subcommand has a single configurable option.</p>
+</li>
+<li>
+<p>The <code>structopt(long)</code> attribute specifies that this is an option that the user will specify with the double-hyphen pattern with the name of the option, which will be in kebab-case by default. Therefore the user would use this as <code>--server-listen-addr</code>.</p>
+</li>
+<li>
+<p><code>structopt(default_value)</code> is hopefully self-explanatory enough. If the user doesn’t override, the default value will be used. The default value type is a string slice <code>&amp;str</code>, but structopt is converting it into a <code>String</code> by default.</p>
+</li>
+</ul>
+<h5 id="remotecommandoptions">RemoteCommandOptions<a class="zola-anchor" href="#remotecommandoptions" aria-label="Anchor link for: remotecommandoptions">🔗</a></h5>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#608b4e;">// These are the options used by the `run` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>RemoteCommandOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;http://127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_addr: String,
+</span><span>   </span><span style="color:#608b4e;">/// The full command and arguments for the server to execute
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>command: Vec&lt;String&gt;,
+</span><span>}
+</span></code></pre>
+<p>Our <code>run</code> subcommand has 2 possible arguments.</p>
+<ol>
+<li>The first, <code>server_addr</code> is an optional <code>structopt(long)</code> argument with a default value that aligns with the <code>server</code> default.</li>
+<li>The second <code>command</code> is a required positional argument. Notice how there is no <code>structopt</code> attribute. The resulting vector from the variable-length argument. The parser splits up spaces per word, and provides them in order within the Vec&lt;String&gt;. (Matched quotes are interpreted as a single word in our situation). </li>
+</ol>
+<h5 id="main">main()<a class="zola-anchor" href="#main" aria-label="Anchor link for: main">🔗</a></h5>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">fn </span><span>main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> args = ApplicationArguments::from_args();
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">match</span><span> args.subcommand {
+</span><span>       SubCommand::StartServer(opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Start the server on: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, opts.server_listen_addr);
+</span><span>       }
+</span><span>       SubCommand::Run(rc_opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Run command: &#39;</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&#39;&quot;</span><span>, rc_opts.command);
+</span><span>       }
+</span><span>   }
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<p>Our <code>main()</code> is short and focused.</p>
+<ul>
+<li>
+<p>Our return type is a <code>Result</code>. We return <code>()</code> when things are good, and returns a boxed <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/reference/types/trait-object.html">trait object</a> that implements the <code>std::error::Error</code> trait as our error (the return trait object is boxed, because Rust doesn’t know how much space to allocate).</p>
+</li>
+<li>
+<p>We parse the user input using our StructOpt customized <code>ApplicationArguments</code> struct with <code>from_args()</code>. What’s great is invalid inputs are handled, and so we don’t need to spend any time straying from the happy path.</p>
+</li>
+<li>
+<p>After the parsing, we need to know what action to take next. We’ll either take a server action, or take a client action.</p>
+</li>
+<li>
+<p>We pattern match on our <code>SubCommand</code> struct, and <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring/destructure_enum.html">destructure the enum’s internal structs</a> for the additional arguments.</p>
+</li>
+<li>
+<p>We eventually will call out to the respective server or client to pass along the args. However for now we call <code>println!()</code> to display the values.</p>
+</li>
+</ul>
+<h4 id="all-together">All together<a class="zola-anchor" href="#all-together" aria-label="Anchor link for: all-together">🔗</a></h4>
+<p><strong>main.rs</strong></p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">use </span><span>structopt::StructOpt;
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `server` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>ServerOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_listen_addr: String,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `run` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>RemoteCommandOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;http://127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_addr: String,
+</span><span>   </span><span style="color:#608b4e;">/// The full command and arguments for the server to execute
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>command: Vec&lt;String&gt;,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the only valid values for our subcommands
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub enum </span><span>SubCommand {
+</span><span>   </span><span style="color:#608b4e;">/// Start the remote command gRPC server
+</span><span>   #[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>)]
+</span><span>   StartServer(ServerOptions),
+</span><span>   </span><span style="color:#608b4e;">/// Send a remote command to the gRPC server
+</span><span>   #[structopt(setting </span><span style="color:#569cd6;">=</span><span> structopt::clap::AppSettings::TrailingVarArg)]
+</span><span>   Run(RemoteCommandOptions),
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// This is the main arguments structure that we&#39;ll parse from
+</span><span>#[derive(StructOpt, Debug)]
+</span><span>#[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>)]
+</span><span style="color:#569cd6;">struct </span><span>ApplicationArguments {
+</span><span>   #[structopt(flatten)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>subcommand: SubCommand,
+</span><span>}
+</span><span>
+</span><span style="color:#569cd6;">fn </span><span>main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> args = ApplicationArguments::from_args();
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">match</span><span> args.subcommand {
+</span><span>       SubCommand::StartServer(opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Start the server on: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, opts.server_listen_addr);
+</span><span>       }
+</span><span>       SubCommand::Run(rc_opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Run command: &#39;</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&#39;&quot;</span><span>, rc_opts.command);
+</span><span>       }
+</span><span>   }
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<p>And that’s what we’ve done so far. This will be the full extent of the command line parsing functionality for this example, but we’ll revisit the <code>main()</code> function later.</p>
+<p>If you’re following along, this code works with the <code>cargo.toml</code> provided at the top of this section. Play around using <code>cargo</code>.</p>
+<p>For example try the following commands:</p>
+<ul>
+<li><code>cargo run --</code></li>
+<li><code>cargo run -- server</code></li>
+<li><code>cargo run -- server -h</code></li>
+<li><code>cargo run -- run</code></li>
+<li><code>cargo run -- run ls -al</code></li>
+<li><code>cargo run -- run -h</code></li>
+<li><code>cargo run -- blahblahblah</code></li>
+</ul>
+<h2 id="protocol-buffers">Protocol Buffers<a class="zola-anchor" href="#protocol-buffers" aria-label="Anchor link for: protocol-buffers">🔗</a></h2>
+ 
+    
+        
+    
+<div class="blog-image">
+        <img src="[object]" />
+</div>
+<h3 id="what-are-protocol-buffers">What are Protocol Buffers?<a class="zola-anchor" href="#what-are-protocol-buffers" aria-label="Anchor link for: what-are-protocol-buffers">🔗</a></h3>
+<p><a rel="noopener nofollow" target="_blank" href="https://developers.google.com/protocol-buffers/docs/proto3">Protocol Buffers</a> (protobufs) are a way to define a data schema for how your data is structured as well as how to define how programs interface with each other w/ respect to your data in a language-independent manner.</p>
+<p>This is achieved by writing your data in the protobuf format and compiling it into a supported language of your choice as implemented as <a rel="noopener nofollow" target="_blank" href="https://grpc.io/">gRPC</a>.</p>
+<p>The result of the compilation generates a lot of boilerplate code.</p>
+<p>Not just data structures with the same shape and naming conventions for your language’s native data types. But also generates the gRPC network code for the client that sends or the server that receives these generated data structures.</p>
+<hr />
+<p>For what it’s worth, an added bonus are servers and clients having the possibility to be  implemented in different languages and inter-operate without issue due to. But we’re going to continue to work entirely in Rust for this example</p>
+<h3 id="where-should-protobuf-live-in-the-codebase">Where should protobuf live in the codebase?<a class="zola-anchor" href="#where-should-protobuf-live-in-the-codebase" aria-label="Anchor link for: where-should-protobuf-live-in-the-codebase">🔗</a></h3>
+<p>Before jumping into the protobuf, I wanted to mention my practice for where to keep the file itself.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ tree
+</span><span>.
+</span><span>├── Cargo.lock
+</span><span>├── Cargo.toml
+</span><span>├── proto
+</span><span>│   └── cli.proto
+</span><span>└── src
+</span><span>    └── main.rs
+</span></code></pre>
+<p>I like to keep the protobuf in a directory named <code>proto</code> typically at the same level as the <code>Cargo.toml</code> because as we’ll see soon, the build script will need to reference a path to the protobuf for compilation. The file name itself is arbitrary and <a rel="noopener nofollow" target="_blank" href="https://www.karlton.org/2017/12/naming-things-hard/">naming things is hard</a> so do your best to support your future self with meaningful names.</p>
+<h3 id="the-example-protobuf">The example protobuf<a class="zola-anchor" href="#the-example-protobuf" aria-label="Anchor link for: the-example-protobuf">🔗</a></h3>
+<h4 id="cli-proto">cli.proto<a class="zola-anchor" href="#cli-proto" aria-label="Anchor link for: cli-proto">🔗</a></h4>
+<pre data-lang="proto" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-proto "><code class="language-proto" data-lang="proto"><span style="color:#569cd6;">syntax </span><span>= </span><span style="color:#d69d85;">&quot;proto3&quot;</span><span>;
+</span><span>
+</span><span style="color:#569cd6;">package </span><span>remotecli;
+</span><span>
+</span><span style="color:#608b4e;">// Command input
+</span><span style="color:#569cd6;">message </span><span>CommandInput {
+</span><span> string command = </span><span style="color:#b5cea8;">1</span><span>;
+</span><span> </span><span style="color:#569cd6;">repeated </span><span>string args = </span><span style="color:#b5cea8;">2</span><span>;
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Command output
+</span><span style="color:#569cd6;">message </span><span>CommandOutput {
+</span><span> string output = </span><span style="color:#b5cea8;">1</span><span>;
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Service definition
+</span><span style="color:#569cd6;">service </span><span>RemoteCLI {
+</span><span> </span><span style="color:#569cd6;">rpc </span><span>Shell(CommandInput) </span><span style="color:#569cd6;">returns </span><span>(CommandOutput);
+</span><span>}
+</span></code></pre>
+<p>We start the file off by declaring the particular version of syntax we’re using. <code>proto3</code>.</p>
+<hr />
+<ul>
+<li>
+<p>We need to provide a package name.</p>
+</li>
+<li>
+<p>The <a rel="noopener nofollow" target="_blank" href="https://developers.google.com/protocol-buffers/docs/overview#packages">proto3 docs</a> say this is optional, but our protobuf Rust code generator <a rel="noopener nofollow" target="_blank" href="https://crates.io/crates/prost">Prost</a> requires it to be defined for module namespacing and naming the resulting file.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>Defined are 2 data structures, called <code>message</code>s.</p>
+</li>
+<li>
+<p>The order of the fields are numbered and are important for identifying fields in the wire protocol when they are serialized/deserialized for gRPC communication.</p>
+</li>
+<li>
+<p>The numbers in the message must be unique and the best practice is to not change the numbers once in use. </p>
+</li>
+</ul>
+<p>(For more details, read more about Field numbers <a rel="noopener nofollow" target="_blank" href="https://developers.google.com/protocol-buffers/docs/proto3#assigning_field_numbers">in the docs</a>.)</p>
+<hr />
+<ul>
+<li>
+<p>The <code>CommandInput</code> message has 2 <code>string</code> fields - one singular and the other <code>repeated</code>. </p>
+</li>
+<li>
+<p>The main executable, which we refer to as <code>command</code> the first word of the user input.</p>
+</li>
+<li>
+<p>The rest of the user input is reserved for <code>args</code>.</p>
+</li>
+<li>
+<p>The separation is meant to provide structure for the way a command interpreter like Bash defines commands.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>The <code>CommandOutput</code> message doesn’t need quite as much structure. After a command is run, the Standard Output will be returned as a single block of text.</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>Finally, we define a service <code>RemoteCLI</code> with a single endpoint <code>Shell</code>.</p>
+</li>
+<li>
+<p><code>Shell</code> takes a <code>CommandInput</code> and returns a <code>CommandOutput</code>.</p>
+</li>
+</ul>
+<h3 id="compile-the-protobuf-into-rust-code-with-tonic">Compile the protobuf into Rust code with Tonic<a class="zola-anchor" href="#compile-the-protobuf-into-rust-code-with-tonic" aria-label="Anchor link for: compile-the-protobuf-into-rust-code-with-tonic">🔗</a></h3>
+ 
+    
+        
+    
+<div class="blog-image">
+        <img src="[object]" />
+</div>
+<p>Now that we have a protobuf, how do we use it in our Rust program when we need to use the generated code?</p>
+<p>Well, we need to configure the build to compile the protobuf into Rust first.</p>
+<p>The way we accomplish that is by using a <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/stable/rust-by-example/cargo/build_scripts.html">build script</a> (Surprise! Written in Rust) but is compiled and executed before the rest of the compilation occurs.</p>
+<p>Cargo will run your build script if you have a file named <code>build.rs</code> in your project root.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ tree
+</span><span>.
+</span><span>├── build.rs
+</span><span>├── Cargo.toml
+</span><span>├── proto
+</span><span>│   └── cli.proto
+</span><span>└── src
+</span><span>    └── main.rs
+</span></code></pre>
+<h4 id="build-rs">build.rs<a class="zola-anchor" href="#build-rs" aria-label="Anchor link for: build-rs">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">fn </span><span>main() {
+</span><span>   tonic_build::compile_protos(</span><span style="color:#d69d85;">&quot;proto/cli.proto&quot;</span><span>).unwrap();
+</span><span>}
+</span></code></pre>
+<p>The build script is just a small Rust program with a <code>main()</code> function.</p>
+<p>We’re using <code>tonic_build</code> to compile our proto into Rust. We’ll see more <code>tonic</code> soon for the rest of our gRPC journey.</p>
+<p>But for now we only need to add this crate into our <code>Cargo.toml</code> as a build dependency.</p>
+<p><strong>Cargo.toml</strong></p>
+<pre data-lang="toml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#808080;">package</span><span>]
+</span><span style="color:#569cd6;">name </span><span>= </span><span style="color:#d69d85;">&quot;cli-grpc-tonic-blocking&quot;
+</span><span style="color:#569cd6;">version </span><span>= </span><span style="color:#d69d85;">&quot;0.1.0&quot;
+</span><span style="color:#569cd6;">authors </span><span>= [</span><span style="color:#d69d85;">&quot;T.J. Telan &lt;t.telan@gmail.com&gt;&quot;</span><span>]
+</span><span style="color:#569cd6;">edition </span><span>= </span><span style="color:#d69d85;">&quot;2018&quot;
+</span><span>
+</span><span>[</span><span style="color:#808080;">dependencies</span><span>]
+</span><span style="color:#608b4e;"># CLI
+</span><span style="color:#569cd6;">structopt </span><span>= </span><span style="color:#d69d85;">&quot;0.3&quot;
+</span><span>
+</span><span>[</span><span style="color:#808080;">build-dependencies</span><span>]
+</span><span style="color:#608b4e;"># protobuf-&gt;Rust compiler
+</span><span style="color:#569cd6;">tonic-build </span><span>= </span><span style="color:#d69d85;">&quot;0.3.0&quot;
+</span></code></pre>
+<p>Build dependencies are listed under its own section <code>[build-dependencies]</code>.  If you didn’t know, your build scripts can only use crates listed in this section, and vice versa with the main package.</p>
+<p>You can look at the resulting Rust code in your <code>target</code> directory when you <code>cargo build</code>.</p>
+<p>You’ll have more than one directory with your package name plus extra generated characters due to build script output. So you may need to look through multiple directories.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ tree target/debug/build/cli-grpc-tonic-blocking-aa0556a3d0cd89ff/
+</span><span>target/debug/build/cli-grpc-tonic-blocking-aa0556a3d0cd89ff/
+</span><span>├── invoked.timestamp
+</span><span>├── out
+</span><span>│   └── remotecli.rs
+</span><span>├── output
+</span><span>├── root-output
+</span><span>└── stderr
+</span></code></pre>
+<p>I’ll leave the contents of the generated code to those following along, since there’s a lot of it and the relevant info is either from the proto or will be covered in the server and client implementation.</p>
+<p>This code will only generate once. Or unless you make changes to <code>build.rs</code>. So if you make changes to your proto and you want to regenerate code, you can force a code regen by using <code>touch</code>.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ touch build.rs
+</span><span>$ cargo build
+</span></code></pre>
+<h2 id="server">Server<a class="zola-anchor" href="#server" aria-label="Anchor link for: server">🔗</a></h2>
+<p>Moving onto writing our server now that we can use the protobuf generated code. We’re going to write the server (and client) in a new module.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ tree
+</span><span>.
+</span><span>├── build.rs
+</span><span>├── Cargo.toml
+</span><span>├── proto
+</span><span>│   └── cli.proto
+</span><span>└── src
+</span><span>    ├── main.rs
+</span><span>    └── remotecli
+</span><span>        ├── mod.rs
+</span><span>        └── server.rs
+</span></code></pre>
+<h3 id="cargo-toml">Cargo.toml<a class="zola-anchor" href="#cargo-toml" aria-label="Anchor link for: cargo-toml">🔗</a></h3>
+<pre data-lang="toml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#808080;">package</span><span>]
+</span><span style="color:#569cd6;">name </span><span>= </span><span style="color:#d69d85;">&quot;cli-grpc-tonic-blocking&quot;
+</span><span style="color:#569cd6;">version </span><span>= </span><span style="color:#d69d85;">&quot;0.1.0&quot;
+</span><span style="color:#569cd6;">authors </span><span>= [</span><span style="color:#d69d85;">&quot;T.J. Telan &lt;t.telan@gmail.com&gt;&quot;</span><span>]
+</span><span style="color:#569cd6;">edition </span><span>= </span><span style="color:#d69d85;">&quot;2018&quot;
+</span><span>
+</span><span>[</span><span style="color:#808080;">dependencies</span><span>]
+</span><span style="color:#608b4e;"># gRPC server/client
+</span><span style="color:#569cd6;">tonic </span><span>= </span><span style="color:#d69d85;">&quot;0.3.0&quot;
+</span><span style="color:#569cd6;">prost </span><span>= </span><span style="color:#d69d85;">&quot;0.6&quot;
+</span><span style="color:#608b4e;"># CLI
+</span><span style="color:#569cd6;">structopt </span><span>= </span><span style="color:#d69d85;">&quot;0.3&quot;
+</span><span style="color:#608b4e;"># Async runtime
+</span><span style="color:#569cd6;">tokio </span><span>= { </span><span style="color:#569cd6;">version </span><span>= </span><span style="color:#d69d85;">&quot;0.2&quot;</span><span>, </span><span style="color:#569cd6;">features </span><span>= [</span><span style="color:#d69d85;">&quot;full&quot;</span><span>] }
+</span><span>
+</span><span>[</span><span style="color:#808080;">build-dependencies</span><span>]
+</span><span style="color:#608b4e;"># protobuf-&gt;Rust compiler
+</span><span style="color:#569cd6;">tonic-build </span><span>= </span><span style="color:#d69d85;">&quot;0.3.0&quot;
+</span></code></pre>
+<p><em>This is the last change we’ll be making to Cargo.toml.</em></p>
+<p>We’re adding in <code>tonic</code> and <code>prost</code> as we implement the gRPC server/client. <a rel="noopener nofollow" target="_blank" href="https://crates.io/crates/prost">Prost</a> is the implementation of protocol buffers in Rust, and is needed to compile the generated code when we include it into the rest of the package.</p>
+<p><a rel="noopener nofollow" target="_blank" href="https://tokio.rs/">Tokio</a> is the async runtime we’re using. The gRPC server/client are <code>async</code> and we will need to adjust our <code>main()</code> to communicate more in the code that we’re now calling async functions..</p>
+<h3 id="remotecli-mod-rs">remotecli/mod.rs<a class="zola-anchor" href="#remotecli-mod-rs" aria-label="Anchor link for: remotecli-mod-rs">🔗</a></h3>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>server;
+</span></code></pre>
+<p>To keep the implementations organized, we’ll separate the server and client code further into their own modules. Starting with the server.</p>
+<h3 id="remotecli-server-rs">remotecli/server.rs<a class="zola-anchor" href="#remotecli-server-rs" aria-label="Anchor link for: remotecli-server-rs">🔗</a></h3>
+<p>Similar to the frontend CLI walkthrough, I’ll break this file up into pieces and review them.</p>
+<p><strong>At the <a href="https://tjtelan.com/blog/lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/#remotecli-server-rs-all-together">bottom of this file’s section</a> I’ll have the complete file there for copy/paste purposes.</strong></p>
+<h4 id="imports">Imports<a class="zola-anchor" href="#imports" aria-label="Anchor link for: imports">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">use </span><span>tonic::{transport::Server, Request, Response, Status};
+</span><span>
+</span><span style="color:#608b4e;">// Import the generated rust code into module
+</span><span style="color:#569cd6;">pub mod </span><span>remotecli_proto {
+</span><span>   tonic::include_proto</span><span style="color:#569cd6;">!</span><span>(</span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Proto generated server traits
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::remote_cli_server::{RemoteCli, RemoteCliServer};
+</span><span>
+</span><span style="color:#608b4e;">// Proto message structs
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::{CommandInput, CommandOutput};
+</span><span>
+</span><span style="color:#608b4e;">// For the server listening address
+</span><span style="color:#569cd6;">use crate</span><span>::ServerOptions;
+</span><span>
+</span><span style="color:#608b4e;">// For executing commands
+</span><span style="color:#569cd6;">use </span><span>std::process::{Command, Stdio};
+</span></code></pre>
+<ul>
+<li>
+<p>At the top of the file, we declare a module <code>remotecli_proto</code> that is intended to be scoped only in this file. The name <code>remotecli_proto</code> is arbitrary and for clarity purposes. </p>
+</li>
+<li>
+<p>The <code>tonic::include_proto!()</code> macro effectively copy/pastes our protobuf translated Rust code (as per protobuf package name)  into the module.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>The naming conventions of the protobuf translation can be a little confusing at first, but it is all consistent.</p>
+</li>
+<li>
+<p>Our protobuf’s <code>RemoteCLI</code> service generates separate client and server modules using <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Snake_case">snake case</a> + <code>_server</code> or <code>_client</code>. While generated trait definitions use <a rel="noopener nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Camel_case">Pascal case</a> (a specific form of camel case with initial letter capitalized).</p>
+</li>
+<li>
+<p>From the server specific generated code, we are importing a trait <code>RemoteCli</code> which requires that we implement our gRPC endpoint <code>Shell</code> with the same function signature.</p>
+</li>
+<li>
+<p>Additionally we import <code>RemoteCliServer</code>, a generated server implementation that handles all the gRPC networking semantics but requires that we instantiate with a struct that implements the <code>RemoteCli</code> trait.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>The last import from the gRPC code are our protobuf messages <code>CommandInput</code> and <code>CommandOutput</code></p>
+</li>
+<li>
+<p>From our frontend, we are importing the <code>ServerOptions</code> struct, since we are going to pass the user input in for the server listening address.</p>
+</li>
+</ul>
+<hr />
+<p>At last, we import from <code>std::process</code>. <code>Command</code> and <code>Stdio</code> - for executing commands and capturing output.</p>
+<h4 id="remotecli-trait-implementation">RemoteCli Trait implementation<a class="zola-anchor" href="#remotecli-trait-implementation" aria-label="Anchor link for: remotecli-trait-implementation">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[derive(Default)]
+</span><span style="color:#569cd6;">pub struct </span><span>Cli {}
+</span><span>
+</span><span>#[tonic::async_trait]
+</span><span style="color:#569cd6;">impl </span><span>RemoteCli </span><span style="color:#569cd6;">for </span><span>Cli {
+</span><span>   async </span><span style="color:#569cd6;">fn </span><span>shell(
+</span><span>       </span><span style="color:#569cd6;">&amp;</span><span>self,
+</span><span>       request: Request&lt;CommandInput&gt;,
+</span><span>   ) -&gt; Result&lt;Response&lt;CommandOutput&gt;, Status&gt; {
+</span><span>       </span><span style="color:#569cd6;">let</span><span> req_command = request.into_inner();
+</span><span>       </span><span style="color:#569cd6;">let</span><span> command = req_command.command;
+</span><span>       </span><span style="color:#569cd6;">let</span><span> args = req_command.args;
+</span><span>
+</span><span>       println!(</span><span style="color:#d69d85;">&quot;Running command: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;"> - args: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, </span><span style="color:#569cd6;">&amp;</span><span>command, </span><span style="color:#569cd6;">&amp;</span><span>args);
+</span><span>
+</span><span>       </span><span style="color:#569cd6;">let</span><span> process = Command::new(command)
+</span><span>           .args(args)
+</span><span>           .stdout(Stdio::piped())
+</span><span>           .spawn()
+</span><span>           .expect(</span><span style="color:#d69d85;">&quot;failed to execute child process&quot;</span><span>);
+</span><span>
+</span><span>       </span><span style="color:#569cd6;">let</span><span> output = process
+</span><span>           .wait_with_output()
+</span><span>           .expect(</span><span style="color:#d69d85;">&quot;failed to wait on child process&quot;</span><span>);
+</span><span>       </span><span style="color:#569cd6;">let</span><span> output = output.stdout;
+</span><span>
+</span><span>       Ok(Response::new(CommandOutput {
+</span><span>           output: String::from_utf8(output).unwrap(),
+</span><span>       }))
+</span><span>   }
+</span><span>}
+</span></code></pre>
+<ul>
+<li>
+<p>We declare our own struct <code>Cli</code> because we need to <code>impl RemoteCli</code>.</p>
+</li>
+<li>
+<p>Our generated code uses an <code>async</code> method. We add <code>#[tonic::async_trait]</code> to our trait impl so the server can use <code>async fn</code> on our method. We just have one method to define, <code>async fn shell()</code>.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>I’m 👋waving my hands👋 here for the function signature, but the way I initially learned how to write them was to go into the generated code, skimmed the code within the <code>remote_cli_server</code> module and modified the crate paths.</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>The first thing we do when we enter <code>shell</code> is peel off the <code>tonic</code> wrapping from <code>request</code> with <code>.into_inner()</code>. We further separate the ownership of data into <code>command</code> and <code>args</code> vars.</p>
+</li>
+<li>
+<p>We build out <code>process</code> as the <code>std::process::Command</code> struct so we can spawn the user’s process and capture stdout.</p>
+</li>
+<li>
+<p>Then we wait for <code>process</code> to exit and collect the output with <code>.wait_with_output()</code>. We just want <code>stdout</code> so we further take ownership of just that handle.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>Last, we build a <code>tonic::Response</code>, converting the process stdout into a <code>String</code> while we instantiate our <code>CommandOutput</code>. Finally wrapping the <code>Response</code> in a <code>Result</code> and returning it to the client.</li>
+</ul>
+<h4 id="start-server">start_server<a class="zola-anchor" href="#start-server" aria-label="Anchor link for: start-server">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub</span><span> async </span><span style="color:#569cd6;">fn </span><span>start_server(opts: ServerOptions) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> addr = opts.server_listen_addr.parse().unwrap();
+</span><span>   </span><span style="color:#569cd6;">let</span><span> cli_server = Cli::default();
+</span><span>
+</span><span>   println!(</span><span style="color:#d69d85;">&quot;RemoteCliServer listening on </span><span style="color:#b4cea8;">{}</span><span style="color:#d69d85;">&quot;</span><span>, addr);
+</span><span>
+</span><span>   Server::builder()
+</span><span>       .add_service(RemoteCliServer::new(cli_server))
+</span><span>       .serve(addr)
+</span><span>       .await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<ul>
+<li>This function will be used by the frontend for the purpose of starting the server.</li>
+</ul>
+<hr />
+<ul>
+<li>The listening address is passed in through <code>opts</code>. It’s passed in as a <code>String</code>, but the compiler figures out what type we mean when we call <code>.parse()</code> due to how we use it later.</li>
+</ul>
+<hr />
+<ul>
+<li>We instantiate <code>cli_server</code> with the <code>Cli</code> struct which we implemented as the protobuf trait <code>RemoteCli</code>. </li>
+</ul>
+<hr />
+<ul>
+<li>
+<p><code>tonic::Server::builder()</code> creates our gRPC server instance.</p>
+</li>
+<li>
+<p>The <code>.add_service()</code> method takes <code>RemoteCliServer::new(cli_server)</code> to create a gRPC server with our generated endpoints via <code>RemoteCliServer</code> and our trait impl via <code>cli_server</code>.</p>
+</li>
+<li>
+<p>The <code>serve()</code> method takes in our parsed listening address, providing the hint the compiler needed to infer the required type and returns an <code>async Result&lt;T&gt; </code> for us to <code>.await</code> on.</p>
+</li>
+</ul>
+<h3 id="main-rs-so-far">main.rs - so far<a class="zola-anchor" href="#main-rs-so-far" aria-label="Anchor link for: main-rs-so-far">🔗</a></h3>
+<p>We are making small changes to <code>main.rs</code> to plug in the server module. </p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>remotecli;
+</span><span>
+</span><span style="color:#569cd6;">use </span><span>structopt::StructOpt;
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `server` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>ServerOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_listen_addr: String,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `run` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>RemoteCommandOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;http://127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_addr: String,
+</span><span>   </span><span style="color:#608b4e;">/// The full command and arguments for the server to execute
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>command: Vec&lt;String&gt;,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the only valid values for our subcommands
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub enum </span><span>SubCommand {
+</span><span>   </span><span style="color:#608b4e;">/// Start the remote command gRPC server
+</span><span>   #[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>)]
+</span><span>   StartServer(ServerOptions),
+</span><span>   </span><span style="color:#608b4e;">/// Send a remote command to the gRPC server
+</span><span>   #[structopt(setting </span><span style="color:#569cd6;">=</span><span> structopt::clap::AppSettings::TrailingVarArg)]
+</span><span>   Run(RemoteCommandOptions),
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// This is the main arguments structure that we&#39;ll parse from
+</span><span>#[derive(StructOpt, Debug)]
+</span><span>#[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>)]
+</span><span style="color:#569cd6;">struct </span><span>ApplicationArguments {
+</span><span>   #[structopt(flatten)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>subcommand: SubCommand,
+</span><span>}
+</span><span>
+</span><span>#[tokio::main]
+</span><span>async </span><span style="color:#569cd6;">fn </span><span>main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> args = ApplicationArguments::from_args();
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">match</span><span> args.subcommand {
+</span><span>       SubCommand::StartServer(opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Start the server on: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, opts.server_listen_addr);
+</span><span>           remotecli::server::start_server(opts).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>       }
+</span><span>       SubCommand::Run(rc_opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Run command: &#39;</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&#39;&quot;</span><span>, rc_opts.command);
+</span><span>
+</span><span>
+</span><span>       }
+</span><span>   }
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<ul>
+<li>
+<p>We now import our <code>remotecli</code> module.</p>
+</li>
+<li>
+<p>The <code>main()</code> function changes slightly as well. First, we change the function to be <code>async</code>.</p>
+</li>
+<li>
+<p>We add the <code>#[tokio::main]</code> attribute to mark the async function for execution.</p>
+</li>
+<li>
+<p>And we call our new <code>start_server()</code> to actually start a server when the user runs the <code>server</code> subcommand.</p>
+</li>
+</ul>
+<h3 id="remotecli-server-rs-all-together">remotecli/server.rs all together<a class="zola-anchor" href="#remotecli-server-rs-all-together" aria-label="Anchor link for: remotecli-server-rs-all-together">🔗</a></h3>
+<p>Here’s the final form of the server module.</p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">use </span><span>tonic::{transport::Server, Request, Response, Status};
+</span><span>
+</span><span style="color:#608b4e;">// Import the generated rust code into module
+</span><span style="color:#569cd6;">pub mod </span><span>remotecli_proto {
+</span><span>   tonic::include_proto</span><span style="color:#569cd6;">!</span><span>(</span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Proto generated server traits
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::remote_cli_server::{RemoteCli, RemoteCliServer};
+</span><span>
+</span><span style="color:#608b4e;">// Proto message structs
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::{CommandInput, CommandOutput};
+</span><span>
+</span><span style="color:#608b4e;">// For the server listening address
+</span><span style="color:#569cd6;">use crate</span><span>::ServerOptions;
+</span><span>
+</span><span style="color:#608b4e;">// For executing commands
+</span><span style="color:#569cd6;">use </span><span>std::process::{Command, Stdio};
+</span><span>
+</span><span>#[derive(Default)]
+</span><span style="color:#569cd6;">pub struct </span><span>Cli {}
+</span><span>
+</span><span>#[tonic::async_trait]
+</span><span style="color:#569cd6;">impl </span><span>RemoteCli </span><span style="color:#569cd6;">for </span><span>Cli {
+</span><span>   async </span><span style="color:#569cd6;">fn </span><span>shell(
+</span><span>       </span><span style="color:#569cd6;">&amp;</span><span>self,
+</span><span>       request: Request&lt;CommandInput&gt;,
+</span><span>   ) -&gt; Result&lt;Response&lt;CommandOutput&gt;, Status&gt; {
+</span><span>       </span><span style="color:#569cd6;">let</span><span> req_command = request.into_inner();
+</span><span>       </span><span style="color:#569cd6;">let</span><span> command = req_command.command;
+</span><span>       </span><span style="color:#569cd6;">let</span><span> args = req_command.args;
+</span><span>
+</span><span>       println!(</span><span style="color:#d69d85;">&quot;Running command: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;"> - args: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, </span><span style="color:#569cd6;">&amp;</span><span>command, </span><span style="color:#569cd6;">&amp;</span><span>args);
+</span><span>
+</span><span>       </span><span style="color:#569cd6;">let</span><span> process = Command::new(command)
+</span><span>           .args(args)
+</span><span>           .stdout(Stdio::piped())
+</span><span>           .spawn()
+</span><span>           .expect(</span><span style="color:#d69d85;">&quot;failed to execute child process&quot;</span><span>);
+</span><span>
+</span><span>       </span><span style="color:#569cd6;">let</span><span> output = process
+</span><span>           .wait_with_output()
+</span><span>           .expect(</span><span style="color:#d69d85;">&quot;failed to wait on child process&quot;</span><span>);
+</span><span>       </span><span style="color:#569cd6;">let</span><span> output = output.stdout;
+</span><span>
+</span><span>       Ok(Response::new(CommandOutput {
+</span><span>           output: String::from_utf8(output).unwrap(),
+</span><span>       }))
+</span><span>   }
+</span><span>}
+</span><span>
+</span><span style="color:#569cd6;">pub</span><span> async </span><span style="color:#569cd6;">fn </span><span>start_server(opts: ServerOptions) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> addr = opts.server_listen_addr.parse().unwrap();
+</span><span>   </span><span style="color:#569cd6;">let</span><span> cli_server = Cli::default();
+</span><span>
+</span><span>   println!(</span><span style="color:#d69d85;">&quot;RemoteCliServer listening on </span><span style="color:#b4cea8;">{}</span><span style="color:#d69d85;">&quot;</span><span>, addr);
+</span><span>
+</span><span>   Server::builder()
+</span><span>       .add_service(RemoteCliServer::new(cli_server))
+</span><span>       .serve(addr)
+</span><span>       .await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<p>And that’s the server implementation and the frontend code for starting the server. It is a surprisingly small amount of code.</p>
+<hr />
+<p>You can start an instance of the server by running:</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> --</span><span> server
+</span><span>[...]
+</span><span>Start the server on: </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;
+</span><span>RemoteCliServer listening on 127.0.0.1:50051
+</span></code></pre>
+<h2 id="client">Client<a class="zola-anchor" href="#client" aria-label="Anchor link for: client">🔗</a></h2>
+<p>We’re in the homestretch. Implementing a client. We’re going to create a new module within <code>remotecli</code> called <code>client.rs</code> that will follow the same patterns as we established for the server.</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ tree
+</span><span>.
+</span><span>├── build.rs
+</span><span>├── Cargo.toml
+</span><span>├── proto
+</span><span>│   └── cli.proto
+</span><span>└── src
+</span><span>    ├── main.rs
+</span><span>    └── remotecli
+</span><span>      	├── client.rs
+</span><span>        ├── mod.rs
+</span><span>        └── server.rs
+</span></code></pre>
+<h3 id="remotecli-mod-rs-1">remotecli/mod.rs<a class="zola-anchor" href="#remotecli-mod-rs-1" aria-label="Anchor link for: remotecli-mod-rs-1">🔗</a></h3>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>client;
+</span><span style="color:#569cd6;">pub mod </span><span>server;
+</span></code></pre>
+<p>We’re declaring the client module within <code>mod.rs</code> </p>
+<h3 id="remotecli-client-rs">remotecli/client.rs<a class="zola-anchor" href="#remotecli-client-rs" aria-label="Anchor link for: remotecli-client-rs">🔗</a></h3>
+<p>Our client is a lot more straightforward. But splitting the module up into pieces for description purposes. </p>
+<p><strong>Again, full file is at <a href="https://tjtelan.com/blog/lets-build-a-single-binary-grpc-server-client-with-rust-in-2020/#remotecli-client-rs-all-together">the end of the section</a></strong></p>
+<h4 id="imports-1">Imports<a class="zola-anchor" href="#imports-1" aria-label="Anchor link for: imports-1">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>remotecli_proto {
+</span><span>   tonic::include_proto</span><span style="color:#569cd6;">!</span><span>(</span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Proto generated client
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::remote_cli_client::RemoteCliClient;
+</span><span>
+</span><span style="color:#608b4e;">// Proto message structs
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::CommandInput;
+</span><span>
+</span><span style="color:#569cd6;">use crate</span><span>::RemoteCommandOptions;
+</span></code></pre>
+<ul>
+<li>
+<p>Just like in our server, we create a module <code>remotecli_proto</code> and we use the <code>tonic::include_proto!()</code> macro to copy/paste our generated code into this module.</p>
+</li>
+<li>
+<p>We then include the generated <code>RemoteCliClient</code> to connect, and the <code>CommandInput</code> struct since that is what we send over to the server.</p>
+</li>
+<li>
+<p>Last include is the <code>RemoteCommandOptions</code> struct from the frontend so we can pass in the server address we want to connect to.</p>
+</li>
+</ul>
+<h4 id="client-run">client_run<a class="zola-anchor" href="#client-run" aria-label="Anchor link for: client-run">🔗</a></h4>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub</span><span> async </span><span style="color:#569cd6;">fn </span><span>client_run(rc_opts: RemoteCommandOptions) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#608b4e;">// Connect to server
+</span><span>   </span><span style="color:#608b4e;">// Use server addr if given, otherwise use default
+</span><span>   </span><span style="color:#569cd6;">let mut</span><span> client = RemoteCliClient::connect(rc_opts.server_addr).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">let</span><span> request = tonic::Request::new(CommandInput {
+</span><span>       command: rc_opts.command[</span><span style="color:#b5cea8;">0</span><span>].clone().into(),
+</span><span>       args: rc_opts.command[</span><span style="color:#b5cea8;">1</span><span style="color:#569cd6;">..</span><span>].to_vec(),
+</span><span>   });
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">let</span><span> response = client.shell(request).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   println!(</span><span style="color:#d69d85;">&quot;RESPONSE=</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, response);
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<ul>
+<li>The helper function <code>client_run()</code> is an <code>async</code> function like our server. The frontend passes in a <code>RemoteCommandOptions</code> struct for the server address info as well as our raw user command.</li>
+</ul>
+<hr />
+<ul>
+<li>First thing we do is create <code>client</code> and connect to the server with <code>RemoteCliClient::connect</code> and do an <code>.await</code>.</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>Then we build our request by creating a <code>tonic::Request</code> struct with our <code>CommandInput</code>.</p>
+</li>
+<li>
+<p>The user command is raw and needs to be sliced up to fit the shape of what the server expects. The first word of the user command is the shell command, and the rest are the arguments.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>Lastly we use <code>client</code> and call our endpoint with our request and <code>.await</code> for the execution to complete.</li>
+</ul>
+<h3 id="main-rs">main.rs<a class="zola-anchor" href="#main-rs" aria-label="Anchor link for: main-rs">🔗</a></h3>
+<p>This is the final form of <code>main.rs</code>. The last thing we do to <code>main.rs</code> is plug in our <code>client_run()</code> function.</p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>remotecli;
+</span><span>
+</span><span style="color:#569cd6;">use </span><span>structopt::StructOpt;
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `server` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>ServerOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_listen_addr: String,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the options used by the `run` subcommand
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub struct </span><span>RemoteCommandOptions {
+</span><span>   </span><span style="color:#608b4e;">/// The address of the server that will run commands.
+</span><span>   #[structopt(long </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>, default_value </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;http://127.0.0.1:50051&quot;</span><span>)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>server_addr: String,
+</span><span>   </span><span style="color:#608b4e;">/// The full command and arguments for the server to execute
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>command: Vec&lt;String&gt;,
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// These are the only valid values for our subcommands
+</span><span>#[derive(Debug, StructOpt)]
+</span><span style="color:#569cd6;">pub enum </span><span>SubCommand {
+</span><span>   </span><span style="color:#608b4e;">/// Start the remote command gRPC server
+</span><span>   #[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;server&quot;</span><span>)]
+</span><span>   StartServer(ServerOptions),
+</span><span>   </span><span style="color:#608b4e;">/// Send a remote command to the gRPC server
+</span><span>   #[structopt(setting </span><span style="color:#569cd6;">=</span><span> structopt::clap::AppSettings::TrailingVarArg)]
+</span><span>   Run(RemoteCommandOptions),
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// This is the main arguments structure that we&#39;ll parse from
+</span><span>#[derive(StructOpt, Debug)]
+</span><span>#[structopt(name </span><span style="color:#569cd6;">= </span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>)]
+</span><span style="color:#569cd6;">struct </span><span>ApplicationArguments {
+</span><span>   #[structopt(flatten)]
+</span><span>   </span><span style="color:#569cd6;">pub </span><span>subcommand: SubCommand,
+</span><span>}
+</span><span>
+</span><span>#[tokio::main]
+</span><span>async </span><span style="color:#569cd6;">fn </span><span>main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#569cd6;">let</span><span> args = ApplicationArguments::from_args();
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">match</span><span> args.subcommand {
+</span><span>       SubCommand::StartServer(opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Start the server on: </span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, opts.server_listen_addr);
+</span><span>           remotecli::server::start_server(opts).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>       }
+</span><span>       SubCommand::Run(rc_opts) </span><span style="color:#569cd6;">=&gt; </span><span>{
+</span><span>           println!(</span><span style="color:#d69d85;">&quot;Run command: &#39;</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&#39;&quot;</span><span>, rc_opts.command);
+</span><span>           remotecli::client::client_run(rc_opts).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>       }
+</span><span>   }
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<h3 id="remotecli-client-rs-all-together">remotecli/client.rs all together<a class="zola-anchor" href="#remotecli-client-rs-all-together" aria-label="Anchor link for: remotecli-client-rs-all-together">🔗</a></h3>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">pub mod </span><span>remotecli_proto {
+</span><span>   tonic::include_proto</span><span style="color:#569cd6;">!</span><span>(</span><span style="color:#d69d85;">&quot;remotecli&quot;</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#608b4e;">// Proto generated client
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::remote_cli_client::RemoteCliClient;
+</span><span>
+</span><span style="color:#608b4e;">// Proto message structs
+</span><span style="color:#569cd6;">use </span><span>remotecli_proto::CommandInput;
+</span><span>
+</span><span style="color:#569cd6;">use crate</span><span>::RemoteCommandOptions;
+</span><span>
+</span><span style="color:#569cd6;">pub</span><span> async </span><span style="color:#569cd6;">fn </span><span>client_run(rc_opts: RemoteCommandOptions) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span><span>   </span><span style="color:#608b4e;">// Connect to server
+</span><span>   </span><span style="color:#608b4e;">// Use server addr if given, otherwise use default
+</span><span>   </span><span style="color:#569cd6;">let mut</span><span> client = RemoteCliClient::connect(rc_opts.server_addr).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">let</span><span> request = tonic::Request::new(CommandInput {
+</span><span>       command: rc_opts.command[</span><span style="color:#b5cea8;">0</span><span>].clone().into(),
+</span><span>       args: rc_opts.command[</span><span style="color:#b5cea8;">1</span><span style="color:#569cd6;">..</span><span>].to_vec(),
+</span><span>   });
+</span><span>
+</span><span>   </span><span style="color:#569cd6;">let</span><span> response = client.shell(request).await</span><span style="color:#569cd6;">?</span><span>;
+</span><span>
+</span><span>   println!(</span><span style="color:#d69d85;">&quot;RESPONSE=</span><span style="color:#b4cea8;">{:?}</span><span style="color:#d69d85;">&quot;</span><span>, response);
+</span><span>
+</span><span>   Ok(())
+</span><span>}
+</span></code></pre>
+<h3 id="final-demonstration">Final demonstration<a class="zola-anchor" href="#final-demonstration" aria-label="Anchor link for: final-demonstration">🔗</a></h3>
+<p>To see this server-client end-to-end, we'll need two terminal windows open. In one, run the server, and in the other we'll run a simple <code>ls</code> command.</p>
+<h4 id="server-1">Server<a class="zola-anchor" href="#server-1" aria-label="Anchor link for: server-1">🔗</a></h4>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> --</span><span> server
+</span><span>[...]
+</span><span>Start the server on: </span><span style="color:#d69d85;">&quot;127.0.0.1:50051&quot;
+</span><span>RemoteCliServer listening on 127.0.0.1:50051
+</span></code></pre>
+<h4 id="client-1">Client<a class="zola-anchor" href="#client-1" aria-label="Anchor link for: client-1">🔗</a></h4>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ cargo run</span><span style="color:#569cd6;"> --</span><span> run ls
+</span></code></pre>
+<h4 id="output">Output<a class="zola-anchor" href="#output" aria-label="Anchor link for: output">🔗</a></h4>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>Run command: </span><span style="color:#d69d85;">&#39;[&quot;ls&quot;]&#39;
+</span><span>RESPONSE=</span><span style="background-color:#282828;color:#d69d85;">Response</span><span> { metadata: MetadataMap { headers: {</span><span style="color:#d69d85;">&quot;content-type&quot;</span><span>: </span><span style="color:#d69d85;">&quot;application/grpc&quot;</span><span>, </span><span style="color:#d69d85;">&quot;date&quot;</span><span>: </span><span style="color:#d69d85;">&quot;Wed, 19 Aug 2020 00:00:25 GMT&quot;</span><span>, </span><span style="color:#d69d85;">&quot;grpc-status&quot;</span><span>: </span><span style="color:#d69d85;">&quot;0&quot;</span><span>} }, message: CommandOutput { output: </span><span style="color:#d69d85;">&quot;build.rs\nCargo.toml\nproto\nsrc\n&quot; </span><span>} }
+</span></code></pre>
+<p>As we see, there is still work left to do in order to format the output in a more human readable way. But that is an exercise left to the reader.</p>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">🔗</a></h2>
+<p>We just walked through building a CLI application that parses user input and uses gRPC to send a command from a gRPC client to the server for execution and return of command output.</p>
+<p>Based on how we structured the frontend CLI using <code>StructOpt</code>, we allowed both the client and server to compile into a single binary. </p>
+<p>Protocol buffers (or protobufs) were used to define the interfaces of the server and the data structures that were used. The <code>Tonic</code> and <code>Prost</code> crates and Cargo build scripts were used to compile the protobufs into native async Rust code.</p>
+<p><code>Tokio</code> was our async runtime. We experienced how little code was necessary to support <code>async</code>/<code>await</code> patterns.</p>
+<p>Thanks for joining me as I stepped through the details. I hope that this walkthrough satisfies some curiosity about using gRPC for your backend code. As well as piqued your interest in writing some Rust code.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

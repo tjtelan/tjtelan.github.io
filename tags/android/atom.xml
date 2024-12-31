@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>T.J. Telan - android</title>
+	<subtitle>Practical DevOps &amp; Developer Experience</subtitle>
+	<link href="https://tjtelan.com/tags/android/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://tjtelan.com"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2012-05-14T00:00:00+00:00</updated>
+	<id>https://tjtelan.com/tags/android/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Learning Android to Play with Metawatch Manager</title>
+		<published>2012-05-14T00:00:00+00:00</published>
+		<updated>2012-05-14T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/" type="text/html"/>
+		<id>https://tjtelan.com/blog/learning-android-to-play-with-metawatch-manager/</id>
+		<content type="html">&lt;p&gt;I&#x27;ve been meaning to learn how to develop for Android since the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;HTC_Dream&quot;&gt;G1&lt;&#x2F;a&gt; (the first Android handset) was released.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also been meaning to develop for my Metawatch since I got it last September, but since launch, a lack of a &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.metawatch.org&#x2F;forums&#x2F;thread&#x2F;200&#x2F;official-free-cheap-development-environment&quot;&gt;free&#x2F;cheap development
+environment&lt;&#x2F;a&gt; continues to slow my momentum (and interest) in messing with what is otherwise a nice looking, basic functioning watch. (That also has a motor in it...)&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m going to take on both of these goals at the same time.&lt;&#x2F;p&gt;
+&lt;p&gt;I was using the official version of the Metawatch Manager, the software installed in Android that is responsible for sending notifications (and text messages, phone calls...) to the watch to drive the motor and make you look at the watch.&lt;&#x2F;p&gt;
+&lt;p&gt;I later moved onto an app I found in the Android market (err... Google Play). &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;play.google.com&#x2F;store&#x2F;apps&#x2F;details?id=com.kupriyanov.metawatch&amp;amp;hl=en&quot;&gt;Manager for MetaWatch&lt;&#x2F;a&gt; I&#x27;ve been finding that I really like what the app has offered me over the official one, but it is a little bit buggy and I&#x27;m also looking to add some features. It would be great to add the geeky, personal touch that I&#x27;ve been missing that shows that this is my project.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, I&#x27;m going to get back to the &lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;lmgtfy.com&#x2F;?q=android+tutorial&quot;&gt;Android tutorial&lt;&#x2F;a&gt; I&#x27;m reading.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener nofollow&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;MetaWatchOpenProjects&#x2F;MWM-for-Android&quot;&gt;Official Metawatch Manager github project&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>

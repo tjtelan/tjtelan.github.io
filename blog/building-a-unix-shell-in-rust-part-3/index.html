@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Building a Unix-shell in Rust - Part 3 &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-3/" />
+   
+  <meta property="og:title" content="Building a Unix-shell in Rust - Part 3" />
+  
+  
+  <meta property="og:description" content="Exploring Rust&#x27;s test suite" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-3/" />
+   
+  <meta name="twitter:title" content="Building a Unix-shell in Rust - Part 3" />
+  
+  
+  <meta name="twitter:description" content="Exploring Rust&#x27;s test suite" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Building a Unix-shell in Rust - Part 3</h1>
+    
+    <span class="post-meta">
+        5 min read
+        &nbsp;&bull;&nbsp;
+        2017-12-31
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+        
+      </span>
+
+    <p>This is the third post in a series on writing a simple shell in the Rust language. (I suggest you start from the <a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-1/">beginning</a>!) </p>
+<p>In the <a href="https://tjtelan.com/blog/building-a-unix-shell-in-rust-part-2/">previous post</a> , I implemented a simple REPL that simply prints out debug output with the input split by whitespace.</p>
+<hr />
+<p>In this post, I would like to take the opportunity to set up tests before much more complex functionality gets included. Consider this to be the first part of what potentially might be multiple posts about writing and organizing testing with <code>cargo</code>.</p>
+<h3 id="is-testing-important">Is testing important?<a class="zola-anchor" href="#is-testing-important" aria-label="Anchor link for: is-testing-important">🔗</a></h3>
+<blockquote>
+<p>Program testing can be a very effective way to show the presence of bugs, but it is hopelessly inadequate for showing their absence. 
+<a rel="noopener nofollow" target="_blank" href="https://en.wikiquote.org/wiki/Edsger_W._Dijkstra">Edsger W. Dijkstra</a></p>
+</blockquote>
+<p>I don’t think it is controversial to say I think it is important. Good tests can help protect you from accidental regressions in functionality, and can be an added check on your assumptions, and manual testing. My intention is to write objective unit tests that will replace what I've been doing manually. </p>
+<h3 id="why-write-the-tests-now-why-not-later">Why write the tests now? Why not later?<a class="zola-anchor" href="#why-write-the-tests-now-why-not-later" aria-label="Anchor link for: why-write-the-tests-now-why-not-later">🔗</a></h3>
+<p>To be honest, I want the tests now because I’m looking for ways to use Rust for production code at work, and I need to get a feel for how a Rust codebase matures. As I am exploring Rust, I have come to be impressed with how easy <code>cargo test</code> makes it to write and execute tests.</p>
+<p>It also will be less work to write test code for a small amount of code I just wrote now, rather than a larger amount of code later. Since it's been my experience that testing will just become reactive. And I get to go back to writing new feature code sooner.</p>
+<h3 id="getting-started-with-unit-testing">Getting started with unit testing<a class="zola-anchor" href="#getting-started-with-unit-testing" aria-label="Anchor link for: getting-started-with-unit-testing">🔗</a></h3>
+<p>Testing is something that I always seem to go through with print statements, which is better than nothing, but not the most reliable way to be mindful of functionality regression. I would like to try to write more tests, as well as more functional code.</p>
+<p><a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/book/testing.html">https://doc.rust-lang.org/book/testing.html</a></p>
+<p>According to the official Rust handbook, for unit-style tests, like the what I would like to write, the convention is to create a <code>tests</code> module.</p>
+<p>I’ll cover integration tests in a later post, when I reorganize the project into different files. For now, I’m going to start slow and try to understand the new parts of Rust I get to use.</p>
+<p>In the same file as the rest of my code, I add my test module with unit tests. I’m going to cover testing the <code>tokenize_command()</code> function.</p>
+<p><strong>main.rs</strong></p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[cfg(test)]
+</span><span style="color:#569cd6;">mod </span><span>unittest_tokenize_command {
+</span><span>    </span><span style="color:#569cd6;">use super</span><span>::*;
+</span><span>
+</span><span>    #[test]
+</span><span>    #[ignore]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>empty_command() {
+</span><span>      assert_eq!(</span><span style="color:#d69d85;">&quot;&quot;</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;&quot;</span><span>.to_string()).keyword)
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>test_keyword() {
+</span><span>      assert_eq!(</span><span style="color:#d69d85;">&quot;test&quot;</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;test&quot;</span><span>.to_string()).keyword)
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>no_arg() {
+</span><span>      assert_eq!(</span><span style="color:#b5cea8;">0</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;test&quot;</span><span>.to_string()).args.len())
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>one_arg() {
+</span><span>      assert_eq!(</span><span style="color:#b5cea8;">1</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;test one&quot;</span><span>.to_string()).args.len())
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>multi_args() {
+</span><span>      assert_eq!(</span><span style="color:#b5cea8;">3</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;test one two three&quot;</span><span>.to_string()).args.len())
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    #[ignore]
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>quotes() {
+</span><span>      assert_eq!(</span><span style="color:#b5cea8;">2</span><span>, tokenize_command(</span><span style="color:#d69d85;">&quot;test \”one two\” three&quot;</span><span>.to_string()).args.len())
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h3 id="breakdown-of-test-module">Breakdown of test module<a class="zola-anchor" href="#breakdown-of-test-module" aria-label="Anchor link for: breakdown-of-test-module">🔗</a></h3>
+<p>I’ll introduce the new syntax.</p>
+<h4 id="use-super">use super::*<a class="zola-anchor" href="#use-super" aria-label="Anchor link for: use-super">🔗</a></h4>
+<p>The use of <code>use</code> is new to me in Rust. I assume it means I am bringing in the namespace scope from outside to the top-level (instead of using <code>super::</code> at every function call) </p>
+<p>Since the test module is an inner module, we need to bring the functions from the outside scope into the module’s local scope. We can do this individually, but we can just use <code>*</code> to pull them all in, even though I’m not going to be testing them all right now.</p>
+<p>For more information about this usage, look at the <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/book/crates-and-modules.html#re-exporting-with-pub-use">Crates and Modules</a> page in the Rust documentation.</p>
+<h4 id="attributes">Attributes<a class="zola-anchor" href="#attributes" aria-label="Anchor link for: attributes">🔗</a></h4>
+<p>The <code>#</code> lines are called <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/book/attributes.html">attributes</a>. Attributes are defined by the compiler, and are used for different things. As of Rust 1.17, we currently we cannot create our own attributes. I’ll quickly describe the attributes we use, (but here’s the <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/reference/attributes.html">reference</a> to all of the attributes.</p>
+<h5 id="test">#[test]<a class="zola-anchor" href="#test" aria-label="Anchor link for: test">🔗</a></h5>
+<p>The <code>#[test]</code> attribute labels the functions as tests to the rust compiler. This is how <code>cargo test</code> knows what functions to run for tests.</p>
+<h5 id="ignore">#[ignore]<a class="zola-anchor" href="#ignore" aria-label="Anchor link for: ignore">🔗</a></h5>
+<p>The <code>#[ignore]</code> attribute tells cargo to skip the test. (However, you can tell cargo to run the ignored tests by running <code>cargo test -- --ignored</code>) I am using this attribute, because as I started writing tests, I realized I hadn’t covered the functionality that would let the tests pass. I don’t want to forget to do this, so I’ll write the test now.</p>
+<h5 id="cfg-test">#[cfg(test)]<a class="zola-anchor" href="#cfg-test" aria-label="Anchor link for: cfg-test">🔗</a></h5>
+<p>In <code>#[cfg(test)]</code>, we’re using the <code>cfg</code> attribute on the <code>unittest_tokenize_command</code> module. In our usage, the attribute tells the Rust compiler to compile the module only when we are compiling tests, like when we run <code>cargo test</code>.</p>
+<h3 id="running-the-tests">Running the tests<a class="zola-anchor" href="#running-the-tests" aria-label="Anchor link for: running-the-tests">🔗</a></h3>
+<p>We just need to run <code>cargo test</code>.</p>
+<pre data-lang="sh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-sh "><code class="language-sh" data-lang="sh"><span>$ cargo test
+</span><span>   Compiling rust-shell v0.1.0 (file:///Users/telant/src/rust-shell)
+</span><span>    Finished debug </span><span style="color:#569cd6;">[</span><span>unoptimized + debuginfo</span><span style="color:#569cd6;">]</span><span> target(s) in 0.45 secs
+</span><span>     Running target/debug/deps/rust_shell-cdb27ec22ae15a63
+</span><span>
+</span><span>running 6 tests
+</span><span>test unittest_tokenize_command::empty_command ... ignored
+</span><span>test unittest_tokenize_command::quotes ... ignored
+</span><span>test unittest_tokenize_command::no_arg ... ok
+</span><span>test unittest_tokenize_command::multi_args ... ok
+</span><span>test unittest_tokenize_command::test_keyword ... ok
+</span><span>test unittest_tokenize_command::one_arg ... ok
+</span><span>
+</span><span>test result: ok. 4 passed</span><span style="color:#569cd6;">; </span><span>0 failed</span><span style="color:#569cd6;">; </span><span>2 ignored</span><span style="color:#569cd6;">; </span><span>0 measured
+</span></code></pre>
+<p>And we see that the all but our ignored tests pass, which is good enough for now!</p>
+<p>In the next post, I’ll be covering evaluating built-in keywords.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

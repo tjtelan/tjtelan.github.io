@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+What I learned running a live programming Twitch stream from Linux &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/what-i-learned-running-a-live-programming-stream-from-linux/" />
+   
+  <meta property="og:title" content="What I learned running a live programming Twitch stream from Linux" />
+  
+  
+  <meta property="og:description" content="Streaming a coding session on Twitch using a Linux laptop was easier than expected." />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/what-i-learned-running-a-live-programming-stream-from-linux/" />
+   
+  <meta name="twitter:title" content="What I learned running a live programming Twitch stream from Linux" />
+  
+  
+  <meta name="twitter:description" content="Streaming a coding session on Twitch using a Linux laptop was easier than expected." />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">What I learned running a live programming Twitch stream from Linux</h1>
+    
+    <span class="post-meta">
+        9 min read
+        &nbsp;&bull;&nbsp;
+        2020-07-29
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/how-to/">
+              how-to
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/twitch/">
+              #twitch
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/streaming/">
+              #streaming
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/obs/">
+              #obs
+            </a>
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/linux/">
+              #linux
+            </a>
+          
+        
+      </span>
+
+    <p>I recently completed my first coding streaming session. A few people watched for a few minutes, so I considered it to be a success. I used what I already had on hand, did not spend any money and I was able to stream for about 3 hours from zero code to a small completed project. There is much room for improvement, but I want to share what I used to get started. </p>
+<p>My motivation for streaming my coding sessions is to improve my communication skills, as well as educate and demonstrate to others about being productive with programming languages and tech that I like using.</p>
+<h2 id="my-streaming-setup">My streaming setup<a class="zola-anchor" href="#my-streaming-setup" aria-label="Anchor link for: my-streaming-setup">🔗</a></h2>
+<p>I’m running Linux on my <a rel="noopener nofollow" target="_blank" href="https://system76.com/guides/gaze14/15b">System76 Gazelle</a> laptop. My distro is Manjaro 20 (KDE Plasma).</p>
+<p>The following are the hardware + software I already had</p>
+<ul>
+<li>Laptop webcam</li>
+<li>Condenser microphone (I use a Behringer C-1U)</li>
+<li>Adjustable mic stand</li>
+<li>External Monitor</li>
+<li>External keyboard</li>
+<li>External mouse</li>
+<li>Streaming software (I used OBS. More on that later)</li>
+<li>Text editor (I used VSCode)</li>
+<li>Terminal (I used Alacritty + the built-in terminal in VSCode)</li>
+<li>Web browser</li>
+</ul>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="My extra basic streaming setup. Don&#x27;t spend big money before you even have momentum." /><figcaption>My extra basic streaming setup. Don&#x27;t spend big money before you even have momentum.</figcaption></figure>
+</div>
+<h2 id="set-accurate-expectations-for-yourself-and-potential-viewers">Set accurate expectations for yourself and potential viewers<a class="zola-anchor" href="#set-accurate-expectations-for-yourself-and-potential-viewers" aria-label="Anchor link for: set-accurate-expectations-for-yourself-and-potential-viewers">🔗</a></h2>
+<p>I watched a few coding streams from people that I see in the space regularly prior to running my own. I didn't want to reinvent the wheel, and so I had to experience what works for others and identify anything that is common. Pretty much <em>no one</em> is doing anything wholly unique, so I decided I would learn by copying what works for other coding streamers.</p>
+<h3 id="create-loose-structure-to-guide-you">Create loose structure to guide you<a class="zola-anchor" href="#create-loose-structure-to-guide-you" aria-label="Anchor link for: create-loose-structure-to-guide-you">🔗</a></h3>
+<h4 id="write-your-title-with-intention">Write your title with intention<a class="zola-anchor" href="#write-your-title-with-intention" aria-label="Anchor link for: write-your-title-with-intention">🔗</a></h4>
+<p>Unless you have an existing community, try to avoid low-value clickbait.</p>
+<p>As a lowly unknown I need to bring a simple, but descriptive stream title. </p>
+<p>I want people to know:</p>
+<ul>
+<li>What language I'm writing in.</li>
+<li>What <em>fancy technology</em> I plan to use, if any.</li>
+<li>Succinct objective (Emphasis on <strong>singular</strong>!)</li>
+</ul>
+<p><em>Something to keep in mind</em>: Titles get truncated at about 40 or so characters. After that, viewers will have to put in some effort to mouse over your title to read past the cut.</p>
+<blockquote>
+<p>The title I settled on?</p>
+<p>[Rust] GRPC Remote Command Line using Tonic + CLAP - Writing a blog post</p>
+</blockquote>
+<h4 id="add-a-description-and-have-a-plan">Add a description and have a plan<a class="zola-anchor" href="#add-a-description-and-have-a-plan" aria-label="Anchor link for: add-a-description-and-have-a-plan">🔗</a></h4>
+<p>Most of the streamers have some narrow theme for their time online in order to set expectations for people watching.</p>
+<p>Explicitly let your viewers know what they are going to see in your description so they can decide if they will stick around. Otherwise you'll either get asked the same questions or people will just bounce out with disinterest.</p>
+<blockquote>
+<p>Specific to my first stream:</p>
+<p>I wanted to dedicate time to writing the example Rust code for another blog post I have in progress.</p>
+<p>With that in mind:</p>
+<p><strong>Description</strong></p>
+<ul>
+<li>Primary goal is to write a small CLI driven gRPC server/client in Rust</li>
+<li>Secondary goal is to document my process including looking up documentation and testing.</li>
+</ul>
+<p><strong>Plan</strong></p>
+<ul>
+<li>In my notes, I broke down the domains of the application into ordered objectives I could follow.</li>
+<li>I would take on each domain one at a time with the intention of connecting each of them together as each section became stable enough to test with user input.</li>
+</ul>
+</blockquote>
+<h4 id="technical-preparation">Technical preparation<a class="zola-anchor" href="#technical-preparation" aria-label="Anchor link for: technical-preparation">🔗</a></h4>
+<p>Since I didn’t want to worry about getting everything perfect I narrowed my focus on a few details and personal preferences about the stream.</p>
+<ul>
+<li>Not streaming my entire desktop, instead individual windows.
+<ul>
+<li>(I thought this would be easier for viewers.)</li>
+</ul>
+</li>
+<li>Including a background for the negative space</li>
+<li>Small on-screen banner that includes links to my other online platforms
+<ul>
+<li>Minor self-promotion</li>
+</ul>
+</li>
+<li>Microphone only, no external music</li>
+<li>Webcam placement as close to level to or pointing down on my face
+<ul>
+<li>So people wouldn't have to look up my nose</li>
+</ul>
+</li>
+</ul>
+<p>I didn't worry about having chat visible but I did have it open for me to interact with just in case.</p>
+<h2 id="set-up-streaming-software">Set up streaming software<a class="zola-anchor" href="#set-up-streaming-software" aria-label="Anchor link for: set-up-streaming-software">🔗</a></h2>
+<p>Twitch has a list of <a rel="noopener nofollow" target="_blank" href="https://help.twitch.tv/s/article/recommended-software-for-broadcasting?language=en_US">recommended software for broadcasting</a>. I ended up using Open Broadcaster Software, more commonly known as OBS because it has support for Linux.</p>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="Open Broadcaster Software a.k.a OBS" /><figcaption>Open Broadcaster Software a.k.a OBS</figcaption></figure>
+</div>
+<p>I’m not going to go over the deep details of OBS, but I encourage looking for tutorials on Youtube. Even in 2020, the beginner OBS tutorials from a few years ago are still relevant and usable. They helped make using OBS a lot less intimidating.</p>
+<p>Enable the preview and prepare to spend a little bit of time in OBS. What you see in the preview is what will get streamed out. Start simple. One Scene, and start with one source and add in sources as you get more familiar.</p>
+<h3 id="quick-start-guide-to-sources">Quick start guide to Sources<a class="zola-anchor" href="#quick-start-guide-to-sources" aria-label="Anchor link for: quick-start-guide-to-sources">🔗</a></h3>
+<p>Here’s a short list of sources you may want to add from a Linux desktop into OBS and what they translate to to usable in OBS.</p>
+<table><thead><tr><th>Description of input</th><th>OBS source</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Entire desktop</td><td>Screen Capture (XSHM)</td><td>If you have multiple monitors, you will need to select the screen you want to display</td></tr>
+<tr><td>Specific window</td><td>Window Capture (XComposite)</td><td>You’ll need to select the window you want displayed. One source per window</td></tr>
+<tr><td>Image</td><td>Image</td><td>Tested w/ JPEG, PNG</td></tr>
+<tr><td>Webcam</td><td>Video Capture Device (V4L2)</td><td>You’ll need to select your webcam from Devices if you have multiple cameras attached</td></tr>
+<tr><td>Capture Card</td><td>Video Capture Device (V4L2)</td><td>Similar to webcam, you’ll need to select your capture card device. Especially if you also have a webcam attached to your computer</td></tr>
+<tr><td>Microphone</td><td>- Audio Capture Device (ALSA)<br />- Audio Capture Input (PulseAudio)</td><td>It might be easier to configure audio through: Settings &gt; Audio &gt; Devices  Especially if you want to disable sources</td></tr>
+<tr><td>Desktop audio</td><td>- Audio Capture Device (ALSA)<br />- Audio Capture Input (PulseAudio)</td><td>(See notes for microphone)</td></tr>
+</tbody></table>
+<p>This may slightly differ from what the <a rel="noopener nofollow" target="_blank" href="https://obsproject.com/wiki/Sources-Guide">official OBS Sources guide</a> documents, but if you’re choosing to use Linux to stream then you probably already expect this. </p>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="What OBS sources look like in Linux" /><figcaption>What OBS sources look like in Linux</figcaption></figure>
+</div>
+<p>The <code>Sources &gt; Add</code> drop-down menu has icons that give good hints for what they do. Your results may vary, so be prepared to play around with settings. (But you already know that if you're insisting on using Linux...)</p>
+<h4 id="workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups">Workarounds for blacked out screens using laptop hybrid GPU setups<a class="zola-anchor" href="#workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups" aria-label="Anchor link for: workarounds-for-blacked-out-screens-using-laptop-hybrid-gpu-setups">🔗</a></h4>
+<p>One issue I ran into while writing his guide was being unable to use a single window as a streaming source. Adding the source resulted in a window that was blacked out, but my mouse cursor was still visible when over the window.</p>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="VSCode&#x27;s window is blacked out in OBS, but my cursor is still visible..." /><figcaption>VSCode&#x27;s window is blacked out in OBS, but my cursor is still visible...</figcaption></figure>
+</div>
+<p>To work around, you can pick one of the following solutions:</p>
+<ul>
+<li>Force OBS and all your windows to run on the same GPU. Some software such as web browsers or IDEs use hardware acceleration by default. You can enable/disable accordingly to match OBS.</li>
+<li>Or you can restart your laptop in either integrated or GPU mode (i.e., not hybrid mode)</li>
+</ul>
+<p>The reason is due to how hybrid GPU works. OBS and the window I was trying to display were running on different gpus. </p>
+<p>For more information please read <a rel="noopener nofollow" target="_blank" href="https://obsproject.com/forum/threads/laptop-black-screen-when-capturing-read-here-first.5965/">this thread from the OBS Project forums</a>.</p>
+<h3 id="configuring-api-keys-for-streaming">Configuring API keys for streaming<a class="zola-anchor" href="#configuring-api-keys-for-streaming" aria-label="Anchor link for: configuring-api-keys-for-streaming">🔗</a></h3>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="OBS stream key settings" /><figcaption>OBS stream key settings</figcaption></figure>
+</div>
+<p>The location for where you add in your service stream key is very easy to navigate to:</p>
+<p><code>Settings &gt; Stream</code></p>
+<p>Select the service you want to stream to, and enter the Stream Key.</p>
+<p>There are many preconfigured services in OBS, so you’ll probably only need to provide your stream key and not the service URL.</p>
+<p>Common links to where you can get your stream key:</p>
+<ul>
+<li>Youtube
+<ol>
+<li><a rel="noopener nofollow" target="_blank" href="https://www.youtube.com/live_dashboard">https://www.youtube.com/live_dashboard</a></li>
+<li><code>Stream name/key</code> is at the button of the page</li>
+</ol>
+</li>
+<li>Twitch
+<ol>
+<li><a rel="noopener nofollow" target="_blank" href="https://www.twitch.tv/settings/profile">https://www.twitch.tv/settings/profile</a> -- Then click <code>Channels and Videos</code></li>
+<li>Or: <a rel="noopener nofollow" target="_blank" href="https://dashboard.twitch.tv/u/">https://dashboard.twitch.tv/u/</a>&lt;your-twitch-username&gt;/settings/channel</li>
+<li><code>Primary Stream Key</code> is listed at the top of the page</li>
+</ol>
+</li>
+</ul>
+<p>(I use a service called <a rel="noopener nofollow" target="_blank" href="https://restream.io/">Restream</a> which is supported by OBS. Restream will broadcast to multiple services at the same time. I use it to broadcast to YouTube and Twitch simultaneously.)</p>
+<h2 id="don-t-overthink-and-start-streaming">Don’t overthink and start streaming<a class="zola-anchor" href="#don-t-overthink-and-start-streaming" aria-label="Anchor link for: don-t-overthink-and-start-streaming">🔗</a></h2>
+ 
+    
+        
+    
+<div class="blog-image"><figure>
+        <img src="[object]" alt="Don&#x27;t worry about perfection. Just take the first step and start." /><figcaption>Don&#x27;t worry about perfection. Just take the first step and start.</figcaption></figure>
+</div>
+<p>The first thing I noticed after going live was that the platforms I was broadcasting to had some noticeable lag between my actions and seeing it live in the browser.</p>
+<p>When you first get started, you probably won’t have a lot of people watching. This will be a good thing because you’re going to notice many details you’ll want to improve. </p>
+<p>I'm saying this to myself for the benefit of anyone else who got this far:</p>
+<p>It will take time, effort and consistency on your part before you see results. So relax, try to have fun and enjoy the process.</p>
+<hr />
+<p>If you made this far, thanks!</p>
+<p>Please <a rel="noopener nofollow" target="_blank" href="https://www.twitch.tv/tjtelan">check me out on my Twitch channel</a>. I stream weekly coding sessions about using Rust and DevOps topics. I hope you'll considering following me!</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>

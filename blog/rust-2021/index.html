@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+Rust in 2021 &middot; T.J. Telan
+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://tjtelan.com/print.css" media="print">
+  <link rel="stylesheet" href="https://tjtelan.com/tj.css">
+  <!--<link rel="stylesheet" href="https://tjtelan.com/newsletter.css">-->
+  <link rel="stylesheet" href="https://tjtelan.com/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="https://tjtelan.com/atom.xml">
+  
+  
+  
+  <!-- Facebook open graph tags-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tjtelan.com/blog/rust-2021/" />
+   
+  <meta property="og:title" content="Rust in 2021" />
+  
+  
+  <meta property="og:description" content="My response for this year&#x27;s call for blog posts for the 2021 roadmap" />
+  
+  <!-- Twitter card tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://tjtelan.com/blog/rust-2021/" />
+   
+  <meta name="twitter:title" content="Rust in 2021" />
+  
+  
+  <meta name="twitter:description" content="My response for this year&#x27;s call for blog posts for the 2021 roadmap" />
+  
+  <meta name="twitter:creator" content="@ThatTJTelan" />
+  <meta name="twitter:site" content="@ThatTJTelan" />
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M280GK01DY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M280GK01DY');
+</script>
+
+
+<!-- Plausible Analytics -->
+<script defer data-domain="tjtelan.com" src="https://analytics.analogorithm.net/js/script.js"></script>
+
+</head>
+
+<body class=" ">
+  
+  <div  id="sidebar" class="sidebar">
+    <div class="container sidebar-sticky">
+      <div class="sidebar-about">
+        
+        <a href="https://tjtelan.com">
+          <h1>T.J. Telan</h1>
+        </a>
+        
+        <p class="lede">Practical DevOps &amp; Developer Experience</p>
+        
+        
+      </div>
+
+      <ul class="sidebar-nav">
+        
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/now/">Now</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://github.com/tjtelan">Github<img src="/nav-icons/github.svg" alt="Github"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://dev.to/tjtelan">Dev.to<img src="/nav-icons/dev-dot-to.svg" alt="Dev.to"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://medium.com/@tjtelan">Medium<img src="/nav-icons/medium.svg" alt="Medium"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://twitter.com/ThatTJTelan">Twitter<img src="/nav-icons/twitter.svg" alt="Twitter"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.twitch.tv/tjtelan">Twitch<img src="/nav-icons/twitch.svg" alt="Twitch"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g">YouTube<img src="/nav-icons/youtube.svg" alt="YouTube"></a>
+            </li>
+            
+          
+            
+            <li class="sidebar-nav-item">
+              <a href="/atom.xml">RSS<img src="/nav-icons/rss.svg" alt="RSS"></a>
+            </li>
+            
+          
+        
+      </ul>
+    </div>
+  </div>
+  
+
+  <div class="content container">
+    
+<div class="post">
+    <h1 class="post-title">Rust in 2021</h1>
+    
+    <span class="post-meta">
+        7 min read
+        &nbsp;&bull;&nbsp;
+        2020-11-17
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/categories/discuss/">
+              discuss
+            </a>
+          
+        
+        
+          &nbsp;&bull;
+          
+          &nbsp;
+          <a  href="https://tjtelan.com/tags/rust/">
+              #rust
+            </a>
+          
+        
+      </span>
+
+    <p>I missed the official call for blog post submissions, I still want to share some ramblings of my hopes for Rust in 2021.</p>
+<p>I’ll split this up into two sections: What I hope to see from the community, and what I hope to see for myself.</p>
+<h2 id="what-i-want-for-the-rust-community-in-2021">What I want for the Rust community in 2021<a class="zola-anchor" href="#what-i-want-for-the-rust-community-in-2021" aria-label="Anchor link for: what-i-want-for-the-rust-community-in-2021">🔗</a></h2>
+<h3 id="i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn">I want to see Rust shed some of its reputation for being hard to learn<a class="zola-anchor" href="#i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn" aria-label="Anchor link for: i-want-to-see-rust-shed-some-of-its-reputation-for-being-hard-to-learn">🔗</a></h3>
+<p>When I was learning Rust, I thought it was harder than necessary. But I would admit that it was due to writing strict idiomatic Rust while I was still figuring out how to be productive.</p>
+<p>I think learners should give themselves patience to learn Rust by writing bad or mediocre code first, and focus productivity later.</p>
+<p>I am not exactly sure how to create the conditions for this outcome. Maybe more people can publish more Rust that looks messy but “just works”.</p>
+<p>I know that Rust in Action is being written and it is for an intermediate-level audience. But perhaps this looks more like encouragement to beginners to ignore the warnings from the compiler. Just write Rust code and form your own opinions.</p>
+<h3 id="more-blog-posts-from-developers-and-management-using-rust-at-work">More blog posts from developers and management using Rust at work<a class="zola-anchor" href="#more-blog-posts-from-developers-and-management-using-rust-at-work" aria-label="Anchor link for: more-blog-posts-from-developers-and-management-using-rust-at-work">🔗</a></h3>
+<p>For 2021, I don’t even care if it is from one of the many blockchain-related companies using Rust. I want to read more experiences that lay out the decision of why Rust was chosen and how the experience has been.</p>
+<p>I am especially interested when expertise is in another language and a comparison can be made to the other language. Emphasis when performing a rewrite.</p>
+<ul>
+<li>Example: <a rel="noopener nofollow" target="_blank" href="https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine">https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine</a></li>
+</ul>
+<p>It’s great to hear Rust used in complicated, low-level development, but it would be normalizing to read about more trivial types of applications, just as a way to highlight Rust as being good for general purpose use.</p>
+<p>Anecdotally, I feel like Go has been growing a reputation as being suitable as a scripting language kind for a while and Rust could also check many of the same boxes.</p>
+<h3 id="more-rust-in-devops-tooling">More Rust in DevOps tooling<a class="zola-anchor" href="#more-rust-in-devops-tooling" aria-label="Anchor link for: more-rust-in-devops-tooling">🔗</a></h3>
+<p>In my experience, the cultures surrounding Rust and DevOps are very similar. They both seem to attract cult-like appeal that demand adopters to adjust to thinking in a different way than they may have been taught.</p>
+<p>The intended reasons are for a “better future experience” that usually alludes to improved cooperation at a non-technical level.</p>
+<p>The implementations of Rust or DevOps shift considerations of future problems earlier in development. Possibly experiencing some of the friction earlier.</p>
+<p>Rust’s benefits are often placed in a context of pure development benefit, which may be ok for now given it is primarily Devs that are writing code. But as a user, there are a few tools in the space that I’m aware of that support DevOps culture (e.g. Habitat, Linkerd) and I want to see more of them.</p>
+<ul>
+<li>Link regarding rise of Rust + DevOps: <a rel="noopener nofollow" target="_blank" href="https://d2iq.com/blog/rust-devops">https://d2iq.com/blog/rust-devops</a> </li>
+</ul>
+<h3 id="better-rust-interoperability-between-languages">Better Rust Interoperability between languages<a class="zola-anchor" href="#better-rust-interoperability-between-languages" aria-label="Anchor link for: better-rust-interoperability-between-languages">🔗</a></h3>
+<p>Rust is entering other ecosystems through libraries via <a rel="noopener nofollow" target="_blank" href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html#using-extern-functions-to-call-external-code">FFI</a>. People don’t even have to know or care if they are using Rust. </p>
+<p>However, if I’m writing the code myself, it would be nice if FFI were done without needing to be so mindful of C as the common language.</p>
+<p>C++ and Java come to mind as currently Rust interop is a complicated dance. Rust to Javascript is improving through the Deno runtime, or through WebAssembly.</p>
+<p>My motivation is that I’d like to work in the ecosystems where these languages are most often used (Web, Mobile and Embedded), but I stubbornly want to use Rust as much as possible.</p>
+<h3 id="more-shared-experiences-from-people-picking-up-rust-as-a-second-language">More shared experiences from people picking up Rust as a second language.<a class="zola-anchor" href="#more-shared-experiences-from-people-picking-up-rust-as-a-second-language" aria-label="Anchor link for: more-shared-experiences-from-people-picking-up-rust-as-a-second-language">🔗</a></h3>
+<p>The borrow checker has a reputation that scares people away.</p>
+<p>Especially if they are not from a traditional CS/Engineering background. And we should be trying to bring these folks into the ecosystem.</p>
+<p>Acceptance of Rust as another language worth knowing by “average devs” would be helped with more beginners writing or talking about it. It’s my observation that a lot of developers who are self-taught or from bootcamps are mostly in the Javascript/Python/Ruby space for mostly Web facing code. But Rust can be a perfect second language to learn about types and memory management.</p>
+<p>I believe content from this crowd would be my favorites to read since I think they’ll give valid opinions to someone who has been using Rust for years (like me) now overlook or accept without second thoughts.</p>
+<h3 id="increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects">Increase of copy/paste templates to help bootstrap common types of projects<a class="zola-anchor" href="#increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects" aria-label="Anchor link for: increase-of-copy-paste-templates-to-help-bootstrap-common-types-of-projects">🔗</a></h3>
+<p>I have just become aware of <code>cargo generate</code> because of some of the niche project spaces I’m working on: WebAssembly and embedded.</p>
+<p>Today, I keep <a rel="noopener nofollow" target="_blank" href="https://github.com/tjtelan/rust-examples">my own repo</a> where I offer rough working examples using common servers or patterns.</p>
+<h3 id="my-technical-wishlist">My technical wishlist<a class="zola-anchor" href="#my-technical-wishlist" aria-label="Anchor link for: my-technical-wishlist">🔗</a></h3>
+<ul>
+<li>Rust analyzer support for generated code
+<ul>
+<li>I want support for <a rel="noopener nofollow" target="_blank" href="https://github.com/hyperium/tonic">Tonic</a>’s generated code</li>
+</ul>
+</li>
+<li>Better tools or patterns for debugging Async/Await
+<ul>
+<li>The debugger just makes me realize how little I understand about Futures.</li>
+</ul>
+</li>
+<li>Native Rust for building games
+<ul>
+<li>The end goal being Rust on consoles or in AAA games. I know they are sometimes used through FFI. It’s not a light task to use Rust in this manner.</li>
+</ul>
+</li>
+<li>Native Rust for building mobile apps
+<ul>
+<li>We can technically write apps for both Android and iOS today, but they aren’t exactly popular because building is complicated</li>
+</ul>
+</li>
+</ul>
+<h2 id="where-i-plan-to-be-with-rust-in-2021">Where I plan to be with Rust in 2021<a class="zola-anchor" href="#where-i-plan-to-be-with-rust-in-2021" aria-label="Anchor link for: where-i-plan-to-be-with-rust-in-2021">🔗</a></h2>
+<h3 id="i-plan-to-write-more-rust-that-other-people-find-useful">I plan to write more Rust that other people find useful.<a class="zola-anchor" href="#i-plan-to-write-more-rust-that-other-people-find-useful" aria-label="Anchor link for: i-plan-to-write-more-rust-that-other-people-find-useful">🔗</a></h3>
+<ul>
+<li>I hope to have <a rel="noopener nofollow" target="_blank" href="https://github.com/orbitalci/orbital">OrbitalCI</a> into more of a Beta quality, and usable by others for feedback</li>
+<li>Publish more crates that allow people to write Rust to interact with existing APIs</li>
+</ul>
+<h3 id="i-plan-to-have-serious-projects">I plan to have serious projects<a class="zola-anchor" href="#i-plan-to-have-serious-projects" aria-label="Anchor link for: i-plan-to-have-serious-projects">🔗</a></h3>
+<p>A few serious projects in upcoming Rust niches so that I can produce more educational content (and hopefully even a product that others may use!)</p>
+<ul>
+<li>Embedded</li>
+<li>WebAssembly</li>
+<li>Mobile</li>
+</ul>
+<h3 id="i-plan-to-start-making-money-with-rust">I plan to start making money with Rust.<a class="zola-anchor" href="#i-plan-to-start-making-money-with-rust" aria-label="Anchor link for: i-plan-to-start-making-money-with-rust">🔗</a></h3>
+<ul>
+<li>I’ve started my own business in 2020, and I’m not yet making any money. However, I’ve decided to base a lot of my work using Rust. I am enjoying the experience so far. I intend to sharpen my skills throughout 2021 into paid work.</li>
+<li>I hope to make some income through Twitch from livestreaming my coding and other platforms from my writing.</li>
+</ul>
+<h3 id="how-do-i-intend-to-help-the-rust-project">How do I intend to help the Rust project?<a class="zola-anchor" href="#how-do-i-intend-to-help-the-rust-project" aria-label="Anchor link for: how-do-i-intend-to-help-the-rust-project">🔗</a></h3>
+<ul>
+<li>I’m using Rust to build software for my business (in the DevOps tooling space).</li>
+<li>I will be producing more blog posts, with an angle of inviting Python and Javascript programmers to Rust</li>
+<li>I plan on making my first code or docs contribution to the Rust project in 2021.</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">🔗</a></h2>
+<p>I see a lot of promise in Rust's future in 2021. Much has become stable in 2020 and all that is needed is some time and encouragement.</p>
+<p>I have enough confidence that I plan on using Rust as my main language as well as motivation to get more involved with the community.</p>
+
+</div>
+
+<div class="blog-nav-footer">
+    <hr/>
+    
+    
+</div>
+
+  </div>
+
+</body>
+
+</html>
