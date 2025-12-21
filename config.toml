@@ -3,7 +3,7 @@ base_url = "https://tjtelan.com"
 
 # The site title and description; used in feeds by default.
 title = "T.J. Telan"
-description = "Practical DevOps & Developer Experience"
+description = ""
 
 # The default language; used in feeds.
 default_language = "en"
@@ -29,12 +29,12 @@ minify_html = false
 ignored_content = ["*.sh","*.py","Pipenv*","Dockerfile","docker-compose.yml",".*.swp", "content/blog/*.tmpl"]
 
 # When set to "true", a feed is automatically generated.
-generate_feed = true
+generate_feeds = true
 
 # The filename to use for the feed. Used as the template filename, too.
 # Defaults to "atom.xml", which has a built-in template that renders an Atom 1.0 feed.
 # There is also a built-in template "rss.xml" that renders an RSS 2.0 feed.
-feed_filename = "atom.xml"
+feed_filenames = ["atom.xml"]
 
 # The number of articles to include in the feed. All items are included if
 # this limit is not set (the default).
@@ -160,15 +160,15 @@ include_content = true
 #
 [extra]
 hyde_links = [
-  {url = "/now/", name = "Now"},
+  #{url = "/now/", name = "Now"},
   {url = "/about/", name = "About"},
   {url = "https://github.com/tjtelan", name = "Github", icon = "/nav-icons/github.svg"},
-  {url = "https://dev.to/tjtelan", name = "Dev.to", icon = "/nav-icons/dev-dot-to.svg"},
-  {url = "https://medium.com/@tjtelan", name = "Medium", icon = "/nav-icons/medium.svg"},
+  #{url = "https://dev.to/tjtelan", name = "Dev.to", icon = "/nav-icons/dev-dot-to.svg"},
+  #{url = "https://medium.com/@tjtelan", name = "Medium", icon = "/nav-icons/medium.svg"},
   #{url = "https://stackoverflow.com/users/1672638/t-j-telan", name = "Stack Overflow", icon = "/nav-icons/stackoverflow.svg"},
-  {url = "https://twitter.com/ThatTJTelan", name = "Twitter", icon = "/nav-icons/twitter.svg"},
-  {url = "https://www.twitch.tv/tjtelan", name = "Twitch", icon = "/nav-icons/twitch.svg"},
-  {url = "https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g", name = "YouTube", icon = "/nav-icons/youtube.svg"},
+  #{url = "https://twitter.com/ThatTJTelan", name = "Twitter", icon = "/nav-icons/twitter.svg"},
+  #{url = "https://www.twitch.tv/tjtelan", name = "Twitch", icon = "/nav-icons/twitch.svg"},
+  #{url = "https://www.youtube.com/channel/UCiwV2NFMF26A5nfakQbuZ-g", name = "YouTube", icon = "/nav-icons/youtube.svg"},
   {url = "/atom.xml", name = "RSS", icon = "/nav-icons/rss.svg"},
 ]
 
