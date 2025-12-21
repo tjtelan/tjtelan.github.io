@@ -13,7 +13,7 @@ jobs:
         with:
           set-safe-directory: '*'
       - name: 'Build only'
-        uses: shalzz/zola-deploy-action@v0.16.1-1
+        uses: shalzz/zola-deploy-action@v0.21.0
         env:
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
@@ -25,7 +25,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@main
       - name: 'Build and deploy'
-        uses: shalzz/zola-deploy-action@v0.16.1-1
+        uses: shalzz/zola-deploy-action@v0.21.0
         env:
           PAGES_BRANCH: gh-pages
           BUILD_DIR: .
